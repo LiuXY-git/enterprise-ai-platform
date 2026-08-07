@@ -44,6 +44,13 @@ enterprise-ai-platform/
 - LangGraph
 - MCP
 
+## API 接口
+
+| 请求方法 | 地址 | 作用 |
+| --- | --- | --- |
+| GET | `/health` | 检查服务运行状态 |
+| POST | `/chat` | 发送聊天消息 |
+
 ## 开发状态
 
 当前处于 Week 1：项目初始化阶段。
