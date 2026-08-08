@@ -19,7 +19,7 @@
 - [x] 创建 FastAPI 服务
 - [x] 添加健康检查接口
 - [x] 添加聊天接口
-- [ ] Docker 化
+- [x] Docker 化
 
 ## 项目结构
 
@@ -31,6 +31,37 @@ enterprise-ai-platform/
 ├── tests/       # 自动化测试
 └── README.md
 ```
+## 快速启动
+
+### 本地运行
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+fastapi dev backend/app/main.py
+```
+
+访问接口文档：
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### Docker 运行
+
+```powershell
+docker compose up --build
+```
+
+停止并清理容器：
+
+```powershell
+docker compose down
+```
+
+## 项目文档
+
+- [系统架构](docs/architecture.md)
+- [技术选型](docs/tech-stack.md)
 
 ## 技术栈
 
