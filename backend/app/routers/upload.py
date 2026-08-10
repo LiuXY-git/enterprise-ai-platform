@@ -4,12 +4,14 @@ from typing import Annotated
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
 from ..models.document import DocumentParseResponse
+from ..services.markdown_service import extract_text_from_markdown
 from ..services.pdf_service import extract_text_from_pdf
 from ..services.word_service import extract_text_from_docx
 
 DOCX_CONTENT_TYPE = (
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 )
+MARKDOWN_SUFFIXES = {".md", ".markdown"}
 
 router = APIRouter(
     prefix="/upload",
@@ -21,7 +23,7 @@ router = APIRouter(
 async def upload_document(
     file: Annotated[
         UploadFile,
-        File(description="请选择 PDF 或 DOCX 文件"),
+        File(description="请选择 PDF、DOCX 或 Markdown 文件"),
     ],
 ) -> DocumentParseResponse:
     filename = file.filename or ""
@@ -54,6 +56,18 @@ async def upload_document(
                 text=text,
             )
 
+        if suffix in MARKDOWN_SUFFIXES:
+            text, line_count = extract_text_from_markdown(content)
+
+            return DocumentParseResponse(
+                filename=filename,
+                content_type=content_type,
+                size=len(content),
+                file_type="markdown",
+                line_count=line_count,
+                text=text,
+            )
+
     except ValueError as exc:
         raise HTTPException(
             status_code=400,
@@ -62,5 +76,5 @@ async def upload_document(
 
     raise HTTPException(
         status_code=400,
-        detail="只支持 PDF 和 DOCX 文件",
+        detail="只支持 PDF、DOCX 和 Markdown 文件",
     )

@@ -9,3 +9,4 @@ class DocumentParseResponse(BaseModel):
     text: str
     page_count: int | None = None
     paragraph_count: int | None = None
+    line_count: int | None = None

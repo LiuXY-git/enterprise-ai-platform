@@ -81,7 +81,7 @@ docker compose down
 | --- | --- | --- |
 | GET | `/health` | 检查服务运行状态 |
 | POST | `/chat` | 发送聊天消息 |
-| POST | `/upload` | 上传并解析 PDF 或 DOCX 文档 |
+| POST | `/upload` | 上传并解析 PDF、DOCX 或 Markdown 文档 |
 
 ## 开发状态
 
