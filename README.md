@@ -62,6 +62,7 @@ docker compose down
 
 - [系统架构](docs/architecture.md)
 - [技术选型](docs/tech-stack.md)
+- [数据库设计](docs/database.md)
 
 ## 技术栈
 

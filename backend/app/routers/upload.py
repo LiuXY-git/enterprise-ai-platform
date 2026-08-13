@@ -3,6 +3,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
+from ..database import create_document
 from ..models.document import DocumentParseResponse
 from ..services.markdown_service import extract_text_from_markdown
 from ..services.pdf_service import extract_text_from_pdf
@@ -30,16 +31,28 @@ async def upload_document(
     content_type = file.content_type or "application/octet-stream"
     suffix = Path(filename).suffix.lower()
     content = await file.read()
+    size = len(content)
+    status = "parsed"
 
     try:
         if suffix == ".pdf" or content_type == "application/pdf":
             text, page_count = extract_text_from_pdf(content)
 
+            document_id = create_document(
+                filename=filename,
+                file_type="pdf",
+                content_type=content_type,
+                size=size,
+                status=status,
+            )
+
             return DocumentParseResponse(
+                document_id=document_id,
                 filename=filename,
                 content_type=content_type,
-                size=len(content),
+                size=size,
                 file_type="pdf",
+                status=status,
                 page_count=page_count,
                 text=text,
             )
@@ -47,11 +60,21 @@ async def upload_document(
         if suffix == ".docx" or content_type == DOCX_CONTENT_TYPE:
             text, paragraph_count = extract_text_from_docx(content)
 
+            document_id = create_document(
+                filename=filename,
+                file_type="docx",
+                content_type=content_type,
+                size=size,
+                status=status,
+            )
+
             return DocumentParseResponse(
+                document_id=document_id,
                 filename=filename,
                 content_type=content_type,
-                size=len(content),
+                size=size,
                 file_type="docx",
+                status=status,
                 paragraph_count=paragraph_count,
                 text=text,
             )
@@ -59,11 +82,21 @@ async def upload_document(
         if suffix in MARKDOWN_SUFFIXES:
             text, line_count = extract_text_from_markdown(content)
 
+            document_id = create_document(
+                filename=filename,
+                file_type="markdown",
+                content_type=content_type,
+                size=size,
+                status=status,
+            )
+
             return DocumentParseResponse(
+                document_id=document_id,
                 filename=filename,
                 content_type=content_type,
-                size=len(content),
+                size=size,
                 file_type="markdown",
+                status=status,
                 line_count=line_count,
                 text=text,
             )
