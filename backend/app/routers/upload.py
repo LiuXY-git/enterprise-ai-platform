@@ -1,9 +1,11 @@
+import logging
 from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
 from ..database import create_document
+from ..logging_config import LOGGER_NAME
 from ..models.document import DocumentParseResponse
 from ..services.markdown_service import extract_text_from_markdown
 from ..services.pdf_service import extract_text_from_pdf
@@ -13,6 +15,8 @@ DOCX_CONTENT_TYPE = (
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 )
 MARKDOWN_SUFFIXES = {".md", ".markdown"}
+
+logger = logging.getLogger(f"{LOGGER_NAME}.upload")
 
 router = APIRouter(
     prefix="/upload",
@@ -30,84 +34,112 @@ async def upload_document(
     filename = file.filename or ""
     content_type = file.content_type or "application/octet-stream"
     suffix = Path(filename).suffix.lower()
-    content = await file.read()
-    size = len(content)
-    status = "parsed"
 
-    try:
-        if suffix == ".pdf" or content_type == "application/pdf":
-            text, page_count = extract_text_from_pdf(content)
+    logger.info(
+        "收到上传请求：filename=%s, content_type=%s",
+        filename,
+        content_type,
+    )
 
-            document_id = create_document(
-                filename=filename,
-                file_type="pdf",
-                content_type=content_type,
-                size=size,
-                status=status,
-            )
-
-            return DocumentParseResponse(
-                document_id=document_id,
-                filename=filename,
-                content_type=content_type,
-                size=size,
-                file_type="pdf",
-                status=status,
-                page_count=page_count,
-                text=text,
-            )
-
-        if suffix == ".docx" or content_type == DOCX_CONTENT_TYPE:
-            text, paragraph_count = extract_text_from_docx(content)
-
-            document_id = create_document(
-                filename=filename,
-                file_type="docx",
-                content_type=content_type,
-                size=size,
-                status=status,
-            )
-
-            return DocumentParseResponse(
-                document_id=document_id,
-                filename=filename,
-                content_type=content_type,
-                size=size,
-                file_type="docx",
-                status=status,
-                paragraph_count=paragraph_count,
-                text=text,
-            )
-
-        if suffix in MARKDOWN_SUFFIXES:
-            text, line_count = extract_text_from_markdown(content)
-
-            document_id = create_document(
-                filename=filename,
-                file_type="markdown",
-                content_type=content_type,
-                size=size,
-                status=status,
-            )
-
-            return DocumentParseResponse(
-                document_id=document_id,
-                filename=filename,
-                content_type=content_type,
-                size=size,
-                file_type="markdown",
-                status=status,
-                line_count=line_count,
-                text=text,
-            )
-
-    except ValueError as exc:
+    if not filename:
+        logger.warning("上传失败：文件名为空")
         raise HTTPException(
             status_code=400,
-            detail=str(exc),
+            detail="文件名不能为空",
+        )
+
+    try:
+        content = await file.read()
+    except Exception as exc:
+        logger.exception("读取上传文件失败：filename=%s", filename)
+        raise HTTPException(
+            status_code=400,
+            detail="无法读取上传文件",
         ) from exc
 
-    raise HTTPException(
-        status_code=400,
-        detail="只支持 PDF、DOCX 和 Markdown 文件",
+    size = len(content)
+
+    if size == 0:
+        logger.warning("上传失败：文件内容为空，filename=%s", filename)
+        raise HTTPException(
+            status_code=400,
+            detail="文件内容不能为空",
+        )
+
+    if suffix == ".pdf" or content_type == "application/pdf":
+        file_type = "pdf"
+    elif suffix == ".docx" or content_type == DOCX_CONTENT_TYPE:
+        file_type = "docx"
+    elif suffix in MARKDOWN_SUFFIXES:
+        file_type = "markdown"
+    else:
+        logger.warning(
+            "上传失败：不支持的文件类型，filename=%s, content_type=%s",
+            filename,
+            content_type,
+        )
+        raise HTTPException(
+            status_code=415,
+            detail="只支持 PDF、DOCX 和 Markdown 文件",
+        )
+
+    page_count = None
+    paragraph_count = None
+    line_count = None
+
+    try:
+        if file_type == "pdf":
+            text, page_count = extract_text_from_pdf(content)
+        elif file_type == "docx":
+            text, paragraph_count = extract_text_from_docx(content)
+        else:
+            text, line_count = extract_text_from_markdown(content)
+
+        document_id = create_document(
+            filename=filename,
+            file_type=file_type,
+            content_type=content_type,
+            size=size,
+            status="parsed",
+        )
+
+    except ValueError as exc:
+        logger.warning(
+            "文档解析失败：filename=%s, error=%s",
+            filename,
+            exc,
+        )
+        raise HTTPException(
+            status_code=400,
+            detail=f"文档解析失败：{exc}",
+        ) from exc
+
+    except Exception as exc:
+        logger.exception(
+            "处理文档时发生服务器错误：filename=%s",
+            filename,
+        )
+        raise HTTPException(
+            status_code=500,
+            detail="服务器处理文档时发生错误",
+        ) from exc
+
+    logger.info(
+        "文档处理成功：document_id=%s, filename=%s, file_type=%s",
+        document_id,
+        filename,
+        file_type,
+    )
+
+    return DocumentParseResponse(
+        document_id=document_id,
+        filename=filename,
+        content_type=content_type,
+        size=size,
+        file_type=file_type,
+        status="parsed",
+        text=text,
+        page_count=page_count,
+        paragraph_count=paragraph_count,
+        line_count=line_count,
     )
