@@ -20,6 +20,12 @@
 - [x] 添加健康检查接口
 - [x] 添加聊天接口
 - [x] Docker 化
+- [x] 支持 PDF、DOCX 和 Markdown 上传
+- [x] 提取文档文本
+- [x] 使用 SQLite 保存文档元数据
+- [x] 增加异常处理
+- [x] 增加运行日志
+- [x] 发布 Knowledge Hub v0.2.0
 
 ## 项目结构
 
@@ -63,6 +69,8 @@ docker compose down
 - [系统架构](docs/architecture.md)
 - [技术选型](docs/tech-stack.md)
 - [数据库设计](docs/database.md)
+- [Week 1 总结](docs/week-1-summary.md)
+- [Week 2 总结](docs/week-2-summary.md)
 
 ## 技术栈
 
@@ -86,4 +94,6 @@ docker compose down
 
 ## 开发状态
 
-当前处于 Week 1：项目初始化阶段。
+已完成 Week 2：Knowledge Hub 文档接入基础，当前版本为 v0.2.0。
+
+下一阶段将进入 Week 3：RAG 系统开发。
