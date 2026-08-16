@@ -71,6 +71,8 @@ docker compose down
 - [数据库设计](docs/database.md)
 - [Week 1 总结](docs/week-1-summary.md)
 - [Week 2 总结](docs/week-2-summary.md)
+- [Embedding 学习笔记](docs/embedding.md)
+- [RAG 黄金问题集](docs/rag-golden-questions.md)
 
 ## 技术栈
 
