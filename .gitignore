@@ -34,3 +34,4 @@ dist/
 Thumbs.db
 
 logs/
+data/chroma/
