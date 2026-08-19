@@ -75,6 +75,7 @@ docker compose down
 - [RAG 黄金问题集](docs/rag-golden-questions.md)
 - [Chunk 文本切分学习笔记](docs/chunking.md)
 - [Chroma 向量数据库](docs/vector-database.md)
+- [文档 Embedding 流程](docs/document-embedding.md)
 
 ## 技术栈
 
