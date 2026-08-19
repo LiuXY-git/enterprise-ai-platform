@@ -17,3 +17,57 @@
 生成 Embedding
   ↓
 保存到 Chroma
+```
+
+## 当前切分参数
+
+| 参数 | 当前值 |
+| --- | ---: |
+| chunk_size | 200 |
+| overlap | 50 |
+
+## Embedding 模型
+
+当前使用 Chroma 的 DefaultEmbeddingFunction。
+
+它在本地运行 all-MiniLM-L6-v2 模型，每个 Chunk 生成一个
+384 维向量。
+
+## Chroma Collection
+
+真实文档向量保存在：
+
+```text
+enterprise_document_chunks
+```
+
+Day 17 的三维测试向量保存在：
+
+```text
+enterprise_documents
+```
+
+两个 Collection 分开保存，因为三维向量和 384 维向量不能
+放在同一个 Collection 中。
+
+## 每条记录包含的内容
+
+| 字段 | 作用 |
+| --- | --- |
+| id | Chunk 唯一编号 |
+| document | Chunk 原始文本 |
+| embedding | 模型生成的 384 维向量 |
+| document_id | 所属文档 |
+| source | 来源文件 |
+| chunk_index | Chunk 顺序 |
+| chunk_size | 切分长度 |
+| overlap | 重叠长度 |
+
+## 当前限制
+
+- 目前只通过实验程序建立索引
+- 上传接口还没有自动触发 Embedding
+- 当前模型的中文检索效果需要继续测试
+- 暂未实现问题向量检索
+
+Day 19 将使用问题向量查询 Chroma，取回最相关的 Chunk。
