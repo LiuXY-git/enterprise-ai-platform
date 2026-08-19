@@ -76,6 +76,7 @@ docker compose down
 - [Chunk 文本切分学习笔记](docs/chunking.md)
 - [Chroma 向量数据库](docs/vector-database.md)
 - [文档 Embedding 流程](docs/document-embedding.md)
+- [RAG Query 检索](docs/rag-query.md)
 
 ## 技术栈
 
@@ -96,6 +97,7 @@ docker compose down
 | GET | `/health` | 检查服务运行状态 |
 | POST | `/chat` | 发送聊天消息 |
 | POST | `/upload` | 上传并解析 PDF、DOCX 或 Markdown 文档 |
+| POST | `/rag/query` | 检索与问题相关的文档 Chunk |
 
 ## 开发状态
 
