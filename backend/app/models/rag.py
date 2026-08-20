@@ -24,3 +24,18 @@ class RagSearchResult(BaseModel):
 class RagQueryResponse(BaseModel):
     question: str
     results: list[RagSearchResult]
+
+
+class RagSource(BaseModel):
+    label: str
+    id: str
+    source: str
+    chunk_index: int
+    text: str
+    distance: float
+
+
+class RagAnswerResponse(BaseModel):
+    question: str
+    answer: str
+    sources: list[RagSource]
