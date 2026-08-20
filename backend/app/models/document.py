@@ -9,6 +9,7 @@ class DocumentParseResponse(BaseModel):
     file_type: str
     status: str
     text: str
+    chunk_count: int
     page_count: int | None = None
     paragraph_count: int | None = None
     line_count: int | None = None

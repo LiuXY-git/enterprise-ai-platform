@@ -4,9 +4,10 @@ from typing import Annotated
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
-from ..database import create_document
+from ..database import create_document, update_document_status
 from ..logging_config import LOGGER_NAME
 from ..models.document import DocumentParseResponse
+from ..services.indexing_service import index_document_text
 from ..services.markdown_service import extract_text_from_markdown
 from ..services.pdf_service import extract_text_from_pdf
 from ..services.word_service import extract_text_from_docx
@@ -100,7 +101,32 @@ async def upload_document(
             file_type=file_type,
             content_type=content_type,
             size=size,
-            status="parsed",
+            status="indexing",
+        )
+
+        try:
+            chunk_count = index_document_text(
+                document_id=str(document_id),
+                source=filename,
+                text=text,
+            )
+        except Exception:
+            update_document_status(
+                document_id=document_id,
+                status="index_failed",
+            )
+            raise
+
+        if chunk_count == 0:
+            update_document_status(
+                document_id=document_id,
+                status="index_failed",
+            )
+            raise ValueError("文档没有可索引的文本")
+
+        update_document_status(
+            document_id=document_id,
+            status="indexed",
         )
 
     except ValueError as exc:
@@ -125,10 +151,11 @@ async def upload_document(
         ) from exc
 
     logger.info(
-        "文档处理成功：document_id=%s, filename=%s, file_type=%s",
+        ("文档处理成功：document_id=%s, filename=%s, file_type=%s, chunk_count=%s"),
         document_id,
         filename,
         file_type,
+        chunk_count,
     )
 
     return DocumentParseResponse(
@@ -137,8 +164,9 @@ async def upload_document(
         content_type=content_type,
         size=size,
         file_type=file_type,
-        status="parsed",
+        status="indexed",
         text=text,
+        chunk_count=chunk_count,
         page_count=page_count,
         paragraph_count=paragraph_count,
         line_count=line_count,

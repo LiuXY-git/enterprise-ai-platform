@@ -74,3 +74,31 @@ def create_document(
         return document_id
     finally:
         connection.close()
+
+
+def update_document_status(
+    *,
+    document_id: int,
+    status: str,
+) -> None:
+    connection = get_connection()
+
+    try:
+        cursor = connection.execute(
+            """
+            UPDATE documents
+            SET status = ?
+            WHERE id = ?
+            """,
+            (
+                status,
+                document_id,
+            ),
+        )
+
+        if cursor.rowcount == 0:
+            raise RuntimeError("找不到需要更新的文档")
+
+        connection.commit()
+    finally:
+        connection.close()

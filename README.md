@@ -35,6 +35,8 @@
 - [x] 增加 RAG 自动化测试
 - [x] 完成 RAG 黄金问题验收
 - [x] 发布 Knowledge Hub v0.3.0
+- [x] 上传文档后自动建立向量索引
+- [x] 支持跨多个文档进行 RAG 检索
 
 ## 项目结构
 
@@ -88,6 +90,7 @@ docker compose down
 - [RAG Query 检索](docs/rag-query.md)
 - [RAG Prompt 与来源引用](docs/rag-prompt.md)
 - [Week 3 总结](docs/week-3-summary.md)
+- [多文档自动索引](docs/multi-document-indexing.md)
 
 ## 技术栈
 

@@ -17,6 +17,7 @@
 - [RAG Query 检索](rag-query.md)
 - [RAG Prompt 与来源引用](rag-prompt.md)
 - [RAG 黄金问题集](rag-golden-questions.md)
+- [多文档自动索引](multi-document-indexing.md)
 
 ## 阶段总结
 
