@@ -63,11 +63,15 @@ enterprise_documents
 | chunk_size | 切分长度 |
 | overlap | 重叠长度 |
 
+## 当前状态
+
+- 已实现文档 Chunk 的 Embedding 和向量存储
+- 已实现问题向量检索
+- `/rag/query` 可以返回最相关的 Chunk
+- `/rag/answer` 可以生成带来源的自然语言回答
+- 当前通过实验程序建立文档索引
+
 ## 当前限制
 
-- 目前只通过实验程序建立索引
-- 上传接口还没有自动触发 Embedding
-- 当前模型的中文检索效果需要继续测试
-- 暂未实现问题向量检索
-
-Day 19 将使用问题向量查询 Chroma，取回最相关的 Chunk。
+- 上传接口暂未自动触发 Embedding
+- 当前模型的中文检索效果仍需继续测试

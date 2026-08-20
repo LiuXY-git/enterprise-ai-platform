@@ -26,6 +26,15 @@
 - [x] 增加异常处理
 - [x] 增加运行日志
 - [x] 发布 Knowledge Hub v0.2.0
+- [x] 实现文本切分和 Embedding
+- [x] 接入 Chroma 向量数据库
+- [x] 建立文档索引流程
+- [x] 实现 RAG Query 检索
+- [x] 实现受约束的 RAG Prompt
+- [x] 返回自然语言回答和引用来源
+- [x] 增加 RAG 自动化测试
+- [x] 完成 RAG 黄金问题验收
+- [x] 发布 Knowledge Hub v0.3.0
 
 ## 项目结构
 
@@ -77,6 +86,7 @@ docker compose down
 - [Chroma 向量数据库](docs/vector-database.md)
 - [文档 Embedding 流程](docs/document-embedding.md)
 - [RAG Query 检索](docs/rag-query.md)
+- [RAG Prompt 与来源引用](docs/rag-prompt.md)
 
 ## 技术栈
 
@@ -98,9 +108,14 @@ docker compose down
 | POST | `/chat` | 发送聊天消息 |
 | POST | `/upload` | 上传并解析 PDF、DOCX 或 Markdown 文档 |
 | POST | `/rag/query` | 检索与问题相关的文档 Chunk |
+| POST | `/rag/answer` | 根据知识库生成带来源的回答 |
+| POST | `/rag/query` | 检索与问题相关的文档 Chunk |
+| POST | `/rag/answer` | 根据知识库生成带来源的回答 |
 
 ## 开发状态
 
-已完成 Week 2：Knowledge Hub 文档接入基础，当前版本为 v0.2.0。
+已完成 Week 3：RAG v1 闭环，当前版本为 v0.3.0。
 
-下一阶段将进入 Week 3：RAG 系统开发。
+系统已经支持文档切分、Embedding、Chroma 检索、受约束回答和来源引用。
+
+下一阶段进入 Week 4：Knowledge Hub 产品化。
