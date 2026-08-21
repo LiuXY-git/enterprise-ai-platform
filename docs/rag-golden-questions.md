@@ -8,7 +8,7 @@
 
 预期答案：PDF、DOCX 和 Markdown。
 
-预期来源：README.md
+允许来源：README.md 或 docs/week-2-summary.md
 
 ## 问题 2
 
@@ -32,12 +32,28 @@
 
 预期答案：文件名、文件类型、Content-Type、大小、状态和创建时间。
 
-预期来源：docs/database.md
+允许来源：docs/database.md 或 docs/week-2-summary.md
 
 ## 问题 5
 
 问题：当前项目版本是多少？
 
-预期答案：v0.2.0。
+预期答案：v0.3.0。
 
 预期来源：README.md
+
+## 问题 6
+
+问题：Docker、FastAPI、Routers 和 Services 之间是什么关系？
+
+预期答案：用户通过 Docker 暴露的端口访问 FastAPI，FastAPI 将请求交给 Routers，Routers 调用 Services 完成业务处理。
+
+预期来源：docs/architecture.md
+
+## 问题 7
+
+问题：Week 3 完成了哪些 RAG 功能？
+
+预期答案：完成文档切分、Embedding、Chroma 检索、受约束回答和来源引用。
+
+预期来源：docs/week-3-summary.md

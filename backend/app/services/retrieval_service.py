@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from .embedding_service import embed_texts
 from .vector_store import get_document_chunks_collection
 
+CANDIDATE_MULTIPLIER = 4
+
 
 @dataclass(frozen=True)
 class RetrievedChunk:
@@ -20,7 +22,7 @@ def search_chunks(
 ) -> list[RetrievedChunk]:
     normalized_question = question.strip()
 
-    if not normalized_question:
+    if not normalized_question or top_k <= 0:
         return []
 
     collection = get_document_chunks_collection()
@@ -33,9 +35,14 @@ def search_chunks(
         [normalized_question],
     )[0]
 
+    candidate_count = min(
+        top_k * CANDIDATE_MULTIPLIER,
+        record_count,
+    )
+
     query_result = collection.query(
         query_embeddings=[question_embedding],
-        n_results=min(top_k, record_count),
+        n_results=candidate_count,
         include=[
             "documents",
             "metadatas",
@@ -49,6 +56,7 @@ def search_chunks(
     distances = query_result["distances"][0] if query_result["distances"] else []
 
     results: list[RetrievedChunk] = []
+    seen_chunks: set[tuple[str, str]] = set()
 
     for record_id, document, metadata, distance in zip(
         ids,
@@ -58,17 +66,29 @@ def search_chunks(
         strict=True,
     ):
         metadata_values = metadata or {}
+        text = document or ""
+        source = str(
+            metadata_values.get(
+                "source",
+                "unknown",
+            )
+        )
+
+        duplicate_key = (
+            source,
+            text.strip(),
+        )
+
+        if duplicate_key in seen_chunks:
+            continue
+
+        seen_chunks.add(duplicate_key)
 
         results.append(
             RetrievedChunk(
                 id=record_id,
-                text=document or "",
-                source=str(
-                    metadata_values.get(
-                        "source",
-                        "unknown",
-                    )
-                ),
+                text=text,
+                source=source,
                 chunk_index=int(
                     metadata_values.get(
                         "chunk_index",
@@ -78,5 +98,8 @@ def search_chunks(
                 distance=(float(distance) if distance is not None else 0.0),
             )
         )
+
+        if len(results) == top_k:
+            break
 
     return results
