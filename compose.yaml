@@ -1,8 +1,10 @@
 services:
   api:
+    image: enterprise-ai-platform:0.3.0
     build:
       context: .
       dockerfile: docker/Dockerfile
+    container_name: enterprise-ai-platform-api
     env_file:
       - .env
     ports:
@@ -10,3 +12,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./data/chroma-cache:/home/app/.cache/chroma
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 10s

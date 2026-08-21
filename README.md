@@ -39,6 +39,7 @@
 - [x] 支持跨多个文档进行 RAG 检索
 - [x] 完成 RAG 检索参数优化
 - [x] 支持 DeepSeek 和通义千问模型切换
+- [x] 完成 Docker 部署和容器级验收
 
 ## 项目结构
 
@@ -68,7 +69,7 @@ http://127.0.0.1:8000/docs
 ### Docker 运行
 
 ```powershell
-docker compose up --build
+docker compose up -d --build
 ```
 
 停止并清理容器：
@@ -93,6 +94,9 @@ docker compose down
 - [RAG Prompt 与来源引用](docs/rag-prompt.md)
 - [Week 3 总结](docs/week-3-summary.md)
 - [多文档自动索引](docs/multi-document-indexing.md)
+- [RAG 检索参数优化](docs/retrieval-optimization.md)
+- [LLM 模型切换](docs/llm-switching.md)
+- [Docker 部署](docs/docker-deployment.md)
 
 ## 技术栈
 
@@ -120,6 +124,13 @@ docker compose down
 
 已完成 Week 3：RAG v1 闭环，当前版本为 v0.3.0。
 
-系统已经支持文档切分、Embedding、Chroma 检索、受约束回答和来源引用。
+Week 4 产品化阶段已完成：
 
-下一阶段进入 Week 4：Knowledge Hub 产品化。
+- Day 22：多文档自动索引
+- Day 23：RAG 检索参数优化
+- Day 24：DeepSeek 和通义千问模型切换
+- Day 25：Docker 部署和容器级验收
+
+系统目前支持文档上传、自动索引、跨文档检索、带来源回答、模型切换和 Docker 部署。
+
+下一步进入 Day 26：完善 API 文档。

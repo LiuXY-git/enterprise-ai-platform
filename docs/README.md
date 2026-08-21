@@ -21,6 +21,10 @@
 - [RAG 检索参数优化](retrieval-optimization.md)
 - [LLM 模型切换](llm-switching.md)
 
+## 部署与运行
+
+- [Docker 部署](docker-deployment.md)
+
 ## 阶段总结
 
 - [Week 1 总结](week-1-summary.md)

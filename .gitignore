@@ -35,3 +35,4 @@ Thumbs.db
 
 logs/
 data/chroma/
+data/chroma-cache/
