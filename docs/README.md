@@ -19,6 +19,7 @@
 - [RAG 黄金问题集](rag-golden-questions.md)
 - [多文档自动索引](multi-document-indexing.md)
 - [RAG 检索参数优化](retrieval-optimization.md)
+- [LLM 模型切换](llm-switching.md)
 
 ## 阶段总结
 
