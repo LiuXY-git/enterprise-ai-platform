@@ -13,6 +13,45 @@ from .routers.upload import router as upload_router
 
 logger = logging.getLogger(LOGGER_NAME)
 
+API_DESCRIPTION = """
+Enterprise AI Platform 是一个面向企业知识库场景的 AI 平台。
+
+## 核心能力
+
+- 上传并解析 PDF、DOCX 和 Markdown 文档
+- 自动切分文档并建立向量索引
+- 跨多个文档检索相关内容
+- 使用 RAG 生成带来源引用的回答
+- 支持 DeepSeek 和通义千问模型切换
+
+## 接口说明
+
+- `/health`：检查服务运行状态
+- `/chat`：基础聊天接口
+- `/upload`：上传、解析并索引文档
+- `/rag/query`：检索相关文档片段
+- `/rag/answer`：生成带来源引用的回答
+"""
+
+OPENAPI_TAGS = [
+    {
+        "name": "system",
+        "description": "服务状态与运行检查接口。",
+    },
+    {
+        "name": "chat",
+        "description": "基础聊天功能接口。",
+    },
+    {
+        "name": "documents",
+        "description": "文档上传、解析和自动索引接口。",
+    },
+    {
+        "name": "rag",
+        "description": "知识库检索和带来源回答接口。",
+    },
+]
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
@@ -36,7 +75,13 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(
     title="Enterprise AI Platform",
+    summary="企业知识库与 RAG API",
+    description=API_DESCRIPTION,
     version="0.3.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    openapi_tags=OPENAPI_TAGS,
     lifespan=lifespan,
 )
 

@@ -25,7 +25,38 @@ router = APIRouter(
 )
 
 
-@router.post("", response_model=DocumentParseResponse)
+@router.post(
+    "",
+    response_model=DocumentParseResponse,
+    summary="上传并索引文档",
+    description=(
+        "上传 PDF、DOCX 或 Markdown 文档。平台会自动提取文本、"
+        "保存文档元数据、切分文本、生成 Embedding 并写入 Chroma。"
+        "接口成功返回时，文档已经可以参与 RAG 检索。"
+    ),
+    response_description="文档解析结果及向量索引信息。",
+    responses={
+        400: {
+            "description": "文件为空、无法读取或文档解析失败。",
+        },
+        415: {
+            "description": "上传了不支持的文件类型。",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "detail": "只支持 PDF、DOCX 和 Markdown 文件",
+                    },
+                },
+            },
+        },
+        422: {
+            "description": "请求中缺少 file 字段。",
+        },
+        500: {
+            "description": "文档保存或向量索引过程发生服务器错误。",
+        },
+    },
+)
 async def upload_document(
     file: Annotated[
         UploadFile,

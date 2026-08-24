@@ -40,6 +40,7 @@
 - [x] 完成 RAG 检索参数优化
 - [x] 支持 DeepSeek 和通义千问模型切换
 - [x] 完成 Docker 部署和容器级验收
+- [x] 完善 OpenAPI 与 API 使用文档
 
 ## 项目结构
 
@@ -97,6 +98,7 @@ docker compose down
 - [RAG 检索参数优化](docs/retrieval-optimization.md)
 - [LLM 模型切换](docs/llm-switching.md)
 - [Docker 部署](docs/docker-deployment.md)
+- [API 文档](docs/api.md)
 
 ## 技术栈
 
@@ -130,7 +132,8 @@ Week 4 产品化阶段已完成：
 - Day 23：RAG 检索参数优化
 - Day 24：DeepSeek 和通义千问模型切换
 - Day 25：Docker 部署和容器级验收
+- Day 26：完善 OpenAPI 与 API 使用文档
 
 系统目前支持文档上传、自动索引、跨文档检索、带来源回答、模型切换和 Docker 部署。
 
-下一步进入 Day 26：完善 API 文档。
+下一步进入 Day 27：录制 Demo。

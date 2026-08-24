@@ -8,6 +8,10 @@
 - [技术选型](tech-stack.md)
 - [数据库设计](database.md)
 
+## API 接口
+
+- [API 文档](api.md)
+
 ## 文档接入与 RAG
 
 - [Embedding 学习笔记](embedding.md)
