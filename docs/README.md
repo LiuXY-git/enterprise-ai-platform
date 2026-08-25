@@ -29,6 +29,11 @@
 
 - [Docker 部署](docker-deployment.md)
 
+## 演示与验收
+
+- [Demo 演示数据与说明](../demo/README.md)
+- [Demo 录制脚本](demo-script.md)
+
 ## 阶段总结
 
 - [Week 1 总结](week-1-summary.md)
