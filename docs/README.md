@@ -34,8 +34,14 @@
 - [Demo 演示数据与说明](../demo/README.md)
 - [Demo 录制脚本](demo-script.md)
 
+## 版本与发布
+
+- [Knowledge Hub v1.0.0 发布说明](release-v1.0.md)
+- [版本变更记录](../CHANGELOG.md)
+
 ## 阶段总结
 
 - [Week 1 总结](week-1-summary.md)
 - [Week 2 总结](week-2-summary.md)
 - [Week 3 总结](week-3-summary.md)
+- [Week 4 总结](week-4-summary.md)

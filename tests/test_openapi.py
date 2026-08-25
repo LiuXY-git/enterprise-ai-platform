@@ -7,7 +7,7 @@ def test_openapi_metadata() -> None:
 
     assert info["title"] == "Enterprise AI Platform"
     assert info["summary"] == "企业知识库与 RAG API"
-    assert info["version"] == "0.3.0"
+    assert info["version"] == "1.0.0"
 
     tags = {tag["name"]: tag["description"] for tag in schema["tags"]}
 

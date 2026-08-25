@@ -24,7 +24,7 @@ class RagSearchResult(BaseModel):
     )
     text: str = Field(
         description="检索到的文档片段原文。",
-        examples=["当前项目版本为 v0.3.0。"],
+        examples=["当前项目版本为 v1.0.0。"],
     )
     source: str = Field(
         description="文档片段所属的来源文件。",
@@ -69,7 +69,7 @@ class RagSource(BaseModel):
     )
     text: str = Field(
         description="用于生成回答的来源文本。",
-        examples=["当前项目版本为 v0.3.0。"],
+        examples=["当前项目版本为 v1.0.0。"],
     )
     distance: float = Field(
         description="来源文本与问题之间的向量距离。",
@@ -84,7 +84,7 @@ class RagAnswerResponse(BaseModel):
     )
     answer: str = Field(
         description="根据知识库内容生成并包含来源引用的回答。",
-        examples=["当前项目版本为 v0.3.0。[来源1]"],
+        examples=["当前项目版本为 v1.0.0。[来源1]"],
     )
     sources: list[RagSource] = Field(
         description="生成回答时使用的来源列表。",

@@ -1,6 +1,6 @@
 # API 文档
 
-Enterprise AI Platform 当前版本为 v0.3.0，提供文档上传、向量检索和带来源回答等接口。
+Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索和带来源回答等接口。
 
 ## 访问地址
 
@@ -192,7 +192,7 @@ multipart/form-data
   "results": [
     {
       "id": "readme-chunk-13",
-      "text": "当前项目版本为 v0.3.0。",
+      "text": "当前项目版本为 v1.0.0。",
       "source": "README.md",
       "chunk_index": 13,
       "distance": 0.82
@@ -230,14 +230,14 @@ multipart/form-data
 ```json
 {
   "question": "当前项目版本是多少？",
-  "answer": "当前项目版本为 v0.3.0。[来源1]",
+  "answer": "当前项目版本为 v1.0.0。[来源1]",
   "sources": [
     {
       "label": "[来源1]",
       "id": "readme-chunk-13",
       "source": "README.md",
       "chunk_index": 13,
-      "text": "当前项目版本为 v0.3.0。",
+      "text": "当前项目版本为 v1.0.0。",
       "distance": 0.82
     }
   ]

@@ -41,6 +41,11 @@
 - [x] 支持 DeepSeek 和通义千问模型切换
 - [x] 完成 Docker 部署和容器级验收
 - [x] 完善 OpenAPI 与 API 使用文档
+- [x] 准备 Demo 数据和录制脚本
+- [x] 准备 Knowledge Hub v1.0.0 代码和发布文档
+- [x] 完成 Knowledge Hub v1.0.0 发布候选验收
+- [ ] 录制 Knowledge Hub Demo
+- [ ] 正式发布 Knowledge Hub v1.0.0
 
 ## 项目结构
 
@@ -101,6 +106,9 @@ docker compose down
 - [API 文档](docs/api.md)
 - [Demo 演示数据与说明](demo/README.md)
 - [Demo 录制脚本](docs/demo-script.md)
+- [Knowledge Hub v1.0.0 发布说明](docs/release-v1.0.md)
+- [Week 4 总结](docs/week-4-summary.md)
+- [版本变更记录](CHANGELOG.md)
 
 ## 技术栈
 
@@ -134,7 +142,8 @@ Week 4 产品化阶段进度：
 - Day 25：Docker 部署和容器级验收
 - Day 26：完善 OpenAPI 与 API 使用文档
 - Day 27：已准备 Demo 数据、跨文档问题和录制脚本，视频录制暂缓
+- Day 28：已完成 Knowledge Hub v1.0.0 发布候选版本准备与验收
 
-系统目前支持文档上传、自动索引、跨文档检索、带来源回答、模型切换和 Docker 部署。
+当前代码和文档已经完成 v1.0.0 发布候选验收，尚未创建正式 Git 标签和 GitHub Release。
 
-下一步先进行 Day 28 发布准备；收到“可以录制了”的通知后，再完成 Day 27 视频录制。
+自动化测试、Ruff、Docker 和接口验收均已通过。收到“可以录制了”的通知后，再完成 Demo 视频、`v1.0.0` 标签和 GitHub Release。

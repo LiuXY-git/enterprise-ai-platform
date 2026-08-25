@@ -47,7 +47,7 @@ Dockerfile 使用 `python:3.14-slim` 作为基础镜像。
 Compose 服务名称为 `api`，镜像名称为：
 
 ```text
-enterprise-ai-platform:0.3.0
+enterprise-ai-platform:1.0.0
 ```
 
 主要配置：
@@ -160,7 +160,7 @@ http://127.0.0.1:8000/docs
 验收结果：
 
 - HTTP 状态码为 200
-- 回答包含 `v0.3.0`
+- 回答包含 `v1.0.0`
 - 回答包含来源编号
 - `sources` 数组不为空
 - 来源包含 `README.md`
