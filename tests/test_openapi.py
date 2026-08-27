@@ -16,8 +16,10 @@ def test_openapi_metadata() -> None:
         "chat",
         "documents",
         "rag",
+        "knowledge",
     }
     assert tags["rag"] == "知识库检索和带来源回答接口。"
+    assert tags["knowledge"] == "Dify 外部知识库检索与集成接口。"
 
 
 def test_api_documentation_urls() -> None:
@@ -35,6 +37,7 @@ def test_all_operations_have_summaries() -> None:
         ("/upload", "post"): "上传并索引文档",
         ("/rag/query", "post"): "检索相关文档片段",
         ("/rag/answer", "post"): "生成带来源引用的 RAG 回答",
+        ("/retrieval", "post"): "为 Dify 检索外部知识",
     }
 
     for (path, method), expected_summary in expected_operations.items():
@@ -58,8 +61,14 @@ def test_openapi_contains_field_and_error_documentation() -> None:
 
     upload_responses = schema["paths"]["/upload"]["post"]["responses"]
     answer_responses = schema["paths"]["/rag/answer"]["post"]["responses"]
+    retrieval_responses = schema["paths"]["/retrieval"]["post"]["responses"]
 
     assert "400" in upload_responses
     assert "415" in upload_responses
     assert "500" in upload_responses
     assert "503" in answer_responses
+
+    assert "401" in retrieval_responses
+    assert "404" in retrieval_responses
+    assert "422" in retrieval_responses
+    assert "503" in retrieval_responses
