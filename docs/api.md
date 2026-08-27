@@ -18,9 +18,13 @@ http://127.0.0.1:8000
 
 ## 身份验证
 
-当前业务接口暂未启用用户身份验证。
+`/health`、`/chat`、`/upload`、`/rag/query` 和 `/rag/answer` 当前未启用用户身份验证。
 
-DeepSeek 或通义千问的 API Key 只配置在服务端 `.env` 文件中，调用本平台接口时不需要传递模型密钥。
+`/retrieval` 是供 Dify 调用的外部知识库接口，需要通过请求头传递专用 Bearer Token：
+
+    Authorization: Bearer <DIFY_EXTERNAL_KNOWLEDGE_API_KEY>
+
+DeepSeek、通义千问以及 Dify 外部知识库的 API Key 均只保存在服务端 `.env` 文件中，不能提交到 Git。
 
 ## 接口总览
 
@@ -31,6 +35,7 @@ DeepSeek 或通义千问的 API Key 只配置在服务端 `.env` 文件中，调
 | POST | `/upload` | 上传、解析并索引文档 |
 | POST | `/rag/query` | 检索相关文档片段 |
 | POST | `/rag/answer` | 生成带来源引用的回答 |
+| POST | `/retrieval` | 为 Dify 检索外部知识库内容 |
 
 ## GET `/health`
 
@@ -257,6 +262,31 @@ multipart/form-data
 }
 ```
 
+## POST `/retrieval`
+
+按照 Dify 外部知识库协议检索 Knowledge Hub 中的文档片段。
+
+该接口只执行向量检索，不直接调用大语言模型。
+
+### 身份验证
+
+请求头必须包含：
+
+    Authorization: Bearer <DIFY_EXTERNAL_KNOWLEDGE_API_KEY>
+
+### 请求体
+
+```json
+{
+  "knowledge_id": "enterprise-knowledge-hub",
+  "query": "系统支持哪些文档格式？",
+  "retrieval_setting": {
+    "top_k": 3,
+    "score_threshold": 0.0
+  }
+}
+```
+
 ## 推荐调用流程
 
 知识库的典型调用顺序为：
@@ -279,9 +309,12 @@ POST /rag/answer
 
 ## 当前限制
 
-- 当前接口暂未增加用户登录和 API Key 鉴权
+- 除 Dify 外部知识库 `/retrieval` 外，其他业务接口暂未增加用户登录和 API Key 鉴权
 - 文档上传后同步执行解析和索引，大文件可能需要较长时间
 - 上传接口会将提取后的完整文本返回给调用方
 - 当前没有配置单个上传文件的大小上限
 - 修改 LLM Provider 或模型配置后需要重启服务
 - 检索质量依赖知识库内容、Chunk 参数和 Embedding 模型
+- `/retrieval` 暂未增加调用频率限制和 IP 白名单
+- `metadata_condition` 当前尚未用于实际过滤
+- 文档内容更新后需要重新建立 Chroma 向量索引
