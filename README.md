@@ -47,6 +47,7 @@
 - [x] 完成 Dify 1.16.1 本地部署
 - [x] 配置通义千问 `qwen3.7-plus`
 - [x] 创建并发布“企业客服助手”
+- [x] 将现有 Knowledge Hub 接入 Dify 外部知识库
 - [ ] 录制 Knowledge Hub Demo
 - [ ] 正式发布 Knowledge Hub v1.0.0
 
@@ -113,6 +114,7 @@ docker compose down
 - [Week 4 总结](docs/week-4-summary.md)
 - [版本变更记录](CHANGELOG.md)
 - [Dify 基础与首个 AI 应用](docs/dify-basics.md)
+- [Dify 接入 Knowledge Hub](docs/dify-knowledge-hub.md)
 
 ## 技术栈
 
@@ -136,6 +138,7 @@ docker compose down
 | POST | `/upload` | 上传并解析 PDF、DOCX 或 Markdown 文档 |
 | POST | `/rag/query` | 检索与问题相关的文档 Chunk |
 | POST | `/rag/answer` | 根据知识库生成带来源的回答 |
+| POST | `/retrieval` | 为 Dify 提供外部知识库检索 |
 
 ## 开发状态
 
@@ -156,4 +159,4 @@ Week 4 产品化阶段进度：
 ### Week 5：企业工作流中心
 
 - Day 29：完成 Dify 1.16.1 部署、通义千问配置和首个聊天应用发布
-- Day 30：计划将现有 Knowledge Hub 接入 Dify
+- Day 30：完成 Dify 外部知识库接口、API Key 鉴权以及企业客服助手知识库接入
