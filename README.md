@@ -44,6 +44,9 @@
 - [x] 准备 Demo 数据和录制脚本
 - [x] 准备 Knowledge Hub v1.0.0 代码和发布文档
 - [x] 完成 Knowledge Hub v1.0.0 发布候选验收
+- [x] 完成 Dify 1.16.1 本地部署
+- [x] 配置通义千问 `qwen3.7-plus`
+- [x] 创建并发布“企业客服助手”
 - [ ] 录制 Knowledge Hub Demo
 - [ ] 正式发布 Knowledge Hub v1.0.0
 
@@ -109,6 +112,7 @@ docker compose down
 - [Knowledge Hub v1.0.0 发布说明](docs/release-v1.0.md)
 - [Week 4 总结](docs/week-4-summary.md)
 - [版本变更记录](CHANGELOG.md)
+- [Dify 基础与首个 AI 应用](docs/dify-basics.md)
 
 ## 技术栈
 
@@ -116,6 +120,7 @@ docker compose down
 - FastAPI
 - Ruff
 - Docker
+- Dify
 - SQL
 - LLM API
 - RAG
@@ -147,3 +152,8 @@ Week 4 产品化阶段进度：
 当前代码和文档已经完成 v1.0.0 发布候选验收，尚未创建正式 Git 标签和 GitHub Release。
 
 自动化测试、Ruff、Docker 和接口验收均已通过。收到“可以录制了”的通知后，再完成 Demo 视频、`v1.0.0` 标签和 GitHub Release。
+
+### Week 5：企业工作流中心
+
+- Day 29：完成 Dify 1.16.1 部署、通义千问配置和首个聊天应用发布
+- Day 30：计划将现有 Knowledge Hub 接入 Dify
