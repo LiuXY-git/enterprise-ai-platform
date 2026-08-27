@@ -285,7 +285,56 @@ multipart/form-data
     "score_threshold": 0.0
   }
 }
+字段说明：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `knowledge_id` | string | 是 | Dify 中配置的外部知识库 ID |
+| `query` | string | 是 | 检索问题，长度为 1～500 个字符 |
+| `retrieval_setting.top_k` | integer | 是 | 返回数量，范围为 1～10 |
+| `retrieval_setting.score_threshold` | number | 是 | 最低相关性分数，范围为 0～1 |
+| `metadata_condition` | object | 否 | 可选元数据过滤条件，当前尚未执行过滤 |
 ```
+
+### 成功响应
+
+状态码：`200 OK`
+
+返回内容示例：
+
+    {
+      "records": [
+        {
+          "content": "系统支持 PDF、DOCX 和 Markdown 文档。",
+          "score": 0.8,
+          "title": "README.md",
+          "metadata": {
+            "chunk_id": "readme-chunk-1",
+            "chunk_index": 1,
+            "source": "README.md",
+            "distance": 0.25
+          }
+        }
+      ]
+    }
+
+字段说明：
+
+| 字段 | 说明 |
+| --- | --- |
+| `content` | 检索到的文档片段 |
+| `score` | 转换后的相关性分数，越大表示越相关 |
+| `title` | 来源文档名称 |
+| `metadata` | Chunk ID、序号、来源和原始向量距离 |
+
+### 错误响应
+
+- `401 Unauthorized`：缺少 Bearer Token 或 API Key 无效
+- `404 Not Found`：外部知识库 ID 不存在
+- `422 Unprocessable Entity`：请求格式错误或参数超出范围
+- `503 Service Unavailable`：外部知识库配置不完整
+- `500 Internal Server Error`：Embedding 或 Chroma 检索失败
+
 
 ## 推荐调用流程
 
