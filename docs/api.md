@@ -285,6 +285,8 @@ multipart/form-data
     "score_threshold": 0.0
   }
 }
+```
+
 字段说明：
 
 | 字段 | 类型 | 必填 | 说明 |
@@ -294,7 +296,6 @@ multipart/form-data
 | `retrieval_setting.top_k` | integer | 是 | 返回数量，范围为 1～10 |
 | `retrieval_setting.score_threshold` | number | 是 | 最低相关性分数，范围为 0～1 |
 | `metadata_condition` | object | 否 | 可选元数据过滤条件，当前尚未执行过滤 |
-```
 
 ### 成功响应
 
