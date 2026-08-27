@@ -29,6 +29,10 @@
 
 - [Docker 部署](docker-deployment.md)
 
+## 工作流中心
+
+- [Dify 基础与首个 AI 应用](dify-basics.md)
+
 ## 演示与验收
 
 - [Demo 演示数据与说明](../demo/README.md)
