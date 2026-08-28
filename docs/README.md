@@ -35,6 +35,7 @@
 - [Dify 接入 Knowledge Hub](dify-knowledge-hub.md)
 - [Dify Workflow 基础与企业咨询分流](dify-workflow-basics.md)
 - [Dify 企业客服场景](dify-customer-service-scenario.md)
+- [Dify 企业场景 Prompt 优化](dify-enterprise-prompt-optimization.md)
 
 ## 演示与验收
 

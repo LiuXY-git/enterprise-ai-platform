@@ -50,6 +50,7 @@
 - [x] 将现有 Knowledge Hub 接入 Dify 外部知识库
 - [x] 创建并发布“企业咨询分流工作流”
 - [x] 完成企业客服知识检索、受约束回答和日志留痕
+- [x] 完成企业场景 Prompt 的角色、输出格式和安全约束优化
 - [ ] 录制 Knowledge Hub Demo
 - [ ] 正式发布 Knowledge Hub v1.0.0
 
@@ -119,6 +120,7 @@ docker compose down
 - [Dify 接入 Knowledge Hub](docs/dify-knowledge-hub.md)
 - [Dify Workflow 基础与企业咨询分流](docs/dify-workflow-basics.md)
 - [Dify 企业客服场景](docs/dify-customer-service-scenario.md)
+- [Dify 企业场景 Prompt 优化](docs/dify-enterprise-prompt-optimization.md)
 
 ## 技术栈
 
@@ -166,3 +168,4 @@ Week 4 产品化阶段进度：
 - Day 30：完成 Dify 外部知识库接口、API Key 鉴权以及企业客服助手知识库接入
 - Day 31：完成企业咨询分流工作流、条件与 HTTP 节点、变量聚合以及四类场景验收
 - Day 32：完成企业客服知识检索、知识约束回答、模糊问题处理和日志留痕
+- Day 33：完成企业场景 Prompt 的角色定义、输出格式、事实边界和越权防护优化
