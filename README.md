@@ -52,6 +52,7 @@
 - [x] 完成企业客服知识检索、受约束回答和日志留痕
 - [x] 完成企业场景 Prompt 的角色、输出格式和安全约束优化
 - [x] 完成 FastAPI 调用 Dify 企业咨询工作流
+- [x] 完成 Week 5 总结和 AI 客服助手 v1.0 验收
 - [ ] 录制 Knowledge Hub Demo
 - [ ] 正式发布 Knowledge Hub v1.0.0
 
@@ -123,6 +124,7 @@ docker compose down
 - [Dify 企业客服场景](docs/dify-customer-service-scenario.md)
 - [Dify 企业场景 Prompt 优化](docs/dify-enterprise-prompt-optimization.md)
 - [FastAPI 调用 Dify 工作流](docs/dify-fastapi-integration.md)
+- [Week 5 总结：AI 客服助手 v1.0](docs/week-5-summary.md)
 
 ## 技术栈
 
@@ -173,3 +175,6 @@ Week 4 产品化阶段进度：
 - Day 32：完成企业客服知识检索、知识约束回答、模糊问题处理和日志留痕
 - Day 33：完成企业场景 Prompt 的角色定义、输出格式、事实边界和越权防护优化
 - Day 34：完成 FastAPI 调用 Dify Workflow API、服务端密钥配置和真实接口验收
+- Day 35：完成 Week 5 总结、质量验收和 AI 客服助手 v1.0 能力整理
+
+Week 5 产出：AI 客服助手 v1.0，已完成问题分流、知识检索、受约束回答、日志追踪和 FastAPI / Dify 双向 API 集成。
