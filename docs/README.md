@@ -34,6 +34,7 @@
 - [Dify 基础与首个 AI 应用](dify-basics.md)
 - [Dify 接入 Knowledge Hub](dify-knowledge-hub.md)
 - [Dify Workflow 基础与企业咨询分流](dify-workflow-basics.md)
+- [Dify 企业客服场景](dify-customer-service-scenario.md)
 
 ## 演示与验收
 
