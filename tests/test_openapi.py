@@ -14,6 +14,7 @@ def test_openapi_metadata() -> None:
     assert set(tags) == {
         "system",
         "chat",
+        "dify",
         "documents",
         "rag",
         "knowledge",
@@ -34,6 +35,7 @@ def test_all_operations_have_summaries() -> None:
     expected_operations = {
         ("/health", "get"): "检查服务运行状态",
         ("/chat", "post"): "发送聊天消息",
+        ("/dify/workflow", "post"): "调用 Dify 企业咨询工作流",
         ("/upload", "post"): "上传并索引文档",
         ("/rag/query", "post"): "检索相关文档片段",
         ("/rag/answer", "post"): "生成带来源引用的 RAG 回答",

@@ -51,6 +51,7 @@
 - [x] 创建并发布“企业咨询分流工作流”
 - [x] 完成企业客服知识检索、受约束回答和日志留痕
 - [x] 完成企业场景 Prompt 的角色、输出格式和安全约束优化
+- [x] 完成 FastAPI 调用 Dify 企业咨询工作流
 - [ ] 录制 Knowledge Hub Demo
 - [ ] 正式发布 Knowledge Hub v1.0.0
 
@@ -121,6 +122,7 @@ docker compose down
 - [Dify Workflow 基础与企业咨询分流](docs/dify-workflow-basics.md)
 - [Dify 企业客服场景](docs/dify-customer-service-scenario.md)
 - [Dify 企业场景 Prompt 优化](docs/dify-enterprise-prompt-optimization.md)
+- [FastAPI 调用 Dify 工作流](docs/dify-fastapi-integration.md)
 
 ## 技术栈
 
@@ -141,6 +143,7 @@ docker compose down
 | --- | --- | --- |
 | GET | `/health` | 检查服务运行状态 |
 | POST | `/chat` | 发送聊天消息 |
+| POST | `/dify/workflow` | 调用 Dify 企业咨询工作流 |
 | POST | `/upload` | 上传并解析 PDF、DOCX 或 Markdown 文档 |
 | POST | `/rag/query` | 检索与问题相关的文档 Chunk |
 | POST | `/rag/answer` | 根据知识库生成带来源的回答 |
@@ -169,3 +172,4 @@ Week 4 产品化阶段进度：
 - Day 31：完成企业咨询分流工作流、条件与 HTTP 节点、变量聚合以及四类场景验收
 - Day 32：完成企业客服知识检索、知识约束回答、模糊问题处理和日志留痕
 - Day 33：完成企业场景 Prompt 的角色定义、输出格式、事实边界和越权防护优化
+- Day 34：完成 FastAPI 调用 Dify Workflow API、服务端密钥配置和真实接口验收

@@ -18,13 +18,13 @@ http://127.0.0.1:8000
 
 ## 身份验证
 
-`/health`、`/chat`、`/upload`、`/rag/query` 和 `/rag/answer` 当前未启用用户身份验证。
+`/health`、`/chat`、`/dify/workflow`、`/upload`、`/rag/query` 和 `/rag/answer` 当前未启用调用方身份验证。
 
 `/retrieval` 是供 Dify 调用的外部知识库接口，需要通过请求头传递专用 Bearer Token：
 
     Authorization: Bearer <DIFY_EXTERNAL_KNOWLEDGE_API_KEY>
 
-DeepSeek、通义千问以及 Dify 外部知识库的 API Key 均只保存在服务端 `.env` 文件中，不能提交到 Git。
+DeepSeek、通义千问、Dify 应用以及 Dify 外部知识库的 API Key 均只保存在服务端 `.env` 文件中，不能提交到 Git。
 
 ## 接口总览
 
@@ -32,6 +32,7 @@ DeepSeek、通义千问以及 Dify 外部知识库的 API Key 均只保存在服
 | --- | --- | --- |
 | GET | `/health` | 检查服务运行状态 |
 | POST | `/chat` | 发送基础聊天消息 |
+| POST | `/dify/workflow` | 调用 Dify 企业咨询工作流 |
 | POST | `/upload` | 上传、解析并索引文档 |
 | POST | `/rag/query` | 检索相关文档片段 |
 | POST | `/rag/answer` | 生成带来源引用的回答 |
@@ -84,6 +85,64 @@ DeepSeek、通义千问以及 Dify 外部知识库的 API Key 均只保存在服
 ### 错误响应
 
 - `422 Unprocessable Entity`：消息为空、过长或请求格式错误
+
+## POST `/dify/workflow`
+
+由 FastAPI 调用已经发布的 Dify 企业咨询工作流，并以阻塞模式返回最终回答、输出变量和运行元数据。
+
+Dify 应用 API Key 只由 FastAPI 从服务端环境变量读取，不会暴露给接口调用方。
+
+### 服务端配置
+
+Docker Compose 运行时，在 `.env` 中配置：
+
+```properties
+DIFY_API_BASE_URL=http://host.docker.internal/v1
+DIFY_WORKFLOW_API_KEY=<DIFY_APP_API_KEY>
+DIFY_WORKFLOW_TIMEOUT_SECONDS=120
+```
+
+`DIFY_WORKFLOW_API_KEY` 必须是“企业咨询分流工作流”的应用 API Key，不能与外部知识库 Key 混用。
+
+### 请求体
+
+```json
+{
+  "question": "系统支持哪些文档格式？",
+  "user": "day34-demo-user"
+}
+```
+
+字段说明：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `question` | string | 是 | 提交给 Dify `user_query` 输入变量的问题，长度为 1～2000 个字符 |
+| `user` | string | 是 | 调用方定义的稳定终端用户标识，长度为 1～128 个字符 |
+
+### 成功响应
+
+状态码：`200 OK`
+
+```json
+{
+  "task_id": "task-id",
+  "workflow_run_id": "workflow-run-id",
+  "status": "succeeded",
+  "answer": "系统支持 PDF、DOCX 和 Markdown。",
+  "outputs": {
+    "answer": "系统支持 PDF、DOCX 和 Markdown。"
+  },
+  "elapsed_time": 5.5,
+  "total_tokens": 1626,
+  "total_steps": 6
+}
+```
+
+### 错误响应
+
+- `422 Unprocessable Entity`：问题为空、过长，或 `user` 格式不正确
+- `503 Service Unavailable`：Dify 配置错误、网络不可用、API Key 无效或工作流执行失败
 
 ## POST `/upload`
 
@@ -360,6 +419,7 @@ POST /rag/answer
 ## 当前限制
 
 - 除 Dify 外部知识库 `/retrieval` 外，其他业务接口暂未增加用户登录和 API Key 鉴权
+- `/dify/workflow` 使用固定服务端 Dify 应用 Key，尚未增加调用方级别的认证和限流
 - 文档上传后同步执行解析和索引，大文件可能需要较长时间
 - 上传接口会将提取后的完整文本返回给调用方
 - 当前没有配置单个上传文件的大小上限
