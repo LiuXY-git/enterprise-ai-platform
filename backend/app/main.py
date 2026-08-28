@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from .database import init_database
 from .logging_config import LOGGER_NAME, configure_logging
 from .routers.chat import router as chat_router
+from .routers.dify import router as dify_router
 from .routers.external_knowledge import router as external_knowledge_router
 from .routers.health import router as health_router
 from .routers.rag import router as rag_router
@@ -29,6 +30,7 @@ Enterprise AI Platform 是一个面向企业知识库场景的 AI 平台。
 
 - `/health`：检查服务运行状态
 - `/chat`：基础聊天接口
+- `/dify/workflow`：由 FastAPI 调用 Dify 企业咨询工作流
 - `/upload`：上传、解析并索引文档
 - `/rag/query`：检索相关文档片段
 - `/rag/answer`：生成带来源引用的回答
@@ -43,6 +45,10 @@ OPENAPI_TAGS = [
     {
         "name": "chat",
         "description": "基础聊天功能接口。",
+    },
+    {
+        "name": "dify",
+        "description": "FastAPI 调用 Dify 应用工作流的集成接口。",
     },
     {
         "name": "documents",
@@ -93,6 +99,7 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(chat_router)
+app.include_router(dify_router)
 app.include_router(upload_router)
 app.include_router(external_knowledge_router)
 app.include_router(rag_router)
