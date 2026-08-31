@@ -1,6 +1,6 @@
-# Knowledge Hub v1.0.0 发布说明
+# Enterprise AI Platform v1.0.0 发布说明
 
-状态：发布候选版本，待 Demo 录制与最终发布。
+状态：已于 2026-08-31 完成最终验收并正式发布。
 
 ## 版本概述
 
@@ -16,6 +16,8 @@ v1.0.0 已经形成从企业文档接入到可信问答的完整闭环：
 6. 跨文档检索相关内容
 7. 调用 LLM 生成回答
 8. 返回可核验的引用来源
+
+在 Knowledge Hub 基础上，v1.0.0 还集成了 Dify 企业咨询分流工作流，形成 FastAPI 调用 Dify、Dify 调用 FastAPI 外部知识库的双向 API 闭环。
 
 ## 核心能力
 
@@ -76,6 +78,8 @@ v1.0.0 已经形成从企业文档接入到可信问答的完整闭环：
 | POST | `/upload` | 上传、解析并索引文档 |
 | POST | `/rag/query` | 检索相关文档片段 |
 | POST | `/rag/answer` | 生成带来源引用的回答 |
+| POST | `/retrieval` | 为 Dify 提供受 Bearer Token 保护的外部知识检索 |
+| POST | `/dify/workflow` | 由 FastAPI 调用 Dify 企业咨询分流工作流 |
 
 ## 快速启动
 
@@ -116,10 +120,10 @@ docker compose down
 
 ## 质量验收
 
-发布候选版本的验收标准：
+正式版本的验收结果：
 
-- 自动化测试全部通过
-- Ruff 检查全部通过
+- 自动化测试：37 passed
+- Ruff 检查：通过，51 个文件格式正确
 - OpenAPI 版本为 `1.0.0`
 - Docker 镜像为 `enterprise-ai-platform:1.0.0`
 - 容器健康状态为 `healthy`
@@ -127,6 +131,9 @@ docker compose down
 - 文档可以成功上传并建立索引
 - `/rag/query` 可以返回跨文档来源
 - `/rag/answer` 可以生成带引用来源的回答
+- `/dify/workflow` 产品问题真实调用成功，共执行 6 步
+- Dify 技术分支调用 FastAPI 健康检查成功，共执行 7 步
+- Demo 视频完成录制、画面抽检、音轨检测和交付验收
 
 ## 当前限制
 
@@ -136,7 +143,9 @@ docker compose down
 - 暂未提供生产级监控和告警
 - 修改 LLM Provider 后需要重启服务
 - 暂不支持单个请求临时指定模型
-- Demo 视频尚未录制
+- `/dify/workflow` 尚未增加调用方身份认证和限流
+- Dify 使用单个服务端应用 Key
+- Demo 公开发布前仍建议进行精剪和响度标准化
 
 ## 发布前待办
 
@@ -147,13 +156,11 @@ docker compose down
 - [x] 完成全部自动化测试
 - [x] 完成 Ruff 检查
 - [x] 完成 Docker 发布候选镜像验收
-- [ ] 完成 Demo 视频录制
-- [ ] 将视频链接加入 README
-- [ ] 创建 `v1.0.0` Git 标签
-- [ ] 创建 GitHub Release
+- [x] 完成 Demo 视频录制与验收
+- [x] 将 Demo 验收记录加入 README
+- [x] 创建 `v1.0.0` Git 标签
+- [ ] 按需创建 GitHub Release 并上传精剪后的视频资产
 
 ## 发布状态
 
-当前可以作为 Knowledge Hub v1.0.0 发布候选版本使用。
-
-正式发布将在 Demo 录制与验收完成后进行。
+Enterprise AI Platform v1.0.0 已完成本地正式发布和交付验收。GitHub Release 属于可选的公开发布步骤，可直接基于 `v1.0.0` 标签创建。

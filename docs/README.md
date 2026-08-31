@@ -43,6 +43,7 @@
 
 - [Demo 演示数据与说明](../demo/README.md)
 - [Demo 录制脚本](demo-script.md)
+- [Demo 最终验收记录](demo-acceptance.md)
 
 ## 版本与发布
 

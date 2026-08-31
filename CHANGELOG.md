@@ -2,11 +2,9 @@
 
 本文件记录 Enterprise AI Platform 的主要版本变化。
 
-## [1.0.0] - 待发布
+## [1.0.0] - 2026-08-31
 
-Knowledge Hub v1.0.0 发布候选版本。
-
-正式版本标签和 GitHub Release 将在 Demo 录制与验收完成后创建。
+Enterprise AI Platform 首个正式版本，包含 Knowledge Hub v1.0.0 和 AI 客服助手 v1.0。
 
 ### Added
 
@@ -20,6 +18,10 @@ Knowledge Hub v1.0.0 发布候选版本。
 - 增加 Docker 镜像、Compose 配置、健康检查和数据持久化
 - 完善 Swagger、ReDoc 和 API 使用文档
 - 增加 Demo 数据、跨文档问题和录制脚本
+- 增加 Dify 外部知识库接口与 Bearer Token 鉴权
+- 增加企业咨询分流工作流、受约束回答和日志追踪
+- 增加 FastAPI 调用 Dify Workflow API 的 `/dify/workflow` 接口
+- 完成 FastAPI / Dify 双向 API 集成和真实链路验收
 
 ### Changed
 
@@ -32,16 +34,16 @@ Knowledge Hub v1.0.0 发布候选版本。
 ### Quality
 
 - 具备文档索引、模型配置、Prompt、RAG 路由、检索和上传测试
-- 发布候选版本包含 23 项自动化测试
+- 正式版本包含 37 项自动化测试
 - 使用 Ruff 进行代码规范检查
 - 支持 Docker 容器健康检查
 
-### Pending
+### Release
 
-- 完成 Knowledge Hub Demo 视频录制
-- 将 Demo 视频链接加入项目文档
-- 创建 `v1.0.0` Git 标签
-- 创建 GitHub Release
+- 完成 AI 客服助手 v1.0 Demo 录制与验收
+- 完成 Docker、OpenAPI 和双向真实接口最终验收
+- 使用 `v1.0.0` Git 标签标记正式版本
+- Demo 视频作为独立发布资产保存，不纳入 Git 仓库
 
 ## [0.3.0]
 

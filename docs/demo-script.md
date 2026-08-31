@@ -1,5 +1,7 @@
 # Knowledge Hub Demo 录制脚本
 
+> 本文保留为 Knowledge Hub 原始录制方案。2026-08-31 最终录制扩展为 AI 客服助手 v1.0，增加 Dify 工作流和 FastAPI 双向集成；实际交付结果见 [Demo 最终验收记录](demo-acceptance.md)。
+
 ## 演示目标
 
 在 3～5 分钟内展示 Enterprise AI Platform 如何完成企业文档上传、自动索引、跨文档检索和带来源回答。

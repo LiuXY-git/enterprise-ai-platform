@@ -53,8 +53,8 @@
 - [x] 完成企业场景 Prompt 的角色、输出格式和安全约束优化
 - [x] 完成 FastAPI 调用 Dify 企业咨询工作流
 - [x] 完成 Week 5 总结和 AI 客服助手 v1.0 验收
-- [ ] 录制 Knowledge Hub Demo
-- [ ] 正式发布 Knowledge Hub v1.0.0
+- [x] 录制并验收 AI 客服助手 v1.0 Demo
+- [x] 正式发布 Enterprise AI Platform v1.0.0
 
 ## 项目结构
 
@@ -115,7 +115,8 @@ docker compose down
 - [API 文档](docs/api.md)
 - [Demo 演示数据与说明](demo/README.md)
 - [Demo 录制脚本](docs/demo-script.md)
-- [Knowledge Hub v1.0.0 发布说明](docs/release-v1.0.md)
+- [Demo 最终验收记录](docs/demo-acceptance.md)
+- [Enterprise AI Platform v1.0.0 发布说明](docs/release-v1.0.md)
 - [Week 4 总结](docs/week-4-summary.md)
 - [版本变更记录](CHANGELOG.md)
 - [Dify 基础与首个 AI 应用](docs/dify-basics.md)
@@ -163,9 +164,9 @@ Week 4 产品化阶段进度：
 - Day 27：已准备 Demo 数据、跨文档问题和录制脚本，视频录制暂缓
 - Day 28：已完成 Knowledge Hub v1.0.0 发布候选版本准备与验收
 
-当前代码和文档已经完成 v1.0.0 发布候选验收，尚未创建正式 Git 标签和 GitHub Release。
+当前代码、文档和 Demo 已完成 v1.0.0 最终验收。自动化测试、Ruff、Docker、OpenAPI 和 FastAPI / Dify 双向真实接口均已通过，正式版本使用 `v1.0.0` Git 标签标记。
 
-自动化测试、Ruff、Docker 和接口验收均已通过。收到“可以录制了”的通知后，再完成 Demo 视频、`v1.0.0` 标签和 GitHub Release。
+Demo 视频作为独立交付资产保存，不直接纳入 Git 仓库；详细验收结果见 [Demo 最终验收记录](docs/demo-acceptance.md)。GitHub Release 可在需要公开发布时基于 `v1.0.0` 标签创建。
 
 ### Week 5：企业工作流中心
 
