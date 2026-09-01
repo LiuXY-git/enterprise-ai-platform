@@ -1,0 +1,100 @@
+{
+    "name":  "W6D36 - n8n Foundation Check",
+    "nodes":  [
+                  {
+                      "parameters":  {
+
+                                     },
+                      "type":  "n8n-nodes-base.manualTrigger",
+                      "typeVersion":  1,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "id":  "3dec9b29-8efb-4db3-a2e9-2d8748f184fe",
+                      "name":  "Start Manually"
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "80db132d-59dd-4cd3-9f69-eee82cd4e9f7",
+                                                                                     "name":  "day",
+                                                                                     "value":  36,
+                                                                                     "type":  "number"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "77ec2003-4615-40b7-99e3-e7c03af030d0",
+                                                                                     "name":  "component",
+                                                                                     "value":  "n8n",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "08d598f4-f375-4b62-aa03-a07b0e7ce7f2",
+                                                                                     "name":  "status",
+                                                                                     "value":  "ready",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "b6bf0f58-1af4-401b-b822-222642a02182",
+                                                                                     "name":  "api_internal_url",
+                                                                                     "value":  "http://api:8000",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "dbea31ee-fa3b-4d0d-a34d-5c7ba462a9f3",
+                                                                                     "name":  "timezone",
+                                                                                     "value":  "Asia/Shanghai",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "e2ad18ee-b369-4f1a-abe5-bdef39a7d8dc",
+                                                                                     "name":  "checked_at",
+                                                                                     "value":  "={{ $now.toISO() }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.5,
+                      "position":  [
+                                       192,
+                                       0
+                                   ],
+                      "id":  "4421258c-1712-4366-b3f6-12db23578a04",
+                      "name":  "Build Foundation Result"
+                  }
+              ],
+    "pinData":  {
+
+                },
+    "connections":  {
+                        "Start Manually":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "Build Foundation Result",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           }
+                    },
+    "active":  false,
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "binaryMode":  "separate"
+                 },
+    "nodeGroups":  [
+
+                   ],
+    "tags":  [
+
+             ]
+}

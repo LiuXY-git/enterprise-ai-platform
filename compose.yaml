@@ -5,8 +5,19 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     container_name: enterprise-ai-platform-api
-    env_file:
-      - .env
+    environment:
+      LLM_PROVIDER: "${LLM_PROVIDER:-deepseek}"
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      DEEPSEEK_BASE_URL: "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}"
+      DEEPSEEK_MODEL: "${DEEPSEEK_MODEL:-deepseek-v4-flash}"
+      DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:-}"
+      QWEN_BASE_URL: "${QWEN_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}"
+      QWEN_MODEL: "${QWEN_MODEL:-qwen3.7-plus}"
+      DIFY_EXTERNAL_KNOWLEDGE_API_KEY: "${DIFY_EXTERNAL_KNOWLEDGE_API_KEY:-}"
+      DIFY_EXTERNAL_KNOWLEDGE_ID: "${DIFY_EXTERNAL_KNOWLEDGE_ID:-enterprise-knowledge-hub}"
+      DIFY_API_BASE_URL: "${DIFY_API_BASE_URL:-http://host.docker.internal/v1}"
+      DIFY_WORKFLOW_API_KEY: "${DIFY_WORKFLOW_API_KEY:-}"
+      DIFY_WORKFLOW_TIMEOUT_SECONDS: "${DIFY_WORKFLOW_TIMEOUT_SECONDS:-120}"
     ports:
       - "8000:8000"
     volumes:
@@ -16,3 +27,39 @@ services:
     init: true
     restart: unless-stopped
     stop_grace_period: 10s
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:2.36.8
+    container_name: enterprise-ai-platform-n8n
+    environment:
+      N8N_ENCRYPTION_KEY: "${N8N_ENCRYPTION_KEY:?N8N_ENCRYPTION_KEY is required}"
+      N8N_HOST: "${N8N_HOST:-localhost}"
+      N8N_PORT: "${N8N_PORT:-5678}"
+      N8N_PROTOCOL: "${N8N_PROTOCOL:-http}"
+      N8N_EDITOR_BASE_URL: "${N8N_EDITOR_BASE_URL:-http://localhost:5678/}"
+      N8N_WEBHOOK_URL: "${N8N_WEBHOOK_URL:-http://localhost:5678/}"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "${N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS:-true}"
+      GENERIC_TIMEZONE: "${GENERIC_TIMEZONE:-Asia/Shanghai}"
+      TZ: "${TZ:-Asia/Shanghai}"
+      EXECUTIONS_DATA_PRUNE: "${EXECUTIONS_DATA_PRUNE:-true}"
+      EXECUTIONS_DATA_MAX_AGE: "${EXECUTIONS_DATA_MAX_AGE:-168}"
+    ports:
+      - "127.0.0.1:5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --spider -q http://127.0.0.1:5678/healthz/readiness || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+volumes:
+  n8n_data:
