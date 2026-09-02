@@ -1,0 +1,197 @@
+{
+  "name": "W6D40 - Daily Workflow Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 18
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -464,
+        64
+      ],
+      "id": "ef74c9d3-2da1-4e52-9c84-2f5064ab5ea0",
+      "name": "Daily Report Schedule"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "w6d40-daily-workflow-report",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -464,
+        -128
+      ],
+      "id": "981326f5-f8ce-4663-8df5-14cf94e73442",
+      "name": "Manual Report Replay"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconst today = new Intl.DateTimeFormat(\n  'en-CA',\n  {\n    timeZone: 'Asia/Shanghai',\n    year: 'numeric',\n    month: '2-digit',\n    day: '2-digit'\n  }\n).format(new Date());\n\nconst requestedDate = String(\n  input.body?.report_date ??\n  input.query?.report_date ??\n  ''\n).trim();\n\nfunction isValidDate(value) {\n  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) {\n    return false;\n  }\n\n  const parsed = new Date(`${value}T00:00:00Z`);\n\n  return (\n    !Number.isNaN(parsed.getTime()) &&\n    parsed.toISOString().slice(0, 10) === value\n  );\n}\n\nif (requestedDate && !isValidDate(requestedDate)) {\n  throw new Error(\n    'report_date must be a valid YYYY-MM-DD date'\n  );\n}\n\nconst isManualReplay = Boolean(\n  input.headers ||\n  input.webhookUrl ||\n  input.body\n);\n\nreturn [\n  {\n    json: {\n      report_date: requestedDate || today,\n      trigger_source: isManualReplay\n        ? 'manual_replay'\n        : 'schedule',\n      data_source: 'fixed_test_data',\n      timezone: 'Asia/Shanghai',\n      generated_at: new Date().toISOString()\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -32
+      ],
+      "id": "6746ebc9-4183-4e91-9bdf-85010924d10d",
+      "name": "Prepare Report Context"
+    },
+    {
+      "parameters": {
+        "jsCode": "const context = $input.first().json;\n\nconst allRuns = [\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-001',\n    status: 'succeeded',\n    category: 'product',\n    elapsed_time: 4.0,\n    total_tokens: 720\n  },\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-002',\n    status: 'succeeded',\n    category: 'technical',\n    elapsed_time: 6.0,\n    total_tokens: 900\n  },\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-003',\n    status: 'succeeded',\n    category: 'product',\n    elapsed_time: 3.0,\n    total_tokens: 640\n  },\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-004',\n    status: 'succeeded',\n    category: 'other',\n    elapsed_time: 5.0,\n    total_tokens: 800\n  },\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-005',\n    status: 'failed',\n    category: 'sensitive',\n    elapsed_time: 2.0,\n    total_tokens: 0\n  },\n  {\n    report_date: '2026-09-01',\n    event_id: 'mail-report-006',\n    status: 'failed',\n    category: 'technical',\n    elapsed_time: 4.0,\n    total_tokens: 0\n  },\n  {\n    report_date: '2026-09-02',\n    event_id: 'mail-report-007',\n    status: 'succeeded',\n    category: 'product',\n    elapsed_time: 4.5,\n    total_tokens: 700\n  },\n  {\n    report_date: '2026-09-02',\n    event_id: 'mail-report-008',\n    status: 'succeeded',\n    category: 'technical',\n    elapsed_time: 5.5,\n    total_tokens: 850\n  },\n  {\n    report_date: '2026-09-02',\n    event_id: 'mail-report-009',\n    status: 'failed',\n    category: 'sensitive',\n    elapsed_time: 2.0,\n    total_tokens: 0\n  }\n];\n\nconst selectedRuns = allRuns.filter(\n  (run) => run.report_date === context.report_date\n);\n\nreturn [\n  {\n    json: {\n      ...context,\n      available_dates: [\n        '2026-09-01',\n        '2026-09-02'\n      ],\n      runs: selectedRuns\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        -32
+      ],
+      "id": "119e218e-c88b-41a7-a760-2036b15ea273",
+      "name": "Load Fixed Workflow Runs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst runs = Array.isArray(data.runs)\n  ? data.runs\n  : [];\n\nconst statusDistribution = {\n  succeeded: 0,\n  failed: 0\n};\n\nconst categoryDistribution = {\n  product: 0,\n  technical: 0,\n  sensitive: 0,\n  other: 0\n};\n\nlet elapsedTimeSum = 0;\nlet totalTokens = 0;\n\nfor (const run of runs) {\n  const status = String(\n    run.status ?? 'unknown'\n  ).toLowerCase();\n\n  const category = String(\n    run.category ?? 'other'\n  ).toLowerCase();\n\n  if (status in statusDistribution) {\n    statusDistribution[status] += 1;\n  }\n\n  if (!(category in categoryDistribution)) {\n    categoryDistribution[category] = 0;\n  }\n\n  categoryDistribution[category] += 1;\n\n  elapsedTimeSum += Number(\n    run.elapsed_time ?? 0\n  );\n\n  totalTokens += Number(\n    run.total_tokens ?? 0\n  );\n}\n\nconst totalRuns = runs.length;\nconst succeededRuns =\n  statusDistribution.succeeded;\nconst failedRuns =\n  statusDistribution.failed;\n\nconst successRate = totalRuns > 0\n  ? Number(\n      (\n        succeededRuns /\n        totalRuns *\n        100\n      ).toFixed(2)\n    )\n  : 0;\n\nconst averageElapsedTime = totalRuns > 0\n  ? Number(\n      (\n        elapsedTimeSum /\n        totalRuns\n      ).toFixed(2)\n    )\n  : 0;\n\nreturn [\n  {\n    json: {\n      day: 40,\n      report_date: data.report_date,\n      trigger_source: data.trigger_source,\n      data_source: data.data_source,\n      timezone: data.timezone,\n      generated_at: data.generated_at,\n      has_data: totalRuns > 0,\n      total_runs: totalRuns,\n      succeeded_runs: succeededRuns,\n      failed_runs: failedRuns,\n      success_rate: successRate,\n      average_elapsed_time:\n        averageElapsedTime,\n      total_tokens: totalTokens,\n      status_distribution:\n        statusDistribution,\n      category_distribution:\n        categoryDistribution,\n      failed_event_ids: runs\n        .filter(\n          (run) => run.status === 'failed'\n        )\n        .map(\n          (run) => run.event_id\n        ),\n      source_event_ids: runs.map(\n        (run) => run.event_id\n      ),\n      next_step: 'ai_summary_pending'\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -32
+      ],
+      "id": "87059805-5d01-47b5-941f-01a9dd030662",
+      "name": "Aggregate Daily Metrics"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ `\n你是企业 AI 工作流运营分析助手。请严格依据下列已核验数据生成中文日报，不得声称无法访问数据，不得补造任何数字。\n\n报告日期：${$json.report_date}\n总执行数：${$json.total_runs}\n成功数：${$json.succeeded_runs}\n失败数：${$json.failed_runs}\n成功率：${$json.success_rate}%\n平均耗时：${$json.average_elapsed_time} 秒\n累计 Token：${$json.total_tokens}\n\n分类分布：\n- 产品咨询：${$json.category_distribution.product}\n- 技术支持：${$json.category_distribution.technical}\n- 敏感内容：${$json.category_distribution.sensitive}\n- 其他：${$json.category_distribution.other}\n\n失败事件：${($json.failed_event_ids || []).join(', ') || '无'}\n\n请输出以下四个部分：\n1. 日报标题\n2. 核心指标概览\n3. 异常与风险分析\n4. 明日优化建议\n\n要求：\n- 使用简洁、专业的中文\n- 数字必须与输入一致\n- 不输出 JSON\n- 不解释生成过程\n\n无数据场景特别规则：\n- 当总执行数为 0 时，将成功率表述为“无执行数据，不适用”，不要写成系统运行成功率为 0%。\n- 只能说明“当日无执行记录，无法据此评估系统稳定性”。\n- 不得声称系统平稳、正常待命、无风险或无异常。\n- 建议检查触发器、上游数据源以及当天是否存在预期业务请求。\n` }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        432,
+        -32
+      ],
+      "id": "617e6c31-b1f3-4de3-bbe7-2ff70c0c56ae",
+      "name": "Generate Daily Report Summary"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "qwen3.7-plus",
+          "mode": "id"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "maxTokens": 1000,
+          "temperature": 0.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        176
+      ],
+      "id": "9466a70b-7745-463b-a633-432071f8d0cd",
+      "name": "DashScope Qwen Chat Model"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Report Replay": {
+      "main": [
+        [
+          {
+            "node": "Prepare Report Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Report Schedule": {
+      "main": [
+        [
+          {
+            "node": "Prepare Report Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Report Context": {
+      "main": [
+        [
+          {
+            "node": "Load Fixed Workflow Runs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Fixed Workflow Runs": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Daily Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Daily Metrics": {
+      "main": [
+        [
+          {
+            "node": "Generate Daily Report Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Daily Report Summary": {
+      "main": [
+        []
+      ]
+    },
+    "DashScope Qwen Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Daily Report Summary",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "nodeGroups": [],
+  "tags": []
+}

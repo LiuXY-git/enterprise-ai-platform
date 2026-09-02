@@ -42,6 +42,7 @@
 - [n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)
 - [n8n 连接 AI 工作流](n8n-ai-integration.md)
 - [n8n AI 邮件助手](n8n-ai-email-assistant.md)
+- [n8n AI 工作流日报](n8n-daily-workflow-report.md)
 
 ## 演示与验收
 

@@ -2,10 +2,7 @@ import json
 from pathlib import Path
 
 WORKFLOW_PATH = (
-    Path(__file__).parents[1]
-    / "n8n"
-    / "workflows"
-    / "w6d39-ai-email-assistant.json"
+    Path(__file__).parents[1] / "n8n" / "workflows" / "w6d39-ai-email-assistant.json"
 )
 
 

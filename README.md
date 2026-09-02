@@ -59,6 +59,7 @@
 - [x] 完成 n8n Webhook 测试与生产触发、请求字段整理和 JSON 响应闭环
 - [x] 完成 n8n 调用 FastAPI/Dify AI 工作流、响应整理和测试与生产验收
 - [x] 完成 n8n AI 邮件分类、人工复核分支和低风险回复草稿生成
+- [x] 完成 n8n 原生 LLM 日报统计、无数据防幻觉约束和日期校验
 
 ## 项目结构
 
@@ -144,6 +145,7 @@ docker compose down
 - [n8n Webhook 触发与请求响应](docs/n8n-webhook-trigger.md)
 - [n8n 连接 AI 工作流](docs/n8n-ai-integration.md)
 - [n8n AI 邮件助手](docs/n8n-ai-email-assistant.md)
+- [n8n AI 工作流日报](docs/n8n-daily-workflow-report.md)
 
 ## 技术栈
 
@@ -205,6 +207,7 @@ Week 5 产出：AI 客服助手 v1.0，已完成问题分流、知识检索、�
 - Day 37：完成 n8n Webhook 测试与生产触发、请求字段标准化、显式 JSON 响应和版本化导出验收
 - Day 38：完成 n8n 调用 FastAPI/Dify AI 工作流、请求映射、19 字段响应整理及测试与生产触发验收
 - Day 39：完成邮件事件规范化、规则分类、人工复核分支、低风险 AI 回复草稿和 21 字段统一响应验收
+- Day 40：完成每日调度与手动回放、指标聚合、原生 LLM 日报生成及正常、无数据和非法日期验收
 
 Day 36 产出：可重复部署的 n8n 基础环境，以及版本化工作流 `n8n/workflows/w6d36-foundation-check.json`。
 
@@ -213,3 +216,5 @@ Day 37 产出：可由外部 HTTP 请求触发的客户请求接入闭环，以�
 Day 38 产出：可将客户请求交给真实 AI 工作流处理并返回结构化结果的自动化闭环，以及版本化工作流 `n8n/workflows/w6d38-ai-customer-request.json`。
 
 Day 39 产出：具有明确人机协作边界的 AI 邮件助手，以及版本化工作流 `n8n/workflows/w6d39-ai-email-assistant.json` 和自动化结构测试。
+
+Day 40 产出：使用 n8n 原生 LLM Chain 与通义千问生成受约束运营日报的自动化流程，以及版本化工作流 `n8n/workflows/w6d40-daily-workflow-report.json`、安全配置文档和自动化结构测试。
