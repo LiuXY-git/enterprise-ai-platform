@@ -1,0 +1,162 @@
+{
+    "name":  "W6D37 - Customer Request Webhook",
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "httpMethod":  "POST",
+                                         "path":  "w6d37-customer-request",
+                                         "responseMode":  "responseNode",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.webhook",
+                      "typeVersion":  2.1,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "id":  "f167b677-522b-4bfb-b77a-8c56921b9401",
+                      "name":  "Receive Customer Request"
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "ecacf157-2b74-476c-8bd3-757a22e6d3d6",
+                                                                                     "name":  "accepted",
+                                                                                     "value":  true,
+                                                                                     "type":  "boolean"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "65c5bc53-47d9-4792-aa7c-b261f82d7919",
+                                                                                     "name":  "day",
+                                                                                     "value":  37,
+                                                                                     "type":  "number"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "3869e9f2-69e7-4850-ba5c-91977a83968b",
+                                                                                     "name":  "request_id",
+                                                                                     "value":  "={{ $json.body.request_id }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "a7942348-332e-4357-8c88-c82273f7901c",
+                                                                                     "name":  "customer_id",
+                                                                                     "value":  "={{ $json.body.customer_id }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c7e74e6e-ae03-42c5-8999-e14ec60d889d",
+                                                                                     "name":  "message",
+                                                                                     "value":  "={{ $json.body.message }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "8ab238de-fe52-40cb-9418-71d62c0c05be",
+                                                                                     "name":  "priority",
+                                                                                     "value":  "={{ $json.body.priority || \u0027normal\u0027 }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "9ba6b4d8-736e-4f89-9adc-8cb8e4bfd840",
+                                                                                     "name":  "channel",
+                                                                                     "value":  "={{ $json.query.channel || \u0027unknown\u0027 }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "a8d51d82-bd45-4361-a290-db94f85f015b",
+                                                                                     "name":  "source",
+                                                                                     "value":  "={{ $json.headers[\u0027x-client-name\u0027] || \u0027unknown\u0027 }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "b2ebce5e-a1ba-49e0-8178-2e26fd08784e",
+                                                                                     "name":  "next_step",
+                                                                                     "value":  "llm_processing_pending",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "b806cb50-b7d3-4912-b3f8-4cbde76e8a8d",
+                                                                                     "name":  "execution_mode",
+                                                                                     "value":  "={{ $execution.mode }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "53a26361-6444-4a8c-94d8-7741bb4b6470",
+                                                                                     "name":  "received_at",
+                                                                                     "value":  "={{ $now.toISO() }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.5,
+                      "position":  [
+                                       224,
+                                       0
+                                   ],
+                      "id":  "9d819941-f74a-467b-b840-3ccb0459ea95",
+                      "name":  "Normalize Request",
+                      "notes":  "Mode = Manual Mapping\nInclude Other Input Fields = 关闭"
+                  },
+                  {
+                      "parameters":  {
+                                         "options":  {
+                                                         "responseCode":  200
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.respondToWebhook",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       448,
+                                       0
+                                   ],
+                      "id":  "4640c747-882f-4621-9f95-56766130abc8",
+                      "name":  "Return JSON Response"
+                  }
+              ],
+    "pinData":  {
+
+                },
+    "connections":  {
+                        "Receive Customer Request":  {
+                                                         "main":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Normalize Request",
+                                                                              "type":  "main",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                                     },
+                        "Normalize Request":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Return JSON Response",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              }
+                    },
+    "active":  false,
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "binaryMode":  "separate"
+                 },
+    "nodeGroups":  [
+
+                   ],
+    "tags":  [
+
+             ]
+}

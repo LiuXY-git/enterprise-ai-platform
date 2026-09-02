@@ -56,6 +56,7 @@
 - [x] 录制并验收 AI 客服助手 v1.0 Demo
 - [x] 正式发布 Enterprise AI Platform v1.0.0
 - [x] 完成 n8n 2.36.8 本地部署、最小工作流导出和持久化验收
+- [x] 完成 n8n Webhook 测试与生产触发、请求字段整理和 JSON 响应闭环
 
 ## 项目结构
 
@@ -138,6 +139,7 @@ docker compose down
 - [FastAPI 调用 Dify 工作流](docs/dify-fastapi-integration.md)
 - [Week 5 总结：AI 客服助手 v1.0](docs/week-5-summary.md)
 - [n8n 基础与本地部署](docs/n8n-foundation.md)
+- [n8n Webhook 触发与请求响应](docs/n8n-webhook-trigger.md)
 
 ## 技术栈
 
@@ -196,5 +198,8 @@ Week 5 产出：AI 客服助手 v1.0，已完成问题分流、知识检索、�
 ### Week 6：n8n 工作流自动化
 
 - Day 36：完成 n8n 2.36.8 Docker Compose 部署、健康检查、最小工作流、JSON 导出、安全隔离和命名卷持久化验收
+- Day 37：完成 n8n Webhook 测试与生产触发、请求字段标准化、显式 JSON 响应和版本化导出验收
 
 Day 36 产出：可重复部署的 n8n 基础环境，以及版本化工作流 `n8n/workflows/w6d36-foundation-check.json`。
+
+Day 37 产出：可由外部 HTTP 请求触发的客户请求接入闭环，以及版本化工作流 `n8n/workflows/w6d37-customer-request-webhook.json`。

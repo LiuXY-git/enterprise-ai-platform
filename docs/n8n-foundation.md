@@ -703,6 +703,7 @@ Day 36 完成了 n8n 自动化平台的基础建设。
 - 容器级持久化验收记录
 
 Day 36 建立的是 n8n 基础设施和工作流开发规范。后续可以在此基础上继续学习 HTTP Request、Webhook、条件分支、错误处理以及 FastAPI 集成。
+下一步进入 [Day 37：n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)，完成外部请求触发、字段标准化和显式 JSON 响应闭环。
 
 ## 参考资料
 
