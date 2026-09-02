@@ -529,7 +529,7 @@ JSON Response
 llm_processing_pending
 ```
 
-Day 38 将在 `Normalize Request` 与 `Return JSON Response` 之间接入 LLM 节点，实现真正的 AI 请求处理。
+Day 38 已在 `Normalize Request` 与 `Return JSON Response` 之间接入 AI 调用与响应整理节点。详见 [Day 38：n8n 连接 AI 工作流](n8n-ai-integration.md)。
 
 ## 参考资料
 

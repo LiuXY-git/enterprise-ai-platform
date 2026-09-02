@@ -40,6 +40,7 @@
 - [Week 5 总结：AI 客服助手 v1.0](week-5-summary.md)
 - [n8n 基础与本地部署](n8n-foundation.md)
 - [n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)
+- [n8n 连接 AI 工作流](n8n-ai-integration.md)
 
 ## 演示与验收
 
