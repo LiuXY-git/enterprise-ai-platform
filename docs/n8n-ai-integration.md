@@ -319,9 +319,12 @@ HTTP JSON 回答
 
 工作流复用了项目已有的 FastAPI 与 Dify 集成能力，同时保持模型密钥只存在于服务端配置中。Day 38 由此建立了可继续扩展条件分支、校验和错误处理的 AI 自动化基础。
 
+下一步进入 [Day 39：n8n AI 邮件助手](n8n-ai-email-assistant.md)，在 AI 调用之前增加邮件分类与人工复核分支。
+
 ## 相关文档
 
 - [Day 37：n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)
+- [Day 39：n8n AI 邮件助手](n8n-ai-email-assistant.md)
 - [FastAPI 调用 Dify 工作流](dify-fastapi-integration.md)
 - [API 文档](api.md)
 - [n8n 基础与本地部署](n8n-foundation.md)

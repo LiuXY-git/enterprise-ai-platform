@@ -41,6 +41,7 @@
 - [n8n 基础与本地部署](n8n-foundation.md)
 - [n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)
 - [n8n 连接 AI 工作流](n8n-ai-integration.md)
+- [n8n AI 邮件助手](n8n-ai-email-assistant.md)
 
 ## 演示与验收
 
