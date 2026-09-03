@@ -60,6 +60,7 @@
 - [x] 完成 n8n 调用 FastAPI/Dify AI 工作流、响应整理和测试与生产验收
 - [x] 完成 n8n AI 邮件分类、人工复核分支和低风险回复草稿生成
 - [x] 完成 n8n 原生 LLM 日报统计、无数据防幻觉约束和日期校验
+- [x] 完成 n8n 工作流运行持久化、幂等拦截、失败记录和回放
 
 ## 项目结构
 
@@ -146,6 +147,7 @@ docker compose down
 - [n8n 连接 AI 工作流](docs/n8n-ai-integration.md)
 - [n8n AI 邮件助手](docs/n8n-ai-email-assistant.md)
 - [n8n AI 工作流日报](docs/n8n-daily-workflow-report.md)
+- [n8n 工作流数据库持久化](docs/n8n-workflow-persistence.md)
 
 ## 技术栈
 
@@ -172,6 +174,11 @@ docker compose down
 | POST | `/rag/query` | 检索与问题相关的文档 Chunk |
 | POST | `/rag/answer` | 根据知识库生成带来源的回答 |
 | POST | `/retrieval` | 为 Dify 提供外部知识库检索 |
+| POST | `/workflow-runs/start` | 登记工作流运行、拦截重复事件或开始失败回放 |
+| PATCH | `/workflow-runs/{run_id}/result` | 保存工作流成功或人工审核结果 |
+| PATCH | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败记录 |
+| GET | `/workflow-runs` | 按报告日期查询工作流运行 |
+| GET | `/workflow-runs/{run_id}` | 查询单条工作流运行 |
 
 ## 开发状态
 
@@ -208,6 +215,7 @@ Week 5 产出：AI 客服助手 v1.0，已完成问题分流、知识检索、�
 - Day 38：完成 n8n 调用 FastAPI/Dify AI 工作流、请求映射、19 字段响应整理及测试与生产触发验收
 - Day 39：完成邮件事件规范化、规则分类、人工复核分支、低风险 AI 回复草稿和 21 字段统一响应验收
 - Day 40：完成每日调度与手动回放、指标聚合、原生 LLM 日报生成及正常、无数据和非法日期验收
+- Day 41：完成工作流输入输出落库、重复事件拦截、Error Trigger 失败记录和失败回放验收
 
 Day 36 产出：可重复部署的 n8n 基础环境，以及版本化工作流 `n8n/workflows/w6d36-foundation-check.json`。
 
@@ -218,3 +226,5 @@ Day 38 产出：可将客户请求交给真实 AI 工作流处理并返回结构
 Day 39 产出：具有明确人机协作边界的 AI 邮件助手，以及版本化工作流 `n8n/workflows/w6d39-ai-email-assistant.json` 和自动化结构测试。
 
 Day 40 产出：使用 n8n 原生 LLM Chain 与通义千问生成受约束运营日报的自动化流程，以及版本化工作流 `n8n/workflows/w6d40-daily-workflow-report.json`、安全配置文档和自动化结构测试。
+
+Day 41 产出：SQLite 工作流运行账本、FastAPI 运行管理接口、可持久化邮件助手和错误处理工作流，以及成功、人工审核、重复、失败和回放场景验收。

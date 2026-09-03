@@ -29,6 +29,67 @@ def init_database() -> None:
             )
             """
         )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS workflow_runs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id TEXT NOT NULL UNIQUE,
+                event_id TEXT NOT NULL,
+                workflow_name TEXT NOT NULL,
+                source TEXT NOT NULL,
+                requester TEXT NOT NULL,
+                report_date TEXT NOT NULL,
+                status TEXT NOT NULL CHECK (
+                    status IN (
+                        'running',
+                        'succeeded',
+                        'failed',
+                        'needs_human_review'
+                    )
+                ),
+                category TEXT,
+                priority TEXT,
+                input_json TEXT NOT NULL,
+                output_json TEXT,
+                error_type TEXT,
+                error_message TEXT,
+                n8n_execution_id TEXT,
+                retry_count INTEGER NOT NULL DEFAULT 0
+                    CHECK (retry_count >= 0),
+                duplicate_count INTEGER NOT NULL DEFAULT 0
+                    CHECK (duplicate_count >= 0),
+                elapsed_time REAL,
+                total_tokens INTEGER,
+                started_at TEXT NOT NULL,
+                finished_at TEXT,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE (workflow_name, event_id)
+            )
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_workflow_runs_report_date
+            ON workflow_runs (report_date)
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_workflow_runs_status
+            ON workflow_runs (status)
+            """
+        )
+        connection.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                idx_workflow_runs_n8n_execution_id
+            ON workflow_runs (n8n_execution_id)
+            WHERE n8n_execution_id IS NOT NULL
+            """
+        )
         connection.commit()
     finally:
         connection.close()

@@ -1,0 +1,787 @@
+{
+  "name": "W6D41 - Persistent AI Email Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "w6d41-persistent-ai-email-assistant",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -288,
+        0
+      ],
+      "id": "b0a17e09-72c6-4320-a1bf-aa83cf3365ab",
+      "name": "Receive Customer Request"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1920,
+        112
+      ],
+      "id": "126a8662-9a15-4350-9022-1db5ef53725b",
+      "name": "Return JSON Response"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/dify/workflow",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "question",
+              "value": "={{ $json.message }}"
+            },
+            {
+              "name": "user",
+              "value": "={{ $json.requester.replace(/[^A-Za-z0-9._:-]/g, '_') }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1232,
+        32
+      ],
+      "id": "7a3ec5ca-e62e-47d7-8295-d679f1fddd0a",
+      "name": "Call AI Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ecacf157-2b74-476c-8bd3-757a22e6d3d6",
+              "name": "accepted",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "65c5bc53-47d9-4792-aa7c-b261f82d7919",
+              "name": "day",
+              "value": 41,
+              "type": "number"
+            },
+            {
+              "id": "c7e74e6e-ae03-42c5-8999-e14ec60d889d",
+              "name": "message",
+              "value": "={{ $json.body.subject + '\\n\\n' + $json.body.body }}",
+              "type": "string"
+            },
+            {
+              "id": "8ab238de-fe52-40cb-9418-71d62c0c05be",
+              "name": "priority",
+              "value": "={{ $json.body.priority || 'normal' }}",
+              "type": "string"
+            },
+            {
+              "id": "9ba6b4d8-736e-4f89-9adc-8cb8e4bfd840",
+              "name": "channel",
+              "value": "={{ $json.query.channel || 'email' }}",
+              "type": "string"
+            },
+            {
+              "id": "a8d51d82-bd45-4361-a290-db94f85f015b",
+              "name": "source",
+              "value": "={{ $json.body.source || $json.headers['x-client-name'] || 'mock-email' }}",
+              "type": "string"
+            },
+            {
+              "id": "b2ebce5e-a1ba-49e0-8178-2e26fd08784e",
+              "name": "next_step",
+              "value": "email_classification_pending",
+              "type": "string"
+            },
+            {
+              "id": "b806cb50-b7d3-4912-b3f8-4cbde76e8a8d",
+              "name": "execution_mode",
+              "value": "={{ $execution.mode }}",
+              "type": "string"
+            },
+            {
+              "id": "53a26361-6444-4a8c-94d8-7741bb4b6470",
+              "name": "received_at",
+              "value": "={{ $json.body.received_at || $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "d3be3c49-9c20-44ba-971f-50fce0ad6205",
+              "name": "event_id",
+              "value": "={{ $json.body.event_id }}",
+              "type": "string"
+            },
+            {
+              "id": "1ec982da-bde6-4061-a097-df69f74c3c4c",
+              "name": "requester",
+              "value": "={{ $json.body.requester }}",
+              "type": "string"
+            },
+            {
+              "id": "f0a58a8a-78da-4092-ae8e-1c67830a2352",
+              "name": "subject",
+              "value": "={{ $json.body.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "3b8f1c6c-701c-4b66-84d7-7709ce2d2a13",
+              "name": "body",
+              "value": "={{ $json.body.body }}",
+              "type": "string"
+            },
+            {
+              "id": "2732f6ff-cf52-4b1e-abb3-cad63102f1a1",
+              "name": "normalized_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "bf460fce-0c41-429d-835a-523623a6ed6a",
+              "name": "replay",
+              "value": "={{ $json.body.replay === true }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -48,
+        16
+      ],
+      "id": "9eff5df2-1e35-40e2-a4dd-a31eb74c12ca",
+      "name": "Normalize Email Request",
+      "notes": "Mode = Manual Mapping\nInclude Other Input Fields = 关闭"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  const data = item.json;\n\n  const eventId = String(data.event_id ?? '').trim();\n  const requester = String(data.requester ?? '').trim();\n  const subject = String(data.subject ?? '').trim();\n  const body = String(data.body ?? '').trim();\n\n  const text = `${subject}\\n${body}`.trim();\n  const compactText = text.replace(/\\s+/g, ' ');\n  const lowerText = compactText.toLowerCase();\n\n  const rawPriority = String(\n    data.priority ?? 'normal'\n  ).toLowerCase();\n\n  const priority = ['high', 'urgent', 'critical'].includes(\n    rawPriority\n  )\n    ? 'high'\n    : rawPriority === 'low'\n      ? 'low'\n      : 'normal';\n\n  const sensitiveKeywords = [\n    '密码',\n    '密钥',\n    'token',\n    '账号',\n    '退款',\n    '赔偿',\n    '投诉',\n    '法律',\n    '起诉',\n    '隐私',\n    '泄露',\n    '银行卡',\n    '身份证',\n    '删除数据'\n  ];\n\n  const technicalKeywords = [\n    'api',\n    '接口',\n    'http',\n    '502',\n    '500',\n    '错误',\n    '故障',\n    'docker',\n    '容器',\n    '部署',\n    '配置',\n    '性能',\n    '超时',\n    '重启'\n  ];\n\n  const productKeywords = [\n    '文档格式',\n    '上传',\n    '功能',\n    '价格',\n    '支持',\n    '服务',\n    '知识库',\n    '产品'\n  ];\n\n  const vaguePhrases = [\n    '帮我处理',\n    '帮忙看看',\n    '有问题',\n    '不知道怎么办',\n    '尽快处理',\n    '麻烦处理'\n  ];\n\n  const sensitiveKeyword = sensitiveKeywords.find(\n    (keyword) => lowerText.includes(keyword.toLowerCase())\n  );\n\n  const technicalKeyword = technicalKeywords.find(\n    (keyword) => lowerText.includes(keyword.toLowerCase())\n  );\n\n  const productKeyword = productKeywords.find(\n    (keyword) => lowerText.includes(keyword.toLowerCase())\n  );\n\n  const vaguePhrase = vaguePhrases.find(\n    (phrase) => lowerText.includes(phrase)\n  );\n\n  const missingRequired = (\n    !eventId ||\n    !requester ||\n    !subject ||\n    !body\n  );\n\n  const ambiguousRequest = (\n    body.length < 8 ||\n    compactText.length < 12 ||\n    Boolean(vaguePhrase)\n  );\n\n  let category = 'other';\n\n  if (sensitiveKeyword) {\n    category = 'sensitive';\n  }\n  else if (technicalKeyword) {\n    category = 'technical';\n  }\n  else if (productKeyword) {\n    category = 'product';\n  }\n\n  const reviewReasons = [];\n\n  if (missingRequired) {\n    reviewReasons.push('missing_required_fields');\n  }\n\n  if (priority === 'high') {\n    reviewReasons.push('high_priority');\n  }\n\n  if (sensitiveKeyword) {\n    reviewReasons.push(\n      `sensitive_content:${sensitiveKeyword}`\n    );\n  }\n\n  if (ambiguousRequest) {\n    reviewReasons.push('ambiguous_request');\n  }\n\n  const needHumanReview = reviewReasons.length > 0;\n\n  const summary = compactText.length > 120\n    ? `${compactText.slice(0, 117)}...`\n    : compactText;\n\n  return {\n    json: {\n      ...data,\n      accepted: !missingRequired,\n      priority,\n      category,\n      summary,\n      need_human_review: needHumanReview,\n      review_reason: reviewReasons.join(','),\n      next_step: needHumanReview\n        ? 'human_review'\n        : 'ai_draft_generation'\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ],
+      "id": "c9de72c6-60bd-4e14-8f19-043d4f0b5c88",
+      "name": "Classify Email Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a41d2be8-31ec-45ca-a45c-d3947751626f",
+              "leftValue": "={{ $json.need_human_review }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1008,
+        48
+      ],
+      "id": "f3da369e-869a-46e0-aeb4-585f49c26b80",
+      "name": "Needs Human Review?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f6190de-26c9-4c40-adeb-9721d2df12d0",
+              "name": "accepted",
+              "value": "={{ $json.accepted }}",
+              "type": "boolean"
+            },
+            {
+              "id": "c337aded-4a86-42bf-82c0-d6b074915205",
+              "name": "day",
+              "value": 41,
+              "type": "number"
+            },
+            {
+              "id": "04525e31-6376-4102-a675-cc3b0f188fcc",
+              "name": "event_id",
+              "value": "={{ $json.event_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c537d577-18f5-45bf-aecd-77f638412068",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "7dfd2cc1-a3c7-4e41-8bae-d0e886c16852",
+              "name": "requester",
+              "value": "={{ $json.requester }}",
+              "type": "string"
+            },
+            {
+              "id": "93cd6934-6133-4e14-8dd9-45559f4027eb",
+              "name": "category",
+              "value": "={{ $json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "cd0953a0-ae34-45d1-8aeb-bec311d254d9",
+              "name": "priority",
+              "value": "={{ $json.priority }}",
+              "type": "string"
+            },
+            {
+              "id": "3f08da23-9e46-48e5-a2fc-923191b14d67",
+              "name": "summary",
+              "value": "={{ $json.summary }}",
+              "type": "string"
+            },
+            {
+              "id": "c33c2f4f-81c9-438c-a6cd-a9262fef9969",
+              "name": "draft_reply",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9ab4d7ea-8d53-4d9d-82a8-cbfe8feb9356",
+              "name": "need_human_review",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "9fff30cd-9ff7-459b-a5e3-e3fde7c9f075",
+              "name": "review_reason",
+              "value": "={{ $json.review_reason }}",
+              "type": "string"
+            },
+            {
+              "id": "44b13782-121e-4f6e-a902-a5f182ac47f7",
+              "name": "status",
+              "value": "={{ $json.accepted ? 'needs_human_review' : 'invalid_request' }}",
+              "type": "string"
+            },
+            {
+              "id": "635bf8a0-d05e-4c89-af34-e5dbf97f30da",
+              "name": "task_id",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "fd0bf772-5660-47b7-929d-46c776bb6657",
+              "name": "workflow_run_id",
+              "value": "={{ $(\"Restore Workflow Context\").first().json.workflow_run_id }}",
+              "type": "string"
+            },
+            {
+              "id": "fb277822-acec-484d-b8c8-cffa54ff7589",
+              "name": "elapsed_time",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "7b6d6f93-7c12-4315-99b9-45e270eb54b7",
+              "name": "total_tokens",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "1c82661a-2d74-4f39-bbc1-d11ac6c60dd9",
+              "name": "total_steps",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "3cf9ee65-c384-4f76-8320-c57be4db6c46",
+              "name": "next_step",
+              "value": "={{ $json.accepted ? 'human_review' : 'request_correction' }}",
+              "type": "string"
+            },
+            {
+              "id": "9705efeb-e74f-4fc9-821c-7d2be801b29a",
+              "name": "execution_mode",
+              "value": "={{ $json.execution_mode }}",
+              "type": "string"
+            },
+            {
+              "id": "90b1ac5d-2737-4cf7-b47a-7eb15b0da1d0",
+              "name": "received_at",
+              "value": "={{ $json.received_at }}",
+              "type": "string"
+            },
+            {
+              "id": "2ca68211-e130-4145-b123-4e6d8713d138",
+              "name": "processed_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1392,
+        -176
+      ],
+      "id": "c81665e5-2bc8-4175-98b9-72b09b0e054c",
+      "name": "Build Human Review Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dd8c627-0c3f-4ebb-a604-9295e3176fe5",
+              "name": "accepted",
+              "value": "={{ $('Classify Email Request').item.json.accepted }}",
+              "type": "boolean"
+            },
+            {
+              "id": "a2adee39-a0e6-479d-b2aa-8817451feb3c",
+              "name": "day",
+              "value": 41,
+              "type": "number"
+            },
+            {
+              "id": "2e7589ec-2938-4417-a8c9-e43bd01672b7",
+              "name": "priority",
+              "value": "={{ $('Classify Email Request').item.json.priority }}",
+              "type": "string"
+            },
+            {
+              "id": "5f37c205-7c8b-4df2-8d0d-f135de025732",
+              "name": "source",
+              "value": "={{ $('Classify Email Request').item.json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "984ac519-c5e6-46d7-a046-5af2407267f1",
+              "name": "event_id",
+              "value": "={{ $('Classify Email Request').item.json.event_id }}",
+              "type": "string"
+            },
+            {
+              "id": "5061108a-f5f0-4ac1-99de-f302a2acd574",
+              "name": "requester",
+              "value": "={{ $('Classify Email Request').item.json.requester }}",
+              "type": "string"
+            },
+            {
+              "id": "a1d654d3-e4f0-444f-86c0-7457b8aab805",
+              "name": "category",
+              "value": "={{ $('Classify Email Request').item.json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "a4aa9b7e-c076-4b2b-bccb-85de7ef72662",
+              "name": "summary",
+              "value": "={{ $('Classify Email Request').item.json.summary }}",
+              "type": "string"
+            },
+            {
+              "id": "407a199b-17a3-4615-8477-508c07fcdd6b",
+              "name": "draft_reply",
+              "value": "={{ $json.answer }}",
+              "type": "string"
+            },
+            {
+              "id": "4bf258fc-ecd8-49ca-a1ba-fa3db1e81dd1",
+              "name": "need_human_review",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "5da8aa49-11af-4f72-8368-bd20e0d4c219",
+              "name": "review_reason",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "0aecf196-36e6-4010-8c57-d3b8ab615d5d",
+              "name": "status",
+              "value": "={{ $json.status }}",
+              "type": "string"
+            },
+            {
+              "id": "7b9df62a-ddfa-466e-932e-cebe22e849e6",
+              "name": "task_id",
+              "value": "={{ $json.task_id }}",
+              "type": "string"
+            },
+            {
+              "id": "122f1b27-c955-455a-a153-e4076695f780",
+              "name": "workflow_run_id",
+              "value": "={{ $(\"Restore Workflow Context\").first().json.workflow_run_id }}",
+              "type": "string"
+            },
+            {
+              "id": "dbff5d4b-cf6e-4625-9c8f-b12930e90879",
+              "name": "elapsed_time",
+              "value": "={{ $json.elapsed_time }}",
+              "type": "number"
+            },
+            {
+              "id": "b4bdafd2-9133-4778-8b60-523b66775dd1",
+              "name": "total_tokens",
+              "value": "={{ $json.total_tokens }}",
+              "type": "number"
+            },
+            {
+              "id": "6fe87c01-737d-456e-aa40-a84921d187c2",
+              "name": "total_steps",
+              "value": "={{ $json.total_steps }}",
+              "type": "number"
+            },
+            {
+              "id": "203c73de-c3b4-413d-afe7-b95307502590",
+              "name": "next_step",
+              "value": "completed",
+              "type": "string"
+            },
+            {
+              "id": "18c3cb20-cfac-414d-ab0a-2e59dada8c11",
+              "name": "execution_mode",
+              "value": "={{ $('Classify Email Request').item.json.execution_mode }}",
+              "type": "string"
+            },
+            {
+              "id": "90033826-9451-4640-992e-7dd8cc51e990",
+              "name": "received_at",
+              "value": "={{ $('Classify Email Request').item.json.received_at }}",
+              "type": "string"
+            },
+            {
+              "id": "28fbdc64-d27e-4807-bae3-f0f37069e474",
+              "name": "processed_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1440,
+        16
+      ],
+      "id": "8cc26c98-0c41-4e67-aa37-728d6ef47b7c",
+      "name": "Build Email Draft Response"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/workflow-runs/start",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"event_id\": $json.event_id,\n    \"workflow_name\": \"w6d41_ai_email_assistant\",\n    \"source\": String(\n      $json.source || \"mock-email\"\n    ).replace(\n      /[^A-Za-z0-9._:-]/g,\n      \"_\"\n    ),\n    \"requester\": String(\n      $json.requester || \"anonymous\"\n    ).replace(\n      /[^A-Za-z0-9._:-]/g,\n      \"_\"\n    ),\n    \"report_date\": $now.toISODate(),\n    \"input_data\": $json,\n    \"n8n_execution_id\": String($execution.id),\n\"replay\": $json.replay === true\n  }\n}}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        176,
+        16
+      ],
+      "id": "991c6ab5-26c0-4fc7-a409-3483cbd22ae0",
+      "name": "Start Workflow Run"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "df280908-1bdb-4c4e-b070-fbc9332455dc",
+              "leftValue": "={{ $json.should_process }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        352,
+        16
+      ],
+      "id": "2865c5bf-9b32-440e-838d-b114617f3088",
+      "name": "Should Process?"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  const startResult = item.json;\n\n  return {\n    json: {\n      ...startResult.input_data,\n      workflow_run_id: startResult.run_id,\n      workflow_run_status: startResult.status,\n      should_process: startResult.should_process,\n      duplicate: startResult.duplicate,\n      replayed: startResult.replayed,\n      retry_count: startResult.retry_count,\n      duplicate_count: startResult.duplicate_count\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "aaf48f7e-a84c-4744-bfbb-635099c2434b",
+      "name": "Restore Workflow Context"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  const result = item.json;\n  const input = result.input_data ?? {};\n\n  return {\n    json: {\n      accepted: true,\n      day: 41,\n      event_id: input.event_id ?? \"\",\n      source: input.source ?? \"\",\n      requester: input.requester ?? \"\",\n      category: \"duplicate\",\n      priority: input.priority ?? \"normal\",\n      summary: \"Duplicate event ignored\",\n      draft_reply: \"\",\n      need_human_review: false,\n      review_reason: \"\",\n      status: \"duplicate\",\n      workflow_run_id: result.run_id,\n      should_process: false,\n      duplicate: true,\n      retry_count: result.retry_count,\n      duplicate_count: result.duplicate_count,\n      elapsed_time: 0,\n      total_tokens: 0,\n      total_steps: 0,\n      next_step: \"skipped_duplicate\",\n      execution_mode: input.execution_mode ?? \"\",\n      received_at: input.received_at ?? null,\n      processed_at: new Date().toISOString()\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        384
+      ],
+      "id": "2996000e-8664-4d4f-9be9-292b440d6df5",
+      "name": "Build Duplicate Response"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ \"http://api:8000/workflow-runs/\" + $json.workflow_run_id + \"/result\" }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"status\": $json.need_human_review\n      ? \"needs_human_review\"\n      : \"succeeded\",\n    \"output_data\": $json,\n    \"category\": $json.category || null,\n    \"priority\": $json.priority || null,\n    \"elapsed_time\": Number(\n      $json.elapsed_time || 0\n    ),\n    \"total_tokens\": Number(\n      $json.total_tokens || 0\n    )\n  }\n}}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1584,
+        -96
+      ],
+      "id": "f930240a-5b95-48bc-87af-4c3e380dafd1",
+      "name": "Finish Workflow Run"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item) => {\n  const record = item.json;\n  const response = record.output_data ?? {};\n\n  return {\n    json: {\n      ...response,\n      workflow_run_id: record.run_id,\n      persisted_status: record.status\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -80
+      ],
+      "id": "9d4f0075-667b-4725-8855-1cae10bfcf7a",
+      "name": "Restore Final Response"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Receive Customer Request": {
+      "main": [
+        [
+          {
+            "node": "Normalize Email Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call AI Workflow": {
+      "main": [
+        [
+          {
+            "node": "Build Email Draft Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Email Request": {
+      "main": [
+        [
+          {
+            "node": "Start Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Email Request": {
+      "main": [
+        [
+          {
+            "node": "Needs Human Review?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Human Review?": {
+      "main": [
+        [
+          {
+            "node": "Build Human Review Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call AI Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Email Draft Response": {
+      "main": [
+        [
+          {
+            "node": "Finish Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Human Review Response": {
+      "main": [
+        [
+          {
+            "node": "Finish Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Workflow Run": {
+      "main": [
+        [
+          {
+            "node": "Should Process?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should Process?": {
+      "main": [
+        [
+          {
+            "node": "Restore Workflow Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Duplicate Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Workflow Context": {
+      "main": [
+        [
+          {
+            "node": "Classify Email Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Duplicate Response": {
+      "main": [
+        [
+          {
+            "node": "Return JSON Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finish Workflow Run": {
+      "main": [
+        [
+          {
+            "node": "Restore Final Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Final Response": {
+      "main": [
+        [
+          {
+            "node": "Return JSON Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "nodeGroups": [],
+  "tags": []
+}

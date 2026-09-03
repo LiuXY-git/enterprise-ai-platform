@@ -12,6 +12,7 @@ from .routers.external_knowledge import router as external_knowledge_router
 from .routers.health import router as health_router
 from .routers.rag import router as rag_router
 from .routers.upload import router as upload_router
+from .routers.workflow import router as workflow_router
 
 logger = logging.getLogger(LOGGER_NAME)
 
@@ -35,6 +36,7 @@ Enterprise AI Platform 是一个面向企业知识库场景的 AI 平台。
 - `/rag/query`：检索相关文档片段
 - `/rag/answer`：生成带来源引用的回答
 - `/retrieval`：为 Dify 提供外部知识库检索
+- `/workflow-runs`：保存、查询和回放自动化工作流执行记录
 """
 
 OPENAPI_TAGS = [
@@ -61,6 +63,10 @@ OPENAPI_TAGS = [
     {
         "name": "rag",
         "description": "知识库检索和带来源回答接口。",
+    },
+    {
+        "name": "workflows",
+        "description": "自动化工作流运行记录、错误处理和回放接口。",
     },
 ]
 
@@ -103,3 +109,4 @@ app.include_router(dify_router)
 app.include_router(upload_router)
 app.include_router(external_knowledge_router)
 app.include_router(rag_router)
+app.include_router(workflow_router)

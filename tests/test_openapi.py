@@ -18,6 +18,7 @@ def test_openapi_metadata() -> None:
         "documents",
         "rag",
         "knowledge",
+        "workflows",
     }
     assert tags["rag"] == "知识库检索和带来源回答接口。"
     assert tags["knowledge"] == "Dify 外部知识库检索与集成接口。"
