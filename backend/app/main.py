@@ -93,7 +93,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(
     title="Enterprise AI Platform",
-    summary="企业知识库与 RAG API",
+    summary="企业知识库、RAG 与工作流自动化 API",
     description=API_DESCRIPTION,
     version="1.0.0",
     docs_url="/docs",

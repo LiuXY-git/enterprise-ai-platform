@@ -1,6 +1,6 @@
 # API 文档
 
-Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索和带来源回答等接口。
+Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索、带来源回答和工作流运行管理接口。
 
 ## 访问地址
 
@@ -18,7 +18,7 @@ http://127.0.0.1:8000
 
 ## 身份验证
 
-`/health`、`/chat`、`/dify/workflow`、`/upload`、`/rag/query` 和 `/rag/answer` 当前未启用调用方身份验证。
+`/health`、`/chat`、`/dify/workflow`、`/upload`、`/rag/query`、`/rag/answer` 和 `/workflow-runs` 当前未启用调用方身份验证。
 
 `/retrieval` 是供 Dify 调用的外部知识库接口，需要通过请求头传递专用 Bearer Token：
 
@@ -37,6 +37,11 @@ DeepSeek、通义千问、Dify 应用以及 Dify 外部知识库的 API Key 均�
 | POST | `/rag/query` | 检索相关文档片段 |
 | POST | `/rag/answer` | 生成带来源引用的回答 |
 | POST | `/retrieval` | 为 Dify 检索外部知识库内容 |
+| POST | `/workflow-runs/start` | 登记工作流运行、拦截重复事件或开始回放 |
+| PATCH | `/workflow-runs/{run_id}/result` | 保存成功或人工审核结果 |
+| PATCH | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败 |
+| GET | `/workflow-runs` | 按报告日期查询运行记录 |
+| GET | `/workflow-runs/{run_id}` | 查询单条运行记录 |
 
 ## GET `/health`
 
@@ -395,6 +400,104 @@ multipart/form-data
 - `503 Service Unavailable`：外部知识库配置不完整
 - `500 Internal Server Error`：Embedding 或 Chroma 检索失败
 
+## Workflow Runs 工作流运行接口
+
+Workflow Center v0.1.0 使用这些接口保存 n8n 工作流的输入、输出、状态、
+请求者、耗时、Token、重复次数和失败回放次数。
+
+### POST `/workflow-runs/start`
+
+每次 n8n 执行开始时登记运行。`workflow_name` 和 `event_id` 组成业务唯一键。
+
+```json
+{
+  "event_id": "mail-20260903-001",
+  "workflow_name": "w6d41_ai_email_assistant",
+  "source": "email",
+  "requester": "customer-001",
+  "report_date": "2026-09-03",
+  "input_data": {
+    "subject": "文档格式咨询",
+    "body": "系统支持哪些文档格式？"
+  },
+  "n8n_execution_id": "42",
+  "replay": false
+}
+```
+
+首次运行返回 `should_process: true`。相同事件再次请求时返回
+`duplicate: true` 和 `should_process: false`，不会再次执行 AI。失败记录只有在
+`replay: true` 时才会重新运行，并复用首次保存的 `input_data`。
+
+```json
+{
+  "run_id": "35ea68ad-99d9-4a53-b59e-cc51da785f31",
+  "status": "running",
+  "should_process": true,
+  "duplicate": false,
+  "replayed": false,
+  "retry_count": 0,
+  "duplicate_count": 0,
+  "input_data": {
+    "subject": "文档格式咨询",
+    "body": "系统支持哪些文档格式？"
+  }
+}
+```
+
+### PATCH `/workflow-runs/{run_id}/result`
+
+保存成功或人工审核结果。`status` 只能是 `succeeded` 或
+`needs_human_review`。
+
+```json
+{
+  "status": "succeeded",
+  "output_data": {
+    "answer": "系统支持 PDF、DOCX 和 Markdown。"
+  },
+  "category": "product",
+  "priority": "normal",
+  "elapsed_time": 2.4,
+  "total_tokens": 180
+}
+```
+
+### PATCH `/workflow-runs/executions/{execution_id}/failure`
+
+供 n8n Error Trigger 根据执行 ID 保存自动失败。
+
+```json
+{
+  "error_type": "n8n_execution_error",
+  "error_message": "The resource could not be found"
+}
+```
+
+重复提交同一个已失败执行是幂等操作。只有 `running` 状态可以转为
+`failed`。
+
+### GET `/workflow-runs`
+
+`report_date` 是必填查询参数：
+
+```text
+GET /workflow-runs?report_date=2026-09-03
+```
+
+响应包含 `report_date`、`count` 和 `runs`。日报工作流可以直接消费该列表。
+
+### GET `/workflow-runs/{run_id}`
+
+返回单条完整运行记录，包括原始输入、最终输出、状态、n8n 执行 ID、错误信息
+和时间指标。
+
+工作流接口可能返回：
+
+- `404 Not Found`：运行 ID 或 n8n 执行 ID 不存在
+- `409 Conflict`：状态转换不合法、非失败记录请求回放或超过 3 次回放
+- `422 Unprocessable Entity`：日期、标识符或请求字段格式错误
+
 
 ## 推荐调用流程
 
@@ -418,7 +521,7 @@ POST /rag/answer
 
 ## 当前限制
 
-- 除 Dify 外部知识库 `/retrieval` 外，其他业务接口暂未增加用户登录和 API Key 鉴权
+- 除 Dify 外部知识库 `/retrieval` 外，其他业务接口暂未增加用户登录和 API Key 鉴权；`/workflow-runs` 只适用于当前本地可信网络
 - `/dify/workflow` 使用固定服务端 Dify 应用 Key，尚未增加调用方级别的认证和限流
 - 文档上传后同步执行解析和索引，大文件可能需要较长时间
 - 上传接口会将提取后的完整文本返回给调用方

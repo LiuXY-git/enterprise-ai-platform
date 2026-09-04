@@ -53,6 +53,7 @@ def _raise_http_error(
 def start_run(
     request: WorkflowRunStartRequest,
 ) -> WorkflowRunStartResponse:
+    """创建运行记录，并返回新执行、重复事件或失败回放决策。"""
     try:
         result = start_workflow_run(
             event_id=request.event_id,
@@ -79,6 +80,7 @@ def finish_run(
     run_id: str,
     request: WorkflowRunFinishRequest,
 ) -> WorkflowRunResponse:
+    """完成运行中的工作流并保存业务输出、分类和资源用量。"""
     try:
         result = finish_workflow_run(
             run_id=run_id,
@@ -107,6 +109,7 @@ def fail_run(
     n8n_execution_id: str,
     request: WorkflowRunFailureRequest,
 ) -> WorkflowRunResponse:
+    """供 n8n Error Trigger 按执行 ID 保存自动运行失败。"""
     try:
         result = fail_workflow_run_by_execution(
             n8n_execution_id=n8n_execution_id,
@@ -130,6 +133,7 @@ def fail_run(
 def list_runs(
     report_date: date,
 ) -> WorkflowRunListResponse:
+    """返回指定报告日期的全部工作流运行记录。"""
     records = list_workflow_runs(
         report_date=report_date.isoformat(),
     )
@@ -149,6 +153,7 @@ def list_runs(
 def get_run(
     run_id: str,
 ) -> WorkflowRunResponse:
+    """按平台生成的运行 ID 返回单条完整记录。"""
     try:
         result = get_workflow_run(run_id)
     except WorkflowRunNotFoundError as exc:

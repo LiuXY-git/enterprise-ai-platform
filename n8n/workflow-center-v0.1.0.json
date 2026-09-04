@@ -1,0 +1,100 @@
+{
+  "product": "Workflow Center",
+  "version": "0.1.0",
+  "release_date": "2026-09-04",
+  "platform": {
+    "api_version": "1.0.0",
+    "n8n_version": "2.36.8"
+  },
+  "workflows": [
+    {
+      "file": "workflows/w6d36-foundation-check.json",
+      "name": "W6D36 - n8n Foundation Check",
+      "tier": "reference",
+      "trigger": "manual",
+      "publish_by_default": false
+    },
+    {
+      "file": "workflows/w6d37-customer-request-webhook.json",
+      "name": "W6D37 - Customer Request Webhook",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false
+    },
+    {
+      "file": "workflows/w6d38-ai-customer-request.json",
+      "name": "W6D38 - AI Customer Request Processing",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false
+    },
+    {
+      "file": "workflows/w6d39-ai-email-assistant.json",
+      "name": "W6D39 - AI Email Assistant",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false
+    },
+    {
+      "file": "workflows/w6d40-daily-workflow-report.json",
+      "name": "W6D40 - Daily Workflow Report",
+      "tier": "optional",
+      "trigger": "schedule_and_webhook",
+      "publish_by_default": false
+    },
+    {
+      "file": "workflows/w6d41-workflow-error-handler.json",
+      "name": "W6D41 - Workflow Error Handler",
+      "tier": "release",
+      "trigger": "error",
+      "publish_by_default": true
+    },
+    {
+      "file": "workflows/w6d41-persistent-ai-email-assistant.json",
+      "name": "W6D41 - Persistent AI Email Assistant",
+      "tier": "release",
+      "trigger": "webhook",
+      "publish_by_default": true
+    }
+  ],
+  "deployment": {
+    "import_order": [
+      "workflows/w6d36-foundation-check.json",
+      "workflows/w6d37-customer-request-webhook.json",
+      "workflows/w6d38-ai-customer-request.json",
+      "workflows/w6d39-ai-email-assistant.json",
+      "workflows/w6d40-daily-workflow-report.json",
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json"
+    ],
+    "publish_order": [
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json"
+    ],
+    "manual_bindings": [
+      {
+        "workflow": "workflows/w6d41-persistent-ai-email-assistant.json",
+        "setting": "Error Workflow",
+        "target": "workflows/w6d41-workflow-error-handler.json"
+      },
+      {
+        "workflow": "workflows/w6d40-daily-workflow-report.json",
+        "setting": "Qwen Chat Model credential",
+        "target": "OpenAI-compatible Qwen credential"
+      }
+    ]
+  },
+  "required_environment_variables": [
+    "N8N_ENCRYPTION_KEY",
+    "DIFY_WORKFLOW_API_KEY"
+  ],
+  "quality_gates": [
+    "pytest",
+    "ruff",
+    "docker_health",
+    "openapi",
+    "n8n_portability",
+    "n8n_security_audit",
+    "success_human_duplicate_failure_replay"
+  ]
+}

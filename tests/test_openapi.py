@@ -6,7 +6,7 @@ def test_openapi_metadata() -> None:
     info = schema["info"]
 
     assert info["title"] == "Enterprise AI Platform"
-    assert info["summary"] == "企业知识库与 RAG API"
+    assert info["summary"] == "企业知识库、RAG 与工作流自动化 API"
     assert info["version"] == "1.0.0"
 
     tags = {tag["name"]: tag["description"] for tag in schema["tags"]}
@@ -41,6 +41,16 @@ def test_all_operations_have_summaries() -> None:
         ("/rag/query", "post"): "检索相关文档片段",
         ("/rag/answer", "post"): "生成带来源引用的 RAG 回答",
         ("/retrieval", "post"): "为 Dify 检索外部知识",
+        ("/workflow-runs/start", "post"): "登记工作流运行",
+        ("/workflow-runs/{run_id}/result", "patch"): (
+            "保存工作流处理结果"
+        ),
+        (
+            "/workflow-runs/executions/{n8n_execution_id}/failure",
+            "patch",
+        ): "保存 n8n 执行失败",
+        ("/workflow-runs", "get"): "按日期查询工作流记录",
+        ("/workflow-runs/{run_id}", "get"): "查询单条工作流记录",
     }
 
     for (path, method), expected_summary in expected_operations.items():

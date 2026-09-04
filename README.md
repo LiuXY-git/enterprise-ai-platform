@@ -61,6 +61,7 @@
 - [x] 完成 n8n AI 邮件分类、人工复核分支和低风险回复草稿生成
 - [x] 完成 n8n 原生 LLM 日报统计、无数据防幻觉约束和日期校验
 - [x] 完成 n8n 工作流运行持久化、幂等拦截、失败记录和回放
+- [ ] 发布 Workflow Center v0.1.0
 
 ## 项目结构
 
@@ -148,6 +149,8 @@ docker compose down
 - [n8n AI 邮件助手](docs/n8n-ai-email-assistant.md)
 - [n8n AI 工作流日报](docs/n8n-daily-workflow-report.md)
 - [n8n 工作流数据库持久化](docs/n8n-workflow-persistence.md)
+- [Workflow Center v0.1.0 发布说明](docs/workflow-center-v0.1.md)
+- [Week 6 总结：Workflow Center v0.1.0](docs/week-6-summary.md)
 
 ## 技术栈
 
@@ -216,6 +219,7 @@ Week 5 产出：AI 客服助手 v1.0，已完成问题分流、知识检索、�
 - Day 39：完成邮件事件规范化、规则分类、人工复核分支、低风险 AI 回复草稿和 21 字段统一响应验收
 - Day 40：完成每日调度与手动回放、指标聚合、原生 LLM 日报生成及正常、无数据和非法日期验收
 - Day 41：完成工作流输入输出落库、重复事件拦截、Error Trigger 失败记录和失败回放验收
+- Day 42：冻结 Workflow Center v0.1.0 发布范围、清单、文档、安全检查和质量门禁
 
 Day 36 产出：可重复部署的 n8n 基础环境，以及版本化工作流 `n8n/workflows/w6d36-foundation-check.json`。
 
@@ -228,3 +232,5 @@ Day 39 产出：具有明确人机协作边界的 AI 邮件助手，以及版本
 Day 40 产出：使用 n8n 原生 LLM Chain 与通义千问生成受约束运营日报的自动化流程，以及版本化工作流 `n8n/workflows/w6d40-daily-workflow-report.json`、安全配置文档和自动化结构测试。
 
 Day 41 产出：SQLite 工作流运行账本、FastAPI 运行管理接口、可持久化邮件助手和错误处理工作流，以及成功、人工审核、重复、失败和回放场景验收。
+
+Day 42 产出：包含 7 个版本化工作流的 Workflow Center v0.1.0 发布候选、机器可读清单、发布说明、Week 6 总结和自动化发布门禁。

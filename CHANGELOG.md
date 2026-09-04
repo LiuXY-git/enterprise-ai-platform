@@ -2,6 +2,34 @@
 
 本文件记录 Enterprise AI Platform 的主要版本变化。
 
+## [Workflow Center 0.1.0] - 2026-09-04
+
+Enterprise AI Platform v1.0.0 内的首个 n8n 工作流自动化组件版本。
+
+### Added
+
+- 增加 7 个覆盖部署、Webhook、AI 调用、邮件处理、日报和错误处理的版本化工作流
+- 增加 SQLite `workflow_runs` 运行账本和 5 个工作流管理接口
+- 增加重复事件幂等拦截、自动失败记录和最多 3 次失败回放
+- 增加机器可读发布清单、导入顺序、发布顺序和手动绑定说明
+- 增加 Workflow Center v0.1.0 发布说明和 Week 6 总结
+
+### Changed
+
+- OpenAPI 概述扩展为知识库、RAG 与工作流自动化 API
+- API 文档增加工作流运行接口、状态转换和错误说明
+
+### Quality
+
+- 工作流导出文件保持未激活并移除实例 ID、Webhook ID 和 Credential 引用
+- 自动化检查覆盖数据库、服务、路由、工作流结构、发布清单和敏感信息
+- 真实验收覆盖成功、人工审核、重复、自动失败和失败回放
+
+### Release
+
+- 组件版本为 `0.1.0`，平台 API 版本保持 `1.0.0`
+- 正式 Git 标签使用 `workflow-center-v0.1.0`，避免与平台历史标签冲突
+
 ## [1.0.0] - 2026-08-31
 
 Enterprise AI Platform 首个正式版本，包含 Knowledge Hub v1.0.0 和 AI 客服助手 v1.0。

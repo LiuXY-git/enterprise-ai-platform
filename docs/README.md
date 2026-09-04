@@ -43,6 +43,8 @@
 - [n8n 连接 AI 工作流](n8n-ai-integration.md)
 - [n8n AI 邮件助手](n8n-ai-email-assistant.md)
 - [n8n AI 工作流日报](n8n-daily-workflow-report.md)
+- [n8n 工作流数据库持久化](n8n-workflow-persistence.md)
+- [Week 6 总结：Workflow Center v0.1.0](week-6-summary.md)
 
 ## 演示与验收
 
@@ -53,6 +55,7 @@
 ## 版本与发布
 
 - [Knowledge Hub v1.0.0 发布说明](release-v1.0.md)
+- [Workflow Center v0.1.0 发布说明](workflow-center-v0.1.md)
 - [版本变更记录](../CHANGELOG.md)
 
 ## 阶段总结
