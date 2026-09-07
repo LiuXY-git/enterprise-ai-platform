@@ -18,6 +18,10 @@ services:
       DIFY_API_BASE_URL: "${DIFY_API_BASE_URL:-http://host.docker.internal/v1}"
       DIFY_WORKFLOW_API_KEY: "${DIFY_WORKFLOW_API_KEY:-}"
       DIFY_WORKFLOW_TIMEOUT_SECONDS: "${DIFY_WORKFLOW_TIMEOUT_SECONDS:-120}"
+      FEISHU_APP_ID: "${FEISHU_APP_ID:-}"
+      FEISHU_APP_SECRET: "${FEISHU_APP_SECRET:-}"
+      FEISHU_API_BASE_URL: "${FEISHU_API_BASE_URL:-https://open.feishu.cn/open-apis}"
+      FEISHU_TIMEOUT_SECONDS: "${FEISHU_TIMEOUT_SECONDS:-10}"
     ports:
       - "8000:8000"
     volumes:

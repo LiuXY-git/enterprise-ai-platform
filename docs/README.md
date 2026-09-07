@@ -46,6 +46,10 @@
 - [n8n 工作流数据库持久化](n8n-workflow-persistence.md)
 - [Week 6 总结：Workflow Center v0.1.0](week-6-summary.md)
 
+## 企业协作平台集成
+
+- [飞书开放平台接入基础](feishu-open-platform.md)
+
 ## 演示与验收
 
 - [Demo 演示数据与说明](../demo/README.md)

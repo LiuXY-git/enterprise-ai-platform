@@ -62,6 +62,7 @@
 - [x] 完成 n8n 原生 LLM 日报统计、无数据防幻觉约束和日期校验
 - [x] 完成 n8n 工作流运行持久化、幂等拦截、失败记录和回放
 - [x] 发布 Workflow Center v0.1.0
+- [x] 完成 Day 43 飞书开放平台基础接入（Bot、Webhook、API 与应用鉴权）
 
 ## 项目结构
 
@@ -151,6 +152,7 @@ docker compose down
 - [n8n 工作流数据库持久化](docs/n8n-workflow-persistence.md)
 - [Workflow Center v0.1.0 发布说明](docs/workflow-center-v0.1.md)
 - [Week 6 总结：Workflow Center v0.1.0](docs/week-6-summary.md)
+- [飞书开放平台接入基础](docs/feishu-open-platform.md)
 
 ## 技术栈
 
@@ -234,3 +236,9 @@ Day 40 产出：使用 n8n 原生 LLM Chain 与通义千问生成受约束运营
 Day 41 产出：SQLite 工作流运行账本、FastAPI 运行管理接口、可持久化邮件助手和错误处理工作流，以及成功、人工审核、重复、失败和回放场景验收。
 
 Day 42 产出：包含 7 个版本化工作流的 Workflow Center v0.1.0 发布候选、机器可读清单、发布说明、Week 6 总结和自动化发布门禁。
+
+### Week 7：企业平台集成
+
+- Day 43：完成飞书企业自建应用、机器人能力、最小权限、测试范围、应用发布和服务端鉴权接入
+
+Day 43 产出：可从环境变量安全读取飞书应用凭证、调用飞书开放平台获取 `tenant_access_token` 的异步服务、成功与异常路径自动化测试，以及 Bot、Webhook 和 API 的职责边界文档。机器人消息接收和主动发送分别留待后续事件订阅与 Day 44 消息发送功能实现。
