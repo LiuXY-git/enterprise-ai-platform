@@ -19,6 +19,7 @@ def test_openapi_metadata() -> None:
         "rag",
         "knowledge",
         "workflows",
+        "integrations",
     }
     assert tags["rag"] == "知识库检索和带来源回答接口。"
     assert tags["knowledge"] == "Dify 外部知识库检索与集成接口。"
@@ -42,15 +43,14 @@ def test_all_operations_have_summaries() -> None:
         ("/rag/answer", "post"): "生成带来源引用的 RAG 回答",
         ("/retrieval", "post"): "为 Dify 检索外部知识",
         ("/workflow-runs/start", "post"): "登记工作流运行",
-        ("/workflow-runs/{run_id}/result", "patch"): (
-            "保存工作流处理结果"
-        ),
+        ("/workflow-runs/{run_id}/result", "patch"): ("保存工作流处理结果"),
         (
             "/workflow-runs/executions/{n8n_execution_id}/failure",
             "patch",
         ): "保存 n8n 执行失败",
         ("/workflow-runs", "get"): "按日期查询工作流记录",
         ("/workflow-runs/{run_id}", "get"): "查询单条工作流记录",
+        ("/integrations/feishu/messages", "post"): ("通过飞书机器人发送文本消息"),
     }
 
     for (path, method), expected_summary in expected_operations.items():
@@ -85,3 +85,21 @@ def test_openapi_contains_field_and_error_documentation() -> None:
     assert "404" in retrieval_responses
     assert "422" in retrieval_responses
     assert "503" in retrieval_responses
+
+
+def test_feishu_message_openapi_contract() -> None:
+    schema = app.openapi()
+    operation = schema["paths"]["/integrations/feishu/messages"]["post"]
+
+    assert operation["tags"] == ["integrations"]
+    assert {"200", "422", "503"} <= operation["responses"].keys()
+
+    model = schema["components"]["schemas"]["FeishuTextMessageRequest"]
+
+    assert set(model["required"]) == {
+        "text",
+        "idempotency_key",
+    }
+    assert "receive_id" not in model["properties"]
+    assert model["additionalProperties"] is False
+    assert model["additionalProperties"] is False
