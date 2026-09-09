@@ -22,8 +22,18 @@ services:
       FEISHU_APP_SECRET: "${FEISHU_APP_SECRET:-}"
       FEISHU_API_BASE_URL: "${FEISHU_API_BASE_URL:-https://open.feishu.cn/open-apis}"
       FEISHU_TIMEOUT_SECONDS: "${FEISHU_TIMEOUT_SECONDS:-10}"
+      FEISHU_RECEIVE_ID_TYPE: "${FEISHU_RECEIVE_ID_TYPE:-chat_id}"
+      FEISHU_RECEIVE_ID: "${FEISHU_RECEIVE_ID:-}"
+      FEISHU_MAX_ATTEMPTS: "${FEISHU_MAX_ATTEMPTS:-3}"
+      FEISHU_RETRY_BASE_SECONDS: "${FEISHU_RETRY_BASE_SECONDS:-0.5}"
+      WECOM_CORP_ID: "${WECOM_CORP_ID:-}"
+      WECOM_AGENT_ID: "${WECOM_AGENT_ID:-}"
+      WECOM_APP_SECRET: "${WECOM_APP_SECRET:-}"
+      WECOM_TO_USER: "${WECOM_TO_USER:-}"
+      WECOM_API_BASE_URL: "${WECOM_API_BASE_URL:-https://qyapi.weixin.qq.com}"
+      WECOM_TIMEOUT_SECONDS: "${WECOM_TIMEOUT_SECONDS:-10}"
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
