@@ -49,6 +49,7 @@
 ## 企业协作平台集成
 
 - [飞书开放平台接入基础](feishu-open-platform.md)
+- [企业微信自建应用通知](wecom-notifications.md)
 
 ## 演示与验收
 

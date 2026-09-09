@@ -63,6 +63,9 @@
 - [x] 完成 n8n 工作流运行持久化、幂等拦截、失败记录和回放
 - [x] 发布 Workflow Center v0.1.0
 - [x] 完成 Day 43 飞书开放平台基础接入（Bot、Webhook、API 与应用鉴权）
+- [x] 完成 Day 44 飞书机器人文本消息发送与真实联调
+- [x] 完成 Day 45 企业微信通知本地实现、Mock 测试与 Docker 接口验收
+- [ ] 完成 Day 45 企业微信真实发送（等待符合后台要求的可管理域名）
 
 ## 项目结构
 
@@ -153,6 +156,7 @@ docker compose down
 - [Workflow Center v0.1.0 发布说明](docs/workflow-center-v0.1.md)
 - [Week 6 总结：Workflow Center v0.1.0](docs/week-6-summary.md)
 - [飞书开放平台接入基础](docs/feishu-open-platform.md)
+- [企业微信自建应用通知](docs/wecom-notifications.md)
 
 ## 技术栈
 
@@ -184,6 +188,8 @@ docker compose down
 | PATCH | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败记录 |
 | GET | `/workflow-runs` | 按报告日期查询工作流运行 |
 | GET | `/workflow-runs/{run_id}` | 查询单条工作流运行 |
+| POST | `/integrations/feishu/messages` | 通过飞书机器人发送文本消息 |
+| POST | `/integrations/wecom/messages` | 通过企业微信自建应用发送文本消息 |
 
 ## 开发状态
 
@@ -240,5 +246,11 @@ Day 42 产出：包含 7 个版本化工作流的 Workflow Center v0.1.0 发布�
 ### Week 7：企业平台集成
 
 - Day 43：完成飞书企业自建应用、机器人能力、最小权限、测试范围、应用发布和服务端鉴权接入
+- Day 44：完成飞书文本消息模型、发送服务、重试、路由、OpenAPI 和真实测试群联调
+- Day 45：完成企业微信自建应用通知的本地实现、Token 缓存、错误语义、Mock 测试和 Docker 接口验收；真实发送等待满足域名准入条件
 
-Day 43 产出：可从环境变量安全读取飞书应用凭证、调用飞书开放平台获取 `tenant_access_token` 的异步服务、成功与异常路径自动化测试，以及 Bot、Webhook 和 API 的职责边界文档。机器人消息接收和主动发送分别留待后续事件订阅与 Day 44 消息发送功能实现。
+Day 43 产出：可从环境变量安全读取飞书应用凭证、调用飞书开放平台获取 `tenant_access_token` 的异步服务、成功与异常路径自动化测试，以及 Bot、Webhook 和 API 的职责边界文档。
+
+Day 44 产出：`POST /integrations/feishu/messages`、接收者配置、确定性消息 UUID、受限重试、安全错误信息，以及飞书测试群真实消息验收。
+
+Day 45 产出：`POST /integrations/wecom/messages`、单成员通知契约、进程内 Token 缓存、明确 Token 失效后最多补发一次、`delivery_unknown` 安全语义和完整 Mock 测试。企业微信后台要求先配置符合主体及归属验证条件的域名，当前未满足，因此真实发送保持为待联调项。

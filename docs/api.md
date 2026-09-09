@@ -499,6 +499,23 @@ GET /workflow-runs?report_date=2026-09-03
 - `422 Unprocessable Entity`：日期、标识符或请求字段格式错误
 
 
+## 企业微信通知
+
+### POST `/integrations/wecom/messages`
+
+通过服务端配置的企业微信自建应用向一个内部测试成员发送文本通知。调用方不能指定接收者或传入凭据。
+
+```json
+{
+  "text": "Day 45 企业微信测试消息",
+  "request_id": "day45-smoke-001"
+}
+```
+
+`text` 去除首尾空白后不能为空，UTF-8 编码最多 2048 字节。`request_id` 只用于追踪，不提供持久化幂等保证。
+
+成功返回 `200`；请求校验失败返回 `422`；配置、鉴权或发送失败返回 `503`。当 `detail.code` 为 `delivery_unknown` 时，消息可能已经送达，应先核对实际接收情况，不得直接自动重发。完整说明见 [企业微信自建应用通知](wecom-notifications.md)。
+
 ## 推荐调用流程
 
 知识库的典型调用顺序为：

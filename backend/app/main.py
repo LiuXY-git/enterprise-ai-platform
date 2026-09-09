@@ -13,6 +13,7 @@ from .routers.feishu import router as feishu_router
 from .routers.health import router as health_router
 from .routers.rag import router as rag_router
 from .routers.upload import router as upload_router
+from .routers.wecom import router as wecom_router
 from .routers.workflow import router as workflow_router
 
 logger = logging.getLogger(LOGGER_NAME)
@@ -39,6 +40,7 @@ Enterprise AI Platform 是一个面向企业知识库场景的 AI 平台。
 - `/retrieval`：为 Dify 提供外部知识库检索
 - `/workflow-runs`：保存、查询和回放自动化工作流执行记录
 - `/integrations/feishu/messages`：通过飞书机器人发送文本消息
+- `/integrations/wecom/messages`：通过企业微信自建应用发送文本消息
 """
 
 OPENAPI_TAGS = [
@@ -78,8 +80,9 @@ OPENAPI_TAGS = [
 
 
 @asynccontextmanager
-async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     configure_logging()
+    app.state.wecom_cache = None
 
     logger.info("正在启动 Enterprise AI Platform")
 
@@ -94,6 +97,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     try:
         yield
     finally:
+        app.state.wecom_cache = None
         logger.info("Enterprise AI Platform 已停止")
 
 
@@ -117,3 +121,4 @@ app.include_router(external_knowledge_router)
 app.include_router(rag_router)
 app.include_router(workflow_router)
 app.include_router(feishu_router)
+app.include_router(wecom_router)

@@ -51,6 +51,7 @@ def test_all_operations_have_summaries() -> None:
         ("/workflow-runs", "get"): "按日期查询工作流记录",
         ("/workflow-runs/{run_id}", "get"): "查询单条工作流记录",
         ("/integrations/feishu/messages", "post"): ("通过飞书机器人发送文本消息"),
+        ("/integrations/wecom/messages", "post"): "通过企业微信自建应用发送文本消息",
     }
 
     for (path, method), expected_summary in expected_operations.items():
@@ -102,4 +103,52 @@ def test_feishu_message_openapi_contract() -> None:
     }
     assert "receive_id" not in model["properties"]
     assert model["additionalProperties"] is False
-    assert model["additionalProperties"] is False
+
+
+def test_wecom_message_openapi_contract() -> None:
+    schema = app.openapi()
+    operation = schema["paths"]["/integrations/wecom/messages"]["post"]
+    assert operation["summary"] == "通过企业微信自建应用发送文本消息"
+    assert operation["tags"] == ["integrations"]
+    assert {"200", "422", "503"} <= operation["responses"].keys()
+    assert "delivery_unknown" in operation["responses"]["503"]["description"]
+
+    models = schema["components"]["schemas"]
+    request_model = models["WeComTextMessageRequest"]
+    assert set(request_model["required"]) == {"text", "request_id"}
+    assert set(request_model["properties"]) == {"text", "request_id"}
+    assert request_model["additionalProperties"] is False
+    assert "2048" in request_model["properties"]["text"]["description"]
+
+    response_model = models["WeComMessageResponse"]
+    assert response_model["properties"]["attempts"]["maximum"] == 2
+    assert "message_id" not in response_model["required"]
+
+
+def test_wecom_lifecycle_is_lazy_and_resets_cache(monkeypatch) -> None:
+    from fastapi.testclient import TestClient
+
+    from backend.app import main as main_module
+    from backend.app.routers import wecom as wecom_router
+
+    def missing_config():
+        raise RuntimeError("未配置 WECOM_CORP_ID")
+
+    # Lifecycle verification must not touch a real database or send real requests.
+    monkeypatch.setattr(main_module, "init_database", lambda: None)
+    monkeypatch.setattr(main_module, "configure_logging", lambda: None)
+    monkeypatch.setattr(wecom_router, "get_wecom_config", missing_config)
+
+    app.state.wecom_cache = object()
+    with TestClient(app) as client:
+        assert app.state.wecom_cache is None
+        assert client.get("/openapi.json").status_code == 200
+        response = client.post(
+            "/integrations/wecom/messages",
+            json={"text": "测试消息", "request_id": "day45-lifecycle-001"},
+        )
+        assert response.status_code == 503
+        assert response.json()["detail"]["code"] == "wecom_unavailable"
+        app.state.wecom_cache = object()
+
+    assert app.state.wecom_cache is None
