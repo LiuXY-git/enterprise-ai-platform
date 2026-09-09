@@ -66,6 +66,7 @@
 - [x] 完成 Day 44 飞书机器人文本消息发送与真实联调
 - [x] 完成 Day 45 企业微信通知本地实现、Mock 测试与 Docker 接口验收
 - [ ] 完成 Day 45 企业微信真实发送（等待符合后台要求的可管理域名）
+- [x] 完成 Day 46 销售线索跟进助手业务流程、数据契约、CRM 草案和验收方案设计
 
 ## 项目结构
 
@@ -157,6 +158,8 @@ docker compose down
 - [Week 6 总结：Workflow Center v0.1.0](docs/week-6-summary.md)
 - [飞书开放平台接入基础](docs/feishu-open-platform.md)
 - [企业微信自建应用通知](docs/wecom-notifications.md)
+- [销售线索跟进助手设计](docs/sales-followup-design.md)
+- [销售线索跟进助手验收方案](docs/sales-followup-acceptance.md)
 
 ## 技术栈
 
@@ -248,9 +251,12 @@ Day 42 产出：包含 7 个版本化工作流的 Workflow Center v0.1.0 发布�
 - Day 43：完成飞书企业自建应用、机器人能力、最小权限、测试范围、应用发布和服务端鉴权接入
 - Day 44：完成飞书文本消息模型、发送服务、重试、路由、OpenAPI 和真实测试群联调
 - Day 45：完成企业微信自建应用通知的本地实现、Token 缓存、错误语义、Mock 测试和 Docker 接口验收；真实发送等待满足域名准入条件
+- Day 46：完成销售线索跟进助手的业务流程、输入与 AI 输出契约、CRM 数据草案、通知状态和 15 个验收场景设计
 
 Day 43 产出：可从环境变量安全读取飞书应用凭证、调用飞书开放平台获取 `tenant_access_token` 的异步服务、成功与异常路径自动化测试，以及 Bot、Webhook 和 API 的职责边界文档。
 
 Day 44 产出：`POST /integrations/feishu/messages`、接收者配置、确定性消息 UUID、受限重试、安全错误信息，以及飞书测试群真实消息验收。
 
 Day 45 产出：`POST /integrations/wecom/messages`、单成员通知契约、进程内 Token 缓存、明确 Token 失效后最多补发一次、`delivery_unknown` 安全语义和完整 Mock 测试。企业微信后台要求先配置符合主体及归属验证条件的域名，当前未满足，因此真实发送保持为待联调项。
+
+Day 46 产出：销售线索跟进助手设计与验收方案，以及覆盖正常处理、重复事件、Prompt 注入、AI 异常、CRM 失败和通知异常的 15 个虚构验收样例。当前交付为可执行设计，模拟 CRM、n8n 工作流和运行验收留待 Day 47 与 Day 48 完成。

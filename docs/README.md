@@ -51,6 +51,12 @@
 - [飞书开放平台接入基础](feishu-open-platform.md)
 - [企业微信自建应用通知](wecom-notifications.md)
 
+## 销售线索跟进助手
+
+- [销售线索跟进助手设计](sales-followup-design.md)
+- [销售线索跟进助手验收方案](sales-followup-acceptance.md)
+- [销售线索跟进助手验收样例](../demo/sales-followup-cases.json)
+
 ## 演示与验收
 
 - [Demo 演示数据与说明](../demo/README.md)
