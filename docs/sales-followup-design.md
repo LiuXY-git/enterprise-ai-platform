@@ -759,10 +759,13 @@ CREATE TABLE IF NOT EXISTS followup_records (
     notification_error_code TEXT,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
-    FOREIGN KEY (customer_id)
-        REFERENCES customers (customer_id)
-        ON DELETE RESTRICT
-);
+                FOREIGN KEY (customer_id)
+                    REFERENCES customers (customer_id)
+                    ON DELETE RESTRICT,
+                FOREIGN KEY (run_id)
+                    REFERENCES workflow_runs (run_id)
+                    ON DELETE RESTRICT
+            );
 ```
 
 SQLite 连接需要启用：
@@ -806,6 +809,8 @@ erDiagram
 一个客户可以有多条跟进记录。
 
 一个工作流运行最多产生一条跟进记录，通过 `run_id` 唯一约束防止重复写入。
+
+`customer_id` 和 `run_id` 同时使用外键约束。跟进记录存在时，不允许删除对应客户或工作流运行记录。
 
 ### 13.4 数据保存顺序
 

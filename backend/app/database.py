@@ -9,7 +9,9 @@ def get_connection() -> sqlite3.Connection:
         parents=True,
         exist_ok=True,
     )
-    return sqlite3.connect(DATABASE_PATH)
+    connection = sqlite3.connect(DATABASE_PATH)
+    connection.execute("PRAGMA foreign_keys = ON")
+    return connection
 
 
 def init_database() -> None:
@@ -88,6 +90,102 @@ def init_database() -> None:
                 idx_workflow_runs_n8n_execution_id
             ON workflow_runs (n8n_execution_id)
             WHERE n8n_execution_id IS NOT NULL
+            """
+        )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS customers (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                customer_id TEXT NOT NULL UNIQUE,
+                company_name TEXT NOT NULL,
+                industry TEXT,
+                sales_owner TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_customers_sales_owner
+            ON customers (sales_owner)
+            """
+        )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS followup_records (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                followup_id TEXT NOT NULL UNIQUE,
+                customer_id TEXT NOT NULL,
+                run_id TEXT NOT NULL UNIQUE,
+                event_id TEXT NOT NULL,
+                requirement_snapshot TEXT NOT NULL,
+                analysis_json TEXT NOT NULL,
+                priority TEXT NOT NULL CHECK (
+                    priority IN ('high', 'normal')
+                ),
+                review_status TEXT NOT NULL CHECK (
+                    review_status IN ('not_required', 'pending')
+                ),
+                review_reasons_json TEXT NOT NULL,
+                notification_mode TEXT NOT NULL CHECK (
+                    notification_mode IN ('preview', 'send')
+                ),
+                notification_channel TEXT CHECK (
+                    notification_channel IN ('feishu', 'wecom')
+                ),
+                notification_status TEXT NOT NULL CHECK (
+                    notification_status IN (
+                        'pending',
+                        'preview',
+                        'sent',
+                        'failed',
+                        'delivery_unknown',
+                        'skipped'
+                    )
+                ),
+                notification_request_key TEXT,
+                notification_message_id TEXT,
+                notification_error_code TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY (customer_id)
+                    REFERENCES customers (customer_id)
+                    ON DELETE RESTRICT,
+                FOREIGN KEY (run_id)
+                    REFERENCES workflow_runs (run_id)
+                    ON DELETE RESTRICT
+            )
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_followup_records_customer_id
+            ON followup_records (customer_id)
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_followup_records_event_id
+            ON followup_records (event_id)
+            """
+        )
+        connection.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_followup_records_notification_status
+            ON followup_records (notification_status)
+            """
+        )
+        connection.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+                idx_followup_records_notification_request_key
+            ON followup_records (notification_request_key)
+            WHERE notification_request_key IS NOT NULL
             """
         )
         connection.commit()

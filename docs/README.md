@@ -55,6 +55,7 @@
 
 - [销售线索跟进助手设计](sales-followup-design.md)
 - [销售线索跟进助手验收方案](sales-followup-acceptance.md)
+- [n8n 销售线索跟进助手](n8n-sales-followup-assistant.md)
 - [销售线索跟进助手验收样例](../demo/sales-followup-cases.json)
 
 ## 演示与验收
