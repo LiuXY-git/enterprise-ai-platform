@@ -76,3 +76,5 @@
 - [Week 2 总结](week-2-summary.md)
 - [Week 3 总结](week-3-summary.md)
 - [Week 4 总结](week-4-summary.md)
+
+- [Day 48 故障恢复验收记录](day48-failure-recovery-results.md)

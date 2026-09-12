@@ -8,6 +8,8 @@ from backend.app.models.crm import (
     CRMFollowupAnalysis,
     CRMFollowupCreateRequest,
     CRMFollowupResponse,
+    CRMNotificationResolutionRequest,
+    CRMNotificationUpdateRequest,
 )
 
 
@@ -220,3 +222,35 @@ def test_followup_response_accepts_persisted_record() -> None:
     assert response.customer_id == "customer-demo-001"
     assert response.notification_status == "preview"
     assert response.notification_message_id is None
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"status": "failed"},
+        {"status": "delivery_unknown", "message_id": "message-001"},
+        {"status": "sent", "error_code": "provider_rejected"},
+    ],
+)
+def test_notification_result_rejects_inconsistent_fields(payload) -> None:
+    with pytest.raises(ValidationError):
+        CRMNotificationUpdateRequest.model_validate(payload)
+
+
+def test_notification_result_accepts_safe_terminal_states() -> None:
+    sent = CRMNotificationUpdateRequest.model_validate(
+        {"status": "sent", "message_id": "message-001"}
+    )
+    unknown = CRMNotificationUpdateRequest.model_validate(
+        {"status": "delivery_unknown", "error_code": "read_timeout"}
+    )
+
+    assert sent.message_id == "message-001"
+    assert unknown.error_code == "read_timeout"
+
+
+def test_notification_resolution_rejects_message_id_when_not_delivered() -> None:
+    with pytest.raises(ValidationError):
+        CRMNotificationResolutionRequest.model_validate(
+            {"delivered": False, "message_id": "message-001"}
+        )

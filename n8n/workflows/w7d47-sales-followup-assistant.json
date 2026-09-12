@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const incoming = $input.first().json;\nconst body = incoming.body ?? incoming;\nconst errors = [];\n\nconst allowedFields = new Set([\n  'event_id',\n  'customer_id',\n  'company_name',\n  'industry',\n  'requirement',\n  'purchase_window_days',\n  'budget_range',\n  'sales_owner',\n  'report_date',\n]);\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  return [{\n    json: {\n      input_valid: false,\n      status: 'rejected',\n      validation_errors: ['请求体必须是 JSON 对象'],\n    },\n  }];\n}\n\nfor (const field of Object.keys(body)) {\n  if (!allowedFields.has(field)) {\n    errors.push(`不允许字段：${field}`);\n  }\n}\n\nfunction requiredString(field, maxLength, pattern = null) {\n  const value = body[field];\n  if (typeof value !== 'string') {\n    errors.push(`${field} 必须是字符串`);\n    return null;\n  }\n\n  const normalized = value.trim();\n  if (normalized.length === 0) {\n    errors.push(`${field} 不能为空`);\n    return null;\n  }\n  if (normalized.length > maxLength) {\n    errors.push(`${field} 最多 ${maxLength} 个字符`);\n  }\n  if (pattern && !pattern.test(normalized)) {\n    errors.push(`${field} 仅允许字母、数字、点、下划线、冒号和连字符`);\n  }\n  return normalized;\n}\n\nfunction optionalString(field, maxLength) {\n  const value = body[field];\n  if (value === undefined || value === null) {\n    return null;\n  }\n  if (typeof value !== 'string') {\n    errors.push(`${field} 必须是字符串或 null`);\n    return null;\n  }\n\n  const normalized = value.trim();\n  if (normalized.length === 0) {\n    return null;\n  }\n  if (normalized.length > maxLength) {\n    errors.push(`${field} 最多 ${maxLength} 个字符`);\n  }\n  return normalized;\n}\n\nconst identifierPattern = /^[A-Za-z0-9._:-]+$/;\nconst eventId = requiredString('event_id', 128, identifierPattern);\nconst customerId = requiredString('customer_id', 128, identifierPattern);\nconst companyName = requiredString('company_name', 200);\nconst industry = optionalString('industry', 100);\nconst requirement = requiredString('requirement', 4000);\nconst budgetRange = optionalString('budget_range', 200);\nconst salesOwner = requiredString('sales_owner', 128, identifierPattern);\n\nlet purchaseWindowDays = body.purchase_window_days ?? null;\nif (\n  purchaseWindowDays !== null\n  && (!Number.isInteger(purchaseWindowDays)\n    || purchaseWindowDays < 0\n    || purchaseWindowDays > 365)\n) {\n  errors.push('purchase_window_days 必须是 0 到 365 的整数或 null');\n  purchaseWindowDays = null;\n}\n\nlet reportDate = null;\nif (typeof body.report_date !== 'string') {\n  errors.push('report_date 必须是 YYYY-MM-DD 字符串');\n} else {\n  reportDate = body.report_date.trim();\n  const match = /^(\\d{4})-(\\d{2})-(\\d{2})$/.exec(reportDate);\n  if (!match) {\n    errors.push('report_date 必须使用 YYYY-MM-DD 格式');\n  } else {\n    const year = Number(match[1]);\n    const month = Number(match[2]);\n    const day = Number(match[3]);\n    const parsed = new Date(Date.UTC(year, month - 1, day));\n    if (\n      parsed.getUTCFullYear() !== year\n      || parsed.getUTCMonth() !== month - 1\n      || parsed.getUTCDate() !== day\n    ) {\n      errors.push('report_date 必须是真实日期');\n    }\n  }\n}\n\nif (errors.length > 0) {\n  return [{\n    json: {\n      input_valid: false,\n      status: 'rejected',\n      validation_errors: errors,\n    },\n  }];\n}\n\nreturn [{\n  json: {\n    input_valid: true,\n    event_id: eventId,\n    customer_id: customerId,\n    company_name: companyName,\n    industry,\n    requirement,\n    purchase_window_days: purchaseWindowDays,\n    budget_range: budgetRange,\n    sales_owner: salesOwner,\n    report_date: reportDate,\n  },\n}];\n"
+        "jsCode": "const incoming = $input.first().json;\nconst body = incoming.body ?? incoming;\nconst errors = [];\n\nconst allowedFields = new Set([\n  'event_id',\n  'customer_id',\n  'company_name',\n  'industry',\n  'requirement',\n  'purchase_window_days',\n  'budget_range',\n  'sales_owner',\n  'report_date',\n  'replay',\n]);\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  return [{\n    json: {\n      input_valid: false,\n      status: 'rejected',\n      validation_errors: ['Request body must be a JSON object'],\n    },\n  }];\n}\n\nfor (const field of Object.keys(body)) {\n  if (!allowedFields.has(field)) {\n    errors.push(`Field is not allowed: ${field}`);\n  }\n}\n\nfunction requiredString(field, maxLength, pattern = null) {\n  const value = body[field];\n  if (typeof value !== 'string') {\n    errors.push(`${field} must be a string`);\n    return null;\n  }\n  const normalized = value.trim();\n  if (normalized.length === 0) {\n    errors.push(`${field} cannot be empty`);\n    return null;\n  }\n  if (normalized.length > maxLength) {\n    errors.push(`${field} exceeds ${maxLength} characters`);\n  }\n  if (pattern && !pattern.test(normalized)) {\n    errors.push(`${field} contains unsupported characters`);\n  }\n  return normalized;\n}\n\nfunction optionalString(field, maxLength) {\n  const value = body[field];\n  if (value === undefined || value === null) {\n    return null;\n  }\n  if (typeof value !== 'string') {\n    errors.push(`${field} must be a string or null`);\n    return null;\n  }\n  const normalized = value.trim();\n  if (normalized.length === 0) {\n    return null;\n  }\n  if (normalized.length > maxLength) {\n    errors.push(`${field} exceeds ${maxLength} characters`);\n  }\n  return normalized;\n}\n\nconst identifierPattern = /^[A-Za-z0-9._:-]+$/;\nconst eventId = requiredString('event_id', 128, identifierPattern);\nconst customerId = requiredString('customer_id', 128, identifierPattern);\nconst companyName = requiredString('company_name', 200);\nconst industry = optionalString('industry', 100);\nconst requirement = requiredString('requirement', 4000);\nconst budgetRange = optionalString('budget_range', 200);\nconst salesOwner = requiredString('sales_owner', 128, identifierPattern);\n\nlet purchaseWindowDays = body.purchase_window_days ?? null;\nif (\n  purchaseWindowDays !== null\n  && (!Number.isInteger(purchaseWindowDays)\n    || purchaseWindowDays < 0\n    || purchaseWindowDays > 365)\n) {\n  errors.push('purchase_window_days must be an integer from 0 to 365 or null');\n  purchaseWindowDays = null;\n}\n\nlet replay = body.replay ?? false;\nif (typeof replay !== 'boolean') {\n  errors.push('replay must be a boolean');\n  replay = false;\n}\n\nlet reportDate = null;\nif (typeof body.report_date !== 'string') {\n  errors.push('report_date must use YYYY-MM-DD format');\n} else {\n  reportDate = body.report_date.trim();\n  const match = /^(\\d{4})-(\\d{2})-(\\d{2})$/.exec(reportDate);\n  if (!match) {\n    errors.push('report_date must use YYYY-MM-DD format');\n  } else {\n    const year = Number(match[1]);\n    const month = Number(match[2]);\n    const day = Number(match[3]);\n    const parsed = new Date(Date.UTC(year, month - 1, day));\n    if (\n      parsed.getUTCFullYear() !== year\n      || parsed.getUTCMonth() !== month - 1\n      || parsed.getUTCDate() !== day\n    ) {\n      errors.push('report_date must be a real date');\n    }\n  }\n}\n\nif (errors.length > 0) {\n  return [{\n    json: {\n      input_valid: false,\n      status: 'rejected',\n      validation_errors: errors,\n    },\n  }];\n}\n\nreturn [{\n  json: {\n    input_valid: true,\n    event_id: eventId,\n    customer_id: customerId,\n    company_name: companyName,\n    industry,\n    requirement,\n    purchase_window_days: purchaseWindowDays,\n    budget_range: budgetRange,\n    sales_owner: salesOwner,\n    report_date: reportDate,\n    replay,\n  },\n}];\n\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -87,7 +87,7 @@
         "url": "http://api:8000/workflow-runs/start",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n    \"event_id\": $json.event_id,\n    \"workflow_name\": \"sales-followup-assistant\",\n    \"source\": \"manual_demo\",\n    \"requester\": $json.sales_owner,\n    \"report_date\": $json.report_date,\n    \"input_data\": {\n      \"customer_id\": $json.customer_id,\n      \"company_name\": $json.company_name,\n      \"industry\": $json.industry,\n      \"requirement\": $json.requirement,\n      \"purchase_window_days\": $json.purchase_window_days,\n      \"budget_range\": $json.budget_range,\n      \"sales_owner\": $json.sales_owner\n    },\n    \"n8n_execution_id\": String($execution.id),\n    \"replay\": false\n}) }}",
+        "jsonBody": "={{ JSON.stringify({\n  event_id: $json.event_id,\n  workflow_name: \"sales-followup-assistant\",\n  source: \"manual_demo\",\n  requester: $json.sales_owner,\n  report_date: $json.report_date,\n  input_data: {\n    customer_id: $json.customer_id,\n    company_name: $json.company_name,\n    industry: $json.industry,\n    requirement: $json.requirement,\n    purchase_window_days: $json.purchase_window_days,\n    budget_range: $json.budget_range,\n    sales_owner: $json.sales_owner\n  },\n  n8n_execution_id: String($execution.id),\n  replay: $json.replay\n}) }}\n",
         "options": {
           "timeout": 10000
         }
@@ -103,7 +103,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const startResult = $input.first().json;\nconst original = $('Normalize Sales Lead').first().json;\n\nreturn [{\n  json: {\n    event_id: original.event_id,\n    customer_id: original.customer_id,\n    company_name: original.company_name,\n    industry: original.industry,\n    requirement: original.requirement,\n    purchase_window_days: original.purchase_window_days,\n    budget_range: original.budget_range,\n    sales_owner: original.sales_owner,\n    report_date: original.report_date,\n    workflow_run_id: startResult.run_id,\n    workflow_run_status: startResult.status,\n    should_process: startResult.should_process,\n    duplicate: startResult.duplicate,\n    replayed: startResult.replayed,\n    retry_count: startResult.retry_count,\n    duplicate_count: startResult.duplicate_count,\n  },\n}];\n"
+        "jsCode": "const startResult = $input.first().json;\nconst incoming = $('Normalize Sales Lead').first().json;\nconst stored = startResult.input_data ?? incoming;\n\nreturn [{\n  json: {\n    event_id: incoming.event_id,\n    customer_id: stored.customer_id,\n    company_name: stored.company_name,\n    industry: stored.industry ?? null,\n    requirement: stored.requirement,\n    purchase_window_days: stored.purchase_window_days ?? null,\n    budget_range: stored.budget_range ?? null,\n    sales_owner: stored.sales_owner,\n    report_date: incoming.report_date,\n    workflow_run_id: startResult.run_id,\n    workflow_run_status: startResult.status,\n    should_process: startResult.should_process,\n    duplicate: startResult.duplicate,\n    replayed: startResult.replayed,\n    retry_count: startResult.retry_count,\n    duplicate_count: startResult.duplicate_count,\n    processing_stage: startResult.processing_stage,\n    resume_from: startResult.resume_from,\n    checkpoint_data: startResult.checkpoint_data,\n  },\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -160,7 +160,7 @@
       "typeVersion": 1.5,
       "position": [
         1200,
-        0
+        64
       ],
       "id": "d268106c-f967-43be-9f89-9f87cac7e129",
       "name": "Return Duplicate Result"
@@ -179,7 +179,8 @@
         -192
       ],
       "id": "14871e0c-620c-47dd-b7e1-178a0dddfbf1",
-      "name": "Analyze Sales Lead"
+      "name": "Analyze Sales Lead",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -220,16 +221,17 @@
     },
     {
       "parameters": {
-        "jsCode": "const chainResult = $input.first().json;\nconst context = $('Restore Workflow Context').first().json;\n\nlet analysis = chainResult.output;\nif (typeof analysis === 'string') {\n  analysis = JSON.parse(analysis);\n}\n\nif (analysis === null || typeof analysis !== 'object' || Array.isArray(analysis)) {\n  throw new Error('结构化销售分析结果不是 JSON 对象');\n}\n\nconst normalizedAnalysis = {\n  summary: analysis.summary,\n  needs: [...analysis.needs],\n  missing_information: [...analysis.missing_information],\n  next_actions: [...analysis.next_actions],\n  risk_flags: [...new Set(analysis.risk_flags)],\n};\n\nif (context.purchase_window_days === null) {\n  const hasMissingQuestion = normalizedAnalysis.missing_information\n    .some((value) => /采购|评估时间|时间窗口/.test(value));\n  if (!hasMissingQuestion && normalizedAnalysis.missing_information.length < 5) {\n    normalizedAnalysis.missing_information.push('采购评估时间');\n  }\n\n  const hasFollowupAction = normalizedAnalysis.next_actions\n    .some((value) => /采购|评估时间|时间窗口/.test(value));\n  if (!hasFollowupAction && normalizedAnalysis.next_actions.length < 5) {\n    normalizedAnalysis.next_actions.push('向客户确认采购评估时间');\n  }\n}\n\nconst priority = context.purchase_window_days !== null\n  && context.purchase_window_days <= 30\n  ? 'high'\n  : 'normal';\n\nconst reviewReasons = [...normalizedAnalysis.risk_flags];\nconst reviewStatus = reviewReasons.length > 0 ? 'pending' : 'not_required';\n\nreturn [{\n  json: {\n    customer: {\n      customer_id: context.customer_id,\n      company_name: context.company_name,\n      industry: context.industry,\n      sales_owner: context.sales_owner,\n    },\n    run_id: context.workflow_run_id,\n    event_id: context.event_id,\n    requirement_snapshot: context.requirement,\n    analysis: normalizedAnalysis,\n    priority,\n    review_status: reviewStatus,\n    review_reasons: reviewReasons,\n    notification_mode: 'preview',\n    notification_channel: 'feishu',\n  },\n}];"
+        "jsCode": "const chainResult = $input.first().json;\nconst context = $('Restore Workflow Context').first().json;\n\nfunction invalid(reason) {\n  throw new Error(`ai_output_validation: ${reason}`);\n}\n\nlet analysis = chainResult.output;\nif (typeof analysis === 'string') {\n  try {\n    analysis = JSON.parse(analysis);\n  } catch (error) {\n    invalid('result is not valid JSON');\n  }\n}\n\nif (analysis === null || typeof analysis !== 'object' || Array.isArray(analysis)) {\n  invalid('result is not a JSON object');\n}\n\nconst allowedKeys = [\n  'summary',\n  'needs',\n  'missing_information',\n  'next_actions',\n  'risk_flags',\n];\nconst actualKeys = Object.keys(analysis).sort();\nconst expectedKeys = [...allowedKeys].sort();\nif (\n  actualKeys.length !== expectedKeys.length\n  || actualKeys.some((key, index) => key !== expectedKeys[index])\n) {\n  invalid('result fields do not match the approved schema');\n}\n\nfunction requireText(value, name, maxLength) {\n  if (typeof value !== 'string' || value.trim().length === 0) {\n    invalid(`${name} must be a non-empty string`);\n  }\n  if (value.length > maxLength) {\n    invalid(`${name} exceeds its maximum length`);\n  }\n  return value.trim();\n}\n\nfunction requireTextArray(value, name, minItems, maxItems, maxLength) {\n  if (!Array.isArray(value)) {\n    invalid(`${name} must be an array`);\n  }\n  if (value.length < minItems || value.length > maxItems) {\n    invalid(`${name} has an invalid number of items`);\n  }\n  return value.map((item, index) =>\n    requireText(item, `${name}[${index}]`, maxLength));\n}\n\nconst riskValues = new Set([\n  'product_capability_unverified',\n  'pricing_or_discount',\n  'delivery_commitment',\n  'prompt_injection',\n  'sensitive_information',\n]);\n\nconst normalizedAnalysis = {\n  summary: requireText(analysis.summary, 'summary', 500),\n  needs: requireTextArray(analysis.needs, 'needs', 1, 5, 200),\n  missing_information: requireTextArray(\n    analysis.missing_information,\n    'missing_information',\n    0,\n    5,\n    200,\n  ),\n  next_actions: requireTextArray(\n    analysis.next_actions,\n    'next_actions',\n    1,\n    5,\n    300,\n  ),\n  risk_flags: requireTextArray(analysis.risk_flags, 'risk_flags', 0, 5, 64),\n};\n\nif (normalizedAnalysis.risk_flags.some((value) => !riskValues.has(value))) {\n  invalid('risk_flags contains an unsupported value');\n}\nif (new Set(normalizedAnalysis.risk_flags).size !== normalizedAnalysis.risk_flags.length) {\n  invalid('risk_flags contains duplicate values');\n}\n\nif (context.purchase_window_days === null) {\n  const hasMissingQuestion = normalizedAnalysis.missing_information\n    .some((value) => /\\u91c7\\u8d2d|\\u8bc4\\u4f30\\u65f6\\u95f4|\\u65f6\\u95f4\\u7a97\\u53e3/.test(value));\n  if (!hasMissingQuestion && normalizedAnalysis.missing_information.length < 5) {\n    normalizedAnalysis.missing_information.push('\\u91c7\\u8d2d\\u8bc4\\u4f30\\u65f6\\u95f4');\n  }\n\n  const hasFollowupAction = normalizedAnalysis.next_actions\n    .some((value) => /\\u91c7\\u8d2d|\\u8bc4\\u4f30\\u65f6\\u95f4|\\u65f6\\u95f4\\u7a97\\u53e3/.test(value));\n  if (!hasFollowupAction && normalizedAnalysis.next_actions.length < 5) {\n    normalizedAnalysis.next_actions.push('\\u5411\\u5ba2\\u6237\\u786e\\u8ba4\\u91c7\\u8d2d\\u8bc4\\u4f30\\u65f6\\u95f4');\n  }\n}\n\nconst priority = context.purchase_window_days !== null\n  && context.purchase_window_days <= 30\n  ? 'high'\n  : 'normal';\n\nconst reviewReasons = [...normalizedAnalysis.risk_flags];\nconst reviewStatus = reviewReasons.length > 0 ? 'pending' : 'not_required';\n\nreturn [{\n  json: {\n    customer: {\n      customer_id: context.customer_id,\n      company_name: context.company_name,\n      industry: context.industry,\n      sales_owner: context.sales_owner,\n    },\n    run_id: context.workflow_run_id,\n    event_id: context.event_id,\n    requirement_snapshot: context.requirement,\n    analysis: normalizedAnalysis,\n    priority,\n    review_status: reviewStatus,\n    review_reasons: reviewReasons,\n    notification_mode: 'preview',\n    notification_channel: 'feishu',\n  },\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1664,
+        1616,
         -192
       ],
       "id": "d3f939f7-514e-412e-9b76-fc9f9d654c74",
-      "name": "Build CRM Follow-up Payload"
+      "name": "Build CRM Follow-up Payload",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -237,7 +239,7 @@
         "url": "http://api:8000/crm/followups",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json) }}",
+        "jsonBody": "={{ JSON.stringify($json.checkpoint_data ?? $json) }}",
         "options": {
           "timeout": 10000
         }
@@ -245,11 +247,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        1824,
+        1984,
         -192
       ],
       "id": "65d387d4-2d12-4dd9-8e75-8a7bbe1cec9e",
-      "name": "Save CRM Follow-up"
+      "name": "Save CRM Follow-up",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -265,7 +268,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        2000,
+        2224,
         -192
       ],
       "id": "a8c30e84-087f-48da-a5b5-3b891c503198",
@@ -282,14 +285,238 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2224,
+        2448,
         -192
       ],
       "id": "3b298c0c-89fb-4631-9141-15f1dd771aae",
       "name": "Return Success Result"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ \"http://api:8000/workflow-runs/\" + $json.run_id + \"/checkpoint\" }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  stage: \"analysis_completed\",\n  checkpoint_data: $json\n}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1840,
+        -192
+      ],
+      "id": "5a94dc48-a681-4c02-9664-5412ede02f57",
+      "name": "Save Analysis Checkpoint"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ \"http://api:8000/workflow-runs/\" + $('Restore Workflow Context').first().json.workflow_run_id + \"/failure\" }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  error_type: \"crm_transaction_failed\",\n  error_message: \"CRM follow-up transaction failed\",\n  stage: \"crm_transaction\"\n}) }}\n",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2096,
+        80
+      ],
+      "id": "bf940d98-06e0-48ba-98d5-a4f84538b4ee",
+      "name": "Record CRM Failure"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({\n  status: \"failed\",\n  run_id: $json.run_id,\n  failure_stage: $json.failure_stage,\n  error_type: $json.error_type,\n  message: \"CRM follow-up could not be saved\"\n}) }}",
+        "options": {
+          "responseCode": 503
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2320,
+        64
+      ],
+      "id": "21158e92-cf89-4765-9c9a-d8eea10b3f89",
+      "name": "Return CRM Failure"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst context = $('Restore Workflow Context').first().json;\n\n// Read only error metadata. Never scan lead fields, model output, or raw bodies.\nfunction collectError(value, depth = 0) {\n  if (depth > 4 || value === null || value === undefined) return '';\n  if (typeof value === 'string' || typeof value === 'number') return String(value);\n  if (typeof value !== 'object' || Array.isArray(value)) return '';\n  return ['name', 'message', 'code', 'status', 'statusCode', 'httpCode', 'error', 'cause']\n    .filter((key) => Object.prototype.hasOwnProperty.call(value, key))\n    .map((key) => collectError(value[key], depth + 1))\n    .join(' ');\n}\n\nconst error = input.error;\nconst detail = collectError(error).toLowerCase();\nconst outputValidationFailure = [\n  /ai[_ .-]?output[_ .-]?validation/,\n  /output.?validation/,\n  /output.?parser/,\n  /structured.?output/,\n  /model output (?:does not|doesn.t) fit required format/,\n  /schema/,\n  /failed to parse/,\n  /could not parse/,\n  /invalid json/,\n  /invalid.+output/,\n  /unexpected token/,\n].some((pattern) => pattern.test(detail));\n\n// Parser errors can quote invalid model text containing HTTP-like numbers.\n// An explicit validation error must retain its review classification.\n// Unrecognized or missing error metadata follows the existing failure branch.\nreturn [{\n  json: {\n    run_id: context.workflow_run_id,\n    event_id: context.event_id,\n    customer_id: context.customer_id,\n    failure_kind: outputValidationFailure ? 'output_validation' : 'service_unavailable',\n    requires_human_review: outputValidationFailure,\n    failure_stage: outputValidationFailure ? 'ai_output_validation' : 'ai_analysis',\n    error_type: outputValidationFailure ? 'ai_output_invalid' : 'ai_service_unavailable',\n    safe_message: outputValidationFailure\n      ? 'AI output did not pass structural validation'\n      : 'AI analysis service is unavailable',\n  },\n}];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        48
+      ],
+      "id": "f4215e36-e7a8-4f79-bf1f-47b154cdc183",
+      "name": "Classify AI Failure"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "878abfd0-e6a5-47f3-a630-ad8152b54540",
+              "leftValue": "={{ $json.requires_human_review }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1888,
+        48
+      ],
+      "id": "70cacefb-13dc-400d-a9ab-87df868eaece",
+      "name": "AI Output Invalid?"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ \"http://api:8000/workflow-runs/\" + $json.run_id + \"/result\" }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  status: \"needs_human_review\",\n  output_data: {\n    run_id: $json.run_id,\n    customer_id: $json.customer_id,\n    status: \"needs_human_review\",\n    requires_human_review: true,\n    review_reasons: [\"ai_output_validation_failed\"],\n    analysis: null,\n    notification: {\n      status: \"skipped\"\n    }\n  },\n  category: \"sales_followup\",\n  priority: null,\n  elapsed_time: null,\n  total_tokens: null\n}) }}\n",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2112,
+        -64
+      ],
+      "id": "315072ec-6fe2-4768-beb7-c591f14f7bee",
+      "name": "Finish AI Review"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({\n  run_id: $json.run_id,\n  customer_id: $json.output_data.customer_id,\n  status: $json.status,\n  duplicate: false,\n  requires_human_review: true,\n  review_reasons: $json.output_data.review_reasons,\n  analysis: null,\n  notification: {\n    status: \"skipped\"\n  }\n}) }}\n",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2336,
+        -64
+      ],
+      "id": "1882f2a9-e72a-4957-896e-be9889337bd9",
+      "name": "Return AI Review"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ \"http://api:8000/workflow-runs/\" + $json.run_id + \"/failure\" }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  error_type: $json.error_type,\n  error_message: $json.safe_message,\n  stage: $json.failure_stage\n}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2208,
+        224
+      ],
+      "id": "2429217e-ee9c-4edc-b434-a48e0d34fd4a",
+      "name": "Record AI Failure"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({\n  status: \"failed\",\n  run_id: $json.run_id,\n  failure_stage: $json.failure_stage,\n  error_type: $json.error_type,\n  message: \"AI analysis could not be completed\"\n}) }}",
+        "options": {
+          "responseCode": 503
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2432,
+        224
+      ],
+      "id": "14255b5e-8eb8-4d0b-a4f8-a34279a89c9d",
+      "name": "Return AI Failure"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e8027031-374a-4f05-8485-046c6824b05f",
+              "leftValue": "={{ $json.replayed && $json.resume_from === \"crm_transaction\" && $json.checkpoint_data !== null }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1216,
+        -432
+      ],
+      "id": "86233fbf-3fff-42dc-a2de-98fa03ea4c38",
+      "name": "Resume CRM From Checkpoint?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const context = $input.first().json;\nconst checkpoint = context.checkpoint_data;\n\nif (checkpoint === null || typeof checkpoint !== 'object' || Array.isArray(checkpoint)) {\n  throw new Error('Saved CRM checkpoint is unavailable');\n}\nif (checkpoint.run_id !== context.workflow_run_id) {\n  throw new Error('Saved CRM checkpoint belongs to a different workflow run');\n}\n\nreturn [{ json: checkpoint }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        -592
+      ],
+      "id": "5f0063c4-a7a2-4bef-9975-72eb39885531",
+      "name": "Restore CRM Checkpoint"
     }
   ],
-  "pinData": {},
   "connections": {
     "Receive Sales Lead": {
       "main": [
@@ -357,7 +584,7 @@
       "main": [
         [
           {
-            "node": "Analyze Sales Lead",
+            "node": "Resume CRM From Checkpoint?",
             "type": "main",
             "index": 0
           }
@@ -401,6 +628,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Classify AI Failure",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -408,7 +642,14 @@
       "main": [
         [
           {
-            "node": "Save CRM Follow-up",
+            "node": "Save Analysis Checkpoint",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Classify AI Failure",
             "type": "main",
             "index": 0
           }
@@ -420,6 +661,13 @@
         [
           {
             "node": "Finish Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Record CRM Failure",
             "type": "main",
             "index": 0
           }
@@ -436,13 +684,114 @@
           }
         ]
       ]
+    },
+    "Save Analysis Checkpoint": {
+      "main": [
+        [
+          {
+            "node": "Save CRM Follow-up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record CRM Failure": {
+      "main": [
+        [
+          {
+            "node": "Return CRM Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify AI Failure": {
+      "main": [
+        [
+          {
+            "node": "AI Output Invalid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Output Invalid?": {
+      "main": [
+        [
+          {
+            "node": "Finish AI Review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Record AI Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finish AI Review": {
+      "main": [
+        [
+          {
+            "node": "Return AI Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record AI Failure": {
+      "main": [
+        [
+          {
+            "node": "Return AI Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume CRM From Checkpoint?": {
+      "main": [
+        [
+          {
+            "node": "Restore CRM Checkpoint",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyze Sales Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore CRM Checkpoint": {
+      "main": [
+        [
+          {
+            "node": "Save CRM Follow-up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "nodeGroups": [],
-  "tags": []
+  "active": false,
+  "pinData": {}
 }

@@ -1,4 +1,5 @@
 import json
+import re
 import sqlite3
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -8,6 +9,17 @@ from uuid import uuid4
 from ..database import get_connection
 
 MAX_RETRY_COUNT = 3
+MAX_CHECKPOINT_BYTES = 16_384
+
+_SECRET_PATTERNS = (
+    re.compile(r"(?i)bearer\s+[a-z0-9._-]+"),
+    re.compile(r"sk-[A-Za-z0-9_-]{8,}"),
+    re.compile(
+        r"(?i)(api[_-]?key|token|secret|password)"
+        r"\s*[:=]\s*[^\s,;]+"
+    ),
+    re.compile(r"https?://[^\s]+", re.IGNORECASE),
+)
 
 
 class WorkflowRunConflictError(RuntimeError):
@@ -28,6 +40,9 @@ class WorkflowRunStartResult:
     retry_count: int
     duplicate_count: int
     input_data: dict[str, Any]
+    processing_stage: str = "workflow_registered"
+    resume_from: str = "ai_analysis"
+    checkpoint_data: dict[str, Any] | None = None
 
 
 def _current_time() -> str:
@@ -50,7 +65,36 @@ def _row_to_record(
         else json.loads(serialized_output)
     )
 
+    serialized_checkpoint = record.pop("checkpoint_json", None)
+    record["checkpoint_data"] = (
+        None
+        if serialized_checkpoint is None
+        else json.loads(serialized_checkpoint)
+    )
+
     return record
+
+
+def _sanitize_error_message(message: str) -> str:
+    sanitized = message
+    for pattern in _SECRET_PATTERNS:
+        sanitized = pattern.sub("[REDACTED]", sanitized)
+    return sanitized[:1000]
+
+
+def _resume_from_stage(processing_stage: str) -> str:
+    return {
+        "workflow_registered": "ai_analysis",
+        "analysis_completed": "crm_transaction",
+        "crm_saved": "notification",
+        "notification_requested": "human_delivery_check",
+        "notification_recorded": "complete",
+    }.get(processing_stage, "human_review")
+
+
+def _checkpoint_from_row(row: sqlite3.Row) -> dict[str, Any] | None:
+    serialized = row["checkpoint_json"]
+    return None if serialized is None else json.loads(serialized)
 
 
 def _load_run_by_id(
@@ -157,6 +201,8 @@ def start_workflow_run(
                 retry_count=0,
                 duplicate_count=0,
                 input_data=input_data,
+                processing_stage="workflow_registered",
+                resume_from="ai_analysis",
             )
 
         stored_input = json.loads(existing["input_json"])
@@ -168,6 +214,15 @@ def start_workflow_run(
             if existing["retry_count"] >= MAX_RETRY_COUNT:
                 raise WorkflowRunConflictError("工作流记录已经达到最大回放次数")
 
+            if existing["processing_stage"] in {
+                "crm_saved",
+                "notification_requested",
+                "notification_recorded",
+            }:
+                raise WorkflowRunConflictError(
+                    "CRM already saved; use notification handling instead of replay"
+                )
+
             retry_count = existing["retry_count"] + 1
 
             connection.execute(
@@ -177,6 +232,7 @@ def start_workflow_run(
                     category = NULL,
                     priority = NULL,
                     output_json = NULL,
+                    failure_stage = NULL,
                     error_type = NULL,
                     error_message = NULL,
                     n8n_execution_id = ?,
@@ -207,6 +263,9 @@ def start_workflow_run(
                 retry_count=retry_count,
                 duplicate_count=existing["duplicate_count"],
                 input_data=stored_input,
+                processing_stage=existing["processing_stage"],
+                resume_from=_resume_from_stage(existing["processing_stage"]),
+                checkpoint_data=_checkpoint_from_row(existing),
             )
 
         duplicate_count = existing["duplicate_count"] + 1
@@ -235,7 +294,69 @@ def start_workflow_run(
             retry_count=existing["retry_count"],
             duplicate_count=duplicate_count,
             input_data=stored_input,
+            processing_stage=existing["processing_stage"],
+            resume_from=_resume_from_stage(existing["processing_stage"]),
+            checkpoint_data=_checkpoint_from_row(existing),
         )
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
+def save_workflow_checkpoint(
+    *,
+    run_id: str,
+    stage: str,
+    checkpoint_data: dict[str, Any],
+) -> dict[str, Any]:
+    if stage != "analysis_completed":
+        raise ValueError("当前仅允许保存 analysis_completed 检查点")
+
+    serialized = json.dumps(
+        checkpoint_data,
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    if len(serialized.encode("utf-8")) > MAX_CHECKPOINT_BYTES:
+        raise ValueError("检查点数据不能超过 16384 字节")
+
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+    now = _current_time()
+
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        existing = _load_run_by_id(connection, run_id)
+
+        if existing["status"] != "running":
+            raise WorkflowRunConflictError("只有运行中的工作流可以保存检查点")
+
+        current_stage = existing["processing_stage"]
+        if current_stage == stage:
+            if existing["checkpoint_json"] != serialized:
+                raise WorkflowRunConflictError("检查点已经保存且内容不一致")
+            connection.commit()
+            return _row_to_record(existing)
+
+        if current_stage != "workflow_registered":
+            raise WorkflowRunConflictError("工作流检查点不能回退或跳跃")
+
+        connection.execute(
+            """
+            UPDATE workflow_runs
+            SET processing_stage = ?,
+                checkpoint_json = ?,
+                failure_stage = NULL,
+                updated_at = ?
+            WHERE run_id = ?
+            """,
+            (stage, serialized, now, run_id),
+        )
+        updated = _load_run_by_id(connection, run_id)
+        connection.commit()
+        return _row_to_record(updated)
     except Exception:
         connection.rollback()
         raise
@@ -293,6 +414,7 @@ def finish_workflow_run(
                 category = ?,
                 priority = ?,
                 output_json = ?,
+                failure_stage = NULL,
                 error_type = NULL,
                 error_message = NULL,
                 elapsed_time = ?,
@@ -328,11 +450,83 @@ def finish_workflow_run(
         connection.close()
 
 
+def _mark_failed(
+    connection: sqlite3.Connection,
+    *,
+    existing: sqlite3.Row,
+    error_type: str,
+    error_message: str,
+    failure_stage: str,
+    now: str,
+) -> sqlite3.Row:
+    if existing["status"] == "failed":
+        return existing
+
+    if existing["status"] != "running":
+        raise WorkflowRunConflictError(
+            "只有运行中的工作流可以标记为失败"
+        )
+
+    connection.execute(
+        """
+        UPDATE workflow_runs
+        SET status = 'failed',
+            failure_stage = ?,
+            error_type = ?,
+            error_message = ?,
+            finished_at = ?,
+            updated_at = ?
+        WHERE run_id = ?
+        """,
+        (
+            failure_stage,
+            error_type,
+            _sanitize_error_message(error_message),
+            now,
+            now,
+            existing["run_id"],
+        ),
+    )
+    return _load_run_by_id(connection, existing["run_id"])
+
+
+def fail_workflow_run(
+    *,
+    run_id: str,
+    error_type: str,
+    error_message: str,
+    failure_stage: str = "unknown",
+) -> dict[str, Any]:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+    now = _current_time()
+
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        existing = _load_run_by_id(connection, run_id)
+        updated = _mark_failed(
+            connection,
+            existing=existing,
+            error_type=error_type,
+            error_message=error_message,
+            failure_stage=failure_stage,
+            now=now,
+        )
+        connection.commit()
+        return _row_to_record(updated)
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
 def fail_workflow_run_by_execution(
     *,
     n8n_execution_id: str,
     error_type: str,
     error_message: str,
+    failure_stage: str = "unknown",
 ) -> dict[str, Any]:
     connection = get_connection()
     connection.row_factory = sqlite3.Row
@@ -356,37 +550,13 @@ def fail_workflow_run_by_execution(
                 "找不到对应的 n8n 执行记录"
             )
 
-        if existing["status"] == "failed":
-            connection.commit()
-            return _row_to_record(existing)
-
-        if existing["status"] != "running":
-            raise WorkflowRunConflictError(
-                "只有运行中的工作流可以标记为失败"
-            )
-
-        connection.execute(
-            """
-            UPDATE workflow_runs
-            SET status = 'failed',
-                error_type = ?,
-                error_message = ?,
-                finished_at = ?,
-                updated_at = ?
-            WHERE run_id = ?
-            """,
-            (
-                error_type,
-                error_message[:1000],
-                now,
-                now,
-                existing["run_id"],
-            ),
-        )
-
-        updated = _load_run_by_id(
+        updated = _mark_failed(
             connection,
-            existing["run_id"],
+            existing=existing,
+            error_type=error_type,
+            error_message=error_message,
+            failure_stage=failure_stage,
+            now=now,
         )
         connection.commit()
 
@@ -410,6 +580,77 @@ def get_workflow_run(
             run_id,
         )
         return _row_to_record(row)
+    finally:
+        connection.close()
+
+
+def get_workflow_recovery(run_id: str) -> dict[str, Any]:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+
+    try:
+        run = _load_run_by_id(connection, run_id)
+        followup = connection.execute(
+            "SELECT notification_status FROM followup_records WHERE run_id = ?",
+            (run_id,),
+        ).fetchone()
+
+        processing_stage = run["processing_stage"]
+        resume_from = _resume_from_stage(processing_stage)
+        requires_human_action = False
+        automatic_retry_allowed = False
+
+        if run["status"] == "succeeded":
+            resume_from = "complete"
+            reason = "工作流已经成功完成"
+        elif (
+            processing_stage == "notification_requested"
+            or (
+                followup is not None
+                and followup["notification_status"] == "delivery_unknown"
+            )
+        ):
+            resume_from = "human_delivery_check"
+            requires_human_action = True
+            reason = "通知结果不确定，必须先人工核对实际送达情况"
+        elif (
+            followup is not None
+            and followup["notification_status"] == "failed"
+        ):
+            resume_from = "notification"
+            requires_human_action = True
+            reason = "通知明确失败，需要人工决定是否重新发送"
+        elif processing_stage in {"crm_saved", "notification_recorded"}:
+            requires_human_action = True
+            reason = "CRM 已保存，通过通知接口处理或核对最终状态，禁止整条回放"
+        elif run["status"] == "needs_human_review":
+            resume_from = "human_review"
+            requires_human_action = True
+            reason = "工作流正在等待人工复核"
+        elif run["status"] == "running":
+            reason = "工作流仍在运行，不能并发恢复"
+        elif run["retry_count"] >= MAX_RETRY_COUNT:
+            requires_human_action = True
+            reason = "工作流已经达到最大自动恢复次数"
+        else:
+            automatic_retry_allowed = resume_from in {
+                "ai_analysis",
+                "crm_transaction",
+                "notification",
+            }
+            reason = "可以从最后一个安全检查点恢复"
+
+        return {
+            "run_id": run_id,
+            "status": run["status"],
+            "processing_stage": processing_stage,
+            "resume_from": resume_from,
+            "automatic_retry_allowed": automatic_retry_allowed,
+            "requires_human_action": requires_human_action,
+            "reason": reason,
+            "retry_count": run["retry_count"],
+            "checkpoint_data": _checkpoint_from_row(run),
+        }
     finally:
         connection.close()
 

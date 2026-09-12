@@ -31,6 +31,9 @@ FOLLOWUP_COLUMNS = {
     "notification_request_key",
     "notification_message_id",
     "notification_error_code",
+    "notification_attempt_count",
+    "notification_last_attempt_at",
+    "notification_resolved_at",
     "created_at",
     "updated_at",
 }

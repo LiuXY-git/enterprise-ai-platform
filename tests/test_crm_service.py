@@ -9,7 +9,7 @@ from backend.app.models.crm import (
     CRMFollowupCreateRequest,
     CRMFollowupResponse,
 )
-from backend.app.services import crm_service
+from backend.app.services import crm_service, workflow_run_service
 from backend.app.services.crm_service import CRMConflictError, CRMNotFoundError
 
 
@@ -354,3 +354,270 @@ def test_customer_response_uses_timezone_aware_datetimes(monkeypatch, tmp_path) 
     )
 
     assert customer["created_at"].tzinfo == UTC
+
+
+def test_crm_transaction_failure_rolls_back_customer_and_followup(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    connection = database.get_connection()
+    try:
+        connection.execute(
+            """
+            CREATE TRIGGER fail_followup_insert
+            BEFORE INSERT ON followup_records
+            BEGIN
+                SELECT RAISE(ABORT, 'injected crm failure');
+            END
+            """
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    with pytest.raises(Exception, match="injected crm failure"):
+        crm_service.create_followup(make_followup())
+
+    connection = database.get_connection()
+    try:
+        customer_count = connection.execute(
+            "SELECT COUNT(*) FROM customers"
+        ).fetchone()[0]
+        followup_count = connection.execute(
+            "SELECT COUNT(*) FROM followup_records"
+        ).fetchone()[0]
+        stage = connection.execute(
+            "SELECT processing_stage FROM workflow_runs"
+        ).fetchone()[0]
+    finally:
+        connection.close()
+
+    assert customer_count == 0
+    assert followup_count == 0
+    assert stage == "workflow_registered"
+
+
+def test_notification_attempt_uses_stable_key_and_records_stage(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send")
+    )
+
+    attempt = crm_service.begin_notification_attempt(
+        created.record["followup_id"]
+    )
+    record = crm_service.get_followup(created.record["followup_id"])
+    connection = database.get_connection()
+    try:
+        stage = connection.execute(
+            "SELECT processing_stage FROM workflow_runs WHERE run_id = ?",
+            (created.record["run_id"],),
+        ).fetchone()[0]
+    finally:
+        connection.close()
+
+    assert attempt.notification_request_key == "sales-followup:run-demo-001"
+    assert attempt.attempt_number == 1
+    assert attempt.manual is False
+    assert record["notification_attempt_count"] == 1
+    assert record["notification_last_attempt_at"] is not None
+    assert stage == "notification_requested"
+
+
+def test_definite_notification_failure_preserves_crm_and_requires_manual_retry(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send")
+    )
+    followup_id = created.record["followup_id"]
+    crm_service.begin_notification_attempt(followup_id)
+
+    failed = crm_service.update_notification_result(
+        followup_id,
+        notification_status="failed",
+        message_id=None,
+        error_code="provider_rejected",
+    )
+
+    assert failed["customer_id"] == "customer-demo-001"
+    assert failed["notification_status"] == "failed"
+    assert failed["notification_error_code"] == "provider_rejected"
+    with pytest.raises(CRMConflictError, match="人工决定"):
+        crm_service.begin_notification_attempt(followup_id)
+
+    retry = crm_service.begin_notification_attempt(followup_id, manual=True)
+    assert retry.notification_request_key == attempt_key(failed)
+    assert retry.attempt_number == 2
+
+
+def attempt_key(record: dict) -> str:
+    return record["notification_request_key"]
+
+
+def test_delivery_unknown_blocks_resend_until_human_resolution(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send", notification_channel="wecom")
+    )
+    followup_id = created.record["followup_id"]
+    crm_service.begin_notification_attempt(followup_id)
+    unknown = crm_service.update_notification_result(
+        followup_id,
+        notification_status="delivery_unknown",
+        message_id=None,
+        error_code="read_timeout",
+    )
+
+    assert unknown["notification_status"] == "delivery_unknown"
+    with pytest.raises(CRMConflictError, match="禁止自动重发"):
+        crm_service.begin_notification_attempt(followup_id, manual=True)
+
+    resolved = crm_service.resolve_unknown_notification(
+        followup_id,
+        delivered=False,
+        message_id=None,
+    )
+    retry = crm_service.begin_notification_attempt(followup_id, manual=True)
+
+    assert resolved["notification_status"] == "failed"
+    assert resolved["notification_error_code"] == "human_confirmed_not_sent"
+    assert resolved["notification_resolved_at"] is not None
+    assert retry.attempt_number == 2
+
+
+def test_notification_attempts_are_capped_at_three(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send")
+    )
+    followup_id = created.record["followup_id"]
+
+    for attempt_number in range(1, 4):
+        attempt = crm_service.begin_notification_attempt(
+            followup_id,
+            manual=attempt_number > 1,
+        )
+        assert attempt.attempt_number == attempt_number
+        crm_service.update_notification_result(
+            followup_id,
+            notification_status="failed",
+            message_id=None,
+            error_code="provider_rejected",
+        )
+
+    with pytest.raises(CRMConflictError, match="最大人工发送次数"):
+        crm_service.begin_notification_attempt(followup_id, manual=True)
+
+
+def test_notification_terminal_result_is_idempotent_but_cannot_be_overwritten(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send")
+    )
+    followup_id = created.record["followup_id"]
+    crm_service.begin_notification_attempt(followup_id)
+
+    first = crm_service.update_notification_result(
+        followup_id,
+        notification_status="sent",
+        message_id="message-001",
+        error_code=None,
+    )
+    repeated = crm_service.update_notification_result(
+        followup_id,
+        notification_status="sent",
+        message_id="message-001",
+        error_code=None,
+    )
+
+    assert repeated == first
+    with pytest.raises(CRMConflictError, match="不能覆盖"):
+        crm_service.update_notification_result(
+            followup_id,
+            notification_status="delivery_unknown",
+            message_id=None,
+            error_code="timeout",
+        )
+
+
+@pytest.mark.parametrize(
+    ("notification_status", "error_code", "resume_from", "reason_fragment"),
+    [
+        (
+            "failed",
+            "provider_rejected",
+            "notification",
+            "人工决定",
+        ),
+        (
+            "delivery_unknown",
+            "read_timeout",
+            "human_delivery_check",
+            "人工核对",
+        ),
+    ],
+)
+def test_notification_failure_recovery_preserves_crm_and_requires_human_action(
+    monkeypatch,
+    tmp_path,
+    notification_status,
+    error_code,
+    resume_from,
+    reason_fragment,
+) -> None:
+    initialize_temp_database(monkeypatch, tmp_path)
+    insert_workflow_run()
+    created = crm_service.create_followup(
+        make_followup(notification_mode="send")
+    )
+    crm_service.begin_notification_attempt(created.record["followup_id"])
+    crm_service.update_notification_result(
+        created.record["followup_id"],
+        notification_status=notification_status,
+        message_id=None,
+        error_code=error_code,
+    )
+    workflow_run_service.finish_workflow_run(
+        run_id=created.record["run_id"],
+        status="needs_human_review",
+        output_data={
+            "followup_id": created.record["followup_id"],
+            "review_reasons": ["notification_requires_human_action"],
+        },
+        category="sales_followup",
+        priority="high",
+    )
+
+    recovery = workflow_run_service.get_workflow_recovery(
+        created.record["run_id"]
+    )
+    persisted = crm_service.get_followup(created.record["followup_id"])
+
+    assert persisted["notification_status"] == notification_status
+    assert persisted["customer_id"] == "customer-demo-001"
+    assert recovery["resume_from"] == resume_from
+    assert recovery["automatic_retry_allowed"] is False
+    assert recovery["requires_human_action"] is True
+    assert reason_fragment in recovery["reason"]

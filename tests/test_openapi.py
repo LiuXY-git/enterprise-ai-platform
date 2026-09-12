@@ -171,6 +171,23 @@ def test_crm_openapi_contract() -> None:
     assert analysis_model["properties"]["needs"]["maxItems"] == 5
     assert analysis_model["properties"]["risk_flags"]["maxItems"] == 5
 
+    paths = schema["paths"]
+    assert "/workflow-runs/{run_id}/checkpoint" in paths
+    assert "/workflow-runs/{run_id}/failure" in paths
+    assert "/workflow-runs/{run_id}/recovery" in paths
+    assert "/crm/workflow-runs/{run_id}/followup" in paths
+    assert "/crm/followups/{followup_id}/notification-attempts" in paths
+    assert "/crm/followups/{followup_id}/notification" in paths
+    assert "/crm/followups/{followup_id}/notification-resolution" in paths
+
+    notification_result = models["CRMNotificationUpdateRequest"]
+    status_schema = notification_result["properties"]["status"]
+    assert set(status_schema["enum"]) == {
+        "sent",
+        "failed",
+        "delivery_unknown",
+    }
+
 
 def test_wecom_lifecycle_is_lazy_and_resets_cache(monkeypatch) -> None:
     from fastapi.testclient import TestClient

@@ -40,7 +40,7 @@ def test_sales_followup_workflow_has_expected_nodes_and_webhook() -> None:
     webhook = node_by_name(workflow, "Receive Sales Lead")
 
     assert workflow["name"] == "W7D47 - Sales Follow-up Assistant"
-    assert len(workflow["nodes"]) == 15
+    assert len(workflow["nodes"]) == 26
     assert webhook["parameters"]["httpMethod"] == "POST"
     assert webhook["parameters"]["path"] == (
         "w7d47-sales-followup-assistant"
@@ -55,7 +55,7 @@ def test_sales_followup_workflow_routes_validation_and_duplicates() -> None:
 
     assert input_branches[0][0]["node"] == "Start Workflow Run"
     assert input_branches[1][0]["node"] == "Reject Invalid Input"
-    assert process_branches[0][0]["node"] == "Analyze Sales Lead"
+    assert process_branches[0][0]["node"] == "Resume CRM From Checkpoint?"
     assert process_branches[1][0]["node"] == "Return Duplicate Result"
 
     invalid_response = node_by_name(
@@ -109,7 +109,7 @@ def test_sales_followup_workflow_persists_crm_and_run_result() -> None:
     assert start["method"] == "POST"
     assert start["url"] == "http://api:8000/workflow-runs/start"
     assert "JSON.stringify" in start["jsonBody"]
-    assert '"workflow_name": "sales-followup-assistant"' in (
+    assert 'workflow_name: "sales-followup-assistant"' in (
         start["jsonBody"]
     )
     assert "purchase_window_days <= 30" in build
@@ -117,7 +117,7 @@ def test_sales_followup_workflow_persists_crm_and_run_result() -> None:
     assert "notification_channel: 'feishu'" in build
     assert save["method"] == "POST"
     assert save["url"] == "http://api:8000/crm/followups"
-    assert "JSON.stringify($json)" in save["jsonBody"]
+    assert "JSON.stringify($json.checkpoint_data ?? $json)" in save["jsonBody"]
     assert finish["method"] == "PATCH"
     assert "/workflow-runs/" in finish["url"]
     assert '"needs_human_review"' in finish["jsonBody"]
@@ -144,3 +144,26 @@ def test_sales_followup_workflow_returns_stable_success_contract() -> None:
         "notification",
     ):
         assert f'"{field}"' in body
+
+
+def test_sales_followup_routes_checkpoint_recovery_and_errors() -> None:
+    workflow = load_workflow()
+    connections = workflow["connections"]
+    resume = connections["Resume CRM From Checkpoint?"]["main"]
+    assert resume[0][0]["node"] == "Restore CRM Checkpoint"
+    assert resume[1][0]["node"] == "Analyze Sales Lead"
+    assert connections["Restore CRM Checkpoint"]["main"][0][0]["node"] == (
+        "Save CRM Follow-up"
+    )
+    for name in ("Analyze Sales Lead", "Build CRM Follow-up Payload"):
+        assert node_by_name(workflow, name)["onError"] == "continueErrorOutput"
+        assert connections[name]["main"][1][0]["node"] == "Classify AI Failure"
+    assert connections["Save CRM Follow-up"]["main"][1][0]["node"] == (
+        "Record CRM Failure"
+    )
+    for name in ("Return CRM Failure", "Return AI Failure"):
+        assert node_by_name(workflow, name)["parameters"]["options"][
+            "responseCode"
+        ] == 503
+    start = node_by_name(workflow, "Start Workflow Run")["parameters"]
+    assert "replay: $json.replay" in start["jsonBody"]

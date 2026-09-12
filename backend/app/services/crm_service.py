@@ -9,6 +9,7 @@ from ..database import get_connection
 from ..models.crm import CRMCustomerUpsertRequest, CRMFollowupCreateRequest
 
 SALES_FOLLOWUP_WORKFLOW = "sales-followup-assistant"
+MAX_NOTIFICATION_ATTEMPTS = 3
 
 
 class CRMNotFoundError(RuntimeError):
@@ -25,12 +26,25 @@ class CRMFollowupCreateResult:
     created: bool
 
 
+@dataclass(frozen=True)
+class CRMNotificationAttemptResult:
+    followup_id: str
+    notification_channel: str
+    notification_request_key: str
+    attempt_number: int
+    manual: bool
+
+
 def _current_time() -> str:
     return datetime.now(UTC).isoformat()
 
 
 def _parse_time(value: str) -> datetime:
     return datetime.fromisoformat(value)
+
+
+def _parse_optional_time(value: str | None) -> datetime | None:
+    return None if value is None else _parse_time(value)
 
 
 def _row_to_customer(row: sqlite3.Row) -> dict[str, Any]:
@@ -61,6 +75,13 @@ def _row_to_followup(row: sqlite3.Row) -> dict[str, Any]:
         "notification_request_key": row["notification_request_key"],
         "notification_message_id": row["notification_message_id"],
         "notification_error_code": row["notification_error_code"],
+        "notification_attempt_count": row["notification_attempt_count"],
+        "notification_last_attempt_at": _parse_optional_time(
+            row["notification_last_attempt_at"]
+        ),
+        "notification_resolved_at": _parse_optional_time(
+            row["notification_resolved_at"]
+        ),
         "created_at": _parse_time(row["created_at"]),
         "updated_at": _parse_time(row["updated_at"]),
     }
@@ -255,6 +276,22 @@ def create_followup(
             ),
         )
 
+        processing_stage = (
+            "notification_recorded"
+            if notification_status in {"preview", "skipped"}
+            else "crm_saved"
+        )
+        connection.execute(
+            """
+            UPDATE workflow_runs
+            SET processing_stage = ?,
+                failure_stage = NULL,
+                updated_at = ?
+            WHERE run_id = ?
+            """,
+            (processing_stage, now, request.run_id),
+        )
+
         created = _load_followup(connection, followup_id)
         connection.commit()
         return CRMFollowupCreateResult(
@@ -274,6 +311,228 @@ def get_followup(followup_id: str) -> dict[str, Any]:
 
     try:
         return _row_to_followup(_load_followup(connection, followup_id))
+    finally:
+        connection.close()
+
+
+def get_followup_by_run(run_id: str) -> dict[str, Any]:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+
+    try:
+        row = connection.execute(
+            "SELECT * FROM followup_records WHERE run_id = ?",
+            (run_id,),
+        ).fetchone()
+        if row is None:
+            raise CRMNotFoundError("找不到该工作流运行对应的跟进记录")
+        return _row_to_followup(row)
+    finally:
+        connection.close()
+
+
+def begin_notification_attempt(
+    followup_id: str,
+    *,
+    manual: bool = False,
+) -> CRMNotificationAttemptResult:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+    now = _current_time()
+
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        record = _load_followup(connection, followup_id)
+
+        if record["notification_mode"] != "send":
+            raise CRMConflictError("只有 send 模式可以开始通知发送")
+        if record["review_status"] != "not_required":
+            raise CRMConflictError("等待人工复核的跟进记录不能发送通知")
+        if record["notification_channel"] is None:
+            raise CRMConflictError("跟进记录缺少通知渠道")
+        if record["notification_request_key"] is None:
+            raise CRMConflictError("跟进记录缺少稳定通知请求标识")
+
+        current_status = record["notification_status"]
+        attempt_count = record["notification_attempt_count"]
+
+        if current_status == "delivery_unknown":
+            raise CRMConflictError(
+                "通知结果不确定，必须先人工核对，禁止自动重发"
+            )
+        if current_status == "failed" and not manual:
+            raise CRMConflictError("通知明确失败后只能由人工决定重新发送")
+        if current_status not in {"pending", "failed"}:
+            raise CRMConflictError("当前通知状态不能开始发送")
+        if current_status == "pending" and attempt_count > 0:
+            raise CRMConflictError("通知请求已经开始，不能并发或重复发送")
+        if attempt_count >= MAX_NOTIFICATION_ATTEMPTS:
+            raise CRMConflictError("通知已经达到最大人工发送次数")
+
+        next_attempt = attempt_count + 1
+        connection.execute(
+            """
+            UPDATE followup_records
+            SET notification_status = 'pending',
+                notification_message_id = NULL,
+                notification_error_code = NULL,
+                notification_attempt_count = ?,
+                notification_last_attempt_at = ?,
+                notification_resolved_at = NULL,
+                updated_at = ?
+            WHERE followup_id = ?
+            """,
+            (next_attempt, now, now, followup_id),
+        )
+        connection.execute(
+            """
+            UPDATE workflow_runs
+            SET processing_stage = 'notification_requested',
+                failure_stage = NULL,
+                updated_at = ?
+            WHERE run_id = ?
+            """,
+            (now, record["run_id"]),
+        )
+        connection.commit()
+
+        return CRMNotificationAttemptResult(
+            followup_id=followup_id,
+            notification_channel=record["notification_channel"],
+            notification_request_key=record["notification_request_key"],
+            attempt_number=next_attempt,
+            manual=manual,
+        )
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
+def update_notification_result(
+    followup_id: str,
+    *,
+    notification_status: str,
+    message_id: str | None,
+    error_code: str | None,
+) -> dict[str, Any]:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+    now = _current_time()
+
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        record = _load_followup(connection, followup_id)
+
+        if record["notification_mode"] != "send":
+            raise CRMConflictError("只有 send 模式可以保存通知结果")
+        if record["notification_attempt_count"] < 1:
+            raise CRMConflictError("必须先登记通知发送尝试")
+        if record["notification_status"] != "pending":
+            if (
+                record["notification_status"] == notification_status
+                and record["notification_message_id"] == message_id
+                and record["notification_error_code"] == error_code
+            ):
+                connection.commit()
+                return _row_to_followup(record)
+            raise CRMConflictError("通知结果已经记录且不能覆盖")
+
+        connection.execute(
+            """
+            UPDATE followup_records
+            SET notification_status = ?,
+                notification_message_id = ?,
+                notification_error_code = ?,
+                updated_at = ?
+            WHERE followup_id = ?
+            """,
+            (
+                notification_status,
+                message_id,
+                error_code,
+                now,
+                followup_id,
+            ),
+        )
+        connection.execute(
+            """
+            UPDATE workflow_runs
+            SET processing_stage = 'notification_recorded',
+                updated_at = ?
+            WHERE run_id = ?
+            """,
+            (now, record["run_id"]),
+        )
+        updated = _load_followup(connection, followup_id)
+        connection.commit()
+        return _row_to_followup(updated)
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
+def resolve_unknown_notification(
+    followup_id: str,
+    *,
+    delivered: bool,
+    message_id: str | None,
+) -> dict[str, Any]:
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+    now = _current_time()
+
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        record = _load_followup(connection, followup_id)
+        if record["notification_status"] != "delivery_unknown":
+            raise CRMConflictError("只有 delivery_unknown 状态可以人工核对")
+
+        if delivered:
+            next_status = "sent"
+            error_code = None
+        else:
+            next_status = "failed"
+            message_id = None
+            error_code = "human_confirmed_not_sent"
+
+        connection.execute(
+            """
+            UPDATE followup_records
+            SET notification_status = ?,
+                notification_message_id = ?,
+                notification_error_code = ?,
+                notification_resolved_at = ?,
+                updated_at = ?
+            WHERE followup_id = ?
+            """,
+            (
+                next_status,
+                message_id,
+                error_code,
+                now,
+                now,
+                followup_id,
+            ),
+        )
+        connection.execute(
+            """
+            UPDATE workflow_runs
+            SET processing_stage = 'notification_recorded',
+                updated_at = ?
+            WHERE run_id = ?
+            """,
+            (now, record["run_id"]),
+        )
+        updated = _load_followup(connection, followup_id)
+        connection.commit()
+        return _row_to_followup(updated)
+    except Exception:
+        connection.rollback()
+        raise
     finally:
         connection.close()
 

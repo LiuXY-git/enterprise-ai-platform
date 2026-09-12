@@ -285,3 +285,79 @@ def test_start_run_validates_request() -> None:
     )
 
     assert response.status_code == 422
+
+
+def test_checkpoint_route_saves_validated_analysis(monkeypatch) -> None:
+    def fake_checkpoint(**kwargs):
+        assert kwargs["run_id"] == "run-001"
+        assert kwargs["stage"] == "analysis_completed"
+        return make_record(
+            processing_stage="analysis_completed",
+            checkpoint_data=kwargs["checkpoint_data"],
+        )
+
+    monkeypatch.setattr(
+        workflow_router,
+        "save_workflow_checkpoint",
+        fake_checkpoint,
+    )
+    response = client.patch(
+        "/workflow-runs/run-001/checkpoint",
+        json={
+            "stage": "analysis_completed",
+            "checkpoint_data": {"summary": "validated"},
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["processing_stage"] == "analysis_completed"
+    assert response.json()["checkpoint_data"] == {"summary": "validated"}
+
+
+def test_failure_by_run_route_records_safe_stage(monkeypatch) -> None:
+    def fake_failure(**kwargs):
+        assert kwargs["failure_stage"] == "crm_transaction"
+        return make_record(
+            status="failed",
+            failure_stage=kwargs["failure_stage"],
+            error_type=kwargs["error_type"],
+            error_message=kwargs["error_message"],
+            finished_at="2026-09-03T09:00:05+08:00",
+        )
+
+    monkeypatch.setattr(workflow_router, "fail_workflow_run", fake_failure)
+    response = client.patch(
+        "/workflow-runs/run-001/failure",
+        json={
+            "error_type": "crm_transaction_failed",
+            "error_message": "CRM transaction failed",
+            "stage": "crm_transaction",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "failed"
+    assert response.json()["failure_stage"] == "crm_transaction"
+
+
+def test_recovery_route_returns_human_delivery_check(monkeypatch) -> None:
+    monkeypatch.setattr(
+        workflow_router,
+        "get_workflow_recovery",
+        lambda run_id: {
+            "run_id": run_id,
+            "status": "failed",
+            "processing_stage": "notification_requested",
+            "resume_from": "human_delivery_check",
+            "automatic_retry_allowed": False,
+            "requires_human_action": True,
+            "reason": "通知结果不确定，必须先人工核对实际送达情况",
+            "retry_count": 1,
+            "checkpoint_data": {"summary": "validated"},
+        },
+    )
+    response = client.get("/workflow-runs/run-001/recovery")
+
+    assert response.status_code == 200
+    assert response.json()["resume_from"] == "human_delivery_check"
+    assert response.json()["requires_human_action"] is True

@@ -90,6 +90,11 @@ NotificationStatus = Literal[
     "delivery_unknown",
     "skipped",
 ]
+NotificationResultStatus = Literal[
+    "sent",
+    "failed",
+    "delivery_unknown",
+]
 RiskFlag = Literal[
     "product_capability_unverified",
     "pricing_or_discount",
@@ -195,6 +200,9 @@ class CRMFollowupResponse(CRMModel):
         max_length=64,
         pattern=r"^[a-z][a-z0-9_:-]*$",
     )
+    notification_attempt_count: int = Field(default=0, ge=0)
+    notification_last_attempt_at: datetime | None = None
+    notification_resolved_at: datetime | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -207,3 +215,55 @@ class CRMFollowupListResponse(CRMModel):
     customer_id: Identifier
     count: int = Field(ge=0)
     followups: list[CRMFollowupResponse]
+
+
+class CRMNotificationAttemptRequest(CRMModel):
+    manual: bool = False
+
+
+class CRMNotificationAttemptResponse(CRMModel):
+    followup_id: Identifier
+    notification_channel: NotificationChannel
+    notification_request_key: Identifier
+    attempt_number: int = Field(ge=1)
+    manual: bool
+
+
+class CRMNotificationUpdateRequest(CRMModel):
+    status: NotificationResultStatus
+    message_id: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=256,
+    )
+    error_code: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=64,
+        pattern=r"^[a-z][a-z0-9_:-]*$",
+    )
+
+    @model_validator(mode="after")
+    def validate_result(self) -> "CRMNotificationUpdateRequest":
+        if self.status == "sent" and self.error_code is not None:
+            raise ValueError("sent 状态不能提供 error_code")
+        if self.status != "sent" and self.error_code is None:
+            raise ValueError("通知失败或结果不确定时必须提供 error_code")
+        if self.status != "sent" and self.message_id is not None:
+            raise ValueError("通知未确认成功时不能提供 message_id")
+        return self
+
+
+class CRMNotificationResolutionRequest(CRMModel):
+    delivered: bool
+    message_id: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=256,
+    )
+
+    @model_validator(mode="after")
+    def validate_resolution(self) -> "CRMNotificationResolutionRequest":
+        if not self.delivered and self.message_id is not None:
+            raise ValueError("确认未送达时不能提供 message_id")
+        return self
