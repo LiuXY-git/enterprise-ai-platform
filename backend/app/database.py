@@ -14,6 +14,23 @@ def get_connection() -> sqlite3.Connection:
     return connection
 
 
+def _ensure_column(
+    connection: sqlite3.Connection,
+    *,
+    table: str,
+    column: str,
+    definition: str,
+) -> None:
+    columns = {
+        row[1]
+        for row in connection.execute(f"PRAGMA table_info({table})")
+    }
+    if column not in columns:
+        connection.execute(
+            f"ALTER TABLE {table} ADD COLUMN {column} {definition}"
+        )
+
+
 def init_database() -> None:
     connection = get_connection()
 
@@ -53,6 +70,9 @@ def init_database() -> None:
                 priority TEXT,
                 input_json TEXT NOT NULL,
                 output_json TEXT,
+                processing_stage TEXT NOT NULL DEFAULT 'workflow_registered',
+                checkpoint_json TEXT,
+                failure_stage TEXT,
                 error_type TEXT,
                 error_message TEXT,
                 n8n_execution_id TEXT,
@@ -148,6 +168,10 @@ def init_database() -> None:
                 notification_request_key TEXT,
                 notification_message_id TEXT,
                 notification_error_code TEXT,
+                notification_attempt_count INTEGER NOT NULL DEFAULT 0
+                    CHECK (notification_attempt_count >= 0),
+                notification_last_attempt_at TEXT,
+                notification_resolved_at TEXT,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL,
                 FOREIGN KEY (customer_id)
@@ -158,6 +182,42 @@ def init_database() -> None:
                     ON DELETE RESTRICT
             )
             """
+        )
+        _ensure_column(
+            connection,
+            table="workflow_runs",
+            column="processing_stage",
+            definition="TEXT NOT NULL DEFAULT 'workflow_registered'",
+        )
+        _ensure_column(
+            connection,
+            table="workflow_runs",
+            column="checkpoint_json",
+            definition="TEXT",
+        )
+        _ensure_column(
+            connection,
+            table="workflow_runs",
+            column="failure_stage",
+            definition="TEXT",
+        )
+        _ensure_column(
+            connection,
+            table="followup_records",
+            column="notification_attempt_count",
+            definition="INTEGER NOT NULL DEFAULT 0",
+        )
+        _ensure_column(
+            connection,
+            table="followup_records",
+            column="notification_last_attempt_at",
+            definition="TEXT",
+        )
+        _ensure_column(
+            connection,
+            table="followup_records",
+            column="notification_resolved_at",
+            definition="TEXT",
         )
         connection.execute(
             """

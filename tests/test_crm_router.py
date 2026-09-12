@@ -9,6 +9,7 @@ from backend.app.services.crm_service import (
     CRMConflictError,
     CRMFollowupCreateResult,
     CRMNotFoundError,
+    CRMNotificationAttemptResult,
 )
 
 CUSTOMER_URL = "/crm/customers/customer-demo-001"
@@ -53,6 +54,9 @@ def make_followup_record(**overrides) -> dict:
         "notification_request_key": "sales-followup:run-demo-001",
         "notification_message_id": None,
         "notification_error_code": None,
+        "notification_attempt_count": 0,
+        "notification_last_attempt_at": None,
+        "notification_resolved_at": None,
         "created_at": timestamp,
         "updated_at": timestamp,
     }
@@ -275,3 +279,86 @@ def test_invalid_requests_return_422_without_calling_service(
     response = client.request(method, url, json=payload)
 
     assert response.status_code == 422
+
+
+def test_notification_attempt_route_returns_stable_request_key(
+    client,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        crm_router,
+        "begin_notification_attempt",
+        lambda followup_id, manual: CRMNotificationAttemptResult(
+            followup_id=followup_id,
+            notification_channel="feishu",
+            notification_request_key="sales-followup:run-demo-001",
+            attempt_number=1,
+            manual=manual,
+        ),
+    )
+
+    response = client.post(
+        "/crm/followups/followup-demo-001/notification-attempts",
+        json={"manual": False},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["attempt_number"] == 1
+    assert response.json()["notification_request_key"] == (
+        "sales-followup:run-demo-001"
+    )
+
+
+def test_notification_result_route_maps_conflict(
+    client,
+    monkeypatch,
+) -> None:
+    def fail_update(*args, **kwargs):
+        raise CRMConflictError("通知结果已经记录且不能覆盖")
+
+    monkeypatch.setattr(crm_router, "update_notification_result", fail_update)
+    response = client.patch(
+        "/crm/followups/followup-demo-001/notification",
+        json={"status": "failed", "error_code": "provider_rejected"},
+    )
+
+    assert response.status_code == 409
+    assert "不能覆盖" in response.json()["detail"]
+
+
+def test_notification_resolution_route_returns_updated_record(
+    client,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        crm_router,
+        "resolve_unknown_notification",
+        lambda followup_id, delivered, message_id: make_followup_record(
+            followup_id=followup_id,
+            notification_mode="send",
+            notification_status="sent" if delivered else "failed",
+            notification_message_id=message_id,
+            notification_attempt_count=1,
+        ),
+    )
+    response = client.patch(
+        "/crm/followups/followup-demo-001/notification-resolution",
+        json={"delivered": True, "message_id": "message-001"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["notification_status"] == "sent"
+    assert response.json()["notification_message_id"] == "message-001"
+
+
+def test_read_followup_by_run_route(client, monkeypatch) -> None:
+    monkeypatch.setattr(
+        crm_router,
+        "get_followup_by_run",
+        lambda run_id: make_followup_record(run_id=run_id),
+    )
+
+    response = client.get("/crm/workflow-runs/run-demo-001/followup")
+
+    assert response.status_code == 200
+    assert response.json()["run_id"] == "run-demo-001"

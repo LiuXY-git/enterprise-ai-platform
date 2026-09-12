@@ -5,9 +5,11 @@ from typing import Never
 from fastapi import APIRouter, HTTPException, status
 
 from ..models.workflow import (
+    WorkflowRunCheckpointRequest,
     WorkflowRunFailureRequest,
     WorkflowRunFinishRequest,
     WorkflowRunListResponse,
+    WorkflowRunRecoveryResponse,
     WorkflowRunResponse,
     WorkflowRunStartRequest,
     WorkflowRunStartResponse,
@@ -15,10 +17,13 @@ from ..models.workflow import (
 from ..services.workflow_run_service import (
     WorkflowRunConflictError,
     WorkflowRunNotFoundError,
+    fail_workflow_run,
     fail_workflow_run_by_execution,
     finish_workflow_run,
+    get_workflow_recovery,
     get_workflow_run,
     list_workflow_runs,
+    save_workflow_checkpoint,
     start_workflow_run,
 )
 
@@ -101,6 +106,57 @@ def finish_run(
 
 
 @router.patch(
+    "/{run_id}/checkpoint",
+    response_model=WorkflowRunResponse,
+    summary="保存工作流阶段检查点",
+)
+def save_checkpoint(
+    run_id: str,
+    request: WorkflowRunCheckpointRequest,
+) -> WorkflowRunResponse:
+    """保存通过结构校验的 AI 分析，供 CRM 阶段安全恢复。"""
+    try:
+        result = save_workflow_checkpoint(
+            run_id=run_id,
+            stage=request.stage,
+            checkpoint_data=request.checkpoint_data,
+        )
+    except (
+        WorkflowRunConflictError,
+        WorkflowRunNotFoundError,
+    ) as exc:
+        _raise_http_error(exc)
+
+    return WorkflowRunResponse(**result)
+
+
+@router.patch(
+    "/{run_id}/failure",
+    response_model=WorkflowRunResponse,
+    summary="按运行 ID 保存工作流阶段失败",
+)
+def fail_run_by_id(
+    run_id: str,
+    request: WorkflowRunFailureRequest,
+) -> WorkflowRunResponse:
+    """供受控错误分支保存阶段和脱敏后的安全错误。"""
+    try:
+        result = fail_workflow_run(
+            run_id=run_id,
+            error_type=request.error_type,
+            error_message=request.error_message,
+            failure_stage=request.stage,
+        )
+    except (
+        WorkflowRunConflictError,
+        WorkflowRunNotFoundError,
+    ) as exc:
+        _raise_http_error(exc)
+
+    return WorkflowRunResponse(**result)
+
+
+@router.patch(
     "/executions/{n8n_execution_id}/failure",
     response_model=WorkflowRunResponse,
     summary="保存 n8n 执行失败",
@@ -115,6 +171,7 @@ def fail_run(
             n8n_execution_id=n8n_execution_id,
             error_type=request.error_type,
             error_message=request.error_message,
+            failure_stage=request.stage,
         )
     except (
         WorkflowRunConflictError,
@@ -123,6 +180,21 @@ def fail_run(
         _raise_http_error(exc)
 
     return WorkflowRunResponse(**result)
+
+
+@router.get(
+    "/{run_id}/recovery",
+    response_model=WorkflowRunRecoveryResponse,
+    summary="查询工作流安全恢复决策",
+)
+def get_recovery(run_id: str) -> WorkflowRunRecoveryResponse:
+    """返回安全恢复起点以及是否需要人工处理。"""
+    try:
+        result = get_workflow_recovery(run_id)
+    except WorkflowRunNotFoundError as exc:
+        _raise_http_error(exc)
+
+    return WorkflowRunRecoveryResponse(**result)
 
 
 @router.get(
