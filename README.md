@@ -72,7 +72,10 @@
 - [x] 完成 Day 47 模拟 CRM、销售工作流与通知预览
 - [x] 完成 Day 48 AI/CRM 故障分类、检查点恢复与通知状态保护
 - [x] 完成 Day 49 发布清单、可重复验收、文档和 Week 7 总结
-- [x] 完成 Workflow Center v0.5.0 版本定版与本地组件标签准备
+- [x] 发布 Workflow Center v0.5.0（GitHub Release 已确认）
+- [x] 完成 Day 50 客服、邮件、销售工作流模板整理
+
+模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 
 ## 项目结构
 

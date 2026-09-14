@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "based_on_release": "workflow-center-v0.5.0",
+  "path_base": "repository_root",
+  "description": "模板入口引用已有导出；catalog.json 不是 n8n 可导入工作流。caller_required_fields 是调用方契约，不代表旧工作流统一实现了严格校验。",
+  "templates": [
+    {
+      "id": "customer-service",
+      "name": "企业客服咨询",
+      "workflow": "n8n/workflows/w6d38-ai-customer-request.json",
+      "guide": "n8n/templates/customer-service/README.md",
+      "webhook_path": "w6d38-ai-customer-request",
+      "input_fields": [
+        "request_id",
+        "customer_id",
+        "message",
+        "priority"
+      ],
+      "caller_required_fields": [
+        "request_id",
+        "customer_id",
+        "message"
+      ],
+      "identity_field": "request_id",
+      "platform_workflow_name": null,
+      "run_id_semantics": "response.workflow_run_id is the Dify run ID, not a platform workflow_runs ID",
+      "import_order": [
+        "n8n/workflows/w6d38-ai-customer-request.json"
+      ],
+      "dependencies": [
+        "api",
+        "dify"
+      ],
+      "bindings": [],
+      "platform_persistence": false,
+      "duplicate_protection": false,
+      "live_message_sending": false,
+      "examples": [
+        {
+          "scenario": "question",
+          "file": "n8n/templates/customer-service/examples/question.json"
+        },
+        {
+          "scenario": "unknown-answer",
+          "file": "n8n/templates/customer-service/examples/unknown-answer.json"
+        }
+      ]
+    },
+    {
+      "id": "email-assistant",
+      "name": "邮件分类与回复草稿",
+      "workflow": "n8n/workflows/w6d41-persistent-ai-email-assistant.json",
+      "guide": "n8n/templates/email-assistant/README.md",
+      "webhook_path": "w6d41-persistent-ai-email-assistant",
+      "input_fields": [
+        "event_id",
+        "requester",
+        "subject",
+        "body",
+        "priority",
+        "source",
+        "received_at",
+        "replay"
+      ],
+      "caller_required_fields": [
+        "event_id",
+        "requester",
+        "subject",
+        "body"
+      ],
+      "identity_field": "event_id",
+      "platform_workflow_name": "w6d41_ai_email_assistant",
+      "run_id_semantics": "response.workflow_run_id is the platform workflow_runs ID",
+      "import_order": [
+        "n8n/workflows/w6d41-workflow-error-handler.json",
+        "n8n/workflows/w6d41-persistent-ai-email-assistant.json"
+      ],
+      "dependencies": [
+        "api",
+        "dify",
+        "sqlite"
+      ],
+      "bindings": [
+        {
+          "kind": "error_workflow",
+          "setting": "Error Workflow",
+          "target": "n8n/workflows/w6d41-workflow-error-handler.json"
+        }
+      ],
+      "platform_persistence": true,
+      "duplicate_protection": true,
+      "live_message_sending": false,
+      "examples": [
+        {
+          "scenario": "normal",
+          "file": "n8n/templates/email-assistant/examples/normal.json"
+        },
+        {
+          "scenario": "human-review",
+          "file": "n8n/templates/email-assistant/examples/human-review.json"
+        }
+      ]
+    },
+    {
+      "id": "sales-followup",
+      "name": "销售线索与 CRM 跟进",
+      "workflow": "n8n/workflows/w7d47-sales-followup-assistant.json",
+      "guide": "n8n/templates/sales-followup/README.md",
+      "webhook_path": "w7d47-sales-followup-assistant",
+      "input_fields": [
+        "event_id",
+        "customer_id",
+        "company_name",
+        "industry",
+        "requirement",
+        "purchase_window_days",
+        "budget_range",
+        "sales_owner",
+        "report_date",
+        "replay"
+      ],
+      "caller_required_fields": [
+        "event_id",
+        "customer_id",
+        "company_name",
+        "requirement",
+        "sales_owner",
+        "report_date"
+      ],
+      "identity_field": "event_id",
+      "platform_workflow_name": "sales-followup-assistant",
+      "run_id_semantics": "response.run_id is the platform workflow_runs ID",
+      "import_order": [
+        "n8n/workflows/w7d47-sales-followup-assistant.json"
+      ],
+      "dependencies": [
+        "api",
+        "sqlite",
+        "qwen_credential"
+      ],
+      "bindings": [
+        {
+          "kind": "credential",
+          "node": "DashScope Qwen Chat Model",
+          "credential_type": "openAiApi"
+        }
+      ],
+      "platform_persistence": true,
+      "duplicate_protection": true,
+      "live_message_sending": false,
+      "examples": [
+        {
+          "scenario": "normal",
+          "file": "n8n/templates/sales-followup/examples/normal.json"
+        },
+        {
+          "scenario": "review-candidate",
+          "file": "n8n/templates/sales-followup/examples/review-candidate.json"
+        }
+      ]
+    }
+  ]
+}
