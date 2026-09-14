@@ -1,0 +1,12 @@
+{
+  "event_id": "day50-sales-normal-example",
+  "customer_id": "demo-company-050",
+  "company_name": "示例企业甲（虚构）",
+  "industry": "制造业",
+  "requirement": "希望整理内部产品资料并支持员工检索，请列出待确认信息和沟通建议。",
+  "purchase_window_days": 60,
+  "budget_range": null,
+  "sales_owner": "demo-sales-050",
+  "report_date": "2026-09-14",
+  "replay": false
+}

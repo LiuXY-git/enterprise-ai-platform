@@ -1,0 +1,9 @@
+{
+  "event_id": "day50-email-review-example",
+  "requester": "demo-user-051",
+  "subject": "需要人工跟进的邮件",
+  "body": "请安排工作人员与我们确认本次需求的具体处理方案。",
+  "priority": "high",
+  "source": "template-demo",
+  "replay": false
+}

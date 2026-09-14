@@ -1,0 +1,6 @@
+{
+  "request_id": "day50-customer-question-example",
+  "customer_id": "demo-customer-050",
+  "message": "知识库支持哪些文档格式？请依据已有资料回答。",
+  "priority": "normal"
+}

@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from ..models.dify import DifyWorkflowRequest, DifyWorkflowResponse
 from ..services.dify_service import run_dify_workflow
+from ..workflow_logging import observe_workflow
 
 router = APIRouter(
     prefix="/dify",
@@ -34,6 +35,7 @@ router = APIRouter(
         },
     },
 )
+@observe_workflow("dify.call")
 async def call_dify_workflow(
     request: DifyWorkflowRequest,
 ) -> DifyWorkflowResponse:

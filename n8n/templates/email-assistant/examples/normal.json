@@ -1,0 +1,9 @@
+{
+  "event_id": "day50-email-normal-example",
+  "requester": "demo-user-050",
+  "subject": "文档上传格式咨询",
+  "body": "我们正在了解企业知识库，请依据现有资料说明文档上传支持的格式。",
+  "priority": "normal",
+  "source": "template-demo",
+  "replay": false
+}

@@ -1,0 +1,12 @@
+{
+  "event_id": "day50-sales-review-example",
+  "customer_id": "demo-company-051",
+  "company_name": "示例企业乙（虚构）",
+  "industry": "服务业",
+  "requirement": "希望获得折扣报价，并承诺一周内交付，请先转交负责人核实这些条件。",
+  "purchase_window_days": 7,
+  "budget_range": "待沟通",
+  "sales_owner": "demo-sales-051",
+  "report_date": "2026-09-14",
+  "replay": false
+}

@@ -26,6 +26,7 @@ from ..services.workflow_run_service import (
     save_workflow_checkpoint,
     start_workflow_run,
 )
+from ..workflow_logging import observe_workflow
 
 router = APIRouter(
     prefix="/workflow-runs",
@@ -55,6 +56,7 @@ def _raise_http_error(
     response_model=WorkflowRunStartResponse,
     summary="登记工作流运行",
 )
+@observe_workflow("workflow.start")
 def start_run(
     request: WorkflowRunStartRequest,
 ) -> WorkflowRunStartResponse:
@@ -81,6 +83,7 @@ def start_run(
     response_model=WorkflowRunResponse,
     summary="保存工作流处理结果",
 )
+@observe_workflow("workflow.finish")
 def finish_run(
     run_id: str,
     request: WorkflowRunFinishRequest,
@@ -110,6 +113,7 @@ def finish_run(
     response_model=WorkflowRunResponse,
     summary="保存工作流阶段检查点",
 )
+@observe_workflow("workflow.checkpoint")
 def save_checkpoint(
     run_id: str,
     request: WorkflowRunCheckpointRequest,
@@ -135,6 +139,7 @@ def save_checkpoint(
     response_model=WorkflowRunResponse,
     summary="按运行 ID 保存工作流阶段失败",
 )
+@observe_workflow("workflow.fail")
 def fail_run_by_id(
     run_id: str,
     request: WorkflowRunFailureRequest,
@@ -161,6 +166,7 @@ def fail_run_by_id(
     response_model=WorkflowRunResponse,
     summary="保存 n8n 执行失败",
 )
+@observe_workflow("workflow.fail_by_execution")
 def fail_run(
     n8n_execution_id: str,
     request: WorkflowRunFailureRequest,
