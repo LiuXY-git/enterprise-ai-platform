@@ -1,0 +1,259 @@
+{
+  "product": "Workflow Center",
+  "version": "0.5.0",
+  "release_date": "2026-09-14",
+  "platform": {
+    "api_version": "1.0.0",
+    "n8n_version": "2.36.8"
+  },
+  "workflows": [
+    {
+      "file": "workflows/w6d36-foundation-check.json",
+      "name": "W6D36 - n8n Foundation Check",
+      "tier": "reference",
+      "trigger": "manual",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d37-customer-request-webhook.json",
+      "name": "W6D37 - Customer Request Webhook",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d38-ai-customer-request.json",
+      "name": "W6D38 - AI Customer Request Processing",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d39-ai-email-assistant.json",
+      "name": "W6D39 - AI Email Assistant",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d40-daily-workflow-report.json",
+      "name": "W6D40 - Daily Workflow Report",
+      "tier": "optional",
+      "trigger": "schedule_and_webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "qwen_credential"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d41-workflow-error-handler.json",
+      "name": "W6D41 - Workflow Error Handler",
+      "tier": "release",
+      "trigger": "error",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "sqlite"
+      ],
+      "workflow_dependencies": []
+    },
+    {
+      "file": "workflows/w6d41-persistent-ai-email-assistant.json",
+      "name": "W6D41 - Persistent AI Email Assistant",
+      "tier": "release",
+      "trigger": "webhook",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify",
+        "sqlite"
+      ],
+      "workflow_dependencies": [
+        "workflows/w6d41-workflow-error-handler.json"
+      ]
+    },
+    {
+      "file": "workflows/w7d47-sales-followup-assistant.json",
+      "name": "W7D47 - Sales Follow-up Assistant",
+      "tier": "release",
+      "trigger": "webhook",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "qwen_credential",
+        "sqlite"
+      ],
+      "workflow_dependencies": []
+    }
+  ],
+  "deployment": {
+    "import_order": [
+      "workflows/w6d36-foundation-check.json",
+      "workflows/w6d37-customer-request-webhook.json",
+      "workflows/w6d38-ai-customer-request.json",
+      "workflows/w6d39-ai-email-assistant.json",
+      "workflows/w6d40-daily-workflow-report.json",
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json",
+      "workflows/w7d47-sales-followup-assistant.json"
+    ],
+    "publish_order": [
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json",
+      "workflows/w7d47-sales-followup-assistant.json"
+    ],
+    "manual_bindings": [
+      {
+        "workflow": "workflows/w6d41-persistent-ai-email-assistant.json",
+        "kind": "error_workflow",
+        "setting": "Error Workflow",
+        "target": "workflows/w6d41-workflow-error-handler.json"
+      },
+      {
+        "workflow": "workflows/w6d40-daily-workflow-report.json",
+        "kind": "credential",
+        "node": "DashScope Qwen Chat Model",
+        "credential_type": "openAiApi",
+        "target": "qwen_credential"
+      },
+      {
+        "workflow": "workflows/w7d47-sales-followup-assistant.json",
+        "kind": "credential",
+        "node": "DashScope Qwen Chat Model",
+        "credential_type": "openAiApi",
+        "target": "qwen_credential"
+      }
+    ],
+    "notes": [
+      "清单描述目标配置，不会自动导入或发布工作流。导出文件继续保持未激活。",
+      "首次部署按 import_order 导入全部文件；按需绑定凭据和 Error Workflow 后，按 publish_order 启用默认发布工作流。",
+      "已有实例先核对导出与当前版本；避免重复导入具有相同 Webhook 路径的工作流。",
+      "邮件助手必须绑定错误处理工作流；销售助手使用自身 AI/CRM 错误分支，不要求绑定邮件错误处理器。",
+      "日报为可选工作流，先检查模型凭据和 Asia/Shanghai 时区，再按需发布调度。参考工作流不默认发布。"
+    ]
+  },
+  "required_environment_variables": [
+    "N8N_ENCRYPTION_KEY",
+    "DIFY_WORKFLOW_API_KEY"
+  ],
+  "quality_gates": [
+    "pytest",
+    "ruff",
+    "docker_health",
+    "openapi",
+    "n8n_portability",
+    "n8n_security_audit",
+    "success_human_duplicate_failure_replay",
+    "day48_workflow_node_regression",
+    "sales_production_success_and_duplicate",
+    "sales_ai_invalid_output_and_service_failure",
+    "crm_checkpoint_recovery",
+    "notification_state_and_resolution_simulation",
+    "crm_saved_replay_guard"
+  ],
+  "release_status": "released",
+  "git_tag": "workflow-center-v0.5.0",
+  "runtime_dependencies": {
+    "n8n": {
+      "compose_service": "n8n",
+      "version": "2.36.8",
+      "required_environment_variables": [
+        "N8N_ENCRYPTION_KEY"
+      ]
+    },
+    "api": {
+      "compose_service": "api",
+      "base_url": "http://api:8000",
+      "version": "1.0.0",
+      "required_capabilities": [
+        "workflow_runs",
+        "crm",
+        "analysis_checkpoints",
+        "notification_state_apis"
+      ]
+    },
+    "dify": {
+      "managed_by_compose": false,
+      "configuration_variables": [
+        "DIFY_API_BASE_URL"
+      ],
+      "required_environment_variables": [
+        "DIFY_WORKFLOW_API_KEY"
+      ],
+      "requirement": "可访问的已发布企业咨询工作流；按其配置准备模型及 Knowledge Hub 依赖。"
+    },
+    "qwen_credential": {
+      "storage": "n8n Credential",
+      "credential_type": "openAiApi",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen3.7-plus",
+      "requirement": "导入后手动选择 DashScope OpenAI 兼容凭据；不从导出文件或 API 容器环境变量自动继承。"
+    },
+    "sqlite": {
+      "managed_by": "api",
+      "persistence": "./data",
+      "requirement": "启动包含 Day 48 实现的 API，由应用初始化运行账本、CRM 和恢复相关结构。"
+    }
+  },
+  "scope": {
+    "sales_notification_mode": "preview",
+    "sales_notification_channel": "feishu",
+    "notification_failure_validation": "simulated_state_api",
+    "sales_live_notification_orchestration": false,
+    "feishu_message_api": "implemented_with_prior_live_acceptance",
+    "wecom_message_api": "implemented_with_mock_acceptance_live_delivery_pending",
+    "limitations": [
+      "销售工作流不发送真实消息；飞书独立接口历史真实联调不等于销售通知链路验收。",
+      "人工核对通知不会自动把原 failed 运行改成 succeeded，两个状态分别记录。",
+      "企业微信真实发送仍等待符合后台准入条件的域名。",
+      "当前接口与 Webhook 缺少认证和租户隔离，仅用于本机或可信网络。",
+      "日报仍使用固定实验记录；CRM 失败恢复使用显式 replay，不是定时自动重试。"
+    ]
+  },
+  "optional_integrations": {
+    "feishu": {
+      "required_environment_variables": [
+        "FEISHU_APP_ID",
+        "FEISHU_APP_SECRET",
+        "FEISHU_RECEIVE_ID"
+      ],
+      "used_by_default_sales_workflow": false
+    },
+    "wecom": {
+      "required_environment_variables": [
+        "WECOM_CORP_ID",
+        "WECOM_AGENT_ID",
+        "WECOM_APP_SECRET",
+        "WECOM_TO_USER"
+      ],
+      "used_by_default_sales_workflow": false
+    }
+  },
+  "release_note": "Day 49 组件版本已定版。released 和 release_date 表示本地版本状态与定版日期，不代表 GitHub 已发布。质量门禁的实际执行范围及沿用证据见 docs/day49-release-acceptance.md；GitHub 推送与 Release 由维护者执行。",
+  "acceptance_record": "docs/day49-release-acceptance.md"
+}

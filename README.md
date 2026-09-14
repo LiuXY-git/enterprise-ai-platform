@@ -2,6 +2,8 @@
 
 一个面向企业场景的 AI 平台学习项目。
 
+当前平台 API 版本为 `1.0.0`。Workflow Center `0.5.0` 已完成业务验收，版本内容于 2026-09-14 定版，组件标签为 `workflow-center-v0.5.0`。GitHub 发布状态以远端标签和 Release 页面为准。销售助手通知为预览模式。
+
 ## 项目目标
 
 通过 16 周持续开发，完成以下核心模块：
@@ -67,6 +69,10 @@
 - [x] 完成 Day 45 企业微信通知本地实现、Mock 测试与 Docker 接口验收
 - [ ] 完成 Day 45 企业微信真实发送（等待符合后台要求的可管理域名）
 - [x] 完成 Day 46 销售线索跟进助手业务流程、数据契约、CRM 草案和验收方案设计
+- [x] 完成 Day 47 模拟 CRM、销售工作流与通知预览
+- [x] 完成 Day 48 AI/CRM 故障分类、检查点恢复与通知状态保护
+- [x] 完成 Day 49 发布清单、可重复验收、文档和 Week 7 总结
+- [x] 完成 Workflow Center v0.5.0 版本定版与本地组件标签准备
 
 ## 项目结构
 
@@ -160,6 +166,10 @@ docker compose down
 - [企业微信自建应用通知](docs/wecom-notifications.md)
 - [销售线索跟进助手设计](docs/sales-followup-design.md)
 - [销售线索跟进助手验收方案](docs/sales-followup-acceptance.md)
+- [n8n 销售线索跟进助手](docs/n8n-sales-followup-assistant.md)
+- [Workflow Center v0.5.0 发布说明](docs/workflow-center-v0.5.md)
+- [Day 49 发布验收记录](docs/day49-release-acceptance.md)
+- [Week 7 总结](docs/week-7-summary.md)
 
 ## 技术栈
 
@@ -193,6 +203,18 @@ docker compose down
 | GET | `/workflow-runs/{run_id}` | 查询单条工作流运行 |
 | POST | `/integrations/feishu/messages` | 通过飞书机器人发送文本消息 |
 | POST | `/integrations/wecom/messages` | 通过企业微信自建应用发送文本消息 |
+| PATCH | `/workflow-runs/{run_id}/checkpoint` | 保存 AI 分析检查点 |
+| PATCH | `/workflow-runs/{run_id}/failure` | 按运行 ID 记录阶段失败 |
+| GET | `/workflow-runs/{run_id}/recovery` | 查询恢复起点和人工处理要求 |
+| PUT | `/crm/customers/{customer_id}` | 新增或更新模拟客户 |
+| GET | `/crm/customers/{customer_id}` | 查询客户 |
+| POST | `/crm/followups` | 在单一事务中保存客户与跟进记录 |
+| GET | `/crm/followups/{followup_id}` | 查询跟进记录 |
+| GET | `/crm/customers/{customer_id}/followups` | 查询客户跟进列表 |
+| GET | `/crm/workflow-runs/{run_id}/followup` | 按运行查询跟进记录 |
+| POST | `/crm/followups/{followup_id}/notification-attempts` | 登记通知尝试，不发送消息 |
+| PATCH | `/crm/followups/{followup_id}/notification` | 保存通知结果，不发送消息 |
+| PATCH | `/crm/followups/{followup_id}/notification-resolution` | 保存人工核对结果，不发送消息 |
 
 ## 开发状态
 
@@ -206,7 +228,7 @@ Week 4 产品化阶段进度：
 - Day 27：已准备 Demo 数据、跨文档问题和录制脚本，视频录制暂缓
 - Day 28：已完成 Knowledge Hub v1.0.0 发布候选版本准备与验收
 
-当前代码、文档和 Demo 已完成 v1.0.0 最终验收。自动化测试、Ruff、Docker、OpenAPI 和 FastAPI / Dify 双向真实接口均已通过，正式版本使用 `v1.0.0` Git 标签标记。
+平台 v1.0.0 历史版本的代码、文档和 Demo 已完成最终验收。自动化测试、Ruff、Docker、OpenAPI 和 FastAPI / Dify 双向真实接口均已通过，正式版本使用 `v1.0.0` Git 标签标记。
 
 Demo 视频作为独立交付资产保存，不直接纳入 Git 仓库；详细验收结果见 [Demo 最终验收记录](docs/demo-acceptance.md)。GitHub Release 可在需要公开发布时基于 `v1.0.0` 标签创建。
 
@@ -259,4 +281,13 @@ Day 44 产出：`POST /integrations/feishu/messages`、接收者配置、确定�
 
 Day 45 产出：`POST /integrations/wecom/messages`、单成员通知契约、进程内 Token 缓存、明确 Token 失效后最多补发一次、`delivery_unknown` 安全语义和完整 Mock 测试。企业微信后台要求先配置符合主体及归属验证条件的域名，当前未满足，因此真实发送保持为待联调项。
 
-Day 46 产出：销售线索跟进助手设计与验收方案，以及覆盖正常处理、重复事件、Prompt 注入、AI 异常、CRM 失败和通知异常的 15 个虚构验收样例。当前交付为可执行设计，模拟 CRM、n8n 工作流和运行验收留待 Day 47 与 Day 48 完成。
+Day 46 产出：销售线索跟进助手设计与验收方案，以及覆盖正常处理、重复事件、Prompt 注入、AI 异常、CRM 失败和通知异常的 15 个虚构验收样例。这些设计已在 Day 47 和 Day 48 实现，当前验收结论见 Day 49 发布验收记录。
+
+
+- Day 47：实现客户与跟进记录、事务写入、运行去重、销售工作流及通知预览。
+- Day 48：加入 AI 故障分类、分析检查点、CRM 故障恢复、通知状态与人工核对接口，以及 CRM 保存后的整条回放保护。
+- Day 49：将 8 条工作流纳入 v0.5.0 清单，完成新数据回放保护、人工通知核对、Production URL 正常和重复事件验收，整理发布文档。
+
+本周交付范围与限制：飞书独立发送接口已有真实联调；企业微信接口已有 Mock/本地验收，真实发送仍待域名条件满足。销售流程当前固定为 preview，通知异常及人工核对通过本地状态 API 模拟。通知恢复为 sent 不会自动把原 failed 工作流改成 succeeded。
+
+已通过且未受本次改动影响的验收沿用已有证据，不重复执行。后续发布状态、证据及待办统一见 [v0.5.0 发布说明](docs/workflow-center-v0.5.md)。

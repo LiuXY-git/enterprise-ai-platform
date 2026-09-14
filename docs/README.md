@@ -63,11 +63,16 @@
 - [Demo 演示数据与说明](../demo/README.md)
 - [Demo 录制脚本](demo-script.md)
 - [Demo 最终验收记录](demo-acceptance.md)
+- [Day 48 故障恢复验收记录](day48-failure-recovery-results.md)
+- [Day 49 发布验收记录](day49-release-acceptance.md)
+- [Day 49 可重复验收脚本](../scripts/day49/README.md)
 
 ## 版本与发布
 
 - [Knowledge Hub v1.0.0 发布说明](release-v1.0.md)
 - [Workflow Center v0.1.0 发布说明](workflow-center-v0.1.md)
+- [Workflow Center v0.5.0 发布说明](workflow-center-v0.5.md)
+- [Workflow Center v0.5.0 短演示讲解稿](workflow-center-v0.5-demo.md)
 - [版本变更记录](../CHANGELOG.md)
 
 ## 阶段总结
@@ -77,4 +82,5 @@
 - [Week 3 总结](week-3-summary.md)
 - [Week 4 总结](week-4-summary.md)
 
-- [Day 48 故障恢复验收记录](day48-failure-recovery-results.md)
+
+- [Week 7 总结](week-7-summary.md)

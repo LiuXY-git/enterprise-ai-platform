@@ -151,3 +151,12 @@ Test URL 需要本次监听注册后才能调用。测试脚本遇到明确的�
 2026-09-12 用户已发布当前版本，Day 48 Production URL 正常处理、检查点保存及重复事件去重验收通过。
 
 验收证据及命令见 [Day 48 验收记录](day48-failure-recovery-results.md)。
+
+
+## Day 49 发布验收
+
+Production 正常与重复事件、CRM 保存后的回放保护、人工通知核对及受限重试均已通过。销售工作流导出和后端业务实现沿用 Day 48 版本，Day 49 的修改集中在清单、脚本和文档。
+
+Production 首次成功后的分析比较曾因 JSON 字段顺序误报，修复脚本后复用同一 run_id 续跑，仅补完重复请求；未重新执行首次模型分析。最终 duplicate_count 为 1，跟进仅一条，CRM 不变，通知 preview 且发送尝试为 0。
+
+本轮 HTTP 与持久化验收已完成，不再要求追加节点轨迹核对。证据、沿用结果与限制见 [Day 49 发布验收记录](day49-release-acceptance.md)，运行方法见 [Day 49 脚本说明](../scripts/day49/README.md)。

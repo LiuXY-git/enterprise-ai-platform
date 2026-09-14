@@ -1,0 +1,536 @@
+{
+    "schema_version":  1,
+    "batch_id":  "17e171ec3a4a470b8118a25c512d0268",
+    "started_at":  "2026-09-12T16:16:37.2654436Z",
+    "finished_at":  "2026-09-12T16:16:45.2431536Z",
+    "api_base_url":  "http://localhost:8000",
+    "validation_mode":  "simulated_state_api",
+    "passed":  true,
+    "cases":  [
+                  {
+                      "scenario":  "failed",
+                      "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                      "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                      "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                      "followup_id":  "168715c9-f3c6-48cc-a8b5-154dd3b14236",
+                      "passed":  true,
+                      "before":  {
+                                     "workflow":  {
+                                                      "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                      "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "workflow_name":  "sales-followup-assistant",
+                                                      "source":  "manual_demo",
+                                                      "requester":  "sales-demo",
+                                                      "report_date":  "2026-09-13",
+                                                      "status":  "failed",
+                                                      "category":  null,
+                                                      "priority":  null,
+                                                      "input_data":  {
+                                                                         "batch_id":  "17e171ec3a4a470b8118a25c512d0268",
+                                                                         "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                         "test_scenario":  "failed"
+                                                                     },
+                                                      "output_data":  null,
+                                                      "processing_stage":  "notification_recorded",
+                                                      "checkpoint_data":  null,
+                                                      "failure_stage":  "notification",
+                                                      "error_type":  "notification_failed",
+                                                      "error_message":  "Day49 simulated notification failure",
+                                                      "n8n_execution_id":  "api-simulation-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "retry_count":  0,
+                                                      "duplicate_count":  0,
+                                                      "elapsed_time":  null,
+                                                      "total_tokens":  null,
+                                                      "started_at":  "2026-09-12T16:16:37.870572Z",
+                                                      "finished_at":  "2026-09-12T16:16:39.008173Z",
+                                                      "created_at":  "2026-09-12T16:16:37",
+                                                      "updated_at":  "2026-09-12T16:16:39.008173Z"
+                                                  },
+                                     "followup":  {
+                                                      "followup_id":  "168715c9-f3c6-48cc-a8b5-154dd3b14236",
+                                                      "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                      "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                      "analysis":  {
+                                                                       "summary":  "Customer requests a meeting.",
+                                                                       "needs":  [
+                                                                                     "Schedule meeting"
+                                                                                 ],
+                                                                       "missing_information":  [
+
+                                                                                               ],
+                                                                       "next_actions":  [
+                                                                                            "Confirm meeting time"
+                                                                                        ],
+                                                                       "risk_flags":  [
+
+                                                                                      ]
+                                                                   },
+                                                      "priority":  "normal",
+                                                      "review_status":  "not_required",
+                                                      "review_reasons":  [
+
+                                                                         ],
+                                                      "notification_mode":  "send",
+                                                      "notification_channel":  "feishu",
+                                                      "notification_status":  "failed",
+                                                      "notification_request_key":  "sales-followup:85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                      "notification_message_id":  null,
+                                                      "notification_error_code":  "simulated_failed",
+                                                      "notification_attempt_count":  1,
+                                                      "notification_last_attempt_at":  "2026-09-12T16:16:38.467714Z",
+                                                      "notification_resolved_at":  null,
+                                                      "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                      "updated_at":  "2026-09-12T16:16:38.735277Z"
+                                                  },
+                                     "customer":  {
+                                                      "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "company_name":  "Day49 Replay Guard Test",
+                                                      "industry":  "Test",
+                                                      "sales_owner":  "sales-demo",
+                                                      "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                      "updated_at":  "2026-09-12T16:16:38.164673Z"
+                                                  },
+                                     "followups":  {
+                                                       "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                       "count":  1,
+                                                       "followups":  [
+                                                                         {
+                                                                             "followup_id":  "168715c9-f3c6-48cc-a8b5-154dd3b14236",
+                                                                             "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                             "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                                             "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                             "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                                             "analysis":  {
+                                                                                              "summary":  "Customer requests a meeting.",
+                                                                                              "needs":  [
+                                                                                                            "Schedule meeting"
+                                                                                                        ],
+                                                                                              "missing_information":  [
+
+                                                                                                                      ],
+                                                                                              "next_actions":  [
+                                                                                                                   "Confirm meeting time"
+                                                                                                               ],
+                                                                                              "risk_flags":  [
+
+                                                                                                             ]
+                                                                                          },
+                                                                             "priority":  "normal",
+                                                                             "review_status":  "not_required",
+                                                                             "review_reasons":  [
+
+                                                                                                ],
+                                                                             "notification_mode":  "send",
+                                                                             "notification_channel":  "feishu",
+                                                                             "notification_status":  "failed",
+                                                                             "notification_request_key":  "sales-followup:85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                                             "notification_message_id":  null,
+                                                                             "notification_error_code":  "simulated_failed",
+                                                                             "notification_attempt_count":  1,
+                                                                             "notification_last_attempt_at":  "2026-09-12T16:16:38.467714Z",
+                                                                             "notification_resolved_at":  null,
+                                                                             "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                                             "updated_at":  "2026-09-12T16:16:38.735277Z"
+                                                                         }
+                                                                     ]
+                                                   }
+                                 },
+                      "after":  {
+                                    "workflow":  {
+                                                     "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                     "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                     "workflow_name":  "sales-followup-assistant",
+                                                     "source":  "manual_demo",
+                                                     "requester":  "sales-demo",
+                                                     "report_date":  "2026-09-13",
+                                                     "status":  "failed",
+                                                     "category":  null,
+                                                     "priority":  null,
+                                                     "input_data":  {
+                                                                        "batch_id":  "17e171ec3a4a470b8118a25c512d0268",
+                                                                        "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                        "test_scenario":  "failed"
+                                                                    },
+                                                     "output_data":  null,
+                                                     "processing_stage":  "notification_recorded",
+                                                     "checkpoint_data":  null,
+                                                     "failure_stage":  "notification",
+                                                     "error_type":  "notification_failed",
+                                                     "error_message":  "Day49 simulated notification failure",
+                                                     "n8n_execution_id":  "api-simulation-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                     "retry_count":  0,
+                                                     "duplicate_count":  0,
+                                                     "elapsed_time":  null,
+                                                     "total_tokens":  null,
+                                                     "started_at":  "2026-09-12T16:16:37.870572Z",
+                                                     "finished_at":  "2026-09-12T16:16:39.008173Z",
+                                                     "created_at":  "2026-09-12T16:16:37",
+                                                     "updated_at":  "2026-09-12T16:16:39.008173Z"
+                                                 },
+                                    "followup":  {
+                                                     "followup_id":  "168715c9-f3c6-48cc-a8b5-154dd3b14236",
+                                                     "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                     "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                     "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                     "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                     "analysis":  {
+                                                                      "summary":  "Customer requests a meeting.",
+                                                                      "needs":  [
+                                                                                    "Schedule meeting"
+                                                                                ],
+                                                                      "missing_information":  [
+
+                                                                                              ],
+                                                                      "next_actions":  [
+                                                                                           "Confirm meeting time"
+                                                                                       ],
+                                                                      "risk_flags":  [
+
+                                                                                     ]
+                                                                  },
+                                                     "priority":  "normal",
+                                                     "review_status":  "not_required",
+                                                     "review_reasons":  [
+
+                                                                        ],
+                                                     "notification_mode":  "send",
+                                                     "notification_channel":  "feishu",
+                                                     "notification_status":  "failed",
+                                                     "notification_request_key":  "sales-followup:85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                     "notification_message_id":  null,
+                                                     "notification_error_code":  "simulated_failed",
+                                                     "notification_attempt_count":  1,
+                                                     "notification_last_attempt_at":  "2026-09-12T16:16:38.467714Z",
+                                                     "notification_resolved_at":  null,
+                                                     "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                     "updated_at":  "2026-09-12T16:16:38.735277Z"
+                                                 },
+                                    "customer":  {
+                                                     "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                     "company_name":  "Day49 Replay Guard Test",
+                                                     "industry":  "Test",
+                                                     "sales_owner":  "sales-demo",
+                                                     "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                     "updated_at":  "2026-09-12T16:16:38.164673Z"
+                                                 },
+                                    "followups":  {
+                                                      "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                      "count":  1,
+                                                      "followups":  [
+                                                                        {
+                                                                            "followup_id":  "168715c9-f3c6-48cc-a8b5-154dd3b14236",
+                                                                            "customer_id":  "day49-guard-customer-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                            "run_id":  "85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                                            "event_id":  "day49-guard-dcba9c9e1ef04bf38eb153fd1c3a7c48",
+                                                                            "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                                            "analysis":  {
+                                                                                             "summary":  "Customer requests a meeting.",
+                                                                                             "needs":  [
+                                                                                                           "Schedule meeting"
+                                                                                                       ],
+                                                                                             "missing_information":  [
+
+                                                                                                                     ],
+                                                                                             "next_actions":  [
+                                                                                                                  "Confirm meeting time"
+                                                                                                              ],
+                                                                                             "risk_flags":  [
+
+                                                                                                            ]
+                                                                                         },
+                                                                            "priority":  "normal",
+                                                                            "review_status":  "not_required",
+                                                                            "review_reasons":  [
+
+                                                                                               ],
+                                                                            "notification_mode":  "send",
+                                                                            "notification_channel":  "feishu",
+                                                                            "notification_status":  "failed",
+                                                                            "notification_request_key":  "sales-followup:85148ae8-feac-4b3a-8897-38cbbd311a24",
+                                                                            "notification_message_id":  null,
+                                                                            "notification_error_code":  "simulated_failed",
+                                                                            "notification_attempt_count":  1,
+                                                                            "notification_last_attempt_at":  "2026-09-12T16:16:38.467714Z",
+                                                                            "notification_resolved_at":  null,
+                                                                            "created_at":  "2026-09-12T16:16:38.164673Z",
+                                                                            "updated_at":  "2026-09-12T16:16:38.735277Z"
+                                                                        }
+                                                                    ]
+                                                  }
+                                },
+                      "http_status":  409,
+                      "workflow_status":  "failed",
+                      "notification_status":  "failed",
+                      "retry_count":  0,
+                      "notification_attempt_count":  1,
+                      "followup_count":  1,
+                      "resume_from":  "notification",
+                      "records_unchanged":  true
+                  },
+                  {
+                      "scenario":  "delivery_unknown",
+                      "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                      "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                      "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                      "followup_id":  "7f3e4615-52b7-43ed-b484-0bc57bcdbb14",
+                      "passed":  true,
+                      "before":  {
+                                     "workflow":  {
+                                                      "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                      "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "workflow_name":  "sales-followup-assistant",
+                                                      "source":  "manual_demo",
+                                                      "requester":  "sales-demo",
+                                                      "report_date":  "2026-09-13",
+                                                      "status":  "failed",
+                                                      "category":  null,
+                                                      "priority":  null,
+                                                      "input_data":  {
+                                                                         "batch_id":  "17e171ec3a4a470b8118a25c512d0268",
+                                                                         "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                         "test_scenario":  "delivery_unknown"
+                                                                     },
+                                                      "output_data":  null,
+                                                      "processing_stage":  "notification_recorded",
+                                                      "checkpoint_data":  null,
+                                                      "failure_stage":  "notification",
+                                                      "error_type":  "notification_delivery_unknown",
+                                                      "error_message":  "Day49 simulated notification failure",
+                                                      "n8n_execution_id":  "api-simulation-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "retry_count":  0,
+                                                      "duplicate_count":  0,
+                                                      "elapsed_time":  null,
+                                                      "total_tokens":  null,
+                                                      "started_at":  "2026-09-12T16:16:41.690402Z",
+                                                      "finished_at":  "2026-09-12T16:16:42.770010Z",
+                                                      "created_at":  "2026-09-12T16:16:41",
+                                                      "updated_at":  "2026-09-12T16:16:42.770010Z"
+                                                  },
+                                     "followup":  {
+                                                      "followup_id":  "7f3e4615-52b7-43ed-b484-0bc57bcdbb14",
+                                                      "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                      "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                      "analysis":  {
+                                                                       "summary":  "Customer requests a meeting.",
+                                                                       "needs":  [
+                                                                                     "Schedule meeting"
+                                                                                 ],
+                                                                       "missing_information":  [
+
+                                                                                               ],
+                                                                       "next_actions":  [
+                                                                                            "Confirm meeting time"
+                                                                                        ],
+                                                                       "risk_flags":  [
+
+                                                                                      ]
+                                                                   },
+                                                      "priority":  "normal",
+                                                      "review_status":  "not_required",
+                                                      "review_reasons":  [
+
+                                                                         ],
+                                                      "notification_mode":  "send",
+                                                      "notification_channel":  "feishu",
+                                                      "notification_status":  "delivery_unknown",
+                                                      "notification_request_key":  "sales-followup:dc337f30-160d-4b64-8a30-5807004537c5",
+                                                      "notification_message_id":  null,
+                                                      "notification_error_code":  "simulated_delivery_unknown",
+                                                      "notification_attempt_count":  1,
+                                                      "notification_last_attempt_at":  "2026-09-12T16:16:42.245597Z",
+                                                      "notification_resolved_at":  null,
+                                                      "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                      "updated_at":  "2026-09-12T16:16:42.503314Z"
+                                                  },
+                                     "customer":  {
+                                                      "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "company_name":  "Day49 Replay Guard Test",
+                                                      "industry":  "Test",
+                                                      "sales_owner":  "sales-demo",
+                                                      "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                      "updated_at":  "2026-09-12T16:16:41.970014Z"
+                                                  },
+                                     "followups":  {
+                                                       "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                       "count":  1,
+                                                       "followups":  [
+                                                                         {
+                                                                             "followup_id":  "7f3e4615-52b7-43ed-b484-0bc57bcdbb14",
+                                                                             "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                             "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                                             "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                             "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                                             "analysis":  {
+                                                                                              "summary":  "Customer requests a meeting.",
+                                                                                              "needs":  [
+                                                                                                            "Schedule meeting"
+                                                                                                        ],
+                                                                                              "missing_information":  [
+
+                                                                                                                      ],
+                                                                                              "next_actions":  [
+                                                                                                                   "Confirm meeting time"
+                                                                                                               ],
+                                                                                              "risk_flags":  [
+
+                                                                                                             ]
+                                                                                          },
+                                                                             "priority":  "normal",
+                                                                             "review_status":  "not_required",
+                                                                             "review_reasons":  [
+
+                                                                                                ],
+                                                                             "notification_mode":  "send",
+                                                                             "notification_channel":  "feishu",
+                                                                             "notification_status":  "delivery_unknown",
+                                                                             "notification_request_key":  "sales-followup:dc337f30-160d-4b64-8a30-5807004537c5",
+                                                                             "notification_message_id":  null,
+                                                                             "notification_error_code":  "simulated_delivery_unknown",
+                                                                             "notification_attempt_count":  1,
+                                                                             "notification_last_attempt_at":  "2026-09-12T16:16:42.245597Z",
+                                                                             "notification_resolved_at":  null,
+                                                                             "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                                             "updated_at":  "2026-09-12T16:16:42.503314Z"
+                                                                         }
+                                                                     ]
+                                                   }
+                                 },
+                      "after":  {
+                                    "workflow":  {
+                                                     "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                     "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                     "workflow_name":  "sales-followup-assistant",
+                                                     "source":  "manual_demo",
+                                                     "requester":  "sales-demo",
+                                                     "report_date":  "2026-09-13",
+                                                     "status":  "failed",
+                                                     "category":  null,
+                                                     "priority":  null,
+                                                     "input_data":  {
+                                                                        "batch_id":  "17e171ec3a4a470b8118a25c512d0268",
+                                                                        "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                        "test_scenario":  "delivery_unknown"
+                                                                    },
+                                                     "output_data":  null,
+                                                     "processing_stage":  "notification_recorded",
+                                                     "checkpoint_data":  null,
+                                                     "failure_stage":  "notification",
+                                                     "error_type":  "notification_delivery_unknown",
+                                                     "error_message":  "Day49 simulated notification failure",
+                                                     "n8n_execution_id":  "api-simulation-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                     "retry_count":  0,
+                                                     "duplicate_count":  0,
+                                                     "elapsed_time":  null,
+                                                     "total_tokens":  null,
+                                                     "started_at":  "2026-09-12T16:16:41.690402Z",
+                                                     "finished_at":  "2026-09-12T16:16:42.770010Z",
+                                                     "created_at":  "2026-09-12T16:16:41",
+                                                     "updated_at":  "2026-09-12T16:16:42.770010Z"
+                                                 },
+                                    "followup":  {
+                                                     "followup_id":  "7f3e4615-52b7-43ed-b484-0bc57bcdbb14",
+                                                     "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                     "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                     "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                     "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                     "analysis":  {
+                                                                      "summary":  "Customer requests a meeting.",
+                                                                      "needs":  [
+                                                                                    "Schedule meeting"
+                                                                                ],
+                                                                      "missing_information":  [
+
+                                                                                              ],
+                                                                      "next_actions":  [
+                                                                                           "Confirm meeting time"
+                                                                                       ],
+                                                                      "risk_flags":  [
+
+                                                                                     ]
+                                                                  },
+                                                     "priority":  "normal",
+                                                     "review_status":  "not_required",
+                                                     "review_reasons":  [
+
+                                                                        ],
+                                                     "notification_mode":  "send",
+                                                     "notification_channel":  "feishu",
+                                                     "notification_status":  "delivery_unknown",
+                                                     "notification_request_key":  "sales-followup:dc337f30-160d-4b64-8a30-5807004537c5",
+                                                     "notification_message_id":  null,
+                                                     "notification_error_code":  "simulated_delivery_unknown",
+                                                     "notification_attempt_count":  1,
+                                                     "notification_last_attempt_at":  "2026-09-12T16:16:42.245597Z",
+                                                     "notification_resolved_at":  null,
+                                                     "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                     "updated_at":  "2026-09-12T16:16:42.503314Z"
+                                                 },
+                                    "customer":  {
+                                                     "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                     "company_name":  "Day49 Replay Guard Test",
+                                                     "industry":  "Test",
+                                                     "sales_owner":  "sales-demo",
+                                                     "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                     "updated_at":  "2026-09-12T16:16:41.970014Z"
+                                                 },
+                                    "followups":  {
+                                                      "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                      "count":  1,
+                                                      "followups":  [
+                                                                        {
+                                                                            "followup_id":  "7f3e4615-52b7-43ed-b484-0bc57bcdbb14",
+                                                                            "customer_id":  "day49-guard-customer-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                            "run_id":  "dc337f30-160d-4b64-8a30-5807004537c5",
+                                                                            "event_id":  "day49-guard-30c8bdc2c0cc43cd8ea41ec098374dc8",
+                                                                            "requirement_snapshot":  "Schedule an internal follow-up meeting.",
+                                                                            "analysis":  {
+                                                                                             "summary":  "Customer requests a meeting.",
+                                                                                             "needs":  [
+                                                                                                           "Schedule meeting"
+                                                                                                       ],
+                                                                                             "missing_information":  [
+
+                                                                                                                     ],
+                                                                                             "next_actions":  [
+                                                                                                                  "Confirm meeting time"
+                                                                                                              ],
+                                                                                             "risk_flags":  [
+
+                                                                                                            ]
+                                                                                         },
+                                                                            "priority":  "normal",
+                                                                            "review_status":  "not_required",
+                                                                            "review_reasons":  [
+
+                                                                                               ],
+                                                                            "notification_mode":  "send",
+                                                                            "notification_channel":  "feishu",
+                                                                            "notification_status":  "delivery_unknown",
+                                                                            "notification_request_key":  "sales-followup:dc337f30-160d-4b64-8a30-5807004537c5",
+                                                                            "notification_message_id":  null,
+                                                                            "notification_error_code":  "simulated_delivery_unknown",
+                                                                            "notification_attempt_count":  1,
+                                                                            "notification_last_attempt_at":  "2026-09-12T16:16:42.245597Z",
+                                                                            "notification_resolved_at":  null,
+                                                                            "created_at":  "2026-09-12T16:16:41.970014Z",
+                                                                            "updated_at":  "2026-09-12T16:16:42.503314Z"
+                                                                        }
+                                                                    ]
+                                                  }
+                                },
+                      "http_status":  409,
+                      "workflow_status":  "failed",
+                      "notification_status":  "delivery_unknown",
+                      "retry_count":  0,
+                      "notification_attempt_count":  1,
+                      "followup_count":  1,
+                      "resume_from":  "human_delivery_check",
+                      "records_unchanged":  true
+                  }
+              ],
+    "error":  null
+}

@@ -1,6 +1,6 @@
 # API 文档
 
-Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索、带来源回答和工作流运行管理接口。
+Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索、带来源回答、工作流运行、模拟 CRM 和企业通知接口。Workflow Center 组件目标版本为 0.5.0，不改变平台 API 版本。
 
 ## 访问地址
 
@@ -18,13 +18,13 @@ http://127.0.0.1:8000
 
 ## 身份验证
 
-`/health`、`/chat`、`/dify/workflow`、`/upload`、`/rag/query`、`/rag/answer` 和 `/workflow-runs` 当前未启用调用方身份验证。
+`/health`、`/chat`、`/dify/workflow`、`/upload`、`/rag/query`、`/rag/answer` 、`/workflow-runs`、`/crm` 和 `/integrations` 当前未启用调用方身份验证。
 
 `/retrieval` 是供 Dify 调用的外部知识库接口，需要通过请求头传递专用 Bearer Token：
 
     Authorization: Bearer <DIFY_EXTERNAL_KNOWLEDGE_API_KEY>
 
-DeepSeek、通义千问、Dify 应用以及 Dify 外部知识库的 API Key 均只保存在服务端 `.env` 文件中，不能提交到 Git。
+FastAPI 使用的模型和 Dify Key 在服务端配置；n8n 原生模型 Key 保存在实例 Credential 中。凭据不得提交到 Git，销售 Webhook 不接受接收者或凭据字段。
 
 ## 接口总览
 
@@ -42,6 +42,20 @@ DeepSeek、通义千问、Dify 应用以及 Dify 外部知识库的 API Key 均�
 | PATCH | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败 |
 | GET | `/workflow-runs` | 按报告日期查询运行记录 |
 | GET | `/workflow-runs/{run_id}` | 查询单条运行记录 |
+| PATCH | `/workflow-runs/{run_id}/checkpoint` | 保存 AI 分析检查点 |
+| PATCH | `/workflow-runs/{run_id}/failure` | 按运行 ID 记录阶段失败 |
+| GET | `/workflow-runs/{run_id}/recovery` | 查询恢复起点和人工处理要求 |
+| PUT | `/crm/customers/{customer_id}` | 新增或更新模拟客户 |
+| GET | `/crm/customers/{customer_id}` | 查询客户 |
+| POST | `/crm/followups` | 在单一事务中保存客户与跟进记录 |
+| GET | `/crm/followups/{followup_id}` | 查询跟进记录 |
+| GET | `/crm/customers/{customer_id}/followups` | 查询客户跟进列表 |
+| GET | `/crm/workflow-runs/{run_id}/followup` | 按运行查询跟进记录 |
+| POST | `/crm/followups/{followup_id}/notification-attempts` | 登记通知尝试，不发送消息 |
+| PATCH | `/crm/followups/{followup_id}/notification` | 保存通知结果，不发送消息 |
+| PATCH | `/crm/followups/{followup_id}/notification-resolution` | 保存人工核对结果，不发送消息 |
+| POST | `/integrations/feishu/messages` | 飞书独立文本消息发送接口 |
+| POST | `/integrations/wecom/messages` | 企业微信独立文本消息发送接口 |
 
 ## GET `/health`
 
@@ -402,7 +416,7 @@ multipart/form-data
 
 ## Workflow Runs 工作流运行接口
 
-Workflow Center v0.1.0 使用这些接口保存 n8n 工作流的输入、输出、状态、
+Workflow Center 使用这些接口保存 n8n 工作流的输入、输出、状态、
 请求者、耗时、Token、重复次数和失败回放次数。
 
 ### POST `/workflow-runs/start`
@@ -426,8 +440,8 @@ Workflow Center v0.1.0 使用这些接口保存 n8n 工作流的输入、输出�
 ```
 
 首次运行返回 `should_process: true`。相同事件再次请求时返回
-`duplicate: true` 和 `should_process: false`，不会再次执行 AI。失败记录只有在
-`replay: true` 时才会重新运行，并复用首次保存的 `input_data`。
+`duplicate: true` 和 `should_process: false`，不会再次执行 AI。符合恢复条件的失败记录只有在
+`replay: true` 时才会重新运行，并复用首次保存的 `input_data`。CRM 已保存的销售运行请求整条回放返回 409；CRM 未保存且有分析检查点时，从 CRM 阶段继续。
 
 ```json
 {
@@ -495,9 +509,77 @@ GET /workflow-runs?report_date=2026-09-03
 工作流接口可能返回：
 
 - `404 Not Found`：运行 ID 或 n8n 执行 ID 不存在
-- `409 Conflict`：状态转换不合法、非失败记录请求回放或超过 3 次回放
+- `409 Conflict`：状态转换不合法、非失败记录请求回放、超过 3 次回放，或 CRM 已保存后请求整条回放
 - `422 Unprocessable Entity`：日期、标识符或请求字段格式错误
 
+
+## CRM 与分阶段恢复
+
+### 检查点与失败
+
+PATCH `/workflow-runs/{run_id}/checkpoint` 接收 stage 与 checkpoint_data，当前 stage 仅允许 analysis_completed。checkpoint_data 是经过校验的 CRM 请求体，包含 customer、run_id、event_id、requirement_snapshot、analysis、priority、review_status、review_reasons 和通知模式/渠道；保存前应确认属于当前运行。
+
+PATCH `/workflow-runs/{run_id}/failure` 接收 error_type、error_message 和 stage。stage 取 unknown、ai_analysis、ai_output_validation、crm_transaction 或 notification。GET `/workflow-runs/{run_id}/recovery` 返回 resume_from、automatic_retry_allowed、requires_human_action、reason、retry_count 及 checkpoint_data。恢复策略按已有业务阶段和通知状态决定，不代表接口会自动执行恢复。
+
+### CRM 写入与查询
+
+PUT `/crm/customers/{customer_id}` 的请求体包含 customer_id、company_name、industry 和 sales_owner，路径与请求体标识必须一致。销售工作流应直接调用 POST `/crm/followups` 原子完成客户与跟进保存：
+
+```json
+{
+  "customer": {
+    "customer_id": "example-customer-001",
+    "company_name": "示例企业",
+    "industry": "业务服务",
+    "sales_owner": "sales-demo"
+  },
+  "run_id": "replace-with-existing-run-id",
+  "event_id": "example-event-001",
+  "requirement_snapshot": "安排内部需求沟通会议",
+  "analysis": {
+    "summary": "客户希望安排需求沟通会议。",
+    "needs": ["确认会议时间"],
+    "missing_information": [],
+    "next_actions": ["询问可用时间"],
+    "risk_flags": []
+  },
+  "priority": "normal",
+  "review_status": "not_required",
+  "review_reasons": [],
+  "notification_mode": "preview",
+  "notification_channel": "feishu"
+}
+```
+
+示例中的 run_id 必须替换为已登记且满足状态要求的销售运行 ID，event_id 和 customer_id 应匹配该运行。首次保存返回 created=true；同一 run_id 重复请求返回原跟进及 created=false，不覆盖客户。CRM 模型拒绝额外字段，review_reasons 必须与 analysis.risk_flags 一致。
+
+GET `/crm/customers/{customer_id}` 查询客户；GET `/crm/customers/{customer_id}/followups` 返回 customer_id、count、followups；GET `/crm/followups/{followup_id}` 或 GET `/crm/workflow-runs/{run_id}/followup` 获取完整跟进和通知状态。
+
+### 通知状态接口
+
+这些接口只修改本地状态，不调用飞书或企业微信。当前 n8n 销售流程固定 preview；以下 send 模式状态路径已采用模拟结果验收。
+
+| 接口 | 请求体示例 | 行为 |
+| --- | --- | --- |
+| POST `/crm/followups/{followup_id}/notification-attempts` | {"manual": false} | 首次登记通知尝试，返回 attempt_number 和稳定请求标识 |
+| PATCH `/crm/followups/{followup_id}/notification` | {"status": "failed", "error_code": "simulated_failure"} | 保存明确失败；结果不确定使用 delivery_unknown |
+| PATCH `/crm/followups/{followup_id}/notification` | {"status": "sent", "message_id": "simulated-message-001"} | 保存成功结果，示例消息 ID 为模拟值 |
+| PATCH `/crm/followups/{followup_id}/notification-resolution` | {"delivered": false} | 仅核对 delivery_unknown；确认未送达后变为 failed |
+| PATCH `/crm/followups/{followup_id}/notification-resolution` | {"delivered": true, "message_id": "simulated-message-001"} | 确认已送达后变为 sent，不增加尝试次数 |
+
+首次尝试前必须已有 send 模式且无需复核的跟进。明确失败后的下一次尝试必须传 manual=true；delivery_unknown 核对前、已有未完成尝试时，以及 sent 后均禁止重发。相同通知结果的重复写入保持幂等，不同结果不允许覆盖；重复人工核对返回 409。
+
+sent 不允许携带 error_code；failed/delivery_unknown 必须提供 error_code 且不能携带 message_id。确认未送达时不能提供 message_id。通知恢复不会自动将 failed 工作流改为 succeeded，应分别读取通知与工作流状态。
+
+不存在的关联记录通常返回 404，状态冲突返回 409，请求字段不符合约束返回 422。业务保护返回的 409 不应通过盲目重试绕过。
+
+### 销售 Production Webhook
+
+已发布的业务入口为 `http://localhost:5678/webhook/w7d47-sales-followup-assistant`，其主机端口属于 n8n。正常结果包含分析、run_id、followup_id、通知预览；重复事件返回 duplicate=true、processed=false 和原 run_id/event_id。完整可复制请求与本地证据输出由 [Day 49 脚本](../scripts/day49/README.md) 提供。
+
+### 飞书独立消息接口
+
+POST `/integrations/feishu/messages` 接收 text 与 request_id，接收者由服务端配置。该接口会实际发送消息，与 CRM 通知状态接口不同；其历史真实联调见 [飞书接入文档](feishu-open-platform.md)。当前销售工作流未编排调用该接口。
 
 ## 企业微信通知
 
