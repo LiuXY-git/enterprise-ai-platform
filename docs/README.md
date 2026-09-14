@@ -31,6 +31,8 @@
 
 ## 工作流中心
 
+- [Day 51 工作流日志](day51-workflow-logging.md)
+
 - [Day 50 工作流模板整理](day50-workflow-templates.md)
 - [客服、邮件、销售模板目录](../n8n/templates/README.md)
 

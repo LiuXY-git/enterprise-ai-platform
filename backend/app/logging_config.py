@@ -1,6 +1,8 @@
 import logging
 from pathlib import Path
 
+from .workflow_logging import configure_workflow_logging
+
 LOGGER_NAME = "enterprise_ai_platform"
 
 LOG_DIRECTORY = Path(__file__).resolve().parents[2] / "logs"
@@ -12,6 +14,8 @@ def configure_logging() -> None:
         parents=True,
         exist_ok=True,
     )
+
+    configure_workflow_logging(LOG_DIRECTORY)
 
     logger = logging.getLogger(LOGGER_NAME)
 
