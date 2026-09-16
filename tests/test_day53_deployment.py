@@ -140,6 +140,8 @@ def test_start_builds_then_waits_and_verifies_from_any_directory(tmp_path, api_o
         assert not {"down", "prune", "rm", "--volumes"}.intersection(call)
         if call[0] == "compose" and "version" not in call:
             assert str(project) in call
+            assert call[call.index("--ansi") + 1] == "never"
+            assert call[call.index("--progress") + 1] == "plain"
         if "config" in call:
             assert "--quiet" in call
     probes = [call for call in calls if "-m" in call]

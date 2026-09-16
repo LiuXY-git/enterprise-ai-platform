@@ -25,5 +25,14 @@
   "powershell_7_mock": "passed",
   "production_api_id_unchanged": true,
   "production_api_healthy": true,
-  "production_n8n_healthy": true
+  "production_n8n_healthy": true,
+  "console_fix_validation": {
+    "shell": "Windows PowerShell 5.1",
+    "buildkit_progress_environment": "tty",
+    "compose_progress_flag": "plain",
+    "compose_ansi_flag": "never",
+    "targeted_tests_passed": 8,
+    "isolated_build_start_recreate": "passed",
+    "resources_cleaned": true
+  }
 }

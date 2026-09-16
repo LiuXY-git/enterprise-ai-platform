@@ -12,7 +12,10 @@ function Invoke-PlatformDocker {
 
 function Get-PlatformComposeArguments {
     param([Parameter(Mandatory = $true)][string]$ProjectRoot)
-    return @('compose', '--project-directory', $ProjectRoot,
+    # Redirected PowerShell output is not always a valid Windows console handle.
+    # Use text progress explicitly; never let Compose/buildx select a TTY UI.
+    return @('compose', '--ansi', 'never', '--progress', 'plain',
+        '--project-directory', $ProjectRoot,
         '-f', (Join-Path $ProjectRoot 'compose.yaml'))
 }
 

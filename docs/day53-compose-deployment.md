@@ -105,6 +105,8 @@ docker compose start
 
 构建失败保留原容器；健康检查超时则保留现场，脚本不会自动回滚或删除服务。启动脚本可在问题修复后重新运行，Compose 会按配置更新服务。`down -v` 会删除命名卷，不用于日常停止或升级。数据持久化不代替备份；跨机器迁移还需要保存数据库、Chroma、n8n 卷及原加密密钥。
 
+Windows PowerShell 构建阶段若曾出现 `failed to get console: The handle is invalid.`，使用修复后的脚本重新执行即可。脚本已显式指定 Compose `--ansi never --progress plain`，使重定向输出使用纯文本进度，避免自动选择交互终端界面。该错误发生在构建步骤时，脚本尚未执行后续容器更新。
+
 ## 验收状态
 
 - 全量自动化测试：506 项通过；保留一项既有 ChromaDB 弃用警告。
@@ -114,3 +116,5 @@ docker compose start
 - 独立测试容器、网络和镜像已清理；原业务 API 容器 ID 与镜像保持一致，API 和 n8n 仍 healthy。
 
 可提交证据见 [Day 53 部署验收结果](evidence/day53/deployment-validation.json)。当前业务环境的更新、分支推送和合并由维护者按交付步骤执行；本轮没有部署 Day 53 到业务容器，也没有调用真实模型或发送消息。
+
+控制台兼容修复补验：8 项部署脚本测试及 Ruff 通过；在 Windows PowerShell 5.1 中设置 `BUILDKIT_PROGRESS=tty`，修复后的脚本仍以纯文本完成独立镜像构建、启动和重建持久化验证，测试资源已清理。未重复执行业务测试或更新业务容器。
