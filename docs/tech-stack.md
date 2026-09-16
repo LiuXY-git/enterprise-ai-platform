@@ -1,25 +1,36 @@
 # 技术选型
 
-## 当前已经使用
+本页按 Day 54 的实际代码区分已使用技术与后续计划。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
 
-| 技术 | 作用 | 选择原因 |
+## 已使用
+
+| 技术 | 当前用途 | 实现位置或边界 |
 | --- | --- | --- |
-| Python | 后端开发语言 | AI 生态丰富，容易学习 |
-| FastAPI | Web API 框架 | 支持类型提示和自动接口文档 |
-| Pydantic | 数据校验 | 自动检查请求和响应格式 |
-| Uvicorn | ASGI 服务器 | 负责运行 FastAPI 应用 |
-| Ruff | 代码检查和格式化 | 速度快，配置简单 |
-| Docker | 应用容器化 | 保证不同环境中的运行方式一致 |
-| Docker Compose | 容器编排 | 使用一条命令启动服务 |
-| Git | 版本控制 | 保存和管理代码修改 |
-| GitHub | 远程代码仓库 | 备份代码并支持团队协作 |
+| Python、FastAPI、Uvicorn | API 与业务服务 | 当前 Docker 基于 Python 3.14；[后端入口](../backend/app/main.py) |
+| Pydantic | 请求、响应及业务数据校验 | [数据模型](../backend/app/models)；各历史模板严格程度不同 |
+| SQLite | 文档元数据、运行账本、模拟 CRM | Python 标准库访问；当前单机持久化方案 |
+| PyMuPDF、python-docx | PDF 与 DOCX 提取 | Markdown 由本地解析服务处理 |
+| Chroma | 本地向量索引、相似度检索 | 默认本地 Embedding；与云端生成模型分开 |
+| RAG | 基于知识片段生成带来源回答 | 检索、Prompt 和回答由平台服务实现 |
+| OpenAI 兼容客户端 | 调用 DeepSeek 或 Qwen | 客户端协议兼容不表示项目已接入所有模型厂商 |
+| Dify | 企业咨询工作流、外部知识库应用 | 独立部署，模型和应用发布由 Dify 管理 |
+| n8n | Webhook、条件分支、HTTP 调用和原生模型编排 | Compose 固定 `2.36.8`，流程导出在 [workflows](../n8n/workflows) |
+| 飞书、企业微信 HTTP API | 独立消息接口与企业集成 | 飞书有历史真实联调；企业微信真实发送仍待环境条件；销售仅预览 |
+| python-dotenv、dataclasses | 显式环境加载与分组配置 | [settings.py](../backend/app/settings.py)，按需校验与脱敏自检 |
+| Python logging、JSONL | 应用日志和工作流边界事件 | 文件轮转；没有统一分布式追踪 |
+| Docker、Compose、PowerShell | 打包、部署、健康及挂载检查 | [Day 53 说明](day53-compose-deployment.md)；Dify 不由本项目 Compose 管理 |
+| pytest、Ruff | 自动化测试与代码检查 | [测试目录](../tests)、[项目配置](../pyproject.toml) |
+| Git、GitHub | 版本管理与协作 | 平台 API 和 Workflow Center 的发布范围分别记录 |
 
-## 后续计划使用
+Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.txt](../requirements-dev.txt) 为准；镜像版本以 [Dockerfile](../docker/Dockerfile) 和 [compose.yaml](../compose.yaml) 为准。本页描述仓库采用的版本，不表示上游最新版本。
 
-| 技术 | 计划用途 |
-| --- | --- |
-| PostgreSQL | 保存用户、文档和业务数据 |
-| LLM API | 生成 AI 回答 |
-| RAG | 根据企业文档回答问题 |
-| LangGraph | 编排复杂智能体流程 |
-| MCP | 连接外部工具和企业系统 |
+## 后续候选与待实现模块
+
+| 技术或能力 | 计划方向 | 当前状态 |
+| --- | --- | --- |
+| PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
+| LangGraph | 复杂智能体状态与工具编排 | Agent Center 尚未实现 |
+| MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
+| Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
+
+后续选型需结合具体需求验证，不是当前运行的额外依赖。

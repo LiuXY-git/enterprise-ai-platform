@@ -4,6 +4,8 @@
 
 当前平台 API 版本为 `1.0.0`。Workflow Center `0.5.0` 已完成业务验收，版本内容于 2026-09-14 定版，组件标签为 `workflow-center-v0.5.0`。GitHub 发布状态以远端标签和 Release 页面为准。销售助手通知为预览模式。
 
+首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
+
 ## 项目目标
 
 通过 16 周持续开发，完成以下核心模块：
@@ -77,11 +79,13 @@
 - [x] 实现 Day 51 工作流结构化事件日志、输入输出快照与用量来源标记
 - [x] 完成 Day 52 统一配置入口、按需校验与离线脱敏自检
 - [x] 完成 Day 53 一键启动、部署检查、日志轮转与隔离容器重建验收
+- [x] 完成 Day 54 使用指南、系统架构与文档导航整理
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。
 配置说明：[Day 52 配置中心与离线自检](docs/day52-configuration-center.md)。
 部署说明：[Day 53 一键启动与持久化验收](docs/day53-compose-deployment.md)。
+文档交付：[Day 54 使用与架构文档](docs/day54-documentation.md)。
 
 ## 项目结构
 
@@ -97,6 +101,8 @@ enterprise-ai-platform/
 ```
 
 ## 快速启动
+
+以下命令在仓库根目录执行。首次配置 `.env`、Python 环境及 n8n 凭据，请先阅读 [使用指南](docs/user-guide.md)。Docker API 与本地 API 默认使用同一端口，选择一种运行方式。
 
 ### 本地运行
 
@@ -124,14 +130,16 @@ FastAPI 文档：http://127.0.0.1:8000/docs
 n8n 编辑器：http://127.0.0.1:5678
 ```
 
-停止并清理容器：
+日常停止服务：
 
 ```powershell
-docker compose down
+docker compose stop
 ```
 
 ## 项目文档
 
+- [平台使用指南](docs/user-guide.md)
+- [Day 54 使用与架构文档](docs/day54-documentation.md)
 - [系统架构](docs/architecture.md)
 - [技术选型](docs/tech-stack.md)
 - [数据库设计](docs/database.md)

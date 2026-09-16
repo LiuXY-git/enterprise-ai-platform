@@ -2,6 +2,16 @@
 
 该目录用于存放 Enterprise AI Platform 项目文档。
 
+## 从这里开始
+
+- 首次启动与日常操作：[平台使用指南](user-guide.md)。
+- 理解调用关系与数据存放：[系统架构](architecture.md)、[技术选型](tech-stack.md)。
+- 导入业务流程：[客服、邮件、销售模板目录](../n8n/templates/README.md)。
+- 核对接口或开发后端：[API 文档](api.md)、[后端说明](../backend/README.md)。
+- 本次文档交付范围与验证：[Day 54 使用与架构文档](day54-documentation.md)。
+
+以使用指南和架构页了解当前状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0` 与 Workflow Center `0.5.0` 的版本范围不同，文档更新不等于发布新版本。
+
 ## 项目设计
 
 - [系统架构](architecture.md)
@@ -34,10 +44,8 @@
 ## 工作流中心
 
 - [Day 51 工作流日志](day51-workflow-logging.md)
-
 - [Day 50 工作流模板整理](day50-workflow-templates.md)
 - [客服、邮件、销售模板目录](../n8n/templates/README.md)
-
 - [Dify 基础与首个 AI 应用](dify-basics.md)
 - [Dify 接入 Knowledge Hub](dify-knowledge-hub.md)
 - [Dify Workflow 基础与企业咨询分流](dify-workflow-basics.md)
@@ -88,6 +96,4 @@
 - [Week 2 总结](week-2-summary.md)
 - [Week 3 总结](week-3-summary.md)
 - [Week 4 总结](week-4-summary.md)
-
-
 - [Week 7 总结](week-7-summary.md)
