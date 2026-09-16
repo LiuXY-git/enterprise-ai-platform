@@ -1,0 +1,29 @@
+{
+  "project": "day53-check-9ac8c19c9993476288965be8938e1d81",
+  "production_changed": false,
+  "result": "passed",
+  "container_recreated": true,
+  "sqlite_record_preserved": true,
+  "app_log_preserved": true,
+  "workflow_events_preserved": true,
+  "docker_log_limits": {
+    "Type": "json-file",
+    "Config": {
+      "max-file": "3",
+      "max-size": "10m"
+    }
+  },
+  "start_script": "passed",
+  "check_script": "passed",
+  "n8n_recreation_tested": false,
+  "isolated_resources_removed": true,
+  "date": "2026-09-16",
+  "full_tests_passed": 506,
+  "existing_warnings": 1,
+  "ruff": "passed",
+  "powershell_5_1_mock": "passed",
+  "powershell_7_mock": "passed",
+  "production_api_id_unchanged": true,
+  "production_api_healthy": true,
+  "production_n8n_healthy": true
+}
