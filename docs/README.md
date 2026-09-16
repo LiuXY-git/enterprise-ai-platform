@@ -75,6 +75,9 @@
 
 ## 演示与验收
 
+- [Day 55 业务 Demo：执行步骤与录制讲稿](day55-workflow-demo.md)
+- [Day 55 录制验收表](../demo/day55-recording-checklist.md)
+- [Day 55 演示工具](../scripts/day55/README.md)
 - [Demo 演示数据与说明](../demo/README.md)
 - [Demo 录制脚本](demo-script.md)
 - [Demo 最终验收记录](demo-acceptance.md)

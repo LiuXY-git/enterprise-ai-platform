@@ -80,12 +80,15 @@
 - [x] 完成 Day 52 统一配置入口、按需校验与离线脱敏自检
 - [x] 完成 Day 53 一键启动、部署检查、日志轮转与隔离容器重建验收
 - [x] 完成 Day 54 使用指南、系统架构与文档导航整理
+- [x] 准备 Day 55 业务 Demo 讲稿、请求包与逐步执行工具
+- [ ] 完成 Day 55 本轮真实业务演示、视频录制与验收
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。
 配置说明：[Day 52 配置中心与离线自检](docs/day52-configuration-center.md)。
 部署说明：[Day 53 一键启动与持久化验收](docs/day53-compose-deployment.md)。
 文档交付：[Day 54 使用与架构文档](docs/day54-documentation.md)。
+演示准备：[Day 55 业务 Demo](docs/day55-workflow-demo.md)；视频与现场业务结果待本轮验收。
 
 ## 项目结构
 

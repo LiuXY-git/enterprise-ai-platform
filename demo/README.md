@@ -1,8 +1,10 @@
-# Knowledge Hub Demo
+# Demo 演示资料
 
 本目录存放 Enterprise AI Platform 的演示数据。
 
-当前阶段只完成演示材料和录制脚本准备，实际视频录制将在收到“可以录制了”的通知后进行。
+当前录制入口为 [Day 55 Workflow Center 业务 Demo](../docs/day55-workflow-demo.md)，包含讲稿、独立请求包、逐步执行工具和 [录制验收表](day55-recording-checklist.md)。本轮处于材料准备完成、真实业务演示与视频待验收状态。
+
+原 Knowledge Hub 方案见 [旧版录制脚本](../docs/demo-script.md)；2026-08-31 AI 客服助手视频已完成，见 [历史视频验收](../docs/demo-acceptance.md)。以下两份虚构资料继续用于知识库演示。
 
 ## 演示文档
 
@@ -32,3 +34,4 @@
 
 ```text
 星云科技发生 P1 级故障时，响应和升级流程是什么？差旅报销 8000 元需要哪些人审批？
+```
