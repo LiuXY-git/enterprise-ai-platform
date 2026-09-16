@@ -16,6 +16,7 @@ from .routers.rag import router as rag_router
 from .routers.upload import router as upload_router
 from .routers.wecom import router as wecom_router
 from .routers.workflow import router as workflow_router
+from .settings import load_environment
 
 logger = logging.getLogger(LOGGER_NAME)
 
@@ -87,6 +88,7 @@ OPENAPI_TAGS = [
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    load_environment()
     configure_logging()
     app.state.wecom_cache = None
 

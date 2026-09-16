@@ -22,9 +22,14 @@ def events(monkeypatch):
 
     logger = logging.getLogger(logs.EVENT_LOGGER)
     monkeypatch.setattr(logger, "handlers", [Capture()])
-    monkeypatch.setattr(logger, "level", logging.INFO)
     monkeypatch.setattr(logger, "propagate", False)
-    return captured
+    original_level = logger.level
+    # setLevel clears isEnabledFor's cache left by earlier route tests.
+    logger.setLevel(logging.INFO)
+    try:
+        yield captured
+    finally:
+        logger.setLevel(original_level)
 
 
 @pytest.fixture

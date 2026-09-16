@@ -26,3 +26,9 @@
 主要输出 answer、ai_status、task_id、workflow_run_id、elapsed_time、total_tokens。这里 workflow_run_id 是 **Dify 运行 ID**，不能拿它查询平台 `/workflow-runs/{run_id}`。answer 的具体内容由知识库与模型决定。
 
 此模板没有平台去重或检查点恢复，每次再次调用都可能再次调用 Dify。失败按现有 API/n8n 错误信息处理，不把失败重发描述为幂等重试。历史依据见 [Day 38 集成说明](../../../docs/n8n-ai-integration.md)。
+
+## Day 52 配置归属
+
+模型由对应的 Dify 应用节点与凭据选择；后端 `LLM_PROVIDER` 不影响本模板。后端用 `DIFY_WORKFLOW_API_KEY` 和 `DIFY_API_BASE_URL` 连接已发布的 Dify 工作流。可在项目根目录运行 `.\.venv\Scripts\python.exe -m backend.app.check_config --component dify` 检查本地调用配置；这不验证 Dify 内部模型或网络连通性。
+
+配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/day52-configuration-center.md)。
