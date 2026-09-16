@@ -1,5 +1,7 @@
 # Day 25：Docker 部署
 
+本页保留 Day 25 部署背景；当前一键启动、日志轮转与重建持久化验收请使用 [Day 53 部署说明](day53-compose-deployment.md)。
+
 ## 今日目标
 
 将 Enterprise AI Platform 部署到 Docker，并完成容器级验收。
@@ -176,7 +178,7 @@ docker compose restart api
 
 等待容器恢复为 `healthy` 后再次执行 RAG 查询。
 
-重启后查询仍然成功，说明 SQLite、Chroma、Embedding 模型缓存和日志目录均已正确挂载。
+重启后查询成功只能证明当时查询仍可用，不能单独证明删除重建后的所有目录持久化。Day 53 通过不同容器 ID 的重建验证 SQLite、应用日志和事件日志保留；Chroma 与 n8n 的历史验收范围分别按原记录保留。
 
 ## 常用命令
 

@@ -41,6 +41,11 @@ services:
     init: true
     restart: unless-stopped
     stop_grace_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   n8n:
     image: docker.n8n.io/n8nio/n8n:2.36.8
@@ -74,6 +79,11 @@ services:
     init: true
     restart: unless-stopped
     stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   n8n_data:

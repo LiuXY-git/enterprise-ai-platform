@@ -76,10 +76,12 @@
 - [x] 完成 Day 50 客服、邮件、销售工作流模板整理
 - [x] 实现 Day 51 工作流结构化事件日志、输入输出快照与用量来源标记
 - [x] 完成 Day 52 统一配置入口、按需校验与离线脱敏自检
+- [x] 完成 Day 53 一键启动、部署检查、日志轮转与隔离容器重建验收
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。
 配置说明：[Day 52 配置中心与离线自检](docs/day52-configuration-center.md)。
+部署说明：[Day 53 一键启动与持久化验收](docs/day53-compose-deployment.md)。
 
 ## 项目结构
 
@@ -112,7 +114,7 @@ http://127.0.0.1:8000/docs
 ### Docker 运行
 
 ```powershell
-docker compose up -d --build
+& .\scripts\start.ps1
 ```
 
 Docker 启动后的服务地址：

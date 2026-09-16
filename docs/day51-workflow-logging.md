@@ -4,9 +4,9 @@ Day 51 为客服、邮件和销售工作流增加统一事件日志，记录可�
 
 ## 日志放在哪里
 
-原来的 `backend/logs/app.log` 继续用于普通应用日志。API 启动时另行配置 `backend/logs/workflow-events.jsonl`，一行一个 JSON 对象，同时输出到控制台。单文件达到约 5 MiB 轮转，保留 3 份备份；按当前单 API 进程使用，不宣称支持多进程共享文件的并发轮转。
+原来的 `logs/app.log` 继续用于普通应用日志。API 启动时另行配置 `logs/workflow-events.jsonl`，一行一个 JSON 对象，同时输出到控制台。单文件达到约 5 MiB 轮转，保留 3 份备份；按当前单 API 进程使用，不宣称支持多进程共享文件的并发轮转。
 
-日志目录已由现有 `.gitignore` 排除。容器中的路径取决于应用所在目录；未新增日志卷，容器文件可能在重建时丢失。持续保存与部署配置在后续部署任务中处理。
+日志目录已由现有 `.gitignore` 排除。Day 53 实测确认容器目录为 `/app/logs`，已有 `./logs:/app/logs` 挂载。此前关于 `backend/logs` 和缺少日志卷的表述不准确；路径及重建验收见 [Day 53 部署说明](day53-compose-deployment.md)。
 
 ## 哪些调用会记录
 
@@ -58,7 +58,7 @@ Day 51 为客服、邮件和销售工作流增加统一事件日志，记录可�
 在项目根目录，用 PowerShell 读取最新记录：
 
 ```powershell
-Get-Content -LiteralPath backend/logs/workflow-events.jsonl -Tail 20 | ForEach-Object { $_ | ConvertFrom-Json } | Select-Object timestamp,operation,outcome,run_id,dify_run_id,duration_ms,total_tokens,metrics_source
+Get-Content -LiteralPath logs/workflow-events.jsonl -Tail 20 | ForEach-Object { $_ | ConvertFrom-Json } | Select-Object timestamp,operation,outcome,run_id,dify_run_id,duration_ms,total_tokens,metrics_source
 ```
 
 本次新增检查使用隔离临时数据库和模拟 Dify 响应，不调用模型、不运行 n8n、不发送消息。已验收业务链路继续沿用；新日志需要运行更新后的 API 才会产生，不会回填旧记录，也不声称已在当前容器验收。

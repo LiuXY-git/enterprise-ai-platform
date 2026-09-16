@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 from .workflow_logging import configure_workflow_logging
@@ -32,8 +33,10 @@ def configure_logging() -> None:
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
 
-    file_handler = logging.FileHandler(
+    file_handler = RotatingFileHandler(
         LOG_FILE,
+        maxBytes=5 * 1024 * 1024,
+        backupCount=3,
         encoding="utf-8",
     )
     file_handler.setFormatter(formatter)

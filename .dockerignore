@@ -20,9 +20,15 @@ experiments/
 tests/
 
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
+*.sqlite-wal
+*.sqlite-shm
 *.sqlite3
 *.log
+*.log.*
+*.jsonl
 *.docx
 *.png
 
