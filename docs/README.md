@@ -28,6 +28,7 @@
 ## 部署与运行
 
 - [Docker 部署](docker-deployment.md)
+- [Day 52 配置中心与离线自检](day52-configuration-center.md)
 
 ## 工作流中心
 

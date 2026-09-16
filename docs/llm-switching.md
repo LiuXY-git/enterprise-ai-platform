@@ -13,7 +13,7 @@
 
 ## 配置结构
 
-模型配置集中在 `backend/app/services/llm_config.py`。
+Day 52 起模型配置实现集中在 `backend/app/settings.py`；`backend/app/services/llm_config.py` 保留兼容导入入口。应用启动时显式加载项目根目录 `.env`，进程环境变量优先。
 
 配置模块负责：
 
@@ -116,6 +116,18 @@ Model：qwen3.7-plus
 - 千问模型调用成功
 
 ## 当前限制
+
+本页的 Provider 切换只影响后端 `/rag/answer`。客服和邮件使用 Dify 应用中的模型；销售和日报使用 n8n 原生模型节点及 Credentials。`/chat` 当前为回显接口，不用于检验模型切换。
+
+切换后可先离线检查配置：
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.app.check_config --component llm
+```
+
+退出码 0 仅表示配置有效，不验证密钥或模型服务连通性。修改本地 `.env` 后重启 FastAPI；Compose 环境变量变更需重新创建 API 容器，仅 restart 不会重新注入变量。当前支持与默认型号沿用项目已有配置，不代表供应商最新推荐。
+
+完整字段、优先级、脱敏与生效方式见 [Day 52 配置中心](day52-configuration-center.md)。
 
 - 修改 Provider 后需要重启服务
 - 当前不支持单个请求临时指定模型
