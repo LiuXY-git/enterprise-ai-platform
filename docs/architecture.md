@@ -121,3 +121,9 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 `start.ps1` 构建、启动并等待健康，`check-deployment.ps1` 检查容器、挂载、SQLite 完整性与日志路径。Day 53 的隔离重建验收覆盖 API 的 SQLite 记录及两种日志保留；不等于验证了 n8n 凭据恢复、Chroma 检索质量或真实业务链路。
 
 当前为本机或可信网络的单机学习与演示部署。尚无统一业务 API/Webhook 认证、租户隔离、限流或高可用方案。Agent Center、Evaluation Center 和销售真实通知编排仍需后续实现。API `1.0.0` 与 Workflow Center `0.5.0` 是不同版本范围，Day 54 文档更新不发布新组件版本。
+
+## 7. Agent Center 设计进展（Day 57）
+
+Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
+
+这是后续模块设计，尚未接入上方运行架构。首次图实验将使用固定返回值；现有 RAG 检索可作为后续知识工具的基础，n8n 运行账本和边界日志不能直接替代 Agent 的任务检查点。当前没有 Agent API、LangGraph 依赖或 Agent 持久化实现。

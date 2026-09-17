@@ -4,7 +4,7 @@
 
 当前平台 API 版本为 `1.0.0`。Workflow Center `0.5.0` 已完成业务验收，版本内容于 2026-09-14 定版，组件标签为 `workflow-center-v0.5.0`。GitHub 发布状态以远端标签和 Release 页面为准。销售助手通知为预览模式。
 
-Day 56 已准备 [Workflow Center v1.0.0 发布候选](docs/workflow-center-v1.0.md)，待推送、合并与发布收尾。维护者于 2026-09-17 确认 Day 55 视频之后补录，当前继续阶段总结与下一阶段准备。
+Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-center-v1.0.md)仍为发布候选，标签与 GitHub Release 待发布。维护者于 2026-09-17 确认 Day 55 视频之后补录。当前进入 Week 9，已完成 [Day 57 Agent 架构设计](docs/day57-agent-architecture.md)，Agent 运行时待实现。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
@@ -86,6 +86,8 @@ Day 56 已准备 [Workflow Center v1.0.0 发布候选](docs/workflow-center-v1.0
 - [ ] 完成 Day 55 本轮真实业务演示、视频录制与验收（已确认延期补录）
 - [x] 完成 Day 56 Week 8 总结与 Workflow Center v1.0.0 发布候选准备
 - [ ] 完成 Workflow Center v1.0.0 标签与 GitHub Release 发布
+- [x] 完成 Day 57 Agent 架构、任务生命周期与静态推演设计
+- [ ] 完成 Day 58 LangGraph State、Node、Edge 最小实验
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。
@@ -94,6 +96,7 @@ Day 56 已准备 [Workflow Center v1.0.0 发布候选](docs/workflow-center-v1.0
 文档交付：[Day 54 使用与架构文档](docs/day54-documentation.md)。
 演示准备：[Day 55 业务 Demo](docs/day55-workflow-demo.md)；视频与现场业务结果延期补齐。
 阶段交付：[Week 8 总结](docs/week-8-summary.md)、[Workflow Center v1.0.0 候选说明](docs/workflow-center-v1.0.md)。
+Agent 起点：[Day 57 架构](docs/day57-agent-architecture.md)、[静态推演](demo/agent-center/README.md)、[Week 9 计划](docs/week-9-plan.md)。
 
 ## 项目结构
 

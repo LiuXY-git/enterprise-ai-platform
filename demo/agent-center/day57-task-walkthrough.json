@@ -1,0 +1,149 @@
+{
+  "artifact_type": "design_walkthrough",
+  "day": 57,
+  "prepared_date": "2026-09-17",
+  "notice": "人工编写的静态推演；不是 Agent 运行记录，不代表真实企业制度。",
+  "source_path_base": "repository_root",
+  "execution": {
+    "execution_performed": false,
+    "model_called": false,
+    "tool_called": false,
+    "retrieval_performed": false
+  },
+  "task": {
+    "task_id": "day57-static-example-001",
+    "user_request": "星云科技发生 P1 级故障时，响应和升级流程是什么？差旅报销 8000 元需要哪些人审批？",
+    "initial_status": "pending",
+    "plan": [
+      {
+        "step_id": "S1",
+        "goal": "查明 P1 故障响应与升级流程",
+        "completion_criteria": [
+          "有来源支持首次响应与目标恢复时间",
+          "有来源支持报障渠道与所需信息",
+          "有来源支持升级条件与联系人"
+        ]
+      },
+      {
+        "step_id": "S2",
+        "goal": "查明 8000 元差旅报销的审批人",
+        "completion_criteria": [
+          "有来源支持适用金额区间",
+          "明确该区间要求的审批人"
+        ]
+      }
+    ],
+    "proposed_limits": {
+      "max_decisions": 4,
+      "max_tool_attempts": 4,
+      "max_active_execution_seconds": 60,
+      "implemented": false
+    }
+  },
+  "simulated_decisions": [
+    {
+      "decision_id": "D1",
+      "status": "running",
+      "phase": "planning",
+      "based_on_observation_ids": [],
+      "progress_note": "先取得 S1 所需的 IT 制度依据。",
+      "action": "tool",
+      "tool_call_id": "C1",
+      "step_id": "S1",
+      "tool_name": "search_knowledge",
+      "arguments": {"query": "P1 故障首次响应、目标恢复、报障与升级流程", "top_k": 3}
+    },
+    {
+      "decision_id": "D2",
+      "status": "running",
+      "phase": "planning",
+      "based_on_observation_ids": ["O1"],
+      "progress_note": "S1 已有依据，继续取得 S2 的金额区间与审批人。",
+      "action": "tool",
+      "tool_call_id": "C2",
+      "step_id": "S2",
+      "tool_name": "search_knowledge",
+      "arguments": {"query": "单笔差旅报销 8000 元审批人和金额区间", "top_k": 3}
+    },
+    {
+      "decision_id": "D3",
+      "status": "running",
+      "phase": "finalizing",
+      "based_on_observation_ids": ["O1", "O2"],
+      "progress_note": "两个子任务均有来源支持，汇总回答并结束。",
+      "action": "finish",
+      "completed_step_ids": ["S1", "S2"]
+    }
+  ],
+  "fixture_evidence": [
+    {
+      "evidence_id": "E1",
+      "source": "demo/nebula-it-policy.md",
+      "text": "P1 级故障由企业技术支持中心负责处理。值班工程师必须在 15 分钟内首次响应，目标恢复时间为 4 小时。"
+    },
+    {
+      "evidence_id": "E2",
+      "source": "demo/nebula-it-policy.md",
+      "text": "发现 P1 级故障后，员工应立即在内部沟通工具中联系“IT-P1 应急响应”群组，并提供故障时间、影响范围、错误截图和已执行的排查步骤。"
+    },
+    {
+      "evidence_id": "E3",
+      "source": "demo/nebula-it-policy.md",
+      "text": "如果提交故障后 30 分钟仍未得到响应，应升级联系企业技术支持中心值班经理。"
+    },
+    {
+      "evidence_id": "E4",
+      "source": "demo/nebula-expense-policy.md",
+      "text": "单笔差旅报销金额超过 3000 元但不超过 10000 元时，需要直属部门负责人和财务负责人共同审批。"
+    }
+  ],
+  "simulated_observations": [
+    {
+      "observation_id": "O1",
+      "tool_call_id": "C1",
+      "step_id": "S1",
+      "tool_status": "ok",
+      "evidence_ids": ["E1", "E2", "E3"],
+      "step_status_after_evaluation": "completed",
+      "task_status_after_evaluation": "running"
+    },
+    {
+      "observation_id": "O2",
+      "tool_call_id": "C2",
+      "step_id": "S2",
+      "tool_status": "ok",
+      "evidence_ids": ["E4"],
+      "step_status_after_evaluation": "completed",
+      "task_status_after_evaluation": "running"
+    }
+  ],
+  "expected_outcome": {
+    "status": "succeeded",
+    "phase": null,
+    "stop_reason": "all_completion_criteria_supported_by_fixture_evidence",
+    "simulated_usage": {"decisions": 3, "tool_attempts": 2},
+    "answer_claims": [
+      {
+        "step_id": "S1",
+        "text": "P1 故障由企业技术支持中心处理，值班工程师必须在 15 分钟内首次响应，目标恢复时间为 4 小时。",
+        "evidence_ids": ["E1"]
+      },
+      {
+        "step_id": "S1",
+        "text": "发现故障后，立即联系内部的 IT-P1 应急响应群组，提供故障时间、影响范围、错误截图和已执行的排查步骤。",
+        "evidence_ids": ["E2"]
+      },
+      {
+        "step_id": "S1",
+        "text": "如果提交故障后 30 分钟仍未得到响应，升级联系企业技术支持中心值班经理。",
+        "evidence_ids": ["E3"]
+      },
+      {
+        "step_id": "S2",
+        "text": "8000 元属于超过 3000 元但不超过 10000 元的区间，需要直属部门负责人和财务负责人共同审批。",
+        "evidence_ids": ["E4"]
+      }
+    ],
+    "unresolved_items": []
+  }
+}
