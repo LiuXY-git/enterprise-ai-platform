@@ -1,6 +1,6 @@
 # 技术选型
 
-本页按 Day 54 的实际代码区分已使用技术与后续计划。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
+本页按 Day 54 的实际代码区分已使用技术与后续计划；Day 57 补充 Agent 设计进展，未新增运行依赖。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
 
 ## 已使用
 
@@ -29,7 +29,7 @@ Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.t
 | 技术或能力 | 计划方向 | 当前状态 |
 | --- | --- | --- |
 | PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
-| LangGraph | 复杂智能体状态与工具编排 | Agent Center 尚未实现 |
+| LangGraph | 复杂智能体状态与工具编排 | [Day 57 架构设计](day57-agent-architecture.md)完成；Day 58 待验证环境兼容性与最小图，尚未安装或接入 |
 | MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
 | Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
 
