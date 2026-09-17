@@ -12,6 +12,8 @@
 
 本案例不规定正式工具协议或状态存储结构。`simulated_usage` 中的次数是纸面推演次数，不是实际 API 用量；没有生成 Token 或耗时数据。`expected_outcome.status = succeeded` 仅表示预期的模拟终态，不能当成真实执行成功。
 
+Day 58 在独立环境中使用这些固定证据运行了 LangGraph，入口见 [可运行实验](../../experiments/day58/README.md)。本目录的 Day 57 JSON 仍是静态素材，Day 58 的真实图执行结果单独记录。
+
 ## 原始材料
 
 - [星云科技 IT 支持制度](../nebula-it-policy.md)：P1 响应、恢复、报障与升级。

@@ -1,0 +1,5 @@
+# Direct dependencies for the isolated Day 58 experiment only.
+# Use requirements-lock.txt to reproduce the tested environment.
+langgraph==1.2.11
+langsmith==0.12.6
+pytest==9.1.1

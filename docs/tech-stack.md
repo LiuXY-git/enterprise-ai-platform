@@ -1,6 +1,6 @@
 # 技术选型
 
-本页按 Day 54 的实际代码区分已使用技术与后续计划；Day 57 补充 Agent 设计进展，未新增运行依赖。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
+本页区分平台已使用技术与后续计划；Day 58 增加独立 LangGraph 实验，平台 API 依赖沿用原配置。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
 
 ## 已使用
 
@@ -24,12 +24,16 @@
 
 Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.txt](../requirements-dev.txt) 为准；镜像版本以 [Dockerfile](../docker/Dockerfile) 和 [compose.yaml](../compose.yaml) 为准。本页描述仓库采用的版本，不表示上游最新版本。
 
+## 独立实验
+
+[Day 58](day58-langgraph-basics.md)在独立 Python 3.14.2 环境运行 LangGraph `1.2.11`，使用固定计划与模拟节点。版本快照位于 [实验依赖](../experiments/day58/requirements-lock.txt)。实验 SDK 要求 `websockets < 17`，与 API 的 `17.0.1` 固定版本冲突，因此不合并进根目录依赖，也不加入当前容器。
+
 ## 后续候选与待实现模块
 
 | 技术或能力 | 计划方向 | 当前状态 |
 | --- | --- | --- |
 | PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
-| LangGraph | 复杂智能体状态与工具编排 | [Day 57 架构设计](day57-agent-architecture.md)完成；Day 58 待验证环境兼容性与最小图，尚未安装或接入 |
+| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 58 独立状态图已验证；模型、持久化与平台接入待实施 |
 | MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
 | Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
 

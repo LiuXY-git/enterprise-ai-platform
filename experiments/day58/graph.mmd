@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	prepare(prepare)
+	mock_lookup(mock_lookup)
+	evaluate(evaluate)
+	finish(finish)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> prepare;
+	evaluate -.-> finish;
+	evaluate -. &nbsp;lookup&nbsp; .-> mock_lookup;
+	mock_lookup --> evaluate;
+	prepare -.-> finish;
+	prepare -. &nbsp;lookup&nbsp; .-> mock_lookup;
+	finish --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
