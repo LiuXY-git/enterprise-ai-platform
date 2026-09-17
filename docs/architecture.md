@@ -122,8 +122,10 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 
 当前为本机或可信网络的单机学习与演示部署。尚无统一业务 API/Webhook 认证、租户隔离、限流或高可用方案。Agent Center、Evaluation Center 和销售真实通知编排仍需后续实现。API `1.0.0` 与 Workflow Center `0.5.0` 是不同版本范围，Day 54 文档更新不发布新组件版本。
 
-## 7. Agent Center 设计进展（Day 57）
+## 7. Agent Center 设计与实验进展（Day 57–58）
 
 Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
 
-这是后续模块设计，尚未接入上方运行架构。首次图实验将使用固定返回值；现有 RAG 检索可作为后续知识工具的基础，n8n 运行账本和边界日志不能直接替代 Agent 的任务检查点。当前没有 Agent API、LangGraph 依赖或 Agent 持久化实现。
+这是后续模块设计，尚未接入上方运行架构。现有 RAG 检索可作为后续知识工具的基础，n8n 运行账本和边界日志不能直接替代 Agent 的任务检查点。
+
+[Day 58 独立实验](day58-langgraph-basics.md)已使用 LangGraph 运行固定计划与模拟知识结果，验证条件边和终止分支。实验依赖与 API 隔离；当前没有 Agent API、模型规划或 Agent 持久化实现。

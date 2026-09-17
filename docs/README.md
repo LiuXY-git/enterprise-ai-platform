@@ -10,7 +10,7 @@
 - 核对接口或开发后端：[API 文档](api.md)、[后端说明](../backend/README.md)。
 - 本次文档交付范围与验证：[Day 54 使用与架构文档](day54-documentation.md)。
 - Week 8 阶段交付：[Week 8 总结](week-8-summary.md)、[Workflow Center v1.0.0 发布候选](workflow-center-v1.0.md)；Day 55 视频已安排延期补录。
-- Week 9 学习入口：[Day 57 Agent 架构](day57-agent-architecture.md)、[实施计划](week-9-plan.md)；当前仅完成设计和静态推演。
+- Week 9 学习入口：[Day 57 Agent 架构](day57-agent-architecture.md)、[Day 58 LangGraph 实验](day58-langgraph-basics.md)、[实施计划](week-9-plan.md)；状态图已运行，模型与真实工具待接入。
 
 以使用指南和架构页了解功能状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0`、Workflow Center 已发布基线 `0.5.0` 和待发布目标 `1.0.0` 分别记录，候选文档不等于线上新版本已经发布。
 
@@ -67,9 +67,11 @@
 
 - [Day 57 Agent 架构、状态与停止条件](day57-agent-architecture.md)
 - [静态任务推演与字段说明](../demo/agent-center/README.md)
+- [Day 58 LangGraph State、Node、Edge](day58-langgraph-basics.md)
+- [Day 58 可运行实验](../experiments/day58/README.md)
 - [Week 9：Agent 基础计划](week-9-plan.md)
 
-Agent 运行时尚未实现，以上材料不代表模型、工具或持久化验收已通过。
+Day 58 已验证独立状态图及模拟节点，不代表模型、真实工具或持久化验收已通过。
 
 ## 企业协作平台集成
 
