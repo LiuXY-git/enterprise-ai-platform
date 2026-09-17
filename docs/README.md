@@ -9,8 +9,9 @@
 - 导入业务流程：[客服、邮件、销售模板目录](../n8n/templates/README.md)。
 - 核对接口或开发后端：[API 文档](api.md)、[后端说明](../backend/README.md)。
 - 本次文档交付范围与验证：[Day 54 使用与架构文档](day54-documentation.md)。
+- Week 8 阶段交付：[Week 8 总结](week-8-summary.md)、[Workflow Center v1.0.0 发布候选](workflow-center-v1.0.md)；Day 55 视频已安排延期补录。
 
-以使用指南和架构页了解当前状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0` 与 Workflow Center `0.5.0` 的版本范围不同，文档更新不等于发布新版本。
+以使用指南和架构页了解功能状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0`、Workflow Center 已发布基线 `0.5.0` 和待发布目标 `1.0.0` 分别记录，候选文档不等于线上新版本已经发布。
 
 ## 项目设计
 
@@ -75,6 +76,9 @@
 
 ## 演示与验收
 
+- [Day 55 业务 Demo：执行步骤与录制讲稿](day55-workflow-demo.md)
+- [Day 55 录制验收表](../demo/day55-recording-checklist.md)
+- [Day 55 演示工具](../scripts/day55/README.md)
 - [Demo 演示数据与说明](../demo/README.md)
 - [Demo 录制脚本](demo-script.md)
 - [Demo 最终验收记录](demo-acceptance.md)
@@ -84,6 +88,8 @@
 
 ## 版本与发布
 
+- [Workflow Center v1.0.0 发布候选说明](workflow-center-v1.0.md)
+- [Workflow Center v1.0.0 候选清单](../n8n/workflow-center-v1.0.0.json)
 - [Knowledge Hub v1.0.0 发布说明](release-v1.0.md)
 - [Workflow Center v0.1.0 发布说明](workflow-center-v0.1.md)
 - [Workflow Center v0.5.0 发布说明](workflow-center-v0.5.md)
@@ -97,3 +103,4 @@
 - [Week 3 总结](week-3-summary.md)
 - [Week 4 总结](week-4-summary.md)
 - [Week 7 总结](week-7-summary.md)
+- [Week 8 总结](week-8-summary.md)
