@@ -1,0 +1,392 @@
+{
+  "product": "Workflow Center",
+  "version": "1.0.0",
+  "release_date": null,
+  "platform": {
+    "api_version": "1.0.0",
+    "n8n_version": "2.36.8"
+  },
+  "workflows": [
+    {
+      "file": "workflows/w6d36-foundation-check.json",
+      "name": "W6D36 - n8n Foundation Check",
+      "tier": "reference",
+      "trigger": "manual",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "36f540f5abaa022f4b1c5782fc34eff1a2895448801c21f42c59ea3ad69f948e"
+    },
+    {
+      "file": "workflows/w6d37-customer-request-webhook.json",
+      "name": "W6D37 - Customer Request Webhook",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "2b9753ec4544610f8569b0344438b1ec6711a321a798f956cd58a6696f78c3b0"
+    },
+    {
+      "file": "workflows/w6d38-ai-customer-request.json",
+      "name": "W6D38 - AI Customer Request Processing",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "4379c438a0d639a292088808d365ab3646c1dd92014306fa1e8f025c94e522e1"
+    },
+    {
+      "file": "workflows/w6d39-ai-email-assistant.json",
+      "name": "W6D39 - AI Email Assistant",
+      "tier": "reference",
+      "trigger": "webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "ab98533d370ac9e0e9cdcd7bd5635be96d1c7b01967fff76e06bab1deef53671"
+    },
+    {
+      "file": "workflows/w6d40-daily-workflow-report.json",
+      "name": "W6D40 - Daily Workflow Report",
+      "tier": "optional",
+      "trigger": "schedule_and_webhook",
+      "publish_by_default": false,
+      "runtime_dependencies": [
+        "n8n",
+        "qwen_credential"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "4382cec4ad64b05f77749c7b78b85a38c613fc93ccb0a9ae343ecd214eaf95ab"
+    },
+    {
+      "file": "workflows/w6d41-workflow-error-handler.json",
+      "name": "W6D41 - Workflow Error Handler",
+      "tier": "release",
+      "trigger": "error",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "sqlite"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "66ad649f8480def821912f024095e9710a0fde608a4ae164f5eea1b0f0306643"
+    },
+    {
+      "file": "workflows/w6d41-persistent-ai-email-assistant.json",
+      "name": "W6D41 - Persistent AI Email Assistant",
+      "tier": "release",
+      "trigger": "webhook",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "dify",
+        "sqlite"
+      ],
+      "workflow_dependencies": [
+        "workflows/w6d41-workflow-error-handler.json"
+      ],
+      "sha256": "715c8afd12a8c62078355e24b77eddfba76e7c8d3a16947e3e59bad3edaddfcf"
+    },
+    {
+      "file": "workflows/w7d47-sales-followup-assistant.json",
+      "name": "W7D47 - Sales Follow-up Assistant",
+      "tier": "release",
+      "trigger": "webhook",
+      "publish_by_default": true,
+      "runtime_dependencies": [
+        "n8n",
+        "api",
+        "qwen_credential",
+        "sqlite"
+      ],
+      "workflow_dependencies": [],
+      "sha256": "ae974f0c9f7bc1bbd1177184809578ec3b64d1d49d30ead400b4f8367aaf2bda"
+    }
+  ],
+  "deployment": {
+    "import_order": [
+      "workflows/w6d36-foundation-check.json",
+      "workflows/w6d37-customer-request-webhook.json",
+      "workflows/w6d38-ai-customer-request.json",
+      "workflows/w6d39-ai-email-assistant.json",
+      "workflows/w6d40-daily-workflow-report.json",
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json",
+      "workflows/w7d47-sales-followup-assistant.json"
+    ],
+    "publish_order": [
+      "workflows/w6d41-workflow-error-handler.json",
+      "workflows/w6d41-persistent-ai-email-assistant.json",
+      "workflows/w7d47-sales-followup-assistant.json"
+    ],
+    "manual_bindings": [
+      {
+        "workflow": "workflows/w6d41-persistent-ai-email-assistant.json",
+        "kind": "error_workflow",
+        "setting": "Error Workflow",
+        "target": "workflows/w6d41-workflow-error-handler.json"
+      },
+      {
+        "workflow": "workflows/w6d40-daily-workflow-report.json",
+        "kind": "credential",
+        "node": "DashScope Qwen Chat Model",
+        "credential_type": "openAiApi",
+        "target": "qwen_credential"
+      },
+      {
+        "workflow": "workflows/w7d47-sales-followup-assistant.json",
+        "kind": "credential",
+        "node": "DashScope Qwen Chat Model",
+        "credential_type": "openAiApi",
+        "target": "qwen_credential"
+      }
+    ],
+    "notes": [
+      "清单描述目标配置，不会自动导入或发布工作流。导出文件继续保持未激活。",
+      "首次部署按 import_order 导入全部文件；按需绑定凭据和 Error Workflow 后，按 publish_order 启用默认发布工作流。",
+      "已有实例先核对导出与当前版本；避免重复导入具有相同 Webhook 路径的工作流。",
+      "邮件助手必须绑定错误处理工作流；销售助手使用自身 AI/CRM 错误分支，不要求绑定邮件错误处理器。",
+      "日报为可选工作流，先检查模型凭据和 Asia/Shanghai 时区，再按需发布调度。参考工作流不默认发布。"
+    ]
+  },
+  "required_environment_variables": [
+    "N8N_ENCRYPTION_KEY",
+    "DIFY_WORKFLOW_API_KEY"
+  ],
+  "quality_gates": [
+    "pytest",
+    "ruff",
+    "docker_health",
+    "openapi",
+    "n8n_portability",
+    "n8n_security_audit",
+    "success_human_duplicate_failure_replay",
+    "day48_workflow_node_regression",
+    "sales_production_success_and_duplicate",
+    "sales_ai_invalid_output_and_service_failure",
+    "crm_checkpoint_recovery",
+    "notification_state_and_resolution_simulation",
+    "crm_saved_replay_guard",
+    "week8_delivery_asset_paths",
+    "workflow_manifest_hashes_and_bindings",
+    "day55_offline_demo_tools"
+  ],
+  "release_status": "candidate",
+  "git_tag": "workflow-center-v1.0.0",
+  "runtime_dependencies": {
+    "n8n": {
+      "compose_service": "n8n",
+      "version": "2.36.8",
+      "required_environment_variables": [
+        "N8N_ENCRYPTION_KEY"
+      ]
+    },
+    "api": {
+      "compose_service": "api",
+      "base_url": "http://api:8000",
+      "version": "1.0.0",
+      "required_capabilities": [
+        "workflow_runs",
+        "crm",
+        "analysis_checkpoints",
+        "notification_state_apis",
+        "centralized_settings",
+        "offline_configuration_checks",
+        "bounded_workflow_event_logs"
+      ]
+    },
+    "dify": {
+      "managed_by_compose": false,
+      "configuration_variables": [
+        "DIFY_API_BASE_URL"
+      ],
+      "required_environment_variables": [
+        "DIFY_WORKFLOW_API_KEY"
+      ],
+      "requirement": "可访问的已发布企业咨询工作流；按其配置准备模型及 Knowledge Hub 依赖。"
+    },
+    "qwen_credential": {
+      "storage": "n8n Credential",
+      "credential_type": "openAiApi",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen3.7-plus",
+      "requirement": "导入后手动选择 DashScope OpenAI 兼容凭据；不从导出文件或 API 容器环境变量自动继承。"
+    },
+    "sqlite": {
+      "managed_by": "api",
+      "persistence": "./data",
+      "requirement": "启动包含 Day 48 实现的 API，由应用初始化运行账本、CRM 和恢复相关结构。"
+    }
+  },
+  "scope": {
+    "sales_notification_mode": "preview",
+    "sales_notification_channel": "feishu",
+    "notification_failure_validation": "simulated_state_api",
+    "sales_live_notification_orchestration": false,
+    "feishu_message_api": "implemented_with_prior_live_acceptance",
+    "wecom_message_api": "implemented_with_mock_acceptance_live_delivery_pending",
+    "limitations": [
+      "销售工作流不发送真实消息；飞书独立接口历史真实联调不等于销售通知链路验收。",
+      "人工核对通知不会自动把原 failed 运行改成 succeeded，两个状态分别记录。",
+      "企业微信真实发送仍等待符合后台准入条件的域名。",
+      "当前接口与 Webhook 缺少认证和租户隔离，仅用于本机或可信网络。",
+      "日报仍使用固定实验记录；CRM 失败恢复使用显式 replay，不是定时自动重试。",
+      "Day 55 本轮真实业务演示与视频验收尚未完成，维护者已安排延期补录。"
+    ]
+  },
+  "optional_integrations": {
+    "feishu": {
+      "required_environment_variables": [
+        "FEISHU_APP_ID",
+        "FEISHU_APP_SECRET",
+        "FEISHU_RECEIVE_ID"
+      ],
+      "used_by_default_sales_workflow": false
+    },
+    "wecom": {
+      "required_environment_variables": [
+        "WECOM_CORP_ID",
+        "WECOM_AGENT_ID",
+        "WECOM_APP_SECRET",
+        "WECOM_TO_USER"
+      ],
+      "used_by_default_sales_workflow": false
+    }
+  },
+  "release_note": "Day 56 发布候选已准备；candidate 不表示已创建标签或 GitHub Release。维护者于 2026-09-17 同意先进行 Day 56、后补 Day 55 录制。视频延期单独记录，历史验收与本轮静态检查不代替本轮业务演示。",
+  "acceptance_record": "docs/workflow-center-v1.0.md",
+  "prepared_date": "2026-09-17",
+  "based_on_release": "workflow-center-v0.5.0",
+  "based_on_commit": "8429fbb525937bb2b55f20812d6d4ce2d1c570d3",
+  "workflow_path_base": "n8n",
+  "documentation_path_base": "repository_root",
+  "workflow_hash_algorithm": "sha256",
+  "workflow_hash_normalization": "CRLF_to_LF",
+  "delivery_assets": [
+    {
+      "area": "templates",
+      "paths": [
+        "n8n/templates/catalog.json",
+        "n8n/templates/README.md",
+        "scripts/day50/render_template_request.py"
+      ]
+    },
+    {
+      "area": "logging",
+      "paths": [
+        "backend/app/workflow_logging.py",
+        "backend/app/logging_config.py",
+        "docs/day51-workflow-logging.md"
+      ]
+    },
+    {
+      "area": "configuration",
+      "paths": [
+        "backend/app/settings.py",
+        "backend/app/check_config.py",
+        "docs/day52-configuration-center.md"
+      ]
+    },
+    {
+      "area": "deployment",
+      "paths": [
+        "compose.yaml",
+        "scripts/start.ps1",
+        "scripts/check-deployment.ps1",
+        "scripts/deployment-common.ps1",
+        "scripts/verify_persistence.py",
+        "docs/day53-compose-deployment.md"
+      ]
+    },
+    {
+      "area": "documentation",
+      "paths": [
+        "docs/user-guide.md",
+        "docs/architecture.md",
+        "docs/tech-stack.md",
+        "backend/README.md",
+        "docs/week-8-summary.md",
+        "docs/workflow-center-v1.0.md"
+      ]
+    },
+    {
+      "area": "demo_preparation",
+      "paths": [
+        "scripts/day55/prepare_demo.py",
+        "scripts/day55/invoke-demo-step.ps1",
+        "scripts/day55/README.md",
+        "docs/day55-workflow-demo.md",
+        "demo/day55-recording-checklist.md"
+      ]
+    }
+  ],
+  "quality_evidence": [
+    {
+      "area": "workflow_business_and_recovery",
+      "status": "inherited",
+      "record": "docs/day49-release-acceptance.md"
+    },
+    {
+      "area": "workflow_logging",
+      "status": "inherited",
+      "record": "docs/day51-workflow-logging.md"
+    },
+    {
+      "area": "configuration",
+      "status": "inherited",
+      "record": "docs/day52-configuration-center.md"
+    },
+    {
+      "area": "deployment_and_506_test_baseline",
+      "status": "inherited",
+      "record": "docs/day53-compose-deployment.md"
+    },
+    {
+      "area": "usage_and_architecture_docs",
+      "status": "inherited",
+      "record": "docs/day54-documentation.md"
+    },
+    {
+      "area": "demo_tools_19_isolated_checks",
+      "status": "inherited",
+      "record": "docs/day55-workflow-demo.md"
+    },
+    {
+      "area": "day56_manifest_and_documentation",
+      "status": "validated",
+      "record": "docs/workflow-center-v1.0.md",
+      "validation_scope": "offline_manifest_and_documentation_only",
+      "checks_passed": 13
+    }
+  ],
+  "demo_delivery": {
+    "materials_status": "prepared",
+    "current_business_demo_status": "not_performed",
+    "video_status": "deferred_by_maintainer",
+    "video_acceptance_status": "not_performed",
+    "decision_date": "2026-09-17",
+    "reason": "维护者暂时无法录制，先推进 Day 56，之后补录。",
+    "blocks_day56": false,
+    "resume_when": "维护者具备录制条件后，使用新演示包执行并录制。",
+    "runbook": "docs/day55-workflow-demo.md",
+    "checklist": "demo/day55-recording-checklist.md",
+    "video_file": null,
+    "video_sha256": null
+  }
+}
