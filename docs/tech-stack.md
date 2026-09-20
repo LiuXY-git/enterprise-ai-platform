@@ -1,6 +1,6 @@
 # 技术选型
 
-本页区分平台已使用技术与后续计划；Day 58–59 增加独立 LangGraph 和模型规划实验，平台 API 依赖沿用原配置。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
+本页区分平台已使用技术与后续计划；Day 58–60 增加独立 LangGraph、模型规划和 SQLite 任务状态实验，平台 API 依赖沿用原配置。系统调用关系见 [架构说明](architecture.md)，操作步骤见 [使用指南](user-guide.md)。
 
 ## 已使用
 
@@ -30,12 +30,14 @@ Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.t
 
 [Day 59](day59-task-planner.md)增加 HTTPX JSON Mode 模型请求和 Pydantic 计划校验，复用现有 `settings.py`，在单独环境验证 `qwen3.7-plus` 的计划与澄清输出。完整依赖见 [Day 59 快照](../experiments/day59/requirements-lock.txt)，不修改 API 或 Day 58 环境。
 
+[Day 60](day60-task-state.md)在独立环境增加 `langgraph-checkpoint-sqlite==3.1.1` 与 `filelock==3.32.3`，用原生 SqliteSaver 保存线程检查点并限制同一任务并发推进。依赖见 [Day 60 快照](../experiments/day60/requirements-lock.txt)；任务恢复不等于跨线程长期记忆。
+
 ## 后续候选与待实现模块
 
 | 技术或能力 | 计划方向 | 当前状态 |
 | --- | --- | --- |
 | PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
-| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 独立模型规划已验证；真实工具、持久化与平台接入待实施 |
+| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 模型规划、Day 60 模拟进度持久化已验证；真实工具与平台接入待实施 |
 | MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
 | Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
 
