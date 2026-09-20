@@ -1,0 +1,54 @@
+{
+  "day": 60,
+  "validation_date": "2026-09-20",
+  "scope": "native_sqlite_checkpoint_persistence_of_simulated_task_progress",
+  "environment": {
+    "python": "3.14.2",
+    "os": "Windows",
+    "architecture": "AMD64",
+    "versions": {
+      "langgraph": "1.2.11",
+      "langgraph-checkpoint-sqlite": "3.1.1",
+      "langgraph-checkpoint": "4.2.0",
+      "filelock": "3.32.3",
+      "langsmith": "0.12.6",
+      "pydantic": "2.13.5",
+      "pytest": "9.1.1"
+    }
+  },
+  "dependency_check": "No broken requirements found.",
+  "pytest": {
+    "tests": 86,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "day60_tests": 23,
+  "day59_regression_tests": 49,
+  "day58_regression_tests": 14,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "5 files already formatted",
+  "api_environment_optional_tests": "1 skipped; not counted as passed",
+  "network_guard_in_test_process": "socket.connect, socket.connect_ex and getaddrinfo blocked; subprocess CLI disables LangSmith tracing",
+  "new_model_requests": 0,
+  "real_business_tools_executed": false,
+  "separate_process_recovery_tested": true,
+  "forced_process_exit_tested": true,
+  "stale_checkpoint_rejected": true,
+  "process_lock_tested": true,
+  "recovery_evidence": "docs/evidence/day60/process-recovery.json",
+  "docker_tested": false,
+  "full_api_suite_rerun": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day60/progress_graph.py": "027b7dcae2649a944565058e5a17849ddcde0bcca43c689ce57c9ffe6b9460ba",
+    "experiments/day60/task_store.py": "93404c879cec15bedf0c8c21894e2e1caadc2abad2d20ea55803528c15c38856",
+    "experiments/day60/task_progress.py": "a28a40782c0596c598cf52e6934e9ab5ae3c9b69a8675d0f3f16ce21ba565406",
+    "experiments/day60/test_task_progress.py": "1e01f7f6598aa19f13b22f535998216c5640d5ef8f9fed1ae83cbdae7087e188",
+    "experiments/day60/requirements.txt": "5e7c4f1a8adcb6b8fc298263a173981082941f29d03cdf1b3cdbd1a7841874b1",
+    "experiments/day60/requirements-lock.txt": "35c4900175e17ebe6c75a6e76b269685c2da5d7b22171ef451486219c65544d4",
+    "experiments/day60/README.md": "f8ee08e8710d510d251e56db9abdd9c583ee5fd86d8d901dd334825b88e98f45",
+    "experiments/day60/graph.mmd": "e570b49d4c8546782d701f07e4eaa882ba13f0304bfc2b984953c17d04b3d966"
+  }
+}
