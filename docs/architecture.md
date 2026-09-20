@@ -122,7 +122,7 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 
 当前为本机或可信网络的单机学习与演示部署。尚无统一业务 API/Webhook 认证、租户隔离、限流或高可用方案。Agent Center、Evaluation Center 和销售真实通知编排仍需后续实现。API `1.0.0` 与 Workflow Center `0.5.0` 是不同版本范围，Day 54 文档更新不发布新组件版本。
 
-## 7. Agent Center 设计与实验进展（Day 57–60）
+## 7. Agent Center 设计与实验进展（Day 57–61）
 
 Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
 
@@ -132,4 +132,6 @@ Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md
 
 [Day 60](day60-task-state.md)接收有效计划，使用 LangGraph 原生 SQLite 检查点保存模拟步骤进度。task_id 等于 thread_id；每个任务使用独立数据库，进程锁和 checkpoint_id 防止并发与重复推进。已通过真实独立进程恢复和异常退出实验。
 
-这些实验依赖与 API 隔离。Day 60 数据在 `data/day60/`，状态格式版本为 1。计划的业务步骤尚未执行；当前没有 Agent HTTP API 或真实业务工具调用。检查点恢复不提供外部副作用恰好执行一次的保证。
+[Day 61](day61-sales-agent-scenario.md)定义基于指定客户与时间范围的销售跟进分析场景，包含输入快照、报告契约和来源校验。离线规则读取虚构资料，输出建议类别及缺口；未接入真实 CRM 或 Agent 控制循环。该校验器复用现有 Pydantic，无新依赖。
+
+Day 58–60 的 LangGraph 实验依赖与 API 隔离。Day 60 数据在 `data/day60/`，状态格式版本为 1。计划的业务步骤尚未执行；当前没有 Agent HTTP API 或真实业务工具调用。检查点恢复不提供外部副作用恰好执行一次的保证。

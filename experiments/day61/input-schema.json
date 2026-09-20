@@ -1,0 +1,230 @@
+{
+  "$defs": {
+    "CustomerSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "fetch_status": {
+          "enum": [
+            "ok",
+            "not_found",
+            "error"
+          ],
+          "title": "Fetch Status",
+          "type": "string"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/FollowupEvidence"
+          },
+          "maxItems": 50,
+          "title": "Records",
+          "type": "array"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "timeout",
+                "unavailable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        }
+      },
+      "required": [
+        "customer_id",
+        "fetch_status",
+        "records"
+      ],
+      "title": "CustomerSnapshot",
+      "type": "object"
+    },
+    "FollowupEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "followup_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Followup Id",
+          "type": "string"
+        },
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "created_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?(Z|[+-]\\d{2}:\\d{2})$",
+          "title": "Created At",
+          "type": "string"
+        },
+        "priority": {
+          "enum": [
+            "high",
+            "normal"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "review_status": {
+          "enum": [
+            "not_required",
+            "pending"
+          ],
+          "title": "Review Status",
+          "type": "string"
+        },
+        "risk_flags": {
+          "items": {
+            "enum": [
+              "product_capability_unverified",
+              "pricing_or_discount",
+              "delivery_commitment",
+              "prompt_injection",
+              "sensitive_information"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Risk Flags",
+          "type": "array"
+        },
+        "missing_information": {
+          "items": {
+            "maxLength": 300,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "summary": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "followup_id",
+        "customer_id",
+        "created_at",
+        "priority",
+        "review_status",
+        "risk_flags",
+        "missing_information",
+        "summary"
+      ],
+      "title": "FollowupEvidence",
+      "type": "object"
+    },
+    "SalesRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "objective": {
+          "const": "prioritize_followups",
+          "default": "prioritize_followups",
+          "title": "Objective",
+          "type": "string"
+        },
+        "period_start": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Start"
+        },
+        "period_end": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period End"
+        },
+        "customer_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9._:-]+$",
+                "type": "string"
+              },
+              "maxItems": 20,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Customer Ids"
+        },
+        "timezone": {
+          "const": "+08:00",
+          "default": "+08:00",
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "title": "SalesRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "data_source": {
+      "const": "fictional_fixture",
+      "title": "Data Source",
+      "type": "string"
+    },
+    "request": {
+      "$ref": "#/$defs/SalesRequest"
+    },
+    "snapshots": {
+      "items": {
+        "$ref": "#/$defs/CustomerSnapshot"
+      },
+      "maxItems": 20,
+      "title": "Snapshots",
+      "type": "array"
+    }
+  },
+  "required": [
+    "data_source",
+    "request",
+    "snapshots"
+  ],
+  "title": "ScenarioInput",
+  "type": "object"
+}
