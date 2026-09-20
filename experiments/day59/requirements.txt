@@ -1,0 +1,8 @@
+# Direct dependencies for the isolated Day 59 planner.
+# Install requirements-lock.txt to reproduce the verified environment.
+langgraph==1.2.11
+langsmith==0.12.6
+httpx==0.28.1
+pydantic==2.13.5
+python-dotenv==1.2.2
+pytest==9.1.1

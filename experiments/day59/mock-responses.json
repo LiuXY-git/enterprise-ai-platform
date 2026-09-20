@@ -1,0 +1,33 @@
+{
+  "normal": {
+    "decision": "plan",
+    "summary": "制定 P1 故障与差旅报销制度的查询和汇总计划",
+    "steps": [
+      {
+        "id": "S1", "action": "retrieve",
+        "description": "查找星云科技 P1 故障的首次响应、报障与升级规定。",
+        "expected_output": "获得覆盖响应、报障和升级条件的制度片段及来源。",
+        "depends_on": []
+      },
+      {
+        "id": "S2", "action": "retrieve",
+        "description": "查找差旅报销审批制度，定位单笔 8000 元所属金额区间。",
+        "expected_output": "获得该金额区间对应审批人的制度依据与来源。",
+        "depends_on": []
+      },
+      {
+        "id": "S3", "action": "summarize",
+        "description": "整理两个问题的依据，分别说明结论和资料缺口。",
+        "expected_output": "形成覆盖两个问题、带来源且说明不确定项的答复草案。",
+        "depends_on": ["S1", "S2"]
+      }
+    ],
+    "questions": []
+  },
+  "clarify": {
+    "decision": "clarify", "summary": "需要明确分析对象与目标",
+    "steps": [], "questions": ["请说明要分析什么，以及希望得到什么结果。"]
+  },
+  "invalid": "```json\n{\"decision\":\"plan\"}\n```",
+  "provider-error": ""
+}

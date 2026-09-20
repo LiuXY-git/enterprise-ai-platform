@@ -1,0 +1,89 @@
+{
+  "day": 59,
+  "validation_date": "2026-09-20",
+  "scope": "model_generated_plan_with_local_validation_only",
+  "environment": {
+    "python": "3.14.2",
+    "os": "Windows",
+    "architecture": "AMD64",
+    "versions": {
+      "langgraph": "1.2.11",
+      "langsmith": "0.12.6",
+      "httpx": "0.28.1",
+      "pydantic": "2.13.5",
+      "python-dotenv": "1.2.2",
+      "pytest": "9.1.1"
+    }
+  },
+  "dependency_check": "No broken requirements found.",
+  "pytest": {
+    "tests": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "day59_tests": 49,
+  "day58_regression_tests": 14,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "5 files already formatted",
+  "offline_cli_cases": [
+    {
+      "case": "default",
+      "status": "planned",
+      "stop_reason": "plan_validated"
+    },
+    {
+      "case": "clarify",
+      "status": "waiting_for_input",
+      "stop_reason": "model_requests_clarification"
+    },
+    {
+      "case": "invalid",
+      "status": "failed",
+      "stop_reason": "invalid_model_output"
+    },
+    {
+      "case": "provider-error",
+      "status": "failed",
+      "stop_reason": "provider_timeout"
+    },
+    {
+      "case": "empty-goal",
+      "status": "waiting_for_input",
+      "stop_reason": "missing_goal"
+    }
+  ],
+  "api_environment_optional_tests": "1 skipped; not counted as passed",
+  "network_guard_in_tests": "socket.connect, socket.connect_ex and getaddrinfo blocked",
+  "live_validation": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "requests": 2,
+    "evidence": "docs/evidence/day59/live-plans.json",
+    "observed_statuses": [
+      "planned",
+      "waiting_for_input"
+    ],
+    "review": "Plan covers both fictional topics; four steps and valid dependencies. Ambiguous goal yields two questions.",
+    "limitation": "Suggested document names have not been retrieved or verified; this validates planning only.",
+    "deepseek_live_tested": false
+  },
+  "task_execution_tested": false,
+  "persistence_tested": false,
+  "docker_tested": false,
+  "full_api_suite_rerun": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day59/task_planner.py": "13a732c5c95293c5afb3350107c94ee8d64009988fe12164520bd30c5d511456",
+    "experiments/day59/chat_planner.py": "38c8217321c1d4b98f8696ab829fcf79842b3fb85095376fab48b46f45c99c8f",
+    "experiments/day59/plan_schema.py": "28dce796f431807d83721af240ab728140d1530a15b951e1b504208ebb15ccb7",
+    "experiments/day59/test_task_planner.py": "1fc86f260984142a76748912a1e4133fece1128d05066c0c316b23fb7940f4ee",
+    "experiments/day59/mock-responses.json": "1b017f779443089b2210771d0df155cdefcfcb1c0844cb31e265d39ab4dbb6bd",
+    "experiments/day59/requirements.txt": "97feac81486c8d16894e109fbb81eabbfe5a6934728d9b43a561e4c84d53c552",
+    "experiments/day59/requirements-lock.txt": "86f3cc1d7864462e1563f297fc11b53bdc7c9c91111018e60a5eccd9d0efd8af",
+    "experiments/day59/plan-schema.json": "ba8d5c6522ce2a3b0dad5bf9cb08fdd00cb73774a89099fe04359ce11c8581df",
+    "experiments/day59/graph.mmd": "632062225e6d98f4347d77d5242c3258431bc4f3fef8eebb667885333da61bb6",
+    "backend/app/settings.py": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8"
+  }
+}

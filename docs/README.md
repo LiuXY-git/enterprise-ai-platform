@@ -10,7 +10,7 @@
 - 核对接口或开发后端：[API 文档](api.md)、[后端说明](../backend/README.md)。
 - 本次文档交付范围与验证：[Day 54 使用与架构文档](day54-documentation.md)。
 - Week 8 阶段交付：[Week 8 总结](week-8-summary.md)、[Workflow Center v1.0.0 发布候选](workflow-center-v1.0.md)；Day 55 视频已安排延期补录。
-- Week 9 学习入口：[Day 57 Agent 架构](day57-agent-architecture.md)、[Day 58 LangGraph 实验](day58-langgraph-basics.md)、[实施计划](week-9-plan.md)；状态图已运行，模型与真实工具待接入。
+- Week 9 学习入口：[Day 57 架构](day57-agent-architecture.md)、[Day 58 状态图](day58-langgraph-basics.md)、[Day 59 模型规划](day59-task-planner.md)、[实施计划](week-9-plan.md)；已验证 Qwen 规划，真实工具执行与持久化待实现。
 
 以使用指南和架构页了解功能状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0`、Workflow Center 已发布基线 `0.5.0` 和待发布目标 `1.0.0` 分别记录，候选文档不等于线上新版本已经发布。
 
@@ -69,9 +69,11 @@
 - [静态任务推演与字段说明](../demo/agent-center/README.md)
 - [Day 58 LangGraph State、Node、Edge](day58-langgraph-basics.md)
 - [Day 58 可运行实验](../experiments/day58/README.md)
+- [Day 59 模型任务规划与结构校验](day59-task-planner.md)
+- [Day 59 可运行实验](../experiments/day59/README.md)
 - [Week 9：Agent 基础计划](week-9-plan.md)
 
-Day 58 已验证独立状态图及模拟节点，不代表模型、真实工具或持久化验收已通过。
+Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。工具执行与任务持久化尚未验收。
 
 ## 企业协作平台集成
 
