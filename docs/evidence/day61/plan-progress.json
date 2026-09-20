@@ -1,0 +1,84 @@
+{
+  "recorded_at_utc": "2026-09-20T08:28:35.186709+00:00",
+  "plan_origin": "manually_authored_day61_example",
+  "day59_schema_validation": {
+    "decision": "plan",
+    "steps": 3
+  },
+  "separate_cli_processes": true,
+  "day61_reports_integrated_into_checkpoints": false,
+  "states": [
+    {
+      "task_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "thread_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "checkpoint_id": "1f1b4cd4-295b-65af-8000-b73f38adbdd2",
+      "phase": "paused",
+      "status": "planned",
+      "progress": {
+        "simulated": 0,
+        "total": 3
+      },
+      "trace": [],
+      "model_requests": 0,
+      "business_tools_executed": false
+    },
+    {
+      "task_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "thread_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "checkpoint_id": "1f1b4cd4-333a-64e6-8002-463b4e1f7d50",
+      "phase": "paused",
+      "status": "running",
+      "progress": {
+        "simulated": 1,
+        "total": 3
+      },
+      "trace": [
+        "resume:S1",
+        "simulate:S1"
+      ],
+      "model_requests": 0,
+      "business_tools_executed": false
+    },
+    {
+      "task_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "thread_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "checkpoint_id": "1f1b4cd4-3f68-6c17-8004-155cde27a7f5",
+      "phase": "paused",
+      "status": "running",
+      "progress": {
+        "simulated": 2,
+        "total": 3
+      },
+      "trace": [
+        "resume:S1",
+        "simulate:S1",
+        "resume:S2",
+        "simulate:S2"
+      ],
+      "model_requests": 0,
+      "business_tools_executed": false
+    },
+    {
+      "task_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "thread_id": "3bb1e185-8d64-4800-90d8-10108c8270eb",
+      "checkpoint_id": "1f1b4cd4-49ec-6782-8007-a92b789f4584",
+      "phase": "finished",
+      "status": "simulation_completed",
+      "progress": {
+        "simulated": 3,
+        "total": 3
+      },
+      "trace": [
+        "resume:S1",
+        "simulate:S1",
+        "resume:S2",
+        "simulate:S2",
+        "resume:S3",
+        "simulate:S3",
+        "finish"
+      ],
+      "model_requests": 0,
+      "business_tools_executed": false
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "day": 61,
+  "validation_date": "2026-09-20",
+  "scope": "sales_scenario_contract_design_and_offline_rule_validation",
+  "environment": {
+    "python": "3.14.2",
+    "os": "Windows",
+    "versions": {
+      "pydantic": "2.13.4",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "new_dependencies": [],
+  "pytest": {
+    "tests": 57,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "authored_fictional_cases": 13,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "5 files already formatted",
+  "model_requests": 0,
+  "live_crm_queries": 0,
+  "business_actions_executed": false,
+  "network_guard_in_test_process": "socket.connect, connect_ex and getaddrinfo blocked",
+  "day59_plan_schema_checked": true,
+  "day60_plan_import_and_simulated_progress_checked": true,
+  "day61_reports_integrated_into_checkpoints": false,
+  "full_api_suite_rerun": false,
+  "day58_to_day60_suites_rerun": false,
+  "regression_basis": "Day 58-60 sources and API runtime byte-equivalent to base after CRLF normalization; integration checked using unchanged Day 59-60 code.",
+  "docker_tested": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day61/README.md": "d4e4148e9ce7f913c5dfa3b96bd4b3d8d1dd9a36a3a7d593cf154c390b598ab3",
+    "experiments/day61/sales_contract.py": "76e4e38e7e464426069f8b3da92e5444f7c1dd6e7ff2a089d7709305d13a1949",
+    "experiments/day61/scenario_rules.py": "7207107ee63eb0ff66fc05df6609868951f069383828a813a47fd9a8143af94b",
+    "experiments/day61/check_scenario.py": "a79036d406781c651a69baf6e4546c45e2b2791989e208c6d04404536393fee8",
+    "experiments/day61/test_sales_scenario.py": "e5593f201089b56d068bddbfec2f140cc3b8a1bbce7e65cfc1dc8df3b26e1f93",
+    "experiments/day61/cases.json": "b036c717bf40890871464997ab759b62d510af795c9676de411d48c12b07a527",
+    "experiments/day61/plan-example.json": "80af66702b9561bc1009c1c7242e33835cdea103aa1003269fb9de7e468ceb83",
+    "experiments/day61/input-schema.json": "22e9c72e7bbfcef0f25e6f6953eb8f12dd95e7567530016173c1edcf1e8fb6de",
+    "experiments/day61/output-schema.json": "d5535dea3c03a1cec2a288a84e4ac1c148f3a152b0db7140b7b58bc153cd855f"
+  }
+}

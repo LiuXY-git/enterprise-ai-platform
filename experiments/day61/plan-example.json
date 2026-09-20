@@ -1,0 +1,28 @@
+{
+  "decision": "plan",
+  "summary": "根据虚构客户 C-001 和 C-002 在 2026-09-14 至 2026-09-20（+08:00）的跟进记录整理建议，仅作场景设计。",
+  "steps": [
+    {
+      "id": "S1",
+      "action": "retrieve",
+      "description": "按指定客户范围取得跟进记录，确认查询状态并按 +08:00 日期筛选。",
+      "expected_output": "客户查询状态、时间范围内的记录和可追溯 followup_id；此示例使用虚构快照。",
+      "depends_on": []
+    },
+    {
+      "id": "S2",
+      "action": "analyze",
+      "description": "检查同时刻优先级冲突、人工复核风险和缺失信息，再按已有优先级分类。",
+      "expected_output": "每个指定客户的建议类别或明确缺口；不推测成交概率，不自动解除风险。",
+      "depends_on": ["S1"]
+    },
+    {
+      "id": "S3",
+      "action": "summarize",
+      "description": "整理建议、来源和未完成项，根据覆盖情况标明结果状态。",
+      "expected_output": "符合 Day 61 SalesReport 约定的结构化报告；不修改 CRM、不发送消息。",
+      "depends_on": ["S2"]
+    }
+  ],
+  "questions": []
+}
