@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "PlanStep": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^S[1-5]$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "retrieve",
+            "analyze",
+            "summarize"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "expected_output": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Expected Output",
+          "type": "string"
+        },
+        "depends_on": {
+          "items": {
+            "pattern": "^S[1-5]$",
+            "type": "string"
+          },
+          "maxItems": 4,
+          "title": "Depends On",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "action",
+        "description",
+        "expected_output",
+        "depends_on"
+      ],
+      "title": "PlanStep",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": [
+        "plan",
+        "clarify"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "summary": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Summary",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/PlanStep"
+      },
+      "maxItems": 5,
+      "title": "Steps",
+      "type": "array"
+    },
+    "questions": {
+      "items": {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 3,
+      "title": "Questions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "decision",
+    "summary",
+    "steps",
+    "questions"
+  ],
+  "title": "PlanDecision",
+  "type": "object"
+}
