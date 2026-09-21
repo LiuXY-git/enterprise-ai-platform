@@ -1,9 +1,9 @@
 {
   "product": "Agent Center",
   "version": "0.1.0",
-  "release_status": "candidate",
+  "release_status": "released",
   "prepared_date": "2026-09-21",
-  "release_date": null,
+  "release_date": "2026-09-21",
   "component_tag": "agent-center-v0.1.0",
   "platform_api_version": "1.0.0",
   "base_commit": "ff9359a4fe94092f5e940ee069a0809002adea0f",
@@ -67,7 +67,7 @@
   "artifacts": [
     {
       "path": "agent-center/README.md",
-      "sha256": "c063c61f8d9eb9252a11fa29f74cb379ffc3c965585bb829c98c6fbb967b42a4"
+      "sha256": "8aab5869ca12b460064c2348e3f6b772a0bed1d148761442980886f55cacd33c"
     },
     {
       "path": "backend/app/settings.py",
@@ -83,7 +83,7 @@
     },
     {
       "path": "docs/agent-center-v0.1.md",
-      "sha256": "2a04327676b17acf183edc514f4072f3d8fabb82cc3d242fe2e7033c15b6beff"
+      "sha256": "23afeae2b3f2c58f48628245b1bf1911ca7a05471741031ad1182d50f5cc5559"
     },
     {
       "path": "docs/day57-agent-architecture.md",
@@ -111,7 +111,7 @@
     },
     {
       "path": "docs/day63-agent-center-release.md",
-      "sha256": "9c5f90c6942470bbe2555b36d7dbc3177605abfb411b0f5421b794425d8182f9"
+      "sha256": "6415e574397a687763dcd5fbd1774f070c354433af536117587595ccfc713bff"
     },
     {
       "path": "docs/evidence/day58/graph-validation.json",
@@ -159,7 +159,7 @@
     },
     {
       "path": "docs/week-9-summary.md",
-      "sha256": "b1839d6b8bdec6b74975686711c23f5a7b4ed3d2fb9e166ab86ec5b3eb722367"
+      "sha256": "d86c74094b31788bf149d1fe71d9ad80fbcaa4fcbc14a631a037a50043984dfe"
     },
     {
       "path": "experiments/day58/README.md",
@@ -339,12 +339,12 @@
     },
     {
       "path": "scripts/day63/test_release.py",
-      "sha256": "8a3cd0b798ca2f4dcc9e051d345fcaf2e76ed6b56d5bf2965cbba0d202652968"
+      "sha256": "40d1c19ef9c1f4ee42ad8d04a903811a47b5dfe728224e46f18cbd64b8f5075c"
     },
     {
       "path": "scripts/day63/verify_release.py",
       "sha256": "3ebb2716a7446fc792fb8fd2ada24f77d4d6c1eb6326c5c4b508d9d7b3cc1d9c"
     }
   ],
-  "publication_notice": "Local candidate only; main merge, annotated tag and GitHub Release are separate future actions."
+  "publication_notice": "Version content finalized locally. release_date records content finalization; tag push and GitHub publication are separate maintainer actions. Remote publication status: https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0"
 }

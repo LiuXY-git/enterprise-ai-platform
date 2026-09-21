@@ -136,6 +136,6 @@ Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md
 
 [Day 62](day62-agent-prompt.md)以独立 CLI 请求当前模型生成销售报告，复用 Day 61 的规则检查来源、范围和状态。Prompt 与 Schema 放在 System 消息，虚构快照单独作为 User 数据。5 个 Qwen 真实请求通过；每次单请求、无自动重试，结果尚未接入 Day 60 检查点或业务工具。
 
-[Day 63](day63-agent-center-release.md)将上述模块纳入 Agent Center v0.1.0 发布候选，增加文档入口、版本哈希清单和两套依赖环境的离线验收。该组件仍为宿主机实验集合，未扩展平台运行架构。
+[Day 63](day63-agent-center-release.md)将上述模块纳入 Agent Center v0.1.0 版本范围，增加文档入口、版本哈希清单和两套依赖环境的离线验收。该组件仍为宿主机实验集合，未扩展平台运行架构。
 
 Day 58–60 的 LangGraph 实验依赖与 API 隔离。Day 60 数据在 `data/day60/`，状态格式版本为 1。计划的业务步骤尚未执行；当前没有 Agent HTTP API 或真实业务工具调用。检查点恢复不提供外部副作用恰好执行一次的保证。

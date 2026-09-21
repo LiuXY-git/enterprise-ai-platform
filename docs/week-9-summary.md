@@ -1,4 +1,4 @@
-# Week 9 总结：Agent 基础与 v0.1 发布候选
+# Week 9 总结：Agent 基础与 v0.1
 
 ## 本周形成的能力
 
@@ -30,10 +30,10 @@
 
 Day 58–62 的去重测试数量为 202 项；Day 63 增加 17 项发布检查，本轮按两套依赖环境完成 219 项离线验收。历史验证文件有重复回归，不能直接把其中的 totals 相加。
 
-历史 Qwen 7 次请求沿用原证据，本日 0 次新模型请求。详细范围见 [v0.1 候选说明](agent-center-v0.1.md) 与 [Day 63 操作说明](day63-agent-center-release.md)。
+历史 Qwen 7 次请求沿用原证据，本日 0 次新模型请求。详细范围见 [v0.1 版本说明](agent-center-v0.1.md) 与 [Day 63 操作说明](day63-agent-center-release.md)。
 
 ## 下一阶段
 
 Week 10 按原路线推进真实 Tool Calling、SQLTool、KnowledgeTool 与 APITool。接入时需要把现有输入校验、证据引用、停止条件和恢复保护扩展到真实工具，不把模型建议直接当成可执行权限。
 
-本周发布目标为 Agent Center v0.1.0，目前完成本地候选准备；组件标签与 GitHub Release 尚未创建。Day 55 视频补录、Workflow Center v1.0.0 正式发布和企业微信真实发送的待办继续保留。
+本周发布目标为 Agent Center v0.1.0，2026-09-21 完成内容定版。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。Day 55 视频补录、Workflow Center v1.0.0 正式发布和企业微信真实发送的待办继续保留。

@@ -1,6 +1,6 @@
 # Agent Center v0.1.0
 
-Week 9 学习实验的发布候选入口，包含规划、状态恢复、销售场景契约与模型报告校验。当前清单状态为 candidate，尚未创建本组件标签或 GitHub Release。
+Week 9 学习实验的版本入口，包含规划、状态恢复、销售场景契约与模型报告校验。2026-09-21 完成 v0.1.0 内容定版，清单状态为 released。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。
 
 - [版本说明与能力边界](../docs/agent-center-v0.1.md)
 - [Day 63 验收与运行说明](../docs/day63-agent-center-release.md)
@@ -13,8 +13,8 @@ Week 9 学习实验的发布候选入口，包含规划、状态恢复、销售�
 
 | 目的 | 命令 |
 | --- | --- |
-| 检查候选文件与证据一致性 | `& .\.venv\Scripts\python.exe .\scripts\day63\check_release.py` |
-| 执行完整离线候选验收 | `& .\.venv\Scripts\python.exe .\scripts\day63\verify_release.py` |
+| 检查版本文件与证据一致性 | `& .\.venv\Scripts\python.exe .\scripts\day63\check_release.py` |
+| 执行完整离线版本验收 | `& .\.venv\Scripts\python.exe .\scripts\day63\verify_release.py` |
 | 看状态图的模拟分支 | `& .\experiments\day60\.venv\Scripts\python.exe .\experiments\day58\langgraph_basics.py --case all` |
 | 看任务规划的离线输出 | `& .\experiments\day60\.venv\Scripts\python.exe .\experiments\day59\task_planner.py` |
 | 创建可恢复的模拟任务 | `& .\experiments\day60\.venv\Scripts\python.exe .\experiments\day60\task_progress.py start` |

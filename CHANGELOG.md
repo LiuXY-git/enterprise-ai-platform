@@ -2,9 +2,9 @@
 
 本文件记录 Enterprise AI Platform 的主要版本变化。
 
-## [Agent Center 0.1.0] - Unreleased
+## [Agent Center 0.1.0] - 2026-09-21
 
-2026-09-21 完成 Day 63 本地发布候选准备，平台 API 保持 1.0.0；组件标签与 GitHub Release 尚未创建。范围见 [候选说明](docs/agent-center-v0.1.md)。
+2026-09-21 完成 Agent Center 内容定版，平台 API 保持 1.0.0。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。范围见 [版本说明](docs/agent-center-v0.1.md)。
 
 ### Added
 
@@ -21,7 +21,7 @@
 ### Limitations
 
 - 尚无真实业务工具、Agent HTTP API 或销售报告检查点整合；各实验保留明确的模拟与真实验证边界。
-- Agent Center 正式发布、Day 55 视频补录和 Workflow Center v1.0.0 发布继续单独跟踪。
+- Agent Center 远端发布状态、Day 55 视频补录和 Workflow Center v1.0.0 发布继续单独跟踪。
 
 ## [Workflow Center 1.0.0] - Unreleased
 

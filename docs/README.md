@@ -79,10 +79,10 @@
 - [Day 62 可运行入口](../experiments/day62/README.md)
 - [Day 63 候选验收与运行说明](day63-agent-center-release.md)
 - [Agent Center v0.1.0 入口](../agent-center/README.md)
-- [Agent Center v0.1.0 发布候选](agent-center-v0.1.md)
+- [Agent Center v0.1.0 版本说明](agent-center-v0.1.md)
 - [Week 9：Agent 基础计划](week-9-plan.md)
 
-Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 已准备 v0.1 发布候选，组件标签与 GitHub Release 待发布。真实业务工具执行尚未验收。
+Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 成果已合并，v0.1 内容已定版；远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。真实业务工具执行尚未验收。
 
 ## 企业协作平台集成
 
@@ -110,7 +110,7 @@ Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的
 
 ## 版本与发布
 
-- [Agent Center v0.1.0 发布候选说明](agent-center-v0.1.md)
+- [Agent Center v0.1.0 版本说明](agent-center-v0.1.md)
 - [Agent Center v0.1.0 版本清单](../agent-center/release-v0.1.0.json)
 - [Workflow Center v1.0.0 发布候选说明](workflow-center-v1.0.md)
 - [Workflow Center v1.0.0 候选清单](../n8n/workflow-center-v1.0.0.json)

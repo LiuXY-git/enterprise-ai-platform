@@ -71,6 +71,7 @@ def test_capability_cannot_claim_business_tools(release_copy):
 
 def test_candidate_cannot_claim_release_date(release_copy):
     root, manifest = release_copy
+    manifest["release_status"] = "candidate"
     manifest["release_date"] = "2026-09-21"
     with pytest.raises(ReleaseError, match="candidate_cannot_have_release_date"):
         validate(root, manifest)
@@ -79,6 +80,7 @@ def test_candidate_cannot_claim_release_date(release_copy):
 def test_released_requires_date(release_copy):
     root, manifest = release_copy
     manifest["release_status"] = "released"
+    manifest["release_date"] = None
     with pytest.raises(ReleaseError, match="released_requires_valid_date"):
         validate(root, manifest)
 

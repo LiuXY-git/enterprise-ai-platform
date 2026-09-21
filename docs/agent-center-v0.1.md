@@ -1,18 +1,18 @@
-# Agent Center v0.1.0 发布候选说明
+# Agent Center v0.1.0 版本说明
 
-准备日期：2026-09-21。v0.1.0 汇总 Day 57–62 的 Agent 基础实验，并增加 Day 63 版本清单和离线发布检查。当前为本地发布候选；尚未创建组件标签或 GitHub Release。
+准备日期：2026-09-21。v0.1.0 汇总 Day 57–62 的 Agent 基础实验，并增加 Day 63 版本清单和离线发布检查。内容定版日期：2026-09-21。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。
 
 ## 版本状态
 
 | 项目 | 当前状态 |
 | --- | --- |
 | 组件 | Agent Center 0.1.0 |
-| 清单 | candidate；release_date=null |
-| 计划组件标签 | agent-center-v0.1.0 |
+| 清单 | released；release_date=2026-09-21 |
+| 组件标签名称 | agent-center-v0.1.0 |
 | 本轮基线 | ff9359a（Day 62 已合并到 main） |
 | 平台 API / Docker 版本 | 沿用 1.0.0 |
 | 运行形态 | 宿主机 CLI 与独立学习实验 |
-| 远端发布 | 本日未执行推送、标签创建或 GitHub Release 发布 |
+| 远端发布 | 以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准，离线脚本不查询远端 |
 
 组件版本与平台 API、Workflow Center 分开记录。入口见 [Agent Center](../agent-center/README.md)，冻结文件与能力说明见 [版本清单](../agent-center/release-v0.1.0.json)。
 
@@ -41,7 +41,7 @@
 
 ## 验收和证据来源
 
-Day 63 的离线候选验收按环境分组执行：图与规划 86 项、销售与 Prompt 116 项、发布检查 17 项，共 219 项。任何跳过、失败、错误或数量不符都不能通过发布检查。结果见 [Day 63 验证记录](evidence/day63/validation.json)。
+Day 63 的历史候选验收按环境分组执行：图与规划 86 项、销售与 Prompt 116 项、发布检查 17 项，共 219 项。任何跳过、失败、错误或数量不符都不能通过发布检查。历史候选结果见 [Day 63 验证记录](evidence/day63/validation.json)，该记录保留当时的候选清单哈希。定版后的完整验收须重新运行 verify_release.py，以新输出目录的 verification.json 为准。
 
 202 个实验测试按 Day 58–62 去重计数为 14、49、23、57、59；不能把各历史验证文件中包含回归的测试总数相加。17 个发布测试新增覆盖文件漂移、清单遗漏、路径越界、能力误报及跳过测试冒充通过等情况。
 
@@ -58,10 +58,10 @@ Day 55 视频补录、Workflow Center v1.0.0 正式发布和企业微信真实�
 
 ## 发布收尾
 
-本日完成可审阅的本地候选提交。后续先按用户安排推送分支并合并到 main，再决定是否正式发布：
+Day 63 候选已合并到 main。当前清单完成内容定版；维护者依次完成以下发布动作：
 
 1. 核对本清单、限制、验收记录和实际 main 提交。
-2. 正式定版时，将 release_status 改为 released，release_date 写实际日期，同步本页、README 与 CHANGELOG；受影响的冻结文档须更新哈希，并重新通过发布检查。
+2. 核对 released 状态、定版日期、同步的文档与冻结哈希，重新运行完整离线验收；219 项全部通过后提交定版改动。
 3. 在最终确认的 main 提交创建 agent-center-v0.1.0 注释标签，推送该标签，再创建对应 GitHub Release，正文保留全部实现边界。
 4. 不复用平台 v1.0.0 或 Workflow Center 标签，不移动已经公开的版本标签。
 
