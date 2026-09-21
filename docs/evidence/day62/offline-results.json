@@ -1,0 +1,72 @@
+{
+  "provenance": "authored_Day61_expected_reports_passed_through_Day62_validator",
+  "prompt_effectiveness_tested": false,
+  "model_requests": 0,
+  "cases": [
+    {
+      "case": "normal",
+      "verification": "accepted",
+      "report_status": "completed"
+    },
+    {
+      "case": "missing-input",
+      "verification": "accepted",
+      "report_status": "waiting_for_input"
+    },
+    {
+      "case": "no-records",
+      "verification": "accepted",
+      "report_status": "no_data"
+    },
+    {
+      "case": "missing-information",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    },
+    {
+      "case": "conflicting-priority",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    },
+    {
+      "case": "query-failure",
+      "verification": "accepted",
+      "report_status": "failed"
+    },
+    {
+      "case": "partial-query-failure",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    },
+    {
+      "case": "pending-review",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    },
+    {
+      "case": "time-boundaries",
+      "verification": "accepted",
+      "report_status": "completed"
+    },
+    {
+      "case": "priority-history",
+      "verification": "accepted",
+      "report_status": "completed"
+    },
+    {
+      "case": "untrusted-text",
+      "verification": "accepted",
+      "report_status": "completed"
+    },
+    {
+      "case": "customer-not-found",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    },
+    {
+      "case": "partial-no-records",
+      "verification": "accepted",
+      "report_status": "incomplete"
+    }
+  ]
+}

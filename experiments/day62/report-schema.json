@@ -1,0 +1,256 @@
+{
+  "$defs": {
+    "Gap": {
+      "additionalProperties": false,
+      "properties": {
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "source_error",
+            "not_found",
+            "no_records",
+            "conflicting_priority",
+            "review_required",
+            "missing_information"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9._:-]+$",
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "customer_id",
+        "reason",
+        "evidence_ids"
+      ],
+      "title": "Gap",
+      "type": "object"
+    },
+    "Recommendation": {
+      "additionalProperties": false,
+      "properties": {
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "manual_review",
+            "needs_information",
+            "priority_followup",
+            "routine_followup"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "reason_code": {
+          "enum": [
+            "review_pending",
+            "missing_information",
+            "latest_priority_high",
+            "latest_priority_normal"
+          ],
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "suggested_action": {
+          "enum": [
+            "review_risks",
+            "collect_missing_information",
+            "prepare_followup",
+            "maintain_followup"
+          ],
+          "title": "Suggested Action",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9._:-]+$",
+            "type": "string"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "missing_information": {
+          "items": {
+            "maxLength": 300,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 250,
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "risk_flags": {
+          "items": {
+            "enum": [
+              "product_capability_unverified",
+              "pricing_or_discount",
+              "delivery_commitment",
+              "prompt_injection",
+              "sensitive_information"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Risk Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "customer_id",
+        "category",
+        "reason_code",
+        "suggested_action",
+        "evidence_ids",
+        "missing_information",
+        "risk_flags"
+      ],
+      "title": "Recommendation",
+      "type": "object"
+    },
+    "SalesRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "objective": {
+          "const": "prioritize_followups",
+          "default": "prioritize_followups",
+          "title": "Objective",
+          "type": "string"
+        },
+        "period_start": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Start"
+        },
+        "period_end": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period End"
+        },
+        "customer_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9._:-]+$",
+                "type": "string"
+              },
+              "maxItems": 20,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Customer Ids"
+        },
+        "timezone": {
+          "const": "+08:00",
+          "default": "+08:00",
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "title": "SalesRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scope": {
+      "$ref": "#/$defs/SalesRequest"
+    },
+    "status": {
+      "enum": [
+        "waiting_for_input",
+        "completed",
+        "no_data",
+        "incomplete",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "missing_fields": {
+      "items": {
+        "enum": [
+          "period_start",
+          "period_end",
+          "customer_ids"
+        ],
+        "type": "string"
+      },
+      "maxItems": 3,
+      "title": "Missing Fields",
+      "type": "array"
+    },
+    "recommendations": {
+      "items": {
+        "$ref": "#/$defs/Recommendation"
+      },
+      "maxItems": 20,
+      "title": "Recommendations",
+      "type": "array"
+    },
+    "gaps": {
+      "items": {
+        "$ref": "#/$defs/Gap"
+      },
+      "maxItems": 40,
+      "title": "Gaps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scope",
+    "status",
+    "missing_fields",
+    "recommendations",
+    "gaps"
+  ],
+  "title": "ReportDecision",
+  "type": "object"
+}
