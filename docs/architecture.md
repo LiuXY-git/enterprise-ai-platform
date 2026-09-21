@@ -122,7 +122,7 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 
 当前为本机或可信网络的单机学习与演示部署。尚无统一业务 API/Webhook 认证、租户隔离、限流或高可用方案。Agent Center、Evaluation Center 和销售真实通知编排仍需后续实现。API `1.0.0` 与 Workflow Center `0.5.0` 是不同版本范围，Day 54 文档更新不发布新组件版本。
 
-## 7. Agent Center 设计与实验进展（Day 57–62）
+## 7. Agent Center 设计与实验进展（Day 57–63）
 
 Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
 
@@ -135,5 +135,7 @@ Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md
 [Day 61](day61-sales-agent-scenario.md)定义基于指定客户与时间范围的销售跟进分析场景，包含输入快照、报告契约和来源校验。离线规则读取虚构资料，输出建议类别及缺口；未接入真实 CRM 或 Agent 控制循环。该校验器复用现有 Pydantic，无新依赖。
 
 [Day 62](day62-agent-prompt.md)以独立 CLI 请求当前模型生成销售报告，复用 Day 61 的规则检查来源、范围和状态。Prompt 与 Schema 放在 System 消息，虚构快照单独作为 User 数据。5 个 Qwen 真实请求通过；每次单请求、无自动重试，结果尚未接入 Day 60 检查点或业务工具。
+
+[Day 63](day63-agent-center-release.md)将上述模块纳入 Agent Center v0.1.0 发布候选，增加文档入口、版本哈希清单和两套依赖环境的离线验收。该组件仍为宿主机实验集合，未扩展平台运行架构。
 
 Day 58–60 的 LangGraph 实验依赖与 API 隔离。Day 60 数据在 `data/day60/`，状态格式版本为 1。计划的业务步骤尚未执行；当前没有 Agent HTTP API 或真实业务工具调用。检查点恢复不提供外部副作用恰好执行一次的保证。
