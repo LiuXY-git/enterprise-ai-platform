@@ -1,0 +1,88 @@
+{
+  "day": 63,
+  "validation_date": "2026-09-21",
+  "scope": "offline_agent_center_v01_candidate_release_verification",
+  "base_commit": "ff9359a4fe94092f5e940ee069a0809002adea0f",
+  "release_status": "candidate",
+  "environments": {
+    "api": {
+      "python": "3.14.2",
+      "os": "Windows",
+      "versions": {
+        "pydantic": "2.13.4",
+        "httpx": "0.28.1",
+        "pytest": "9.1.1",
+        "ruff": "0.16.3"
+      }
+    },
+    "graph": {
+      "python": "3.14.2",
+      "os": "Windows",
+      "versions": {
+        "langgraph": "1.2.11",
+        "langgraph-checkpoint-sqlite": "3.1.1",
+        "pydantic": "2.13.5",
+        "pytest": "9.1.1"
+      }
+    }
+  },
+  "integrity": {
+    "status": "passed",
+    "product": "Agent Center",
+    "version": "0.1.0",
+    "release_status": "candidate",
+    "frozen_artifacts": 70,
+    "historical_source_hashes_checked": 41,
+    "unique_historical_tests": 202,
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "suites": [
+    {
+      "suite": "api",
+      "tests": 116,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "graph",
+      "tests": 86,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "release",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "total_tests": 219,
+  "unique_experiment_tests": 202,
+  "new_release_gate_tests": 17,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "3 files already formatted",
+  "test_provenance": "Executed verify_release.py; totals verified from actual pytest JUnit XML. No skips counted as passed.",
+  "historical_model_requests_reused": {
+    "day59": 2,
+    "day62": 5
+  },
+  "new_model_requests": 0,
+  "live_business_tools_executed": false,
+  "full_platform_api_suite_rerun": false,
+  "docker_tested": false,
+  "component_tag_created": false,
+  "github_release_created": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "manifest_sha256": "c07db22a61a354541f4bb35b67fe3f637d5a29d11702feb306b6ba348b3bf0dc",
+  "source_hashes": {
+    "scripts/day63/check_release.py": "0fa2342b50ea6b5d6ae8148711ac14e433e66e7d212d7b9f9830315b759ac495",
+    "scripts/day63/verify_release.py": "3ebb2716a7446fc792fb8fd2ada24f77d4d6c1eb6326c5c4b508d9d7b3cc1d9c",
+    "scripts/day63/test_release.py": "8a3cd0b798ca2f4dcc9e051d345fcaf2e76ed6b56d5bf2965cbba0d202652968"
+  }
+}

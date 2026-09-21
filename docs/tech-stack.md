@@ -36,12 +36,14 @@ Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.t
 
 [Day 62](day62-agent-prompt.md)复用 API 环境中的 HTTPX、Pydantic 和配置入口，以 JSON Mode 请求模型并做证据核对。Qwen qwen3.7-plus 的 5 个虚构场景真实请求已通过；无新增依赖，无新的 LangGraph 运行图。
 
+[Day 63](day63-agent-center-release.md)使用 Python 标准库实现候选完整性检查，复用既有 pytest 环境执行分组验收。新增版本清单与文档入口，无新运行依赖。
+
 ## 后续候选与待实现模块
 
 | 技术或能力 | 计划方向 | 当前状态 |
 | --- | --- | --- |
 | PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
-| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 模型规划、Day 60 模拟进度持久化已验证；Day 61 场景契约和 Day 62 模型报告 Prompt 已验证；真实工具与平台接入待实施 |
+| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 模型规划、Day 60 模拟进度持久化已验证；Day 61 场景契约和 Day 62 模型报告 Prompt 已验证；Day 63 已准备 v0.1 发布候选；真实工具与平台接入待实施 |
 | MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
 | Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
 

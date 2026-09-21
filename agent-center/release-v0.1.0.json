@@ -1,0 +1,350 @@
+{
+  "product": "Agent Center",
+  "version": "0.1.0",
+  "release_status": "candidate",
+  "prepared_date": "2026-09-21",
+  "release_date": null,
+  "component_tag": "agent-center-v0.1.0",
+  "platform_api_version": "1.0.0",
+  "base_commit": "ff9359a4fe94092f5e940ee069a0809002adea0f",
+  "capabilities": {
+    "langgraph_mock_flow": "verified",
+    "model_task_planning": "qwen_verified_on_fictional_tasks",
+    "sqlite_simulated_progress_recovery": "verified",
+    "sales_scenario_contract": "offline_verified",
+    "sales_report_prompt": "qwen_verified_on_fictional_snapshots",
+    "live_business_tools": "not_implemented",
+    "agent_http_api": "not_implemented",
+    "sales_report_checkpoint_integration": "not_implemented",
+    "cross_thread_memory": "not_implemented"
+  },
+  "evidence": {
+    "day58": "docs/evidence/day58/graph-validation.json",
+    "day59": "docs/evidence/day59/validation.json",
+    "day60": "docs/evidence/day60/validation.json",
+    "day61": "docs/evidence/day61/validation.json",
+    "day62": "docs/evidence/day62/validation.json"
+  },
+  "unique_test_counts": {
+    "day58": 14,
+    "day59": 49,
+    "day60": 23,
+    "day61": 57,
+    "day62": 59
+  },
+  "historical_model_evidence": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "day59_requests": 2,
+    "day62_requests": 5,
+    "new_day63_requests": 0,
+    "inputs": "fictional_tasks_and_snapshots"
+  },
+  "runtime_groups": {
+    "graph": {
+      "python": "experiments/day60/.venv/Scripts/python.exe",
+      "lock": "experiments/day60/requirements-lock.txt",
+      "days": [
+        58,
+        59,
+        60
+      ]
+    },
+    "api": {
+      "python": ".venv/Scripts/python.exe",
+      "requirements": [
+        "requirements.txt",
+        "requirements-dev.txt"
+      ],
+      "days": [
+        61,
+        62
+      ]
+    }
+  },
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "artifacts": [
+    {
+      "path": "agent-center/README.md",
+      "sha256": "c063c61f8d9eb9252a11fa29f74cb379ffc3c965585bb829c98c6fbb967b42a4"
+    },
+    {
+      "path": "backend/app/settings.py",
+      "sha256": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8"
+    },
+    {
+      "path": "demo/agent-center/README.md",
+      "sha256": "1577c37aa3b93271d71042fa5592e2a0a3cc11f22f8b9a0cdbb2bcb3267add50"
+    },
+    {
+      "path": "demo/agent-center/day57-task-walkthrough.json",
+      "sha256": "ad3bfdfcdde42dba73a6e6a661a9a0df08a7d5d8e7fd3461904c28090c61a2a4"
+    },
+    {
+      "path": "docs/agent-center-v0.1.md",
+      "sha256": "2a04327676b17acf183edc514f4072f3d8fabb82cc3d242fe2e7033c15b6beff"
+    },
+    {
+      "path": "docs/day57-agent-architecture.md",
+      "sha256": "7dabf82a20cd2a0f6bf4177a4924051abb59af9a9ae62427b0386df9dd0636ac"
+    },
+    {
+      "path": "docs/day58-langgraph-basics.md",
+      "sha256": "86a9d911ef9ee2867dbb3640af7b1bf1ce99b01b1d5bc67a7058fcbd94a6f8c5"
+    },
+    {
+      "path": "docs/day59-task-planner.md",
+      "sha256": "39729df026fa1eef79621b53fe2976b819a3ec2a21d6f08eea4b65be3803c72d"
+    },
+    {
+      "path": "docs/day60-task-state.md",
+      "sha256": "f3a744a244f0044d3fb97476dffe1b12af52f1f6fa699f3b966a574a78dcc830"
+    },
+    {
+      "path": "docs/day61-sales-agent-scenario.md",
+      "sha256": "7da74d785aab7e9ccee1f8dfa2adde3c3cfb9820c4a5c4f361e9a42662fc60af"
+    },
+    {
+      "path": "docs/day62-agent-prompt.md",
+      "sha256": "b2bc1ddc9654e1105ed3f851ce0ead512f1864f19c0caa3e5357fd9708d6d6e8"
+    },
+    {
+      "path": "docs/day63-agent-center-release.md",
+      "sha256": "9c5f90c6942470bbe2555b36d7dbc3177605abfb411b0f5421b794425d8182f9"
+    },
+    {
+      "path": "docs/evidence/day58/graph-validation.json",
+      "sha256": "e24869e277bb816f5cb76261092dcd40065ce3bb8e1dc617a72d666463ffebbb"
+    },
+    {
+      "path": "docs/evidence/day59/live-plans.json",
+      "sha256": "9be5a43a0d6366e0114f65b85161e7332428c453eafbfeaba4d81b4496e491dc"
+    },
+    {
+      "path": "docs/evidence/day59/validation.json",
+      "sha256": "22e91521aba2c83cf12fa3321ded88719e034b4691cf736d1b079d44c2b33890"
+    },
+    {
+      "path": "docs/evidence/day60/process-recovery.json",
+      "sha256": "015025d6fd907ad316d740181063ddb9eb0efd16cff4671c5d5971e18f4f3571"
+    },
+    {
+      "path": "docs/evidence/day60/validation.json",
+      "sha256": "31b21d38b76244bd973959d5e88223f02060ceec1e70b674cb6a0d104e5bb85e"
+    },
+    {
+      "path": "docs/evidence/day61/plan-progress.json",
+      "sha256": "a82472f9b27b73c98c04f4891ea4bd5cd7d4eafaecf1a87839c6b0710f36ac9e"
+    },
+    {
+      "path": "docs/evidence/day61/scenario-results.json",
+      "sha256": "15d110766fd1c6639ea08cf7b09e5db5b67b2259442901766a33a9863af1f1d7"
+    },
+    {
+      "path": "docs/evidence/day61/validation.json",
+      "sha256": "321fbdeb32f662c66a6b08457cee05ae5bef51a49a650ddf368a07ea4541e14d"
+    },
+    {
+      "path": "docs/evidence/day62/live-reports.json",
+      "sha256": "dcb893fdff7ff6ac6546714d68e6e3913f5abc79949691dfcef9d09f67234ca2"
+    },
+    {
+      "path": "docs/evidence/day62/offline-results.json",
+      "sha256": "a4cc2579c8da15a72dae70519d5c8cac7c24975e624a3f618793976ffa3ee63e"
+    },
+    {
+      "path": "docs/evidence/day62/validation.json",
+      "sha256": "1e4746af79c37a857f8f5ee08a1c929fc8ffcb88fb6a4d6c9105099faa1535f3"
+    },
+    {
+      "path": "docs/week-9-summary.md",
+      "sha256": "b1839d6b8bdec6b74975686711c23f5a7b4ed3d2fb9e166ab86ec5b3eb722367"
+    },
+    {
+      "path": "experiments/day58/README.md",
+      "sha256": "224afd117e2084f439b20b5c8f1e3e3878d71a37af352f7d9026191dc8ad96e8"
+    },
+    {
+      "path": "experiments/day58/graph.mmd",
+      "sha256": "20b5d35e6916030a0219f3032931cf931b85b328982a30c66719dc4b89c1e5e8"
+    },
+    {
+      "path": "experiments/day58/langgraph_basics.py",
+      "sha256": "fe34dfb0b5b3506ea9fdd87db71c1c3df5323a22072cf242bda940b9bf415b89"
+    },
+    {
+      "path": "experiments/day58/requirements-lock.txt",
+      "sha256": "5b4a6ef8958426c73d856e53093dfdbbd9a30755d5c1faded767e38faf2864ab"
+    },
+    {
+      "path": "experiments/day58/requirements.txt",
+      "sha256": "8e9b299911096db21add448f358766aa0cc02f7e706bf67d04b0e3e7afc9ca9b"
+    },
+    {
+      "path": "experiments/day58/test_langgraph_basics.py",
+      "sha256": "68c093a4e1d0b5c841ba07469692fa7d9d24e31abbfc5dac49bc43d0610bd08d"
+    },
+    {
+      "path": "experiments/day59/README.md",
+      "sha256": "89473617cd002fcf0f4145e2a821479897c9942d6fca85d3ea9c311f2c959433"
+    },
+    {
+      "path": "experiments/day59/chat_planner.py",
+      "sha256": "38c8217321c1d4b98f8696ab829fcf79842b3fb85095376fab48b46f45c99c8f"
+    },
+    {
+      "path": "experiments/day59/graph.mmd",
+      "sha256": "632062225e6d98f4347d77d5242c3258431bc4f3fef8eebb667885333da61bb6"
+    },
+    {
+      "path": "experiments/day59/mock-responses.json",
+      "sha256": "1b017f779443089b2210771d0df155cdefcfcb1c0844cb31e265d39ab4dbb6bd"
+    },
+    {
+      "path": "experiments/day59/plan-schema.json",
+      "sha256": "ba8d5c6522ce2a3b0dad5bf9cb08fdd00cb73774a89099fe04359ce11c8581df"
+    },
+    {
+      "path": "experiments/day59/plan_schema.py",
+      "sha256": "28dce796f431807d83721af240ab728140d1530a15b951e1b504208ebb15ccb7"
+    },
+    {
+      "path": "experiments/day59/requirements-lock.txt",
+      "sha256": "86f3cc1d7864462e1563f297fc11b53bdc7c9c91111018e60a5eccd9d0efd8af"
+    },
+    {
+      "path": "experiments/day59/requirements.txt",
+      "sha256": "97feac81486c8d16894e109fbb81eabbfe5a6934728d9b43a561e4c84d53c552"
+    },
+    {
+      "path": "experiments/day59/task_planner.py",
+      "sha256": "13a732c5c95293c5afb3350107c94ee8d64009988fe12164520bd30c5d511456"
+    },
+    {
+      "path": "experiments/day59/test_task_planner.py",
+      "sha256": "1fc86f260984142a76748912a1e4133fece1128d05066c0c316b23fb7940f4ee"
+    },
+    {
+      "path": "experiments/day60/README.md",
+      "sha256": "f8ee08e8710d510d251e56db9abdd9c583ee5fd86d8d901dd334825b88e98f45"
+    },
+    {
+      "path": "experiments/day60/graph.mmd",
+      "sha256": "e570b49d4c8546782d701f07e4eaa882ba13f0304bfc2b984953c17d04b3d966"
+    },
+    {
+      "path": "experiments/day60/progress_graph.py",
+      "sha256": "027b7dcae2649a944565058e5a17849ddcde0bcca43c689ce57c9ffe6b9460ba"
+    },
+    {
+      "path": "experiments/day60/requirements-lock.txt",
+      "sha256": "35c4900175e17ebe6c75a6e76b269685c2da5d7b22171ef451486219c65544d4"
+    },
+    {
+      "path": "experiments/day60/requirements.txt",
+      "sha256": "5e7c4f1a8adcb6b8fc298263a173981082941f29d03cdf1b3cdbd1a7841874b1"
+    },
+    {
+      "path": "experiments/day60/task_progress.py",
+      "sha256": "a28a40782c0596c598cf52e6934e9ab5ae3c9b69a8675d0f3f16ce21ba565406"
+    },
+    {
+      "path": "experiments/day60/task_store.py",
+      "sha256": "93404c879cec15bedf0c8c21894e2e1caadc2abad2d20ea55803528c15c38856"
+    },
+    {
+      "path": "experiments/day60/test_task_progress.py",
+      "sha256": "1e01f7f6598aa19f13b22f535998216c5640d5ef8f9fed1ae83cbdae7087e188"
+    },
+    {
+      "path": "experiments/day61/README.md",
+      "sha256": "d4e4148e9ce7f913c5dfa3b96bd4b3d8d1dd9a36a3a7d593cf154c390b598ab3"
+    },
+    {
+      "path": "experiments/day61/cases.json",
+      "sha256": "b036c717bf40890871464997ab759b62d510af795c9676de411d48c12b07a527"
+    },
+    {
+      "path": "experiments/day61/check_scenario.py",
+      "sha256": "a79036d406781c651a69baf6e4546c45e2b2791989e208c6d04404536393fee8"
+    },
+    {
+      "path": "experiments/day61/input-schema.json",
+      "sha256": "22e9c72e7bbfcef0f25e6f6953eb8f12dd95e7567530016173c1edcf1e8fb6de"
+    },
+    {
+      "path": "experiments/day61/output-schema.json",
+      "sha256": "d5535dea3c03a1cec2a288a84e4ac1c148f3a152b0db7140b7b58bc153cd855f"
+    },
+    {
+      "path": "experiments/day61/plan-example.json",
+      "sha256": "80af66702b9561bc1009c1c7242e33835cdea103aa1003269fb9de7e468ceb83"
+    },
+    {
+      "path": "experiments/day61/sales_contract.py",
+      "sha256": "76e4e38e7e464426069f8b3da92e5444f7c1dd6e7ff2a089d7709305d13a1949"
+    },
+    {
+      "path": "experiments/day61/scenario_rules.py",
+      "sha256": "7207107ee63eb0ff66fc05df6609868951f069383828a813a47fd9a8143af94b"
+    },
+    {
+      "path": "experiments/day61/test_sales_scenario.py",
+      "sha256": "e5593f201089b56d068bddbfec2f140cc3b8a1bbce7e65cfc1dc8df3b26e1f93"
+    },
+    {
+      "path": "experiments/day62/README.md",
+      "sha256": "95e778834703b17225481c92611dda33de6e7cdaa5154d5dc30f51057c090811"
+    },
+    {
+      "path": "experiments/day62/chat_report.py",
+      "sha256": "3a1ab7a135946ab022f8515ff284ba026b7c01d940091bfe16e66607d940e847"
+    },
+    {
+      "path": "experiments/day62/prompt_builder.py",
+      "sha256": "7bd8d7e9c9016d45fb5cfd0fe78799e29d3c9f67b2b5ecfc5f265cd3fc0af41a"
+    },
+    {
+      "path": "experiments/day62/report-schema.json",
+      "sha256": "54c2e1a4255107f961ce18273d4dc5a8182626c93c50389178d142b4730e49b3"
+    },
+    {
+      "path": "experiments/day62/report_contract.py",
+      "sha256": "3f9d6586ff01d6f0f76f1438c692d6caf2307a51b05e7e3cf6555543b00aeaed"
+    },
+    {
+      "path": "experiments/day62/sales_prompt.py",
+      "sha256": "ab355a9a8d46af611845d130bfc304e8ff2c79e4afe9bf66e958c67841640cdf"
+    },
+    {
+      "path": "experiments/day62/system-prompt.md",
+      "sha256": "a1767bce8ab579ac56887f0c956f9b1af3702ed60c922f49a396be26d13af826"
+    },
+    {
+      "path": "experiments/day62/test_sales_prompt.py",
+      "sha256": "d845947fb63f36fb9e6d0796afcec8e5ae8a05ebbd7f1d8509a32f6536c24567"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "4efd67c57b899f693cd12dbcea7ca82a36dbd0dcf5c6aec1c4363707257100b1"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "4251c34677cd8c23822fada0ccd39eb5d6a422c94195749b33b07e398836e8ed"
+    },
+    {
+      "path": "scripts/day63/check_release.py",
+      "sha256": "0fa2342b50ea6b5d6ae8148711ac14e433e66e7d212d7b9f9830315b759ac495"
+    },
+    {
+      "path": "scripts/day63/test_release.py",
+      "sha256": "8a3cd0b798ca2f4dcc9e051d345fcaf2e76ed6b56d5bf2965cbba0d202652968"
+    },
+    {
+      "path": "scripts/day63/verify_release.py",
+      "sha256": "3ebb2716a7446fc792fb8fd2ada24f77d4d6c1eb6326c5c4b508d9d7b3cc1d9c"
+    }
+  ],
+  "publication_notice": "Local candidate only; main merge, annotated tag and GitHub Release are separate future actions."
+}

@@ -2,6 +2,27 @@
 
 本文件记录 Enterprise AI Platform 的主要版本变化。
 
+## [Agent Center 0.1.0] - Unreleased
+
+2026-09-21 完成 Day 63 本地发布候选准备，平台 API 保持 1.0.0；组件标签与 GitHub Release 尚未创建。范围见 [候选说明](docs/agent-center-v0.1.md)。
+
+### Added
+
+- Agent 架构与静态推演、LangGraph 模拟状态图。
+- 结构化模型任务规划、SQLite 模拟进度与异常退出恢复。
+- 销售跟进场景契约、模型报告 Prompt 与证据核对。
+- 版本清单、文档入口、离线发布检查与 Week 9 总结。
+
+### Quality
+
+- 本轮分环境执行 202 项实验测试和 17 项发布检查，共 219 项离线测试。
+- 沿用 Day 59 的 2 次及 Day 62 的 5 次 Qwen 虚构场景真实验证，本轮 0 次新模型请求。
+
+### Limitations
+
+- 尚无真实业务工具、Agent HTTP API 或销售报告检查点整合；各实验保留明确的模拟与真实验证边界。
+- Agent Center 正式发布、Day 55 视频补录和 Workflow Center v1.0.0 发布继续单独跟踪。
+
 ## [Workflow Center 1.0.0] - Unreleased
 
 2026-09-17 完成 Day 56 发布候选准备，平台 API 保持 `1.0.0`。本项尚未创建组件标签或 GitHub Release；版本范围与状态见 [候选说明](docs/workflow-center-v1.0.md)。
