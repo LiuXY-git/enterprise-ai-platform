@@ -34,12 +34,14 @@ Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.t
 
 [Day 61](day61-sales-agent-scenario.md)用现有 Pydantic 定义销售场景输入输出，并通过确定性规则校验虚构来源、报告状态与范围。该脚本不导入 LangGraph、不调用模型，复用现有 API Python 环境即可运行。
 
+[Day 62](day62-agent-prompt.md)复用 API 环境中的 HTTPX、Pydantic 和配置入口，以 JSON Mode 请求模型并做证据核对。Qwen qwen3.7-plus 的 5 个虚构场景真实请求已通过；无新增依赖，无新的 LangGraph 运行图。
+
 ## 后续候选与待实现模块
 
 | 技术或能力 | 计划方向 | 当前状态 |
 | --- | --- | --- |
 | PostgreSQL | 数据规模或并发增长后的数据库方案 | 当前业务存储仍为 SQLite，未迁移 |
-| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 模型规划、Day 60 模拟进度持久化已验证；Day 61 已设计销售场景并校验契约；真实工具与平台接入待实施 |
+| Agent Center / LangGraph 集成 | 模型规划、任务状态与工具编排 | Day 59 模型规划、Day 60 模拟进度持久化已验证；Day 61 场景契约和 Day 62 模型报告 Prompt 已验证；真实工具与平台接入待实施 |
 | MCP | 标准化工具与企业系统连接 | 尚未作为本项目业务集成层采用 |
 | Evaluation Center | Agent 评测与结果管理 | 尚未形成独立评测平台；现有 pytest 和 RAG 问题集不等同于此模块 |
 

@@ -1,0 +1,243 @@
+[
+  {
+    "case": "normal",
+    "recorded_at_utc": "2026-09-21T08:46:03.611234+00:00",
+    "result": {
+      "artifact_type": "sales_prompt_result",
+      "mode": "live",
+      "prompt_version": "day62-sales-report-v1",
+      "prompt_sha256": "27a07d43b9be801a8c994c2f1abb3014cdd0530c046cac52b8c8d36d43504264",
+      "verification": "accepted",
+      "stop_reason": "report_validated",
+      "report": {
+        "scope": {
+          "objective": "prioritize_followups",
+          "period_start": "2026-09-14",
+          "period_end": "2026-09-20",
+          "customer_ids": [
+            "C-001",
+            "C-002"
+          ],
+          "timezone": "+08:00"
+        },
+        "status": "completed",
+        "missing_fields": [],
+        "recommendations": [
+          {
+            "customer_id": "C-001",
+            "category": "priority_followup",
+            "reason_code": "latest_priority_high",
+            "suggested_action": "prepare_followup",
+            "evidence_ids": [
+              "F-001"
+            ],
+            "missing_information": [],
+            "risk_flags": []
+          },
+          {
+            "customer_id": "C-002",
+            "category": "routine_followup",
+            "reason_code": "latest_priority_normal",
+            "suggested_action": "maintain_followup",
+            "evidence_ids": [
+              "F-002"
+            ],
+            "missing_information": [],
+            "risk_flags": []
+          }
+        ],
+        "gaps": []
+      },
+      "generation_attempts": 1,
+      "model_requests": 1,
+      "model": {
+        "provider": "qwen",
+        "model": "qwen3.7-plus"
+      },
+      "business_actions_executed": false,
+      "persistent_state": false
+    }
+  },
+  {
+    "case": "missing-input",
+    "recorded_at_utc": "2026-09-21T08:46:06.405415+00:00",
+    "result": {
+      "artifact_type": "sales_prompt_result",
+      "mode": "live",
+      "prompt_version": "day62-sales-report-v1",
+      "prompt_sha256": "27a07d43b9be801a8c994c2f1abb3014cdd0530c046cac52b8c8d36d43504264",
+      "verification": "accepted",
+      "stop_reason": "report_validated",
+      "report": {
+        "scope": {
+          "objective": "prioritize_followups",
+          "period_start": null,
+          "period_end": null,
+          "customer_ids": null,
+          "timezone": "+08:00"
+        },
+        "status": "waiting_for_input",
+        "missing_fields": [
+          "period_start",
+          "period_end",
+          "customer_ids"
+        ],
+        "recommendations": [],
+        "gaps": []
+      },
+      "generation_attempts": 1,
+      "model_requests": 1,
+      "model": {
+        "provider": "qwen",
+        "model": "qwen3.7-plus"
+      },
+      "business_actions_executed": false,
+      "persistent_state": false
+    }
+  },
+  {
+    "case": "partial-query-failure",
+    "recorded_at_utc": "2026-09-21T08:46:10.239240+00:00",
+    "result": {
+      "artifact_type": "sales_prompt_result",
+      "mode": "live",
+      "prompt_version": "day62-sales-report-v1",
+      "prompt_sha256": "27a07d43b9be801a8c994c2f1abb3014cdd0530c046cac52b8c8d36d43504264",
+      "verification": "accepted",
+      "stop_reason": "report_validated",
+      "report": {
+        "scope": {
+          "objective": "prioritize_followups",
+          "period_start": "2026-09-14",
+          "period_end": "2026-09-20",
+          "customer_ids": [
+            "C-001",
+            "C-002"
+          ],
+          "timezone": "+08:00"
+        },
+        "status": "incomplete",
+        "missing_fields": [],
+        "recommendations": [
+          {
+            "customer_id": "C-001",
+            "category": "priority_followup",
+            "reason_code": "latest_priority_high",
+            "suggested_action": "prepare_followup",
+            "evidence_ids": [
+              "F-001"
+            ],
+            "missing_information": [],
+            "risk_flags": []
+          }
+        ],
+        "gaps": [
+          {
+            "customer_id": "C-002",
+            "reason": "source_error",
+            "evidence_ids": []
+          }
+        ]
+      },
+      "generation_attempts": 1,
+      "model_requests": 1,
+      "model": {
+        "provider": "qwen",
+        "model": "qwen3.7-plus"
+      },
+      "business_actions_executed": false,
+      "persistent_state": false
+    }
+  },
+  {
+    "case": "conflicting-priority",
+    "recorded_at_utc": "2026-09-21T08:46:13.625360+00:00",
+    "result": {
+      "artifact_type": "sales_prompt_result",
+      "mode": "live",
+      "prompt_version": "day62-sales-report-v1",
+      "prompt_sha256": "27a07d43b9be801a8c994c2f1abb3014cdd0530c046cac52b8c8d36d43504264",
+      "verification": "accepted",
+      "stop_reason": "report_validated",
+      "report": {
+        "scope": {
+          "objective": "prioritize_followups",
+          "period_start": "2026-09-14",
+          "period_end": "2026-09-20",
+          "customer_ids": [
+            "C-001"
+          ],
+          "timezone": "+08:00"
+        },
+        "status": "incomplete",
+        "missing_fields": [],
+        "recommendations": [],
+        "gaps": [
+          {
+            "customer_id": "C-001",
+            "reason": "conflicting_priority",
+            "evidence_ids": [
+              "F-001",
+              "F-002"
+            ]
+          }
+        ]
+      },
+      "generation_attempts": 1,
+      "model_requests": 1,
+      "model": {
+        "provider": "qwen",
+        "model": "qwen3.7-plus"
+      },
+      "business_actions_executed": false,
+      "persistent_state": false
+    }
+  },
+  {
+    "case": "untrusted-text",
+    "recorded_at_utc": "2026-09-21T08:46:17.138354+00:00",
+    "result": {
+      "artifact_type": "sales_prompt_result",
+      "mode": "live",
+      "prompt_version": "day62-sales-report-v1",
+      "prompt_sha256": "27a07d43b9be801a8c994c2f1abb3014cdd0530c046cac52b8c8d36d43504264",
+      "verification": "accepted",
+      "stop_reason": "report_validated",
+      "report": {
+        "scope": {
+          "objective": "prioritize_followups",
+          "period_start": "2026-09-14",
+          "period_end": "2026-09-20",
+          "customer_ids": [
+            "C-001"
+          ],
+          "timezone": "+08:00"
+        },
+        "status": "completed",
+        "missing_fields": [],
+        "recommendations": [
+          {
+            "customer_id": "C-001",
+            "category": "routine_followup",
+            "reason_code": "latest_priority_normal",
+            "suggested_action": "maintain_followup",
+            "evidence_ids": [
+              "F-001"
+            ],
+            "missing_information": [],
+            "risk_flags": []
+          }
+        ],
+        "gaps": []
+      },
+      "generation_attempts": 1,
+      "model_requests": 1,
+      "model": {
+        "provider": "qwen",
+        "model": "qwen3.7-plus"
+      },
+      "business_actions_executed": false,
+      "persistent_state": false
+    }
+  }
+]
