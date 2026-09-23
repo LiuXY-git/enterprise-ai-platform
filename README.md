@@ -6,7 +6,7 @@
 
 Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-center-v1.0.md)仍为发布候选，标签与 GitHub Release 待发布。维护者于 2026-09-17 确认 Day 55 视频之后补录。Week 9 已完成 [Day 58 LangGraph 实验](docs/day58-langgraph-basics.md)和 [Day 59 任务规划 Agent](docs/day59-task-planner.md)：模型生成计划，本地校验，业务步骤尚未执行。[Day 60](docs/day60-task-state.md)已加入 SQLite 任务检查点，支持模拟进度保存和进程重启恢复。[Day 61](docs/day61-sales-agent-scenario.md)已完成销售跟进分析场景、输入输出契约与离线规则验收。[Day 62](docs/day62-agent-prompt.md)已加入销售报告 Prompt、模型输出核对，并通过 5 个 Qwen 真实请求验证。[Day 63](docs/day63-agent-center-release.md)成果已合并到 main；[Agent Center v0.1.0](docs/agent-center-v0.1.md)于 2026-09-21 完成内容定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认正式发布。
 
-[Week 10](docs/week-10-plan.md)开始学习 Tool Calling。[Day 64](docs/day64-function-calling.md)已完成工具 schema、严格参数校验与本地金额纯函数的调用闭环，通过 141 项测试、3 个离线 fixture 和单个虚构订单的 Qwen 真实复验；首次真实失败保留记录，离线与真实证据分别计数。[Day 65](docs/day65-sql-tool.md)已实现只读 SQL Tool，通过 96 项新增测试及两个 Qwen 虚构查询场景；知识库和业务 API 工具按后续每日计划接入。
+[Week 10](docs/week-10-plan.md)开始学习 Tool Calling。[Day 64](docs/day64-function-calling.md)已完成工具 schema、严格参数校验与本地金额纯函数的调用闭环，通过 141 项测试、3 个离线 fixture 和单个虚构订单的 Qwen 真实复验；首次真实失败保留记录，离线与真实证据分别计数。[Day 65](docs/day65-sql-tool.md)已实现只读 SQL Tool，通过 96 项新增测试及两个 Qwen 虚构查询场景；[Day 66](docs/day66-knowledge-tool.md)已接入 Knowledge Hub 检索与引用校验，通过 120 项新增测试及两个 Qwen 虚构知识库场景；业务 API 工具留给 Day 67。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
@@ -98,6 +98,7 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 - [x] 完成 Agent Center v0.1.0 组件标签与 GitHub Release 发布（维护者已提供页面截图确认）
 - [x] 完成 Day 64 Function Calling 最小闭环、离线验收与 Qwen 单个虚构订单真实验证
 - [x] 完成 Day 65 只读 SQL Tool、数据库保护与独立验收
+- [x] 完成 Day 66 Knowledge Tool、来源引用校验与虚构知识库真实检索验收
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。
@@ -115,6 +116,7 @@ Agent Prompt：[Day 62 提示词与模型验证](docs/day62-agent-prompt.md)、[
 Week 9 交付：[Agent Center 入口](agent-center/README.md)、[v0.1 版本说明](docs/agent-center-v0.1.md)、[Week 9 总结](docs/week-9-summary.md)。
 工具调用：[Week 10 计划](docs/week-10-plan.md)、[Day 64 操作流程](docs/day64-function-calling.md)、[实验入口](experiments/day64/README.md)。
 SQL 工具：[Day 65 只读查询](docs/day65-sql-tool.md)、[运行入口](experiments/day65/README.md)；已通过虚构销售数据的离线与 Qwen 真实查询验收。
+知识工具：[Day 66 检索与引用](docs/day66-knowledge-tool.md)、[运行入口](experiments/day66/README.md)；支持 fixture、隔离的真实向量检索与 Qwen 闭环。
 
 ## 项目结构
 
