@@ -1,0 +1,45 @@
+[
+  {
+    "case": "supported",
+    "result": {
+      "backend": "hub-demo",
+      "query": "hotel reimbursement limit invoice 酒店报销上限和发票",
+      "data_status": "evidence_found",
+      "evidence": [
+        {
+          "id": "demo-travel-0",
+          "text": "Fictional Acme travel policy: hotel reimbursement is capped at CNY 450 per night. A valid hotel invoice is required. This is a fictional teaching policy, not a real company policy. 虚构教学制度：酒店住宿每晚报销上限450元，须提供有效酒店发票。",
+          "source": "fictional-travel-policy.md",
+          "chunk_index": 0,
+          "distance": 0.6670164465904236,
+          "text_truncated": false,
+          "citation": "K1"
+        },
+        {
+          "id": "demo-leave-0",
+          "text": "Fictional Acme leave policy: annual leave requests should be submitted five working days in advance. This fictional note does not define travel reimbursement. 虚构教学制度：年假申请应提前五个工作日提交，本条不规定差旅报销。",
+          "source": "fictional-leave-policy.md",
+          "chunk_index": 0,
+          "distance": 1.0924928188323975,
+          "text_truncated": false,
+          "citation": "K2"
+        }
+      ],
+      "returned_count": 2,
+      "retrieval_only": true,
+      "content_is_untrusted_data": true
+    }
+  },
+  {
+    "case": "empty",
+    "result": {
+      "backend": "hub-demo",
+      "query": "hotel reimbursement limit",
+      "data_status": "no_evidence",
+      "evidence": [],
+      "returned_count": 0,
+      "retrieval_only": true,
+      "content_is_untrusted_data": true
+    }
+  }
+]

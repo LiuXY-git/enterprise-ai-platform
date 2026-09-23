@@ -1,0 +1,130 @@
+{
+  "day": 66,
+  "validation_date": "2026-09-23",
+  "base_commit": "a4e958336f27494e99b5d4f5c6435b38a1c308db",
+  "scope": "knowledge_tool_with_real_hub_search_on_isolated_fictional_data",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "pydantic": "2.13.4",
+      "httpx": "0.28.1",
+      "chromadb": "1.5.9",
+      "onnxruntime": "1.29.0",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "tests": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_day66_tests": 120,
+  "day64_day65_regression_tests": 237,
+  "existing_retrieval_regression_tests": 1,
+  "test_provenance": "Counts derived from actual pytest JUnit XML. Initial run had Windows setup errors from an oversized parameter ID; shortened that test ID. Final run used a fresh workspace temp directory.",
+  "test_warnings": [
+    "Chroma asyncio.iscoroutinefunction deprecation warning on Python 3.14"
+  ],
+  "fixtures": {
+    "cases": 3,
+    "model_requests": 0,
+    "retrieval": "authored_fixture_not_vector_search"
+  },
+  "real_retrieval": {
+    "cases": [
+      "supported",
+      "empty"
+    ],
+    "model_requests": 0,
+    "embedding": "cached ONNX all-MiniLM-L6-v2",
+    "storage": "ephemeral Chroma collection",
+    "implementation": "existing Knowledge Hub search_chunks",
+    "initial_sandbox_failure": "ONNX DLL access denied; same source succeeded under normal local permissions",
+    "embedding_downloaded": false
+  },
+  "live": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "successful_cases": [
+      "supported",
+      "empty"
+    ],
+    "model_requests": 4,
+    "retrieval_tool_executions": 2,
+    "fictional_data_only": true,
+    "citation_links_verified": true,
+    "sample_answers_reviewed": true,
+    "sample_review": "Supported answer cites returned travel policy for CNY 450/night and valid hotel invoice. Empty collection returns the exact insufficient-evidence response.",
+    "general_answer_semantics_verified": false,
+    "real_model_injection_resistance_tested": false,
+    "nonempty_irrelevant_collection_tested": false
+  },
+  "tool_policy": {
+    "registered_tool": "search_knowledge",
+    "arguments": [
+      "query",
+      "top_k"
+    ],
+    "max_query_chars": 300,
+    "max_top_k": 5,
+    "max_excerpt_chars": 1000,
+    "worker_wait_timeout_seconds": 45,
+    "max_worker_output_bytes": 65536,
+    "max_tool_message_chars": 12000,
+    "max_model_requests": 2,
+    "max_tool_executions": 1,
+    "model_selects_url_path_or_collection": false,
+    "calibrated_relevance_threshold": false,
+    "whole_session_hard_realtime_deadline": false
+  },
+  "existing_business_hub_mode": {
+    "implemented": true,
+    "validation": "fake_client_tests_only",
+    "real_enterprise_collection_accessed": false,
+    "tool_document_upsert_or_delete": false,
+    "underlying_chroma_metadata_writes_possible": true
+  },
+  "new_dependencies": 0,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "6 files already formatted",
+  "v01_integrity": {
+    "status": "passed",
+    "product": "Agent Center",
+    "version": "0.1.0",
+    "release_status": "released",
+    "frozen_artifacts": 70,
+    "historical_source_hashes_checked": 41,
+    "unique_historical_tests": 202,
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "v01_full_regression_rerun": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day66/hub_worker.py": "56bfd663f0cd4da82ec8fd15a8c3a58795e28da2f33d559426f0b1d23afcfe5e",
+    "experiments/day66/knowledge-data.json": "3bcdf59e7c3015ca6515b3eb88e33a6ec54a0b9b298d048f4c360bf5457c2487",
+    "experiments/day66/knowledge_agent.py": "ba9531836a76014722c88364c16287056318696668621571b0f7b27b90f9fb03",
+    "experiments/day66/knowledge_tool.py": "38ce5002f0a1c12926aa8ae0c4c75310b6021a6ad8d92f2020eef676d6bd2a0b",
+    "experiments/day66/test_hub_worker.py": "8f72636d88519d8381280aa1b14dbdc9489161805f461890f5daed2c139a2418",
+    "experiments/day66/test_knowledge_tool.py": "a715b83ffd3fc89d0f5abf9c6446c6a670ec2584008a74d1b4f3848053833a13",
+    "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+    "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+    "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233",
+    "backend/app/settings.py": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8",
+    "backend/app/services/retrieval_service.py": "92e481592920b5d2a275e00af2c866cee70cbafd0662b8f766d80fc1465eff16",
+    "backend/app/services/embedding_service.py": "48247f610638da746ab4ab14094b447dd9216444b4ab589d1125b5e15381e8a6",
+    "backend/app/services/vector_store.py": "964258d83347215131727045400d9fbab7830fa0614b6662d2a3daed16e518d3"
+  },
+  "evidence_hashes": {
+    "fixtures.json": "f5d4f2fecb8b1bdcdde67e1604eda95dcea3013f6e7160ca914f81042b001b63",
+    "real-retrieval.json": "583c8671508f5d42965ff4087d9f415e5ebdf70ec0e0cea92a27f2ce6bc753af",
+    "live-supported.json": "3b23f79917fb8e98bafbcf6d1e6fa4a7aec396387fb0c71d68e193e759022ee2",
+    "live-empty.json": "2e8221705dcf6da8809d5ad4237ad4a2e807ebdb4155d1735f01fb10452fef6e"
+  }
+}
