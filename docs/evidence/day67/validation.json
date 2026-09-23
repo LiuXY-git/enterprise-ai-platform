@@ -1,0 +1,129 @@
+{
+  "day": 67,
+  "validation_date": "2026-09-23",
+  "base_commit": "525fb056e9fa45ee42b7706ced20e5390d72c75d",
+  "scope": "fixed_public_weather_api_tool",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "pydantic": "2.13.4",
+      "httpx": "0.28.1",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "tests": {
+    "tests": 481,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_day67_tests": 123,
+  "day64_to_day66_regression_tests": 357,
+  "existing_retrieval_regression_tests": 1,
+  "test_provenance": "Counts derived from actual pytest JUnit XML. The first new-test run corrected an expected error code to match the existing shared protocol validator; final combined run passed.",
+  "test_warnings": [
+    "Existing Chroma asyncio.iscoroutinefunction deprecation warning"
+  ],
+  "fixtures": {
+    "cases": 4,
+    "successful_queries": 2,
+    "expected_rejections": 2,
+    "model_requests": 0,
+    "api_network_requests": 0,
+    "http_simulation": "httpx.MockTransport",
+    "fixture_date": "2026-09-23",
+    "fixture_weather_is_fictional": true
+  },
+  "live": {
+    "model_provider": "qwen",
+    "model": "qwen3.7-plus",
+    "successful_agent_cases": [
+      "beijing_1_day",
+      "shanghai_3_days"
+    ],
+    "model_requests": 4,
+    "api_network_requests_total": 3,
+    "standalone_api_requests": 1,
+    "agent_api_requests": 2,
+    "api_source": "https://open-meteo.com/",
+    "api_endpoint": "https://api.open-meteo.com/v1/forecast",
+    "attribution": "Weather data by Open-Meteo (CC BY 4.0)",
+    "public_city_data_only": true,
+    "personal_or_enterprise_data_sent": false,
+    "sample_answers_reviewed": true,
+    "sample_review": "All returned dates, temperatures and probabilities match both model answers; both preserve timezone, forecast qualification and source URL.",
+    "general_answer_semantics_verified": false,
+    "weather_accuracy_verified": false,
+    "guangzhou_live_tested": false,
+    "live_error_responses_intentionally_triggered": false
+  },
+  "http_policy": {
+    "method": "GET",
+    "fixed_endpoint": true,
+    "preset_cities": 3,
+    "days_min": 1,
+    "days_max": 3,
+    "redirects": false,
+    "automatic_retries": 0,
+    "trust_environment_proxy_or_netrc": false,
+    "tls_verification": true,
+    "connect_timeout_seconds": 5,
+    "pool_timeout_seconds": 5,
+    "read_write_timeout_seconds": 10,
+    "elapsed_budget_seconds": 15,
+    "elapsed_budget_is_checkpoint_based": true,
+    "hard_realtime_deadline": false,
+    "max_response_bytes": 65536,
+    "compression_accepted": false,
+    "weather_api_requires_credentials": false,
+    "llm_credentials_sent_to_weather": false,
+    "max_model_requests_per_case": 2,
+    "max_http_requests_per_case": 1
+  },
+  "capability_limits": {
+    "arbitrary_web_search": false,
+    "authenticated_enterprise_api_integration": false,
+    "multi_tool_orchestration": false,
+    "business_data_writes": false
+  },
+  "official_references": [
+    "https://open-meteo.com/en/docs",
+    "https://open-meteo.com/en/terms"
+  ],
+  "new_dependencies": 0,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "4 files already formatted",
+  "v01_integrity": {
+    "status": "passed",
+    "product": "Agent Center",
+    "version": "0.1.0",
+    "release_status": "released",
+    "frozen_artifacts": 70,
+    "historical_source_hashes_checked": 41,
+    "unique_historical_tests": 202,
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "v01_full_regression_rerun": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day67/test_weather_tool.py": "e3dfb02f3247a6972d4dc6c2cf7246635498bf6503046514ea7b38520b7f5cab",
+    "experiments/day67/weather_agent.py": "43bbfb588713c922a0e158b0327cd173e3ef0d0ea3762d0bdd4119209f7d9a52",
+    "experiments/day67/weather_api.py": "5dc7a82e288ebddcee34ff78b69e22bb01ca2adff00b672759d25c31d35950f3",
+    "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+    "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+    "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233",
+    "backend/app/settings.py": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8"
+  },
+  "evidence_hashes": {
+    "fixtures.json": "3410582e6b9bbb9a022f6181ad25d31d0cbd958678abe65a83d11985e11ce4ac",
+    "live-api.json": "b877de89a23c6c4bd80d1bfae6dba629e2dbc8ac2b853bf729b1b3128fc80cd0",
+    "live-beijing.json": "7adaf1efcf0afbbb7652f7c261d0903212c23b2e355010cca96976cf8e1552b3",
+    "live-shanghai.json": "78eb9970ba4d11767cc114bdc13a546ef3a62c37c24a80d7b225d19e73c53443"
+  }
+}
