@@ -1,0 +1,14 @@
+{
+  "dataset": "day65-fictional-sales",
+  "fictional": true,
+  "currency": "CNY",
+  "orders": [
+    {"order_id": "SO-001", "customer_id": "C001", "order_date": "2026-09-01", "amount_cents": 120000, "status": "paid"},
+    {"order_id": "SO-002", "customer_id": "C002", "order_date": "2026-09-05", "amount_cents": 85000, "status": "paid"},
+    {"order_id": "SO-003", "customer_id": "C001", "order_date": "2026-09-10", "amount_cents": 35000, "status": "paid"},
+    {"order_id": "SO-004", "customer_id": "C003", "order_date": "2026-09-18", "amount_cents": 60000, "status": "paid"},
+    {"order_id": "SO-005", "customer_id": "C002", "order_date": "2026-09-20", "amount_cents": 25000, "status": "cancelled"},
+    {"order_id": "SO-006", "customer_id": "C001", "order_date": "2026-08-31", "amount_cents": 99000, "status": "paid"},
+    {"order_id": "SO-007", "customer_id": "C002", "order_date": "2026-10-01", "amount_cents": 70000, "status": "paid"}
+  ]
+}
