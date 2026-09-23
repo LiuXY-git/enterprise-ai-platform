@@ -1,0 +1,84 @@
+{
+  "day": 64,
+  "validation_date": "2026-09-23",
+  "base_commit": "a4df80ef7e0809a15c73dd4ec5c22c2263792840",
+  "scope": "single_function_calling_on_fictional_order",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "httpx": "0.28.1",
+      "pydantic": "2.13.4",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "offline_tests": {
+    "tests": 141,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "core_tests": 85,
+  "transport_and_integration_tests": 56,
+  "test_provenance": "Actual pytest JUnit XML; no skips included as passed.",
+  "fixtures": {
+    "cases": 3,
+    "passed": 3,
+    "model_requests": 0
+  },
+  "live": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "total_model_requests": 3,
+    "first_attempt_requests": 1,
+    "first_attempt_status": "rejected",
+    "first_attempt_stop_reason": "invalid_tool_call",
+    "first_attempt_wire_response_retained": false,
+    "compatibility_fix": "Normalize optional nonnegative integer tool-call index and ignore null legacy function_call. Replayed official shape in offline integration tests.",
+    "root_cause_note": "Initial wire response was not retained; its exact rejected fields cannot be reconstructed.",
+    "successful_run_requests": 2,
+    "successful_cases": [
+      "quote"
+    ],
+    "tool_executions": 1,
+    "expected_total_cents": 53730,
+    "actual_total_cents": 53730,
+    "sample_answer_contains_expected_amount": true,
+    "general_answer_semantics_verified": false,
+    "live_clarification_and_no_tool_tested": false,
+    "fictional_input": true
+  },
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "6 files already formatted",
+  "v01_integrity": {
+    "status": "passed",
+    "product": "Agent Center",
+    "version": "0.1.0",
+    "release_status": "released",
+    "frozen_artifacts": 70,
+    "historical_source_hashes_checked": 41,
+    "unique_historical_tests": 202,
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "v01_regression_tests_rerun": false,
+  "new_dependencies": 0,
+  "external_business_actions": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "source_hashes": {
+    "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+    "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+    "experiments/day64/test_chat_tools.py": "d94d08439fbe513d34737c7487c3ba00ee817480392350b10255bf4d19bfb699",
+    "experiments/day64/test_function_calling.py": "0ade796d8ce1f72bd294520a8a693d4e8228a0e8c845f38e524f0e6b13fc32d8",
+    "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233"
+  },
+  "evidence_hashes": {
+    "fixtures.json": "1450fb13e6358332d068715adbbf3bde657228ade350a613f8cfe709ab448241",
+    "live-first-attempt.json": "b54ec937f83aa68cd58e86264a7de0970805192355272857d3cd473ebdcfd27c",
+    "live-quote.json": "9a74b8ba032ded8ff6a9dc6d2a4bbf05646122cf3c4de659af6e07559726fc96"
+  },
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF"
+}

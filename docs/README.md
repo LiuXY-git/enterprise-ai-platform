@@ -11,6 +11,7 @@
 - 本次文档交付范围与验证：[Day 54 使用与架构文档](day54-documentation.md)。
 - Week 8 阶段交付：[Week 8 总结](week-8-summary.md)、[Workflow Center v1.0.0 发布候选](workflow-center-v1.0.md)；Day 55 视频已安排延期补录。
 - Week 9 学习入口：[Day 57 架构](day57-agent-architecture.md)、[Day 58 状态图](day58-langgraph-basics.md)、[Day 59 模型规划](day59-task-planner.md)、[Day 60 状态保存](day60-task-state.md)、[Day 61 销售场景](day61-sales-agent-scenario.md)、[Day 62 Prompt](day62-agent-prompt.md)、[Day 63 发布准备](day63-agent-center-release.md)、[实施计划](week-9-plan.md)；已验证 Qwen 规划与模拟进度持久化，真实业务工具执行待实施。
+- Week 10 学习入口：[Tool Calling 计划](week-10-plan.md)、[Day 64 Function Calling](day64-function-calling.md)、[本地实验入口](../experiments/day64/README.md)；Day 64 已通过 141 项测试、3 个离线 fixture 和 Qwen 单个虚构订单复验，首次失败单独保留记录。
 
 以使用指南和架构页了解功能状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0`、Workflow Center 已发布基线 `0.5.0` 和待发布目标 `1.0.0` 分别记录，候选文档不等于线上新版本已经发布。
 
@@ -81,8 +82,11 @@
 - [Agent Center v0.1.0 入口](../agent-center/README.md)
 - [Agent Center v0.1.0 版本说明](agent-center-v0.1.md)
 - [Week 9：Agent 基础计划](week-9-plan.md)
+- [Week 10：Tool Calling 计划](week-10-plan.md)
+- [Day 64 Function Calling 操作流程](day64-function-calling.md)
+- [Day 64 可运行实验入口](../experiments/day64/README.md)
 
-Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 成果已合并，v0.1 内容已定版；远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。真实业务工具执行尚未验收。
+Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 成果已合并，Agent Center v0.1.0 正式发布已由维护者的 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认。Day 64 已验证本地纯函数的 Function Calling 闭环，包含单个虚构订单的 Qwen 真实复验；真实业务工具执行仍待后续验收。
 
 ## 企业协作平台集成
 
