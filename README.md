@@ -10,6 +10,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Week 11](docs/week-11-plan.md)进入 MCP 与高级 Agent。[Day 71](docs/day71-mcp-basics.md)完成概念学习；[Day 72](docs/day72-mcp-server.md)将虚构销售查询包装为 MCP Server，通过 99 项测试和两个独立客户端验证。[Day 73](docs/day73-agent-mcp.md)已完成 Agent 通过 MCP 查询与结果回填：319 项离线测试通过、两组真实 Qwen 场景通过；复刻入口见 [Day 73 实验说明](experiments/day73/README.md)。
 
+[Day 74](docs/day74-agent-memory.md)提供 Agent Memory 学习材料与代码阅读练习，区分会话上下文、长期记忆和任务检查点；[Day 75 Conversation Memory](docs/day75-conversation-memory-plan.md)目前为设计草案，尚未增加记忆运行时。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标

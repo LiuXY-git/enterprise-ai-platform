@@ -1,0 +1,63 @@
+{
+  "day": 74,
+  "validation_date": "2026-09-24",
+  "base_commit": "69ca445346043568b1aaa25a0917a559c90dd0fe",
+  "delivery": "learning_material_and_day75_design_only",
+  "memory_runtime_implemented": false,
+  "learner_understanding_assessed": false,
+  "runtime_code_changed": false,
+  "new_runtime_tests": 0,
+  "regression_tests_rerun": false,
+  "new_model_requests": 0,
+  "new_mcp_calls": 0,
+  "checks": [
+    "relative_document_links",
+    "historical_files_unchanged",
+    "code_reading_references",
+    "v01_v02_release_integrity"
+  ],
+  "code_reading_references": [
+    "experiments/day73/mcp_agent.py:run_session",
+    "experiments/day73/mcp_agent.py:main",
+    "experiments/day60/task_store.py:TaskStore",
+    "experiments/day60/progress_graph.py:build_graph"
+  ],
+  "official_sources": [
+    "https://docs.langchain.com/oss/python/concepts/memory",
+    "https://docs.langchain.com/oss/python/langgraph/persistence"
+  ],
+  "v01_v02_integrity": {
+    "status": "passed",
+    "version": "0.2.0",
+    "release_status": "released",
+    "frozen_artifacts": 86,
+    "historical_hashes_checked": {
+      "source_hashes": 69,
+      "evidence_hashes": 22
+    },
+    "unique_historical_tests": 648,
+    "v01_integrity": {
+      "status": "passed",
+      "product": "Agent Center",
+      "version": "0.1.0",
+      "release_status": "released",
+      "frozen_artifacts": 70,
+      "historical_source_hashes_checked": 41,
+      "unique_historical_tests": 202,
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "hash_normalization": "CRLF_to_LF",
+  "document_hashes": {
+    "README.md": "1f6df35dd140984f794e92141abbabcebdc0998af534e88b5e16d426d4a19fa8",
+    "docs/README.md": "f903e45fd431e552aa1cea1d6103bd94ceb04fbba108ac8706341a34db9be8b0",
+    "docs/week-11-plan.md": "4789f7dcee25670a55ab90047ac20859d0614d76ad8fdca62e6a2ca6d6d95dc4",
+    "docs/day74-agent-memory.md": "a116b61cce460e49fbe7db4d7d0bdde3cb147728ebb77d989333ae4f006ca7fe",
+    "docs/day75-conversation-memory-plan.md": "3e90f90fb3114a4ffb04315da71566da5677523da3120bf9fdb2aa5663a1f6ed"
+  }
+}
