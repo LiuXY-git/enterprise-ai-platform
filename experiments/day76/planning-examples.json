@@ -1,0 +1,60 @@
+{
+  "artifact_type": "human_authored_planning_lesson",
+  "model_generated": false,
+  "task_executed": false,
+  "examples": [
+    {
+      "name": "clarify_quarter",
+      "goal": "分析本季度销售情况。",
+      "decision": {
+        "decision": "clarify",
+        "summary": "先确认季度、统计范围与指标，避免自行假定业务口径。",
+        "steps": [],
+        "questions": [
+          "请确认年份、季度及数据截至日期；是否按自然季度？",
+          "分析全体客户还是指定客户？销售额按已支付订单、收入确认还是其它口径？",
+          "需要月度变化、同比、客户或产品分析中的哪些内容？"
+        ]
+      }
+    },
+    {
+      "name": "quarter_plan",
+      "goal": "只制定计划：分析虚构销售库2026年第二自然季度，即2026-04-01至2026-07-01之前，全体客户已支付订单的金额与单数，展示季度汇总和季度内逐月变化，形成报告与建议；不要求同比、产品分析，不发送报告。",
+      "decision": {
+        "decision": "plan",
+        "summary": "以明确的月度只读查询结果为依据，规划季度汇总、月度变化、报告和建议；本示例不执行。",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "retrieve",
+            "description": "分别取得2026年4、5、6月全体客户已支付订单的全量金额、单数及来源。记录每月成功、无数据或失败状态，不将查询失败解释为零。",
+            "expected_output": "三个月的汇总回执与范围、状态、来源；缺少任一月份时说明缺口。",
+            "depends_on": []
+          },
+          {
+            "id": "S2",
+            "action": "analyze",
+            "description": "使用完整且同口径的三个月汇总计算季度金额、单数及季度内相邻月份变化。上月金额为零时不计算普通增长百分比；缺数据时不声称完整季度结果。",
+            "expected_output": "可核对的汇总和月度变化表，带计算依据、零分母和缺失项说明。",
+            "depends_on": ["S1"]
+          },
+          {
+            "id": "S3",
+            "action": "summarize",
+            "description": "根据查询回执与分析结果整理季度报告，标明虚构数据、日期范围、已支付口径、来源与未完成项。",
+            "expected_output": "可追溯的报告草案；没有证据的原因不写成确定结论。",
+            "depends_on": ["S1", "S2"]
+          },
+          {
+            "id": "S4",
+            "action": "summarize",
+            "description": "结合报告中的已证实变化提出后续核查或业务建议，区分观察与假设；不据月度金额单独断言变化原因，不自动向外发送。",
+            "expected_output": "建议清单、对应依据与需要进一步核查的问题。",
+            "depends_on": ["S2", "S3"]
+          }
+        ],
+        "questions": []
+      }
+    }
+  ]
+}

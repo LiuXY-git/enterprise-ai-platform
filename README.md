@@ -12,6 +12,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 74](docs/day74-agent-memory.md)提供 Agent Memory 学习材料与代码阅读练习，区分会话上下文、长期记忆和任务检查点；[Day 75 Conversation Memory](docs/day75-conversation-memory.md)已实现 SQLite 会话保存、跨进程恢复、部门更新与清除；191 项离线测试通过，真实 Qwen 两次模板调用通过，[复刻入口](experiments/day75/README.md)。
 
+[Day 76](docs/day76-planning.md)提供 Planning 学习材料，以季度销售分析说明任务拆解、依赖与完成标准；复用 Day 59 做离线观察，尚未把 Memory、MCP 与季度计划自动集成。[操作入口](experiments/day76/README.md)。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标
