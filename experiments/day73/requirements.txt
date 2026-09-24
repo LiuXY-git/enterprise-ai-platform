@@ -1,0 +1,3 @@
+-r ../day72/requirements.txt
+httpx==0.28.1
+python-dotenv==1.2.2
