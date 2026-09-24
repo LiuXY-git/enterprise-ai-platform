@@ -10,7 +10,7 @@
 | Day 72 | 搭建第一个 MCP Server | [只读虚构 SQL Tool](day72-mcp-server.md)；99 项测试，两个独立客户端，真实 stdio 通信 |
 | Day 73 | Agent 接入 MCP | [Agent 接入 MCP](day73-agent-mcp.md)；319 项离线测试、两组真实 Qwen 场景，共 4 次模型请求 |
 | Day 74 | 学习 Agent Memory | [学习材料已交付](day74-agent-memory.md)：上下文、长期记忆、检查点与代码阅读练习；理解自测待学习者完成 |
-| Day 75 | 增加 Conversation Memory | [设计草案已准备](day75-conversation-memory-plan.md)，代码待实施：会话存储、归属与续接验证 |
+| Day 75 | 增加 Conversation Memory | [已实现会话记忆](day75-conversation-memory.md)：SQLite 保存与恢复、更新及清除；191 项离线测试、2 次真实模型请求 |
 | Day 76 | 学习 Planning | 待实施：任务拆解及计划与执行边界 |
 | Day 77 | 发布 Agent Center v0.5 | 待实施：按实际验收范围整理候选、定版与发布 |
 

@@ -1,0 +1,431 @@
+{
+  "passed": true,
+  "mode": "live",
+  "fictional_user": true,
+  "new_model_requests": 2,
+  "mcp_calls": 0,
+  "temporary_database": true,
+  "steps": [
+    {
+      "step": "initialize",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "initialized"
+      }
+    },
+    {
+      "step": "create_session",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "created",
+        "session_id": "4823800d8cdb459d98d2ab048d1f8fa4",
+        "owner": "demo-user"
+      }
+    },
+    {
+      "step": "remember_sales",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "completed",
+        "request_id": "fact-sales",
+        "replayed": false,
+        "department": "销售",
+        "source_request_id": "fact-sales",
+        "context": {
+          "department": null,
+          "source_request_id": null,
+          "history": [],
+          "included_pairs": 0,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "已在当前会话记录：你负责销售部门。",
+        "report": null,
+        "model": {},
+        "model_requests_this_invocation": 0,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "fixture",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "restart_and_recall_sales",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "completed",
+        "request_id": "template-sales",
+        "replayed": false,
+        "department": "销售",
+        "source_request_id": "fact-sales",
+        "context": {
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "history": [
+            {
+              "role": "user",
+              "content": "我负责销售部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责销售部门。"
+            }
+          ],
+          "included_pairs": 1,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写",
+        "report": {
+          "kind": "daily_report_template",
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "data_status": "not_queried",
+          "sections": [
+            "客户跟进",
+            "订单进展",
+            "问题与计划"
+          ]
+        },
+        "model": {
+          "provider": "qwen",
+          "model": "qwen3.7-plus"
+        },
+        "model_requests_this_invocation": 1,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "live",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "same_request_replay",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "completed",
+        "request_id": "template-sales",
+        "replayed": true,
+        "department": "销售",
+        "source_request_id": "fact-sales",
+        "context": {
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "history": [
+            {
+              "role": "user",
+              "content": "我负责销售部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责销售部门。"
+            }
+          ],
+          "included_pairs": 1,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写",
+        "report": {
+          "kind": "daily_report_template",
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "data_status": "not_queried",
+          "sections": [
+            "客户跟进",
+            "订单进展",
+            "问题与计划"
+          ]
+        },
+        "model": {
+          "provider": "qwen",
+          "model": "qwen3.7-plus"
+        },
+        "model_requests_this_invocation": 0,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "live",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "show_saved_history",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "available",
+        "session_id": "4823800d8cdb459d98d2ab048d1f8fa4",
+        "generation": 0,
+        "context": {
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "history": [
+            {
+              "role": "user",
+              "content": "我负责销售部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责销售部门。"
+            },
+            {
+              "role": "user",
+              "content": "给我生成日报模板"
+            },
+            {
+              "role": "assistant",
+              "content": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写"
+            }
+          ],
+          "included_pairs": 2,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "turns": [
+          {
+            "request_id": "fact-sales",
+            "status": "completed",
+            "user_text": "我负责销售部门",
+            "assistant_text": "已在当前会话记录：你负责销售部门。"
+          },
+          {
+            "request_id": "template-sales",
+            "status": "completed",
+            "user_text": "给我生成日报模板",
+            "assistant_text": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写"
+          }
+        ]
+      }
+    },
+    {
+      "step": "create_other_session",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "created",
+        "session_id": "e788908aacca44d79531731b4e4644b6",
+        "owner": "demo-user"
+      }
+    },
+    {
+      "step": "new_session_empty",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "needs_clarification",
+        "request_id": "no-fact",
+        "replayed": false,
+        "department": null,
+        "source_request_id": null,
+        "context": {
+          "department": null,
+          "source_request_id": null,
+          "history": [],
+          "included_pairs": 0,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "请先明确你负责的部门，例如：我负责销售部门。",
+        "report": null,
+        "model": {},
+        "model_requests_this_invocation": 0,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "fixture",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "other_user_denied",
+      "separate_process": true,
+      "exit_code": 1,
+      "passed": true,
+      "result": {
+        "status": "failed",
+        "reason": "session_unavailable",
+        "answer": null
+      }
+    },
+    {
+      "step": "update_finance",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "completed",
+        "request_id": "fact-finance",
+        "replayed": false,
+        "department": "财务",
+        "source_request_id": "fact-finance",
+        "context": {
+          "department": "销售",
+          "source_request_id": "fact-sales",
+          "history": [
+            {
+              "role": "user",
+              "content": "我负责销售部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责销售部门。"
+            },
+            {
+              "role": "user",
+              "content": "给我生成日报模板"
+            },
+            {
+              "role": "assistant",
+              "content": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写"
+            }
+          ],
+          "included_pairs": 2,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "已在当前会话记录：你负责财务部门。",
+        "report": null,
+        "model": {},
+        "model_requests_this_invocation": 0,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "fixture",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "restart_and_recall_finance",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "completed",
+        "request_id": "template-finance",
+        "replayed": false,
+        "department": "财务",
+        "source_request_id": "fact-finance",
+        "context": {
+          "department": "财务",
+          "source_request_id": "fact-finance",
+          "history": [
+            {
+              "role": "user",
+              "content": "我负责销售部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责销售部门。"
+            },
+            {
+              "role": "user",
+              "content": "给我生成日报模板"
+            },
+            {
+              "role": "assistant",
+              "content": "销售日报模板（未查询业务数据）\n- 客户跟进：待填写\n- 订单进展：待填写\n- 问题与计划：待填写"
+            },
+            {
+              "role": "user",
+              "content": "改为财务部门"
+            },
+            {
+              "role": "assistant",
+              "content": "已在当前会话记录：你负责财务部门。"
+            }
+          ],
+          "included_pairs": 3,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "财务日报模板（未查询业务数据）\n- 收支记录：待填写\n- 对账进展：待填写\n- 问题与计划：待填写",
+        "report": {
+          "kind": "daily_report_template",
+          "department": "财务",
+          "source_request_id": "fact-finance",
+          "data_status": "not_queried",
+          "sections": [
+            "收支记录",
+            "对账进展",
+            "问题与计划"
+          ]
+        },
+        "model": {
+          "provider": "qwen",
+          "model": "qwen3.7-plus"
+        },
+        "model_requests_this_invocation": 1,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "live",
+        "automatic_retry": false
+      }
+    },
+    {
+      "step": "clear_session",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "cleared",
+        "session_id": "4823800d8cdb459d98d2ab048d1f8fa4",
+        "scope": "active_context_and_saved_turn_payloads",
+        "request_id_tombstones_retained": true,
+        "forensic_erasure": false
+      }
+    },
+    {
+      "step": "cleared_request_not_replayed",
+      "separate_process": true,
+      "exit_code": 1,
+      "passed": true,
+      "result": {
+        "status": "cleared",
+        "request_id": "template-sales",
+        "reason": "request_not_reexecuted",
+        "answer": null,
+        "replayed": true,
+        "model_requests_this_invocation": 0
+      }
+    },
+    {
+      "step": "after_clear_needs_department",
+      "separate_process": true,
+      "exit_code": 0,
+      "passed": true,
+      "result": {
+        "status": "needs_clarification",
+        "request_id": "after-clear",
+        "replayed": false,
+        "department": null,
+        "source_request_id": null,
+        "context": {
+          "department": null,
+          "source_request_id": null,
+          "history": [],
+          "included_pairs": 0,
+          "omitted_pairs": 0,
+          "history_pair_limit": 4
+        },
+        "answer": "请先明确你负责的部门，例如：我负责销售部门。",
+        "report": null,
+        "model": {},
+        "model_requests_this_invocation": 0,
+        "mcp_calls": 0,
+        "business_data_queried": false,
+        "mode": "fixture",
+        "automatic_retry": false
+      }
+    }
+  ]
+}
