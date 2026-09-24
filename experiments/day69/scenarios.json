@@ -1,0 +1,20 @@
+[
+  {"id":"full","base":"full","expected_status":"completed","expected_stop":"report_validated","attempts":3,"successes":3},
+  {"id":"reverse","base":"full","weather_first":true,"expected_status":"completed","expected_stop":"report_validated","attempts":3,"successes":3},
+  {"id":"no_sales","base":"no_sales","expected_status":"no_sales","expected_stop":"report_validated","attempts":1,"successes":1},
+  {"id":"weather_timeout","base":"weather_timeout","expected_status":"partial","expected_stop":"report_validated","attempts":3,"successes":2},
+  {"id":"weather_first_timeout","base":"weather_timeout","weather_first":true,"expected_status":"partial","expected_stop":"report_validated","attempts":3,"successes":2},
+  {"id":"knowledge_empty","base":"knowledge_empty","expected_status":"partial","expected_stop":"report_validated","attempts":3,"successes":3},
+  {"id":"sql_error","base":"sql_error","expected_status":"failed","expected_stop":"report_validated","attempts":1,"successes":0},
+  {"id":"both_fail","base":"weather_timeout","fault":"knowledge_timeout","expected_status":"partial","expected_stop":"report_validated","attempts":3,"successes":1},
+  {"id":"model_after_sales","base":"full","fault":"model_timeout","fault_turn":2,"expected_status":"rejected","expected_stop":"provider_timeout","attempts":1,"successes":1},
+  {"id":"model_before_report","base":"full","fault":"model_timeout","fault_turn":4,"expected_status":"rejected","expected_stop":"provider_timeout","attempts":3,"successes":3},
+  {"id":"duplicate_id","base":"full","fault":"duplicate_id","fault_turn":2,"expected_status":"rejected","expected_stop":"duplicate_tool_call_id","attempts":1,"successes":1},
+  {"id":"repeat_sql","base":"full","fault":"repeat_sql","fault_turn":2,"expected_status":"rejected","expected_stop":"tool_not_allowed_in_state","attempts":1,"successes":1},
+  {"id":"batch","base":"full","fault":"batch","fault_turn":1,"expected_status":"rejected","expected_stop":"multiple_tool_calls_not_supported","attempts":0,"successes":0},
+  {"id":"wrong_scope","base":"full","fault":"wrong_scope","fault_turn":1,"expected_status":"rejected","expected_stop":"tool_arguments_out_of_scope","attempts":0,"successes":0},
+  {"id":"bad_citation","base":"full","fault":"bad_citation","fault_turn":4,"expected_status":"rejected","expected_stop":"invalid_report_or_citations","attempts":3,"successes":3},
+  {"id":"premature_report","base":"full","fault":"premature_report","fault_turn":2,"expected_status":"rejected","expected_stop":"required_tools_missing","attempts":1,"successes":1},
+  {"id":"extra_call","base":"full","fault":"extra_call","fault_turn":4,"expected_status":"rejected","expected_stop":"tool_budget_exhausted","attempts":3,"successes":3},
+  {"id":"injection","base":"full","fault":"injection","fault_turn":3,"expected_status":"rejected","expected_stop":"invalid_tool_call_or_arguments","attempts":2,"successes":2}
+]

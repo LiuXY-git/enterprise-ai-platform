@@ -1,0 +1,147 @@
+{
+  "day": 69,
+  "validation_date": "2026-09-24",
+  "base_commit": "4f32ee02426cb52e86089842d56ed0b53bd97f69",
+  "scope": "complex_task_acceptance_and_receipt_based_delivery",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "pydantic": "2.13.4",
+      "httpx": "0.28.1",
+      "chromadb": "1.5.9",
+      "onnxruntime": "1.29.0",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "tests": {
+    "tests": 648,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_day69_tests": 84,
+  "previous_regression_tests": 564,
+  "test_provenance": "Counts derived from actual pytest JUnit XML. Initial new-suite assertions expected unescaped error text in Markdown; corrected to assert structured reason and rendered meaning. Final combined suite passed.",
+  "test_warnings": [
+    "Existing Chroma asyncio.iscoroutinefunction deprecation warning"
+  ],
+  "offline": {
+    "scenarios": 18,
+    "scenario_ids": [
+      "full",
+      "reverse",
+      "no_sales",
+      "weather_timeout",
+      "weather_first_timeout",
+      "knowledge_empty",
+      "sql_error",
+      "both_fail",
+      "model_after_sales",
+      "model_before_report",
+      "duplicate_id",
+      "repeat_sql",
+      "batch",
+      "wrong_scope",
+      "bad_citation",
+      "premature_report",
+      "extra_call",
+      "injection"
+    ],
+    "model_requests": 0,
+    "weather_api_requests": 0,
+    "sql": "real SQLite queries over fictional records",
+    "faults": "application-injected tool/model/protocol failures; not real upstream outages"
+  },
+  "recovery": {
+    "verified": "two fresh offline sessions on same read-only fictional database",
+    "first_status": "partial",
+    "second_status": "completed",
+    "each_run_tool_attempts": 3,
+    "separate_run_ids": true,
+    "first_result_preserved": true,
+    "automatic_retry": false,
+    "checkpoint_resume": false,
+    "cross_process_recovery": false
+  },
+  "presentation": {
+    "source": "validated tool receipts",
+    "model_summary_used": false,
+    "fictional_data_notice_fixed": true,
+    "live_weather_source_url_and_attribution_fixed": true,
+    "missing_and_skipped_separate": true,
+    "run_scoped_source_catalog": true,
+    "retrieved_text_markup_escaped": true,
+    "historical_render_additional_requests": 0,
+    "business_truth_or_relevance_verified": false,
+    "original_day68_evidence_modified": false
+  },
+  "live": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "cases": [
+      "no_sales",
+      "weather_timeout"
+    ],
+    "model_requests": 6,
+    "weather_api_requests": 0,
+    "weather_timeout_is_injected": true,
+    "real_upstream_timeout_observed": false,
+    "knowledge_retrieval": "real existing Hub search with isolated fictional collection in weather_timeout case",
+    "sql_and_policy_fictional": true,
+    "real_enterprise_data_used": false,
+    "database_hashes_unchanged": true,
+    "sample_reports_reviewed": true,
+    "sample_review": "July no-sales response skips dependents. September partial response retains 4 orders, CNY 3000.00 and hotel policy, explicitly states weather was unavailable.",
+    "raw_model_answer_semantics_generally_verified": false
+  },
+  "new_dependencies": 0,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "4 files already formatted",
+  "v01_integrity": {
+    "status": "passed",
+    "product": "Agent Center",
+    "version": "0.1.0",
+    "release_status": "released",
+    "frozen_artifacts": 70,
+    "historical_source_hashes_checked": 41,
+    "unique_historical_tests": 202,
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "v01_full_regression_rerun": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "experiments/day69/acceptance.py": "7ffed0758af92641921a2d50c49c5621e98e69e7dab074a2f8354780e82b0e22",
+    "experiments/day69/briefing.py": "c10d82bf77d27a199ea1ce1a348612d2ba8d93e8a5d8e1dbf161c45752864222",
+    "experiments/day69/scenarios.json": "9318b069829e7eb62aa964d46f82d38012807cd2c378c8cb413779c09b0d030b",
+    "experiments/day69/test_acceptance.py": "dd25b61027b4bffeede46c4d2b34bb845ab05301f2338df4896ed798a2de1c22",
+    "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+    "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+    "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233",
+    "backend/app/settings.py": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8",
+    "experiments/day65/sales_sql.py": "48df6b766fc55c6807b04eaea9d28a13e16102abff1da6a17a66c4950cd744c9",
+    "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+    "experiments/day66/knowledge_tool.py": "38ce5002f0a1c12926aa8ae0c4c75310b6021a6ad8d92f2020eef676d6bd2a0b",
+    "experiments/day66/hub_worker.py": "56bfd663f0cd4da82ec8fd15a8c3a58795e28da2f33d559426f0b1d23afcfe5e",
+    "experiments/day66/knowledge-data.json": "3bcdf59e7c3015ca6515b3eb88e33a6ec54a0b9b298d048f4c360bf5457c2487",
+    "backend/app/services/retrieval_service.py": "92e481592920b5d2a275e00af2c866cee70cbafd0662b8f766d80fc1465eff16",
+    "backend/app/services/embedding_service.py": "48247f610638da746ab4ab14094b447dd9216444b4ab589d1125b5e15381e8a6",
+    "backend/app/services/vector_store.py": "964258d83347215131727045400d9fbab7830fa0614b6662d2a3daed16e518d3",
+    "experiments/day67/weather_api.py": "5dc7a82e288ebddcee34ff78b69e22bb01ca2adff00b672759d25c31d35950f3",
+    "experiments/day68/multi_tool_agent.py": "00b6ed57656f2cd16aaa4994fd538ec1ae110cae8df7af1bfd9b739f215e1fb4",
+    "experiments/day68/tool_registry.py": "899304d49e9f0f48b8e253f0781ee3d424acaf0085b89e7f37ca6b5e4fc20011"
+  },
+  "evidence_hashes": {
+    "historical-briefing.md": "17b852193d3224fdbfe19641a4b9c4e704b5839a28c5b0a3b99206d10b7a2a1c",
+    "historical-render.json": "badbf56a540adcbad309895753d30bdb1161da5384a380c28809797b410ea3cc",
+    "live-no_sales.json": "3b0d6095f14ea84a6fb87a8b2c3273afc129cb7ebe57cf1973deb06d0d0f1ebf",
+    "live-weather_timeout.json": "cde3e68cd3031ca608aac51d3b82f847fe89e3be7ab6e952fe5286cbee094a42",
+    "recovery.json": "836d0f23c4e80b439193eedcbed63da169eda295b13db30f037859541a846cf5",
+    "scenarios.json": "f01b90b6eb6fbe04766a1646027d1470a5e2f76d771e98139958d35157628b36"
+  }
+}
