@@ -14,6 +14,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 76](docs/day76-planning.md)提供 Planning 学习材料，以季度销售分析说明任务拆解、依赖与完成标准；复用 Day 59 做离线观察，尚未把 Memory、MCP 与季度计划自动集成。[操作入口](experiments/day76/README.md)。
 
+[Day 77](docs/day77-agent-v05-release.md)已整理 [Agent Center v0.5.0 候选](agent-center/v0.5/README.md)：汇总 MCP、独立会话记忆与 Planning 学习成果，离线验收要求 456 项全部通过；正式定版、标签和 Release 待完成。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标

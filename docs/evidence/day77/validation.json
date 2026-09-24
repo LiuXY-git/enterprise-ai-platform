@@ -1,0 +1,133 @@
+{
+  "day": 77,
+  "validation_date": "2026-09-24",
+  "base_commit": "6336e3b45d21f9d7ae4b382b52aa19da6519e02d",
+  "version": "0.5.0",
+  "release_status": "candidate",
+  "scope": "independent_experiments_release_candidate_no_new_runtime_capability",
+  "test_counts": {
+    "planner": 49,
+    "runtime": 369,
+    "release": 38,
+    "total": 456,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_provenance": "Initial release checks: 38 passed. Final split-environment acceptance: 456 passed. All historical experiment source unchanged. Candidate evidence records only the final acceptance; no live requests added.",
+  "manifest_sha256": "6744c8ce97fbce4ee0cb9ec3ed4365ad73453aa167534623b411760925a78a60",
+  "manifest_artifacts": 57,
+  "fresh_offline_demos": {
+    "mcp_fixed_cases": 4,
+    "memory_separate_process_steps": 14,
+    "planner_mock_cases": 1
+  },
+  "historical_live_requests_referenced": {
+    "day73": 4,
+    "day75": 2
+  },
+  "new_model_requests": 0,
+  "new_external_business_requests": 0,
+  "environments": {
+    "runtime": {
+      "pip_check": "No broken requirements found.",
+      "versions": {
+        "python": "3.14.2",
+        "packages": {
+          "pytest": "9.1.1",
+          "pydantic": "2.13.4",
+          "httpx": "0.28.1"
+        }
+      }
+    },
+    "planner": {
+      "pip_check": "No broken requirements found.",
+      "versions": {
+        "python": "3.14.2",
+        "packages": {
+          "pytest": "9.1.1",
+          "pydantic": "2.13.5",
+          "httpx": "0.28.1"
+        }
+      }
+    }
+  },
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "3 files already formatted",
+  "integrity": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "candidate",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "full_old_release_tests_rerun": false,
+  "platform_api_tested": false,
+  "docker_tested": false,
+  "memory_mcp_planning_integrated": false,
+  "tag_created": false,
+  "github_release_created": false,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "README.md": "6f67f4d169bad47ae6e9f9db80297c68289b4e6f16e607497d452e54c101151d",
+    "agent-center/release-v0.5.0.json": "6744c8ce97fbce4ee0cb9ec3ed4365ad73453aa167534623b411760925a78a60",
+    "agent-center/v0.5/README.md": "0f4ff97977ed88c895af5188ba90676db9f2de0c1c948cce172db53949c3b9d4",
+    "agent-center/v0.5/release-notes.md": "91320f2dd005901aa82a8f78114d6e33ea895382a7f2f4c816e96d0d6b709b5b",
+    "agent-center/v0.5/requirements-runtime.txt": "e0ea53cfe260bdd3bde5b18c496d5c0c92604b93919425b56fcc378edf308d0f",
+    "docs/README.md": "4a4c85ba08755303d8869ee74981b1e3c7c11701199a19585bff07f7b5937ce0",
+    "docs/agent-center-v0.5.md": "60f293eac3f8c90bf416bd443115ee237ef763bfeac4feba0550e544056b64bf",
+    "docs/day77-agent-v05-release.md": "63dcecbb41b00e42590d91160b059ed645ebc66726a746d20ef8abebdab9695b",
+    "docs/week-11-plan.md": "eef6eb9a0bdbbcf240078729fda5530b5dec3bd0214ada1e1249c26d704f9da5",
+    "docs/week-11-summary.md": "3f5be332016a980d8f02f1a94f56af9e2364b2f5fb03026a7112e1efd7aa5af9",
+    "scripts/day77/release_gate.py": "c767b4e9505d8924c7643b61f311e84a6d7852c48f0fa660b7e6da083ab5cb2b",
+    "scripts/day77/test_v05_release.py": "aa3c8fdfb322020ee76cda441c1f6a59ff979e218500a2feacd9fe9d936849db",
+    "scripts/day77/verify_v05.py": "b05e73beef588ae7f7627daed2111caab70df37992faeb8acfc30e0f6282b6a7"
+  },
+  "evidence_hashes": {
+    "mcp-demo.json": "8fa275e6aa094f27cad63a55154a1b202c0b21669af52d6b8dc6d78b30a0dce5",
+    "memory-demo.json": "781dc443ae759ba57c79b7be684dac8ffb58104a0985aae5199bb8ee73df74d1",
+    "planner.txt": "78d7054fc7f00da17c404104b8754033b3fa91dcca2ebe51b209d1c0e7da10fc",
+    "planner.xml": "ca5c0845a79e4cdc52c9d8579605d9b5b9cfc3c96fe0f5a89a76e889aaf2f69c",
+    "planning-demo.json": "fa753942ce884ab39c988e6b41b2117e64fbded13d882778f7b1069c29ef1166",
+    "release.txt": "0d33a49d602b1e9f0b40238ecd5c4aed8f49c4e331f1998ac8f7795b910b4882",
+    "release.xml": "27f09b736c47da7f1bcb2102b04eff079a0964e85907af10a142839942d1bb2f",
+    "runtime.txt": "d1eddbc63be0a3816dea40a2753e46187ac4a6e41ed2788eb205e3075c16ead4",
+    "runtime.xml": "8fd0b8da587fb04589c582d73cdbcd7f0294cfc019228789a67826e4f3a5db3e",
+    "verification.json": "188cfe162d3b0b087a6bd7d892139fef4f8ee0d714985a6c6a7f381ef71aa8ab"
+  }
+}
