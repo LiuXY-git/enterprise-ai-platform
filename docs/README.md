@@ -15,6 +15,8 @@
 
 以使用指南和架构页了解功能状态；各 Day、Week 文档保留对应阶段的实施和验收记录。API `1.0.0`、Workflow Center 已发布基线 `0.5.0` 和待发布目标 `1.0.0` 分别记录，候选文档不等于线上新版本已经发布。
 
+- Week 10 版本入口：[Agent Center v0.2.0 候选](../agent-center/v0.2/README.md)、[Day 70 发布验收](day70-agent-v02-release.md)、[Week 10 总结](week-10-summary.md)。
+
 ## 项目设计
 
 - [系统架构](architecture.md)
