@@ -43,3 +43,6 @@ data/chroma-cache/
 
 # Agent experiment checkpoints and process locks
 data/day60/
+
+# Conversation memory and SQLite journals
+data/day75/
