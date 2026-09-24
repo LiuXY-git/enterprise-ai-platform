@@ -91,8 +91,10 @@
 - [Day 66 知识检索与模型运行入口](../experiments/day66/README.md)
 - [Day 67 天气 API Tool 与复刻步骤](day67-api-tool.md)
 - [Day 67 API 与模型运行入口](../experiments/day67/README.md)
+- [Day 68 多工具组合与复刻步骤](day68-multi-tool.md)
+- [Day 68 多工具简报运行入口](../experiments/day68/README.md)
 
-Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 成果已合并，Agent Center v0.1.0 正式发布已由维护者的 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认。Day 64 已验证本地纯函数的 Function Calling 闭环，包含单个虚构订单的 Qwen 真实复验；Day 65 已验证虚构 SQLite 查询；Day 66 已验证隔离知识库的真实向量检索、引用核对和 Qwen 回答。Day 67 已完成公开天气 API 和 Qwen 调用验收。真实企业数据与企业业务 API 接入尚未完成，多工具组合留给 Day 68。
+Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的规划和澄清。Day 60 已验证 SQLite 检查点、模拟步骤进度与独立进程恢复；Day 61 已完成销售跟进场景和固定规则验收；Day 62 已验证 Qwen 依据虚构快照生成报告并通过证据核对。Day 63 成果已合并，Agent Center v0.1.0 正式发布已由维护者的 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认。Day 64 已验证本地纯函数的 Function Calling 闭环，包含单个虚构订单的 Qwen 真实复验；Day 65 已验证虚构 SQLite 查询；Day 66 已验证隔离知识库的真实向量检索、引用核对和 Qwen 回答。Day 67 已完成公开天气 API 和 Qwen 调用验收。Day 68 已完成 SQL、知识库、天气组合及一次真实 Qwen 全链路验收；真实企业数据与企业业务 API 接入尚未完成，复杂任务测试留给 Day 69。
 
 ## 企业协作平台集成
 
