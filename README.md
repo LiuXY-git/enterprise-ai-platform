@@ -8,7 +8,7 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Week 10](docs/week-10-plan.md)开始学习 Tool Calling。[Day 64](docs/day64-function-calling.md)已完成工具 schema、严格参数校验与本地金额纯函数的调用闭环，通过 141 项测试、3 个离线 fixture 和单个虚构订单的 Qwen 真实复验；首次真实失败保留记录，离线与真实证据分别计数。[Day 65](docs/day65-sql-tool.md)已实现只读 SQL Tool，通过 96 项新增测试及两个 Qwen 虚构查询场景；[Day 66](docs/day66-knowledge-tool.md)已接入 Knowledge Hub 检索与引用校验，通过 120 项新增测试及两个 Qwen 虚构知识库场景；[Day 67](docs/day67-api-tool.md)已完成天气 API Tool，包含固定接口、响应校验、错误处理和两个真实 Qwen 天气查询场景。[Day 68](docs/day68-multi-tool.md)已组合 SQL、知识库、天气三个工具，支持条件分支、部分完成和跨工具引用，完成一次真实 Qwen 全链路验收。[Day 69](docs/day69-complex-task-tests.md)已完成 18 个复杂场景验收、独立会话重跑验证及确定性简报，补齐虚构背景、来源和未完成项。[Day 70](docs/day70-agent-v02-release.md)已完成 Agent Center v0.2.0 发布准备；2026-09-24 正式定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.2.0) 截图确认。旧版候选文档保留为历史记录。
 
-[Week 11](docs/week-11-plan.md)进入 MCP 与高级 Agent。[Day 71](docs/day71-mcp-basics.md)完成概念学习；[Day 72](docs/day72-mcp-server.md)将虚构销售查询包装为 MCP Server，通过 99 项测试和两个独立客户端验证。模型接入留给 Day 73，复刻入口见 [Day 72 实验说明](experiments/day72/README.md)。
+[Week 11](docs/week-11-plan.md)进入 MCP 与高级 Agent。[Day 71](docs/day71-mcp-basics.md)完成概念学习；[Day 72](docs/day72-mcp-server.md)将虚构销售查询包装为 MCP Server，通过 99 项测试和两个独立客户端验证。[Day 73](docs/day73-agent-mcp.md)已完成 Agent 通过 MCP 查询与结果回填：319 项离线测试通过、两组真实 Qwen 场景通过；复刻入口见 [Day 73 实验说明](experiments/day73/README.md)。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
@@ -108,6 +108,7 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 - [x] 完成 Agent Center v0.2.0 正式定版、组件标签与 GitHub Release 发布（维护者截图确认）
 - [x] 完成 Day 71 MCP 概念学习与职责边界讨论
 - [x] 完成 Day 72 首个 MCP Server、只读 SQL 工具与真实 stdio 双客户端验证
+- [x] 完成 Day 73 Agent 接入 MCP、回执与报告校验及真实模型验证
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
 日志说明：[Day 51 工作流日志](docs/day51-workflow-logging.md)。

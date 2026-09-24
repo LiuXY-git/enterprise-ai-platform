@@ -17,7 +17,7 @@
 
 - Week 10 版本入口：[Agent Center v0.2.0 候选](../agent-center/v0.2/README.md)、[Day 70 发布验收](day70-agent-v02-release.md)、[Week 10 总结](week-10-summary.md)。
 
-- Week 11：[实施计划](week-11-plan.md)、[Day 71 MCP 概念](day71-mcp-basics.md)、[Day 72 MCP Server](day72-mcp-server.md)、[可复刻操作](../experiments/day72/README.md)。Agent Center v0.2.0 已由维护者截图确认发布，Week 10 候选文档保留历史状态。
+- Week 11：[实施计划](week-11-plan.md)、[Day 71 MCP 概念](day71-mcp-basics.md)、[Day 72 MCP Server](day72-mcp-server.md)、[Day 72 操作](../experiments/day72/README.md)、[Day 73 Agent 接入 MCP](day73-agent-mcp.md)、[Day 73 可复刻操作](../experiments/day73/README.md)。Agent Center v0.2.0 已由维护者截图确认发布，Week 10 候选文档保留历史状态。
 
 ## 项目设计
 

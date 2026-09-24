@@ -8,12 +8,12 @@
 | --- | --- | --- |
 | Day 71 | 学习 MCP，理解为什么需要 | [已完成概念讨论](day71-mcp-basics.md)；不将讨论记作代码验收 |
 | Day 72 | 搭建第一个 MCP Server | [只读虚构 SQL Tool](day72-mcp-server.md)；99 项测试，两个独立客户端，真实 stdio 通信 |
-| Day 73 | Agent 接入 MCP | 待实施：应用将模型提出的调用交给 MCP，再回填结果 |
+| Day 73 | Agent 接入 MCP | [Agent 接入 MCP](day73-agent-mcp.md)；319 项离线测试、两组真实 Qwen 场景，共 4 次模型请求 |
 | Day 74 | 学习 Agent Memory | 待学习：区分当前任务上下文与长期记忆 |
 | Day 75 | 增加 Conversation Memory | 待实施：明确存储、作用域与测试，再接入对话 |
 | Day 76 | 学习 Planning | 待实施：任务拆解及计划与执行边界 |
 | Day 77 | 发布 Agent Center v0.5 | 待实施：按实际验收范围整理候选、定版与发布 |
 
-Day 72 两个客户端分别是官方 Python SDK 和标准库 JSON-RPC 探针，尚未验证桌面宿主、多语言 SDK 或模型实际调用。后续每日成果需要单独验收，不能因为工具能被发现就宣称整个 Agent 已接入。
+Day 72 两个客户端分别是官方 Python SDK 和标准库 JSON-RPC 探针；Day 73 补充了模型实际调用，但尚未验证桌面宿主、多语言 SDK 或远程认证。后续每日成果需要单独验收，不能因为工具能被发现就宣称整个 Agent 已接入。
 
 Day 55 视频、Workflow Center v1.0 Release、企业微信真实发送仍为独立待办，不随 Agent 学习进度自动完成。

@@ -1,0 +1,142 @@
+{
+  "day": 73,
+  "validation_date": "2026-09-24",
+  "base_commit": "1ef83aa0ec913de100a0a30347d451e98054bcf1",
+  "scope": "bounded_agent_function_calling_to_local_stdio_mcp_readonly_fictional_sql",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "mcp": "2.2.0",
+      "mcp-types": "2.2.0",
+      "pydantic": "2.13.4",
+      "anyio": "4.15.1",
+      "httpx": "0.28.1",
+      "python-dotenv": "1.2.2",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "protocol_version": "2026-07-28",
+  "tests": {
+    "tests": 319,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "tests_by_day": {
+    "64": 141,
+    "65": 67,
+    "72": 32,
+    "73": 79
+  },
+  "test_provenance": "Initial Day 73 suite: 79 passed. Final combined regression: 319 passed. Initial lint found unused import and loop closure bindings; corrected before pytest. No failed or skipped tests in either run.",
+  "fixture_model_real_mcp": {
+    "scenarios": 4,
+    "real_child_process": true,
+    "model_requests": 0
+  },
+  "live_model_real_mcp": {
+    "provider": "qwen",
+    "model": "qwen3.7-plus",
+    "cases": [
+      "monthly",
+      "empty"
+    ],
+    "model_requests": 4,
+    "mcp_tool_calls": 2,
+    "attempts_per_case": 1,
+    "passed": true,
+    "automatic_retry": false
+  },
+  "database": {
+    "fictional": true,
+    "seed_rows": 7,
+    "binary_hash_unchanged": true
+  },
+  "runtime_budgets": {
+    "model_turns": 2,
+    "mcp_tool_attempts": 1,
+    "mcp_wait_seconds": 5,
+    "overall_hard_deadline": false,
+    "automatic_retry": false
+  },
+  "report_verification": "strict structured fields equal validated MCP receipt; deterministic prose rendering",
+  "package_install_used_network": true,
+  "api_environment_modified": false,
+  "historical_assets_modified": false,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "4 files already formatted",
+  "pip_check": "No broken requirements found.",
+  "v02_and_v01_integrity": {
+    "status": "passed",
+    "version": "0.2.0",
+    "release_status": "released",
+    "frozen_artifacts": 86,
+    "historical_hashes_checked": {
+      "source_hashes": 69,
+      "evidence_hashes": 22
+    },
+    "unique_historical_tests": 648,
+    "v01_integrity": {
+      "status": "passed",
+      "product": "Agent Center",
+      "version": "0.1.0",
+      "release_status": "released",
+      "frozen_artifacts": 70,
+      "historical_source_hashes_checked": 41,
+      "unique_historical_tests": 202,
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "full_v02_regression_rerun": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "not_verified": [
+    "arbitrary_natural_language_goals",
+    "arbitrary_mcp_servers",
+    "desktop_host_integration",
+    "remote_http_authentication",
+    "multi_user_permissions",
+    "long_term_memory",
+    "checkpoint_resume",
+    "production_load_limits",
+    "real_business_data_truth"
+  ],
+  "official_sources": [
+    "https://py.sdk.modelcontextprotocol.io/client/",
+    "https://py.sdk.modelcontextprotocol.io/client/transports/"
+  ],
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "README.md": "add17d38e1bac96e2f56b88458e3c1a76c46d661d1dd5739090214497d79c074",
+    "docs/README.md": "15aa8c33d6c1b218dd9fec98003f130cb4566ea9d5f6b0d92f3cfb9d3a9ea21d",
+    "docs/day73-agent-mcp.md": "9c7cb73dc16f7f96ac573d6302656f90b3619794a1b35a7028560ef468756121",
+    "docs/week-11-plan.md": "8012850b303c7eaf64f82a141cc5a5564f82085aee8dda32666eb8ca40201002",
+    "experiments/day73/README.md": "80f9a6585443a0fb7d6b9933b438840026d2e2e449e53e0ec0886fcd87be97a7",
+    "experiments/day73/mcp_agent.py": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb",
+    "experiments/day73/mcp_sales.py": "58337034445ddc981853c98bea0f382a6b26cee0a64b391d01079184f428fad2",
+    "experiments/day73/requirements-lock.txt": "549a95f118f90655fcc79452bbc34e83d7637cef7bfc85e99bb585d08b1fa02d",
+    "experiments/day73/requirements.txt": "005e840f36262ba016c41f13d1f02a70fca8162391c56d9d9b4805e3efe0fa19",
+    "experiments/day73/test_mcp_agent.py": "6d615c2d250b239dabce9dfb552d0ab22e7461894f161c63d8067bc9d5b754ad",
+    "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+    "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+    "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233",
+    "experiments/day65/sales_sql.py": "48df6b766fc55c6807b04eaea9d28a13e16102abff1da6a17a66c4950cd744c9",
+    "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+    "experiments/day72/sales_mcp_server.py": "12c9e2d16ccf201f0b29b3b348a6805f7ebff8823e963688fe3a2d76fc5fe1e0",
+    "experiments/day72/smoke_client.py": "85615cc415ab744a5ce7b8a176edbb632d3211d11987b560deab33ec762dadf1",
+    "backend/app/settings.py": "6f4947f5e2b3e2c96c7431b4e84245a87d2fb328ce61d4e039b8d8b3484ecfe8"
+  },
+  "evidence_hashes": {
+    "fixture-mcp.json": "eb6c9404fad456947e31102bc646004f667512f68ddcbc12c2c4aca11ff78a84",
+    "live-empty.json": "961b3513dcc671c8a3a2e20b8efea61be1eef04cb7f87a3610a5a9ce5f96f06e",
+    "live-monthly.json": "337b4ed64afd6d0dc4ef9acad8ef4a92324b817c332b2205ff9187718789ed0f",
+    "pytest.xml": "fd6b4132ccd5049a25a28ad1d8a6ed97f6dd734f3b63e70076824f4bef9a70a9"
+  }
+}
