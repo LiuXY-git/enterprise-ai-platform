@@ -1,0 +1,124 @@
+{
+  "day": 72,
+  "validation_date": "2026-09-24",
+  "base_commit": "2e4e3e6337dd2c91840070971b2ed21335acc70d",
+  "scope": "local_stdio_mcp_server_for_existing_fictional_readonly_sales_query",
+  "environment": {
+    "python": "3.14.2",
+    "versions": {
+      "mcp": "2.2.0",
+      "mcp-types": "2.2.0",
+      "pydantic": "2.13.4",
+      "anyio": "4.15.1",
+      "pytest": "9.1.1",
+      "ruff": "0.16.3"
+    }
+  },
+  "protocol_version": "2026-07-28",
+  "tests": {
+    "tests": 99,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_day72_tests": 32,
+  "existing_sql_regression_tests": 67,
+  "test_provenance": "Actual pytest JUnit. Initial run could not create an absent basetemp parent; rerun exposed one assertion outside an async context, which wrapped MCPError in ExceptionGroup. Moved assertion inside the client context; final combined suite passed.",
+  "sdk_client": {
+    "transport": "stdio",
+    "real_child_process": true,
+    "scenarios": 10,
+    "new_model_requests": 0
+  },
+  "independent_client": {
+    "implementation": "Python stdlib JSON-RPC probe, no MCP client SDK",
+    "real_child_process": true,
+    "exchanges": 6,
+    "normal_server_exit_code": 0
+  },
+  "database": {
+    "fictional": true,
+    "seed_rows": 7,
+    "september_paid_orders": 4,
+    "september_total_yuan": "3000.00",
+    "binary_hash_unchanged": true
+  },
+  "strict_validation_before_database": true,
+  "read_only_enforced_by_original_sql_implementation": true,
+  "unknown_tool_protocol_error": -32602,
+  "invalid_arguments_tool_error": true,
+  "new_model_requests": 0,
+  "external_service_requests": 0,
+  "package_install_used_network": true,
+  "api_environment_modified": false,
+  "historical_assets_modified": false,
+  "ruff_check": "All checks passed!",
+  "ruff_format_check": "5 files already formatted",
+  "pip_check": "No broken requirements found.",
+  "v02_and_v01_integrity": {
+    "status": "passed",
+    "version": "0.2.0",
+    "release_status": "released",
+    "frozen_artifacts": 86,
+    "historical_hashes_checked": {
+      "source_hashes": 69,
+      "evidence_hashes": 22
+    },
+    "unique_historical_tests": 648,
+    "v01_integrity": {
+      "status": "passed",
+      "product": "Agent Center",
+      "version": "0.1.0",
+      "release_status": "released",
+      "frozen_artifacts": 70,
+      "historical_source_hashes_checked": 41,
+      "unique_historical_tests": 202,
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "full_v02_regression_rerun": false,
+  "full_platform_api_tests_rerun": false,
+  "docker_tested": false,
+  "not_verified": [
+    "model_or_agent_integration",
+    "desktop_host_integration",
+    "legacy_protocol_compatibility",
+    "remote_http_authentication",
+    "multi_user_permissions",
+    "production_load_limits"
+  ],
+  "official_sources": [
+    "https://py.sdk.modelcontextprotocol.io/",
+    "https://py.sdk.modelcontextprotocol.io/advanced/low-level-server/",
+    "https://py.sdk.modelcontextprotocol.io/client/"
+  ],
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "source_hashes": {
+    "README.md": "c824479b451df3b87e66b806852b0dfef03a0f2a7e570aa15216b2a59ff43fc4",
+    "docs/README.md": "15ff1daba055eb98b0ac4fc5b8d0afa9c9bede8da40f1242287e315f7da9c8d3",
+    "docs/day71-mcp-basics.md": "5a3b188a65935c1f24f013cd4d3924e95898c6f6a168c4a2d47488c453182d27",
+    "docs/day72-mcp-server.md": "58e25452be4203131047576b14ebc0d6fa3db9c8a5b2c0eed220dd76c0b5e373",
+    "docs/week-11-plan.md": "1151d0804d974063a8243b262e5a0af2b8feb8d56867448ea5c4ac5e5f5863d3",
+    "experiments/day72/README.md": "c467de32ea5d88b5709ff59ce2631bf3b662c4f0e8825351b6e45a63fc64871e",
+    "experiments/day72/requirements-lock.txt": "893612eef97bfa35affc8fc4b32a7ef931d9c6a0df8f468507bcb7348db34b87",
+    "experiments/day72/requirements.txt": "eebc60b77028583f3e8919783f28f922951e344ba5b85d4e57699ab6b56a4a19",
+    "experiments/day72/sales_mcp_server.py": "12c9e2d16ccf201f0b29b3b348a6805f7ebff8823e963688fe3a2d76fc5fe1e0",
+    "experiments/day72/smoke_client.py": "85615cc415ab744a5ce7b8a176edbb632d3211d11987b560deab33ec762dadf1",
+    "experiments/day72/test_sales_mcp.py": "f644592a79a4d8875219689ca94707298f66f15389d97f24f9a86e15efd0a355",
+    "experiments/day72/wire_client.py": "6909fb13060178e14b02bd4b5211e886b436b58e45ccbf19b400884a8b331284",
+    "experiments/day65/sales_sql.py": "48df6b766fc55c6807b04eaea9d28a13e16102abff1da6a17a66c4950cd744c9",
+    "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+    "experiments/day65/test_sales_sql.py": "ead8ea5bc4ee866b1e1362f56ff71f793ce5cde0aed1e2377116754f6ab637b0"
+  },
+  "evidence_hashes": {
+    "pytest.xml": "4c6eb9a95fcc800b9adf97b1821f62dba7c0656b0a98e2d0aecdb08f7b436fe3",
+    "sdk-client.json": "dab38f1ee39c8b92631fb67947375afac685feebea4467037639a9951be9edf7",
+    "wire-client.json": "3e314a73a4cdda10aff4f2c56c6a47046cd6115a72090776c7f34679be242b24"
+  }
+}
