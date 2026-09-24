@@ -1,0 +1,279 @@
+{
+  "product": "Agent Center",
+  "version": "0.5.0",
+  "component_tag": "agent-center-v0.5.0",
+  "platform_api_version": "1.0.0",
+  "release_status": "candidate",
+  "release_date": null,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "capabilities": {
+    "mcp_server": "local_stdio_fictional_readonly_sales",
+    "agent_mcp": "four_fixed_cases_two_live_qwen_cases_historically_verified",
+    "conversation_memory": "separate_cli_sqlite_thread_scoped_fixed_department_intents",
+    "memory_restore": "separate_process_verified_with_update_clear_and_request_replay",
+    "planning": "existing_day59_plan_only_and_day76_human_authored_examples",
+    "memory_mcp_planning_integration": "not_implemented",
+    "cross_thread_long_term_memory": "not_implemented",
+    "arbitrary_task_execution": "not_implemented",
+    "production_authentication": "not_implemented",
+    "agent_http_api": "not_implemented",
+    "release_kind": "independent_learning_experiment_collection"
+  },
+  "unique_regression_test_counts": {
+    "day59": 49,
+    "day64": 141,
+    "day65_sql": 67,
+    "day72": 32,
+    "day73": 79,
+    "day75": 50
+  },
+  "evidence": {
+    "day72": "docs/evidence/day72/validation.json",
+    "day73": "docs/evidence/day73/validation.json",
+    "day74": "docs/evidence/day74/validation.json",
+    "day75": "docs/evidence/day75/validation.json",
+    "day76": "docs/evidence/day76/validation.json"
+  },
+  "mutable_history_paths": [
+    ".gitignore",
+    "README.md",
+    "docs/README.md",
+    "docs/week-11-plan.md"
+  ],
+  "historical_document_exceptions": {
+    "day74": [
+      "docs/day75-conversation-memory-plan.md"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "agent-center/release-v0.2.0.json",
+      "sha256": "49b49a47f928ef31e5ab872ef247a2ac5a75f9d963690d326bacc4af6be4e9d5"
+    },
+    {
+      "path": "agent-center/v0.5/README.md",
+      "sha256": "0f4ff97977ed88c895af5188ba90676db9f2de0c1c948cce172db53949c3b9d4"
+    },
+    {
+      "path": "agent-center/v0.5/release-notes.md",
+      "sha256": "91320f2dd005901aa82a8f78114d6e33ea895382a7f2f4c816e96d0d6b709b5b"
+    },
+    {
+      "path": "agent-center/v0.5/requirements-runtime.txt",
+      "sha256": "e0ea53cfe260bdd3bde5b18c496d5c0c92604b93919425b56fcc378edf308d0f"
+    },
+    {
+      "path": "docs/agent-center-v0.5.md",
+      "sha256": "60f293eac3f8c90bf416bd443115ee237ef763bfeac4feba0550e544056b64bf"
+    },
+    {
+      "path": "docs/day71-mcp-basics.md",
+      "sha256": "5a3b188a65935c1f24f013cd4d3924e95898c6f6a168c4a2d47488c453182d27"
+    },
+    {
+      "path": "docs/day72-mcp-server.md",
+      "sha256": "58e25452be4203131047576b14ebc0d6fa3db9c8a5b2c0eed220dd76c0b5e373"
+    },
+    {
+      "path": "docs/day73-agent-mcp.md",
+      "sha256": "9c7cb73dc16f7f96ac573d6302656f90b3619794a1b35a7028560ef468756121"
+    },
+    {
+      "path": "docs/day74-agent-memory.md",
+      "sha256": "a116b61cce460e49fbe7db4d7d0bdde3cb147728ebb77d989333ae4f006ca7fe"
+    },
+    {
+      "path": "docs/day75-conversation-memory-plan.md",
+      "sha256": "e9d9a7342f7046a37119296779483f51cff93ae75099bf3e0660a20d64957daa"
+    },
+    {
+      "path": "docs/day75-conversation-memory.md",
+      "sha256": "5bf36a00f3ab7c610787b1c6f9facc4aed9aafd587b9a1f2154db98958e51315"
+    },
+    {
+      "path": "docs/day76-planning.md",
+      "sha256": "a7df9d043d4afb4d31acaeb2b8d7a7fff8b2a567d9ff7d9550c6b9cc5a9fd29d"
+    },
+    {
+      "path": "docs/day77-agent-v05-release.md",
+      "sha256": "63dcecbb41b00e42590d91160b059ed645ebc66726a746d20ef8abebdab9695b"
+    },
+    {
+      "path": "docs/evidence/day72/pytest.xml",
+      "sha256": "4c6eb9a95fcc800b9adf97b1821f62dba7c0656b0a98e2d0aecdb08f7b436fe3"
+    },
+    {
+      "path": "docs/evidence/day72/sdk-client.json",
+      "sha256": "dab38f1ee39c8b92631fb67947375afac685feebea4467037639a9951be9edf7"
+    },
+    {
+      "path": "docs/evidence/day72/validation.json",
+      "sha256": "93aa4689c09ebe5d6b2790a4d5e1568e66c81506eb0ce223c457d454e7929afb"
+    },
+    {
+      "path": "docs/evidence/day72/wire-client.json",
+      "sha256": "3e314a73a4cdda10aff4f2c56c6a47046cd6115a72090776c7f34679be242b24"
+    },
+    {
+      "path": "docs/evidence/day73/fixture-mcp.json",
+      "sha256": "eb6c9404fad456947e31102bc646004f667512f68ddcbc12c2c4aca11ff78a84"
+    },
+    {
+      "path": "docs/evidence/day73/live-empty.json",
+      "sha256": "961b3513dcc671c8a3a2e20b8efea61be1eef04cb7f87a3610a5a9ce5f96f06e"
+    },
+    {
+      "path": "docs/evidence/day73/live-monthly.json",
+      "sha256": "337b4ed64afd6d0dc4ef9acad8ef4a92324b817c332b2205ff9187718789ed0f"
+    },
+    {
+      "path": "docs/evidence/day73/pytest.xml",
+      "sha256": "fd6b4132ccd5049a25a28ad1d8a6ed97f6dd734f3b63e70076824f4bef9a70a9"
+    },
+    {
+      "path": "docs/evidence/day73/validation.json",
+      "sha256": "cd952ce10bed1aafa435788023848f405ede5489c0c46b17cf7630abc9348620"
+    },
+    {
+      "path": "docs/evidence/day74/validation.json",
+      "sha256": "8dc9b611c6c7aa284a79a0d799de80ed4837fea3115783eb31c591d71b97216c"
+    },
+    {
+      "path": "docs/evidence/day75/live-session.json",
+      "sha256": "bb8ec35a645576e2f6a0ee424004c3ba866523b93d87741e3d2e868f089f9dc6"
+    },
+    {
+      "path": "docs/evidence/day75/offline-session.json",
+      "sha256": "9b27450e63d6743b5bf6d833ee77e6d84b7578248c2a2b2cab09b5b318e86a1d"
+    },
+    {
+      "path": "docs/evidence/day75/pytest.xml",
+      "sha256": "3ab992bb26f1c57826433ea8cfebce929757763bb5c980c64f889b541fbdee0f"
+    },
+    {
+      "path": "docs/evidence/day75/validation.json",
+      "sha256": "2d7a4a573db6ce3cdf3f4df189c93efaf310831146f999740abe15d0ce10a9ed"
+    },
+    {
+      "path": "docs/evidence/day76/offline-review.json",
+      "sha256": "bf83a092d0f217770122999797167ab89cf3fa9f6c5118118a9cbcfb0bf2195a"
+    },
+    {
+      "path": "docs/evidence/day76/validation.json",
+      "sha256": "15869c72ddd2db5cad32740146210600ead7888b8cd3ea7655ee2a804b4b7f38"
+    },
+    {
+      "path": "docs/week-11-summary.md",
+      "sha256": "3f5be332016a980d8f02f1a94f56af9e2364b2f5fb03026a7112e1efd7aa5af9"
+    },
+    {
+      "path": "experiments/day72/README.md",
+      "sha256": "c467de32ea5d88b5709ff59ce2631bf3b662c4f0e8825351b6e45a63fc64871e"
+    },
+    {
+      "path": "experiments/day72/requirements-lock.txt",
+      "sha256": "893612eef97bfa35affc8fc4b32a7ef931d9c6a0df8f468507bcb7348db34b87"
+    },
+    {
+      "path": "experiments/day72/requirements.txt",
+      "sha256": "eebc60b77028583f3e8919783f28f922951e344ba5b85d4e57699ab6b56a4a19"
+    },
+    {
+      "path": "experiments/day72/sales_mcp_server.py",
+      "sha256": "12c9e2d16ccf201f0b29b3b348a6805f7ebff8823e963688fe3a2d76fc5fe1e0"
+    },
+    {
+      "path": "experiments/day72/smoke_client.py",
+      "sha256": "85615cc415ab744a5ce7b8a176edbb632d3211d11987b560deab33ec762dadf1"
+    },
+    {
+      "path": "experiments/day72/test_sales_mcp.py",
+      "sha256": "f644592a79a4d8875219689ca94707298f66f15389d97f24f9a86e15efd0a355"
+    },
+    {
+      "path": "experiments/day72/wire_client.py",
+      "sha256": "6909fb13060178e14b02bd4b5211e886b436b58e45ccbf19b400884a8b331284"
+    },
+    {
+      "path": "experiments/day73/README.md",
+      "sha256": "80f9a6585443a0fb7d6b9933b438840026d2e2e449e53e0ec0886fcd87be97a7"
+    },
+    {
+      "path": "experiments/day73/mcp_agent.py",
+      "sha256": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb"
+    },
+    {
+      "path": "experiments/day73/mcp_sales.py",
+      "sha256": "58337034445ddc981853c98bea0f382a6b26cee0a64b391d01079184f428fad2"
+    },
+    {
+      "path": "experiments/day73/requirements-lock.txt",
+      "sha256": "549a95f118f90655fcc79452bbc34e83d7637cef7bfc85e99bb585d08b1fa02d"
+    },
+    {
+      "path": "experiments/day73/requirements.txt",
+      "sha256": "005e840f36262ba016c41f13d1f02a70fca8162391c56d9d9b4805e3efe0fa19"
+    },
+    {
+      "path": "experiments/day73/test_mcp_agent.py",
+      "sha256": "6d615c2d250b239dabce9dfb552d0ab22e7461894f161c63d8067bc9d5b754ad"
+    },
+    {
+      "path": "experiments/day75/README.md",
+      "sha256": "2bd40b25e1f8e53b9d3ceb8cc8016945fd5672ae05378a835061503eaf2d53ca"
+    },
+    {
+      "path": "experiments/day75/conversation.py",
+      "sha256": "5a1df5ec9928c6529f990e4a3c12008a6e2808b81c4ff6d87e01bf0d413d9f57"
+    },
+    {
+      "path": "experiments/day75/demo.py",
+      "sha256": "077a0fec4872cbb84cdefaa1b2d770904562374ea10d085a9d1c6e62e61fc9eb"
+    },
+    {
+      "path": "experiments/day75/memory_store.py",
+      "sha256": "18c18c724d0df4040cd978bd2c1c1cb2827cf6097e85e81a59efb7b7a9f446e0"
+    },
+    {
+      "path": "experiments/day75/requirements-lock.txt",
+      "sha256": "19240df25cc1b28eb04301f5820b073f74ddee16e7cc4dfb11c6c4b74a4a95f2"
+    },
+    {
+      "path": "experiments/day75/requirements.txt",
+      "sha256": "efb0f5f6ef8eb89958a6eec0527522fa3efa248937a832ed53ccabba12899eda"
+    },
+    {
+      "path": "experiments/day75/test_conversation.py",
+      "sha256": "f5605351d6714efe3ef991df7a52c4f74c81d16e5c9af405369db6d49a04b1e3"
+    },
+    {
+      "path": "experiments/day76/README.md",
+      "sha256": "76f27fb7a1aed3e0836d57765fca109e3317ab41034782f7adf5c420995dbad0"
+    },
+    {
+      "path": "experiments/day76/planning-examples.json",
+      "sha256": "a2009aea0f1477f236ddbec065b7d454cc1ec5bbf88ac5d0ff7b09b048695d36"
+    },
+    {
+      "path": "scripts/day70/release_gate.py",
+      "sha256": "881f6d95476c517d9893e5ad06f8352d150fe633acc4e314e3757c2cf2265c43"
+    },
+    {
+      "path": "scripts/day70/verify_v02.py",
+      "sha256": "fa86cb4b3b163bd297763794d5e8ac44332660bd71cc6d5522f1d761da85f8eb"
+    },
+    {
+      "path": "scripts/day77/release_gate.py",
+      "sha256": "c767b4e9505d8924c7643b61f311e84a6d7852c48f0fa660b7e6da083ab5cb2b"
+    },
+    {
+      "path": "scripts/day77/test_v05_release.py",
+      "sha256": "aa3c8fdfb322020ee76cda441c1f6a59ff979e218500a2feacd9fe9d936849db"
+    },
+    {
+      "path": "scripts/day77/verify_v05.py",
+      "sha256": "b05e73beef588ae7f7627daed2111caab70df37992faeb8acfc30e0f6282b6a7"
+    }
+  ]
+}

@@ -19,6 +19,8 @@
 
 - Week 11：[实施计划](week-11-plan.md)、[Day 71 MCP 概念](day71-mcp-basics.md)、[Day 72 MCP Server](day72-mcp-server.md)、[Day 72 操作](../experiments/day72/README.md)、[Day 73 Agent 接入 MCP](day73-agent-mcp.md)、[Day 73 可复刻操作](../experiments/day73/README.md)、[Day 74 Memory 学习](day74-agent-memory.md)、[Day 75 Conversation Memory](day75-conversation-memory.md)、[Day 75 操作说明](../experiments/day75/README.md)、[Day 76 Planning](day76-planning.md)、[Day 76 学习操作](../experiments/day76/README.md)。Agent Center v0.2.0 已由维护者截图确认发布，Week 10 候选文档保留历史状态。
 
+- Week 11 版本入口：[Agent Center v0.5.0 候选](../agent-center/v0.5/README.md)、[Day 77 验收与发布](day77-agent-v05-release.md)、[Week 11 总结](week-11-summary.md)。
+
 ## 项目设计
 
 - [系统架构](architecture.md)

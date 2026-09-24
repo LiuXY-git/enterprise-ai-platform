@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "started_at": "2026-09-24T08:50:28.606784+00:00",
+  "suites": [
+    {
+      "suite": "planner",
+      "environment": "planner",
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "runtime",
+      "environment": "runtime",
+      "tests": 369,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "release",
+      "environment": "runtime",
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "new_model_requests": 0,
+  "remote_tag_or_release_checked": false,
+  "integrity": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "candidate",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "integrity_after": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "candidate",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "total_tests": 456,
+  "manifest_sha256": "6744c8ce97fbce4ee0cb9ec3ed4365ad73453aa167534623b411760925a78a60",
+  "completed_at": "2026-09-24T08:51:09.418689+00:00",
+  "interpreters": {
+    "runtime": "C:\\Users\\Administrator\\Desktop\\enterprise-ai-platform\\experiments\\day73\\.venv\\Scripts\\python.exe",
+    "planner": "C:\\Users\\Administrator\\Desktop\\enterprise-ai-platform\\experiments\\day59\\.venv\\Scripts\\python.exe"
+  },
+  "output_hashes": {
+    "planner.txt": "78d7054fc7f00da17c404104b8754033b3fa91dcca2ebe51b209d1c0e7da10fc",
+    "planner.xml": "ca5c0845a79e4cdc52c9d8579605d9b5b9cfc3c96fe0f5a89a76e889aaf2f69c",
+    "release.txt": "0d33a49d602b1e9f0b40238ecd5c4aed8f49c4e331f1998ac8f7795b910b4882",
+    "release.xml": "27f09b736c47da7f1bcb2102b04eff079a0964e85907af10a142839942d1bb2f",
+    "runtime.txt": "d1eddbc63be0a3816dea40a2753e46187ac4a6e41ed2788eb205e3075c16ead4",
+    "runtime.xml": "8fd0b8da587fb04589c582d73cdbcd7f0294cfc019228789a67826e4f3a5db3e"
+  }
+}

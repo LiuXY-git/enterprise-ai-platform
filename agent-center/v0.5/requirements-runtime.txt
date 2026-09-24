@@ -1,0 +1,2 @@
+# Install in a separate MCP/runtime environment, not the planner or API environment.
+-r ../../experiments/day73/requirements-lock.txt
