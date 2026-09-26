@@ -25,6 +25,8 @@
 
 - Day 79：[错误恢复](day79-error-recovery.md)、[重试与模板降级操作流程](../experiments/day79/README.md)。
 
+- Day 80：[Human in the Loop 人工确认](day80-human-in-the-loop.md)、[审批与模拟执行流程](../experiments/day80/README.md)。
+
 ## 项目设计
 
 - [系统架构](architecture.md)
