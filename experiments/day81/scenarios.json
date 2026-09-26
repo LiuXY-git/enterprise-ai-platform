@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "data_kind": "fictional_fixed_sales",
+  "scenarios": [
+    {
+      "id": "monthly_approve",
+      "goal": "月度销售总额核对后批准",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "approve",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "customer_approve",
+      "goal": "只分析 C001 并确认客户范围",
+      "case": "customer",
+      "fault": "normal",
+      "action": "approve",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "1550.00",
+        "order_count": 2,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "empty_approve",
+      "goal": "无订单时输出无数据并批准",
+      "case": "empty",
+      "fault": "normal",
+      "action": "approve",
+      "expected": {
+        "status": "no_data",
+        "total_yuan": "0.00",
+        "order_count": 0,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "clarification_stop",
+      "goal": "未指定年月时先澄清",
+      "case": "clarification",
+      "fault": "normal",
+      "action": "none",
+      "expected": {
+        "status": "needs_clarification",
+        "total_yuan": null,
+        "order_count": null,
+        "dispatches": 0,
+        "degraded": false
+      }
+    },
+    {
+      "id": "retry_approve",
+      "goal": "工具丢失首次回执后重试并批准",
+      "case": "monthly",
+      "fault": "tool_timeout_once",
+      "action": "approve",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 2,
+        "degraded": false
+      }
+    },
+    {
+      "id": "tool_exhausted",
+      "goal": "两次工具回执均丢失时停止",
+      "case": "monthly",
+      "fault": "tool_timeout_always",
+      "action": "none",
+      "expected": {
+        "status": "failed",
+        "total_yuan": null,
+        "order_count": null,
+        "dispatches": 2,
+        "degraded": false
+      }
+    },
+    {
+      "id": "fallback_approve",
+      "goal": "模型回答超时后审核回执模板",
+      "case": "monthly",
+      "fault": "report_timeout",
+      "action": "approve",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": true
+      }
+    },
+    {
+      "id": "invalid_arguments",
+      "goal": "越界年份不执行工具",
+      "case": "monthly",
+      "fault": "invalid_arguments",
+      "action": "none",
+      "expected": {
+        "status": "rejected",
+        "total_yuan": null,
+        "order_count": null,
+        "dispatches": 0,
+        "degraded": false
+      }
+    },
+    {
+      "id": "invalid_report",
+      "goal": "模型金额错误不创建审批",
+      "case": "monthly",
+      "fault": "invalid_report",
+      "action": "none",
+      "expected": {
+        "status": "rejected",
+        "total_yuan": null,
+        "order_count": null,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "human_reject",
+      "goal": "拒绝简报后再次批准仍被阻止",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "reject",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "revision_approve",
+      "goal": "变更接收对象后重新审批",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "revise",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "expired_approval",
+      "goal": "审批到期后不执行",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "expire",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "duplicate_approval",
+      "goal": "重复批准只产生一条模拟记录",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "duplicate",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "cross_task_approval",
+      "goal": "全客户与 C001 两个任务不可混用审批",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "cross_task",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    },
+    {
+      "id": "parallel_approval",
+      "goal": "三个进程并发批准只执行一次",
+      "case": "monthly",
+      "fault": "normal",
+      "action": "parallel",
+      "expected": {
+        "status": "completed",
+        "total_yuan": "3000.00",
+        "order_count": 4,
+        "dispatches": 1,
+        "degraded": false
+      }
+    }
+  ]
+}
