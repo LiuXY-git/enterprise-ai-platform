@@ -49,3 +49,6 @@ data/day75/
 
 # Agent task event logs
 data/day78/
+
+# Agent recovery experiment logs
+data/day79/

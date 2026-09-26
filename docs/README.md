@@ -23,6 +23,8 @@
 
 - Week 12：[计划](week-12-plan.md)、[Day 78 任务日志](day78-task-logging.md)、[可复刻操作流程](../experiments/day78/README.md)。
 
+- Day 79：[错误恢复](day79-error-recovery.md)、[重试与模板降级操作流程](../experiments/day79/README.md)。
+
 ## 项目设计
 
 - [系统架构](architecture.md)
