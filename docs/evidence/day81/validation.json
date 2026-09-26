@@ -1,0 +1,98 @@
+{
+  "day": 81,
+  "date": "2026-09-26",
+  "status": "passed",
+  "base_commit": "84633a8480d2986dc9d997a6f2a15e2216d2d926",
+  "scope": "fixed_fictional_sales_end_to_end_acceptance_for_days78_to80",
+  "test_suites": {
+    "acceptance-tests.xml": {
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "regression.xml": {
+      "tests": 479,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "unique_tests": 518,
+  "new_tests": 39,
+  "existing_regression_tests": 479,
+  "business_scenarios": 15,
+  "scenario_report": "acceptance/report.json",
+  "scenario_evidence_source": "single full CLI run within the final Day81 pytest suite, not additional tests",
+  "real_mcp_dispatches_in_scenario_run": 16,
+  "model_requests": 0,
+  "real_messages_sent": 0,
+  "human_decisions": "automated_test_driver_local_simulation_only",
+  "release_gate": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "released",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "source_sha256_lf": {
+    "experiments/day81/README.md": "c06434b9a8189464469eb8cdb612bf24986d0919c4f434b47f41f41b494be7fe",
+    "experiments/day81/sales_acceptance.py": "63c1ad2a65a7c8497c3b139b44fd9e3bac5a0bf31b6bfd8d00e2614ab4b51567",
+    "experiments/day81/scenarios.json": "1cd4222783ac85efa861dda4903eb21a2d6a777f3efde09275c7e5affbea9140",
+    "experiments/day81/test_sales_acceptance.py": "862a1d18705ce2380b62055795d2bd947cb5a1aeb2007b407a9a1973b5b9780f"
+  },
+  "checks": [
+    "independent fixed business totals and query scopes",
+    "answers receipts citations and proposals agree",
+    "no persisted effect before approval",
+    "CLI and persisted approval outcomes agree",
+    "each simulated effect matches one prior approval of its contents",
+    "expected rejection is a passed test not business completion",
+    "cross-task approval isolation",
+    "multiple-process command execution and concurrent approval",
+    "negative controls reject wrong totals scopes citations and audit records",
+    "existing outputs never overwritten",
+    "ruff check and format",
+    "no change to days78-80 or frozen version code"
+  ],
+  "limitations": [
+    "no live Qwen requests or model accuracy evaluation",
+    "fixed monthly/customer sales queries, no arbitrary planning or trend analysis",
+    "human decisions are simulated in isolated directories",
+    "not a full API/Docker or all historical release test run"
+  ]
+}
