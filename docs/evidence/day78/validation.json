@@ -1,0 +1,87 @@
+{
+  "day": 78,
+  "date": "2026-09-26",
+  "status": "passed",
+  "base_commit": "583ecd073e1e45aa6f29a7ef822f02cbbb094153",
+  "scope": "independent_cli_task_logging_for_day73_mcp_agent",
+  "tests": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 39,
+  "existing_regression_tests": 319,
+  "test_command": "python -B -m pytest experiments/day64 experiments/day65/test_sales_sql.py experiments/day72/test_sales_mcp.py experiments/day73 experiments/day78 -q",
+  "junit": "regression.xml",
+  "offline_demo": "offline-demo.json",
+  "model_requests": 0,
+  "cases": 4,
+  "real_mcp_calls": 3,
+  "separate_process_replays": 4,
+  "release_gate": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "released",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "source_sha256_lf": {
+    "experiments/day78/README.md": "fa94659ef94dc32997fafee9adf05de1f734ddf7016ad9434c3650c278e87d18",
+    "experiments/day78/logged_agent.py": "a41412280947b38f1be3c3a9a555c73291a5429e1672e5300e478b2dc37cd3b2",
+    "experiments/day78/task_log.py": "18fbe709fc549e4d717a44f8ece10c0cd1af9d843d4204e9b2a961e8a5c963f6",
+    "experiments/day78/test_task_log.py": "35f92e4aea4b37b6900f546b5b1037bd35288102815a4ad7483cd1cf827b8ff2"
+  },
+  "checks": [
+    "ruff check and format",
+    "atomic final state/event commit",
+    "log failure stops following operations",
+    "failure after tool execution cannot report success",
+    "unknown timeout outcome retained",
+    "no raw model content or raw exception text in logs",
+    "readonly replay does not invoke model or MCP",
+    "concurrent task isolation",
+    "incomplete task retains running_or_interrupted"
+  ],
+  "limitations": [
+    "no live model request made for Day 78",
+    "not task execution recovery or automatic retry",
+    "not a tamper-proof or multi-user audit service",
+    "not full API/Docker or v0.5 suite rerun"
+  ],
+  "validation_environment_note": "Initial pytest default temp directory access failed; all tests reran in an explicit workspace test directory."
+}

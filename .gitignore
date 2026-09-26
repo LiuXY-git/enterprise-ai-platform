@@ -46,3 +46,6 @@ data/day60/
 
 # Conversation memory and SQLite journals
 data/day75/
+
+# Agent task event logs
+data/day78/
