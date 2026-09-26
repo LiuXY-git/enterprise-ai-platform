@@ -14,7 +14,9 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 76](docs/day76-planning.md)提供 Planning 学习材料，以季度销售分析说明任务拆解、依赖与完成标准；复用 Day 59 做离线观察，尚未把 Memory、MCP 与季度计划自动集成。[操作入口](experiments/day76/README.md)。
 
-[Day 77](docs/day77-agent-v05-release.md)已整理 [Agent Center v0.5.0 候选](agent-center/v0.5/README.md)：汇总 MCP、独立会话记忆与 Planning 学习成果，离线验收要求 456 项全部通过；正式定版、标签和 Release 待完成。
+[Day 77](docs/day77-agent-v05-release.md)汇总 MCP、独立会话记忆与 Planning 学习成果；Agent Center v0.5.0 于 2026-09-24 正式定版，456 项离线验收全部通过。维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.5.0) 页面和验收附件截图确认发布，旧版候选文档保留为历史记录。
+
+[Week 12](docs/week-12-plan.md)开始学习 Agent 企业化。[Day 78](docs/day78-task-logging.md)为现有 MCP 查询增加 SQLite 任务日志：请求、决策、调用、结果和最终回答逐条保存，可按任务编号跨进程查看；[操作入口](experiments/day78/README.md)。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 

@@ -12,7 +12,7 @@
 | Day 74 | 学习 Agent Memory | [学习材料已交付](day74-agent-memory.md)：上下文、长期记忆、检查点与代码阅读练习；理解自测待学习者完成 |
 | Day 75 | 增加 Conversation Memory | [已实现会话记忆](day75-conversation-memory.md)：SQLite 保存与恢复、更新及清除；191 项离线测试、2 次真实模型请求 |
 | Day 76 | 学习 Planning | [学习材料已交付](day76-planning.md)：季度分析拆解、依赖与执行边界；复用 Day 59 离线观察，理解自测待学习者完成 |
-| Day 77 | 发布 Agent Center v0.5 | [候选已整理](day77-agent-v05-release.md)：独立实验集合，456 项离线验收要求；正式定版、标签与 Release 待完成 |
+| Day 77 | 发布 Agent Center v0.5 | [准备记录](day77-agent-v05-release.md)：独立实验集合；2026-09-24 正式定版，456 项离线验收通过，维护者截图确认 v0.5.0 标签与 Release 已发布 |
 
 Day 72 两个客户端分别是官方 Python SDK 和标准库 JSON-RPC 探针；Day 73 补充了模型实际调用，但尚未验证桌面宿主、多语言 SDK 或远程认证。后续每日成果需要单独验收，不能因为工具能被发现就宣称整个 Agent 已接入。
 
