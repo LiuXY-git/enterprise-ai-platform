@@ -1,0 +1,122 @@
+{
+  "day": 85,
+  "date": "2026-09-28",
+  "status": "passed",
+  "base_commit": "87ceb012c8054fbd6d98b991e1f94445135bce06",
+  "scope": "evaluation_framework_design_and_nonexecuting_contract_preflight",
+  "test_suites": {
+    "contracts.xml": {
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "release-regression.xml": {
+      "tests": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "unique_tests": 103,
+  "new_tests": 59,
+  "release_protection_tests": 44,
+  "contract_examples": 2,
+  "agent_tasks_executed": 0,
+  "model_requests": 0,
+  "mcp_calls": 0,
+  "real_messages_sent": 0,
+  "report": "preview/report.json",
+  "report_is_completed_evaluation": false,
+  "full_721_release_suite_rerun": false,
+  "frozen_integrity": {
+    "status": "passed",
+    "version": "1.0.0",
+    "release_status": "released",
+    "frozen_artifacts": 114,
+    "historical_source_hashes_checked": 21,
+    "unique_regression_tests_required": 677,
+    "demo_video_status": "deferred",
+    "prompt_quality_improvement": "not_measured",
+    "v05_integrity": {
+      "status": "passed",
+      "version": "0.5.0",
+      "release_status": "released",
+      "frozen_artifacts": 57,
+      "historical_hashes_checked": {
+        "source_hashes": 48,
+        "evidence_hashes": 11,
+        "excluded_document_hashes": 17
+      },
+      "unique_regression_tests_required": 418,
+      "v02_and_v01_integrity": {
+        "status": "passed",
+        "version": "0.2.0",
+        "release_status": "released",
+        "frozen_artifacts": 86,
+        "historical_hashes_checked": {
+          "source_hashes": 69,
+          "evidence_hashes": 22
+        },
+        "unique_historical_tests": 648,
+        "v01_integrity": {
+          "status": "passed",
+          "product": "Agent Center",
+          "version": "0.1.0",
+          "release_status": "released",
+          "frozen_artifacts": 70,
+          "historical_source_hashes_checked": 41,
+          "unique_historical_tests": 202,
+          "tests_executed_by_this_check": 0,
+          "new_model_requests": 0,
+          "remote_tag_or_release_checked": false
+        },
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "source_sha256_lf": {
+    "experiments/day85/contracts.py": "7e4c4420feb473e293ca36c4c41f1111fd639980e1b887bdd7ac6b3509b4e60f",
+    "experiments/day85/framework.py": "0c633efab4e50345b705e41efb100730ed40c1d677724245be1a6937cc3f1d2e",
+    "experiments/day85/README.md": "39ed010e2fe8aa2e109acbb6c573d8125a1649c6da37087b7e514cd0815f79a4",
+    "experiments/day85/test_framework.py": "d5f95e5681ee6af00e8dc3a1e9ce8c7b38f75f7576ab8b26dc037c5a64ae40f8",
+    "experiments/day85/examples/agent.json": "26dc7acbc6499b3cfbe77155cbc7d7322e7daf088dcc2e88710fb32bf6136286",
+    "experiments/day85/examples/dataset.json": "65fb7a279353005cb7bfdde1611829d3368f917c114d4f014ff5884ae885b20a",
+    "evaluation-center/design.md": "68a796c2b5d8a549c20fb4c9214ac08e4db4eac6475238cce9b99612a227f2e6",
+    "evaluation-center/README.md": "816442e5b112a983391d87c5168130801c746e45ca935769d483f9c6eb1cbae1"
+  },
+  "evidence_hashes": {
+    "contracts.xml": "f2edf9a240d96e34b8699a150d4969ec9a0fb4bb571f6ea5d2fb7b16921e14c8",
+    "release-regression.xml": "e9cd94f1aa4447833d34b6cef0feb3b7d514e6912dd0bdf0108191727e03b582",
+    "preview/report.json": "846f1374410158308e62f0d8b575b36e1ad78ca1391d3d75d578203e86febe4b",
+    "schemas/agent.schema.json": "713139624902c7de7f7b8143115a86bcd69626c5f24156625697aea32bb7489e",
+    "schemas/dataset.schema.json": "17748cf8b4e7820342eac1088eed47e053685a283ee1435927fb39415ebb8f32",
+    "schemas/plan-report.schema.json": "7b7910e8ec1b95a11ae522c393ec5c1e15f79d082232c6c272561cc522e6ff8c"
+  },
+  "checks": [
+    "strict Agent Dataset and unrun report contracts",
+    "unique case ids and nonconflicting criteria",
+    "money counts booleans and nullable expected values checked",
+    "report snapshots and case coverage bound by canonical hashes",
+    "unmeasured metrics must remain null; no fabricated success",
+    "bounded JSON input and duplicate key rejection",
+    "local declared source hashes checked without executing agent",
+    "output preservation and no subprocess/network in preflight",
+    "exported JSON schema structural validation",
+    "ruff check and format"
+  ],
+  "limitations": [
+    "no runner adapter execution grader or metric collection",
+    "two contract examples only, not a complete dataset",
+    "declared source commit not resolved; remote release not rechecked",
+    "no live model quality measurement"
+  ]
+}

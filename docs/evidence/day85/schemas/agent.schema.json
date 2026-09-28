@@ -1,0 +1,48 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1-design",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "agent_id": {
+      "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "adapter_id": {
+      "const": "day82_prepare_fixture",
+      "title": "Adapter Id",
+      "type": "string"
+    },
+    "mode": {
+      "const": "fixture",
+      "title": "Mode",
+      "type": "string"
+    },
+    "declared_source_commit": {
+      "pattern": "^[a-f0-9]{40}$",
+      "title": "Declared Source Commit",
+      "type": "string"
+    },
+    "source_sha256_lf": {
+      "additionalProperties": {
+        "pattern": "^[a-f0-9]{64}$",
+        "type": "string"
+      },
+      "title": "Source Sha256 Lf",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "agent_id",
+    "adapter_id",
+    "mode",
+    "declared_source_commit",
+    "source_sha256_lf"
+  ],
+  "title": "AgentSpec",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1-design",
+  "agent_id": "sales_candidate",
+  "adapter_id": "day82_prepare_fixture",
+  "mode": "fixture",
+  "declared_source_commit": "87ceb012c8054fbd6d98b991e1f94445135bce06",
+  "source_sha256_lf": {
+    "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+    "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+    "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+    "agent-center/release-v1.0.0.json": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8"
+  }
+}
