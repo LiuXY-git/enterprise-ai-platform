@@ -24,6 +24,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 81](docs/day81-complex-business-tests.md)已完成销售业务全流程验收：15 个固定场景覆盖范围、失败恢复与审批控制；39 项新增测试和 479 项既有回归共 518 项通过。[复刻入口](experiments/day81/README.md)。
 
+[Day 82](docs/day82-prompt-optimization.md)已加入分阶段 Prompt 候选、双版本对照和恢复/审批集成：60 项新增与 518 项既有回归通过。离线回放不代表模型质量提升，真实对照入口见 [操作教程](experiments/day82/README.md)。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标

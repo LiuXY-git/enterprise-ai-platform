@@ -1,0 +1,165 @@
+{
+  "day": 82,
+  "date": "2026-09-28",
+  "status": "passed",
+  "base_commit": "123a9cbbc1fd8f8dee9a052c1f37b6aec185466b",
+  "scope": "candidate_prompt_paired_replay_and_fixed_sales_workflow_integration",
+  "test_suites": {
+    "prompt-tests.xml": {
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "regression.xml": {
+      "tests": 518,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "unique_tests": 578,
+  "new_tests": 60,
+  "existing_regression_tests": 518,
+  "paired_cases": 16,
+  "paired_runs": 32,
+  "paired_report": "comparison/report.json",
+  "paired_real_mcp_dispatches": 24,
+  "candidate_integration": [
+    {
+      "trace": "integration/case-1.json",
+      "scenario": "normal",
+      "status": "completed",
+      "approval": "pending",
+      "mcp_dispatches": 1
+    },
+    {
+      "trace": "integration/case-2.json",
+      "scenario": "normal",
+      "status": "completed",
+      "approval": "pending",
+      "mcp_dispatches": 1
+    },
+    {
+      "trace": "integration/case-3.json",
+      "scenario": "normal",
+      "status": "no_data",
+      "approval": "pending",
+      "mcp_dispatches": 1
+    },
+    {
+      "trace": "integration/case-4.json",
+      "scenario": "normal",
+      "status": "needs_clarification",
+      "approval": null,
+      "mcp_dispatches": 0
+    },
+    {
+      "trace": "integration/case-5.json",
+      "scenario": "tool_timeout_once",
+      "status": "completed",
+      "approval": "pending",
+      "mcp_dispatches": 2
+    },
+    {
+      "trace": "integration/case-6.json",
+      "scenario": "tool_timeout_always",
+      "status": "failed",
+      "approval": null,
+      "mcp_dispatches": 2
+    },
+    {
+      "trace": "integration/case-7.json",
+      "scenario": "report_timeout",
+      "status": "completed",
+      "approval": "pending",
+      "mcp_dispatches": 1
+    },
+    {
+      "trace": "integration/case-8.json",
+      "scenario": "invalid_report",
+      "status": "rejected",
+      "approval": null,
+      "mcp_dispatches": 1
+    },
+    {
+      "trace": "integration/case-9.json",
+      "scenario": "invalid_arguments",
+      "status": "rejected",
+      "approval": null,
+      "mcp_dispatches": 0
+    }
+  ],
+  "existing_day81_scenarios": 15,
+  "test_count_notice": "Paired runs and candidate integration are subsets of the 60 new tests; Day81 scenarios are inside 518 existing tests.",
+  "model_requests": 0,
+  "real_messages_sent": 0,
+  "prompt_quality_improvement": "not_measured",
+  "live_evaluation": "not_run; live orchestration unit test uses a double",
+  "release_gate": {
+    "status": "passed",
+    "version": "0.5.0",
+    "release_status": "released",
+    "frozen_artifacts": 57,
+    "historical_hashes_checked": {
+      "source_hashes": 48,
+      "evidence_hashes": 11,
+      "excluded_document_hashes": 17
+    },
+    "unique_regression_tests_required": 418,
+    "v02_and_v01_integrity": {
+      "status": "passed",
+      "version": "0.2.0",
+      "release_status": "released",
+      "frozen_artifacts": 86,
+      "historical_hashes_checked": {
+        "source_hashes": 69,
+        "evidence_hashes": 22
+      },
+      "unique_historical_tests": 648,
+      "v01_integrity": {
+        "status": "passed",
+        "product": "Agent Center",
+        "version": "0.1.0",
+        "release_status": "released",
+        "frozen_artifacts": 70,
+        "historical_source_hashes_checked": 41,
+        "unique_historical_tests": 202,
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "source_sha256_lf": {
+    "experiments/day82/README.md": "92108712dc07c7157466f00ca07f948f98bdb0244da6d07e29e77151a51e3799",
+    "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+    "experiments/day82/cases.json": "b42bb52088cce21363f3760e0567ed935f3ae53cf1f2315af776ec99eafc473d",
+    "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+    "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+    "experiments/day82/test_prompt_lab.py": "385c99557399f8df28af101c7bad65a86a938bfe8535f7fe259afabb6f69978a"
+  },
+  "checks": [
+    "prompt actually injected before chat call without mutating host input or output",
+    "independent fixed amounts scopes and citations",
+    "scripted invalid model output remains rejected",
+    "candidate recovery and pending approval integration",
+    "no automatic approval or simulated delivery",
+    "bounded optional live requests and immutable output directories",
+    "negative oracle controls",
+    "ruff check and format",
+    "no change to old implementations or frozen assets"
+  ],
+  "limitations": [
+    "scripted replay does not measure model quality",
+    "candidate not promoted to old default entry points",
+    "fixed fictional sales scopes and local CLI only",
+    "not a full API/Docker or all historical release test run"
+  ]
+}

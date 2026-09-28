@@ -58,3 +58,6 @@ data/day80/
 
 # Sales acceptance runtime reports and isolated databases
 data/day81/
+
+# Prompt comparison and candidate workflow outputs
+data/day82/
