@@ -1,0 +1,2 @@
+# Reuse the frozen MCP/runtime environment, separate from planner and API.
+-r ../v0.5/requirements-runtime.txt
