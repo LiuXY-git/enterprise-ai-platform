@@ -28,6 +28,7 @@
 - Day 80：[Human in the Loop 人工确认](day80-human-in-the-loop.md)、[审批与模拟执行流程](../experiments/day80/README.md)。
 
 - Day 81：[复杂销售业务任务验收](day81-complex-business-tests.md)、[场景清单与操作流程](../experiments/day81/README.md)。
+- Day 82：[Prompt 优化与验收](day82-prompt-optimization.md)、[双版本对照与新版体验](../experiments/day82/README.md)。
 
 ## 项目设计
 
