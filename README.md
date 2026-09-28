@@ -26,7 +26,9 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 82](docs/day82-prompt-optimization.md)已加入分阶段 Prompt 候选、双版本对照和恢复/审批集成：60 项新增与 518 项既有回归通过。离线回放不代表模型质量提升，真实对照入口见 [操作教程](experiments/day82/README.md)。
 
-[Day 83](docs/day83-agent-demo.md)演示材料已准备，视频按维护者要求待补录；[Day 84](docs/day84-agent-v1-release.md)整理 [Agent Center v1.0 候选](agent-center/v1.0/README.md)，要求 721 项离线验收，正式定版及标签/Release 另行执行。
+[Day 83](docs/day83-agent-demo.md)视频仍待补录。[Agent Center v1.0](agent-center/release-v1.0.0.json)于 2026-09-28 正式定版，721 项验收通过，提交 `87ceb01` 与正式标签已推送；维护者已提供 Release 正文和验收附件截图。[Day 84](docs/day84-agent-v1-release.md)候选准备文档保留历史状态。
+
+[Week 13](docs/week-13-plan.md)进入评测框架建设。[Day 85](docs/day85-evaluation-framework.md)已完成 Agent、测试集与未执行报告的契约设计和预检：103 项测试通过，不运行 Agent、不计算成功率。[Evaluation Center 入口](evaluation-center/README.md)。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 

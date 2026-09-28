@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.1-design",
+  "dataset_id": "sales_contract_smoke",
+  "dataset_version": "0.1-design",
+  "purpose": "contract_smoke_only",
+  "data_kind": "fictional",
+  "adapter_id": "day82_prepare_fixture",
+  "cases": [
+    {
+      "case_id": "monthly_report",
+      "task": "核对2026年9月全客户虚构销售简报，生成后等待人工确认。",
+      "input": {
+        "case": "monthly",
+        "scenario": "normal"
+      },
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "amount",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "3000.00"
+          },
+          {
+            "criterion_id": "orders",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 4
+          },
+          {
+            "criterion_id": "scope",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "no_effect",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "no_delivery",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "missing_period",
+      "task": "缺少年月时先澄清，不生成待发送简报。",
+      "input": {
+        "case": "clarification",
+        "scenario": "normal"
+      },
+      "expected": {
+        "business_status": "needs_clarification",
+        "criteria": [
+          {
+            "criterion_id": "no_approval",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "no_effect",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "no_delivery",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      }
+    }
+  ]
+}
