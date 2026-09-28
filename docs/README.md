@@ -29,6 +29,8 @@
 
 - Day 81：[复杂销售业务任务验收](day81-complex-business-tests.md)、[场景清单与操作流程](../experiments/day81/README.md)。
 - Day 82：[Prompt 优化与验收](day82-prompt-optimization.md)、[双版本对照与新版体验](../experiments/day82/README.md)。
+- Day 83：[完整演示材料与视频延期](day83-agent-demo.md)。
+- Day 84：[Agent Center v1.0 候选验收](day84-agent-v1-release.md)、[Week 12 总结](week-12-summary.md)。
 
 ## 项目设计
 
