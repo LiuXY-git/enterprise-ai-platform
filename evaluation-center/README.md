@@ -1,12 +1,12 @@
-# Evaluation Center：评测框架设计
+# Evaluation Center：Agent 评测学习模块
 
-Week 13 从 Day 85 开始：输入 **Agent 描述 + 测试集**，最终输出可追溯的 **Evaluation Report**。
+Week 13 输入 Agent 描述和版本化测试集，逐步构建可追溯的评测报告。
 
-当前是 `0.1-design` 设计阶段，已实现契约校验和不执行任务的预检报告。自动运行、结果判分、延迟、Token、成本和成功率尚未实现。本阶段不等于 Evaluation Center v0.1 已发布。
+- [Day 85 框架设计](design.md)：描述契约与未执行预检，旧示例保留。
+- [Day 86 正式测试集](datasets/README.md)：12 个固定虚构销售场景和独立标准答案。
+- [Day 87 自动执行教程](../experiments/day87/README.md)：固定 fixture Agent、真实本地 MCP、隔离目录、逐例运行与证据检查。
+- [Week 13 计划](../docs/week-13-plan.md)。
 
-- [框架设计与数据流](design.md)
-- [Day 85 复刻教程](../experiments/day85/README.md)
-- [Week 13 实施顺序](../docs/week-13-plan.md)
-- [Day 85 交付与验证](../docs/day85-evaluation-framework.md)
+当前可以自动执行并保留结果。执行状态与业务状态分别记录；自动判分、成功率、延迟、Token 和成本采集仍待 Day 88–90 实现。Evaluation Center v0.1 尚未发布。
 
-第一次运行按教程使用 `preview`。看到 `preflight_valid` 表示输入与本地声明文件通过预检；报告内每个任务仍是 `not_run`、`not_evaluated`，不是 Agent 测试通过。
+第一次使用先执行 Day 86 check / preview，再运行 Day 87 smoke 或 full。预检的 not_run、执行的 completed、未来评分的 passed 分属三个不同阶段，不能混为“全部测试通过”。

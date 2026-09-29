@@ -1,0 +1,427 @@
+{
+  "$defs": {
+    "Behavior": {
+      "additionalProperties": false,
+      "properties": {
+        "tool_attempts": {
+          "minimum": 0,
+          "title": "Tool Attempts",
+          "type": "integer"
+        },
+        "model_attempts": {
+          "minimum": 0,
+          "title": "Model Attempts",
+          "type": "integer"
+        },
+        "tool_retries": {
+          "minimum": 0,
+          "title": "Tool Retries",
+          "type": "integer"
+        },
+        "model_retries": {
+          "minimum": 0,
+          "title": "Model Retries",
+          "type": "integer"
+        },
+        "degraded": {
+          "title": "Degraded",
+          "type": "boolean"
+        },
+        "stop_reason": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Stop Reason",
+          "type": "string"
+        },
+        "database_unchanged": {
+          "const": true,
+          "title": "Database Unchanged",
+          "type": "boolean"
+        },
+        "model_requests": {
+          "const": 0,
+          "title": "Model Requests",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tool_attempts",
+        "model_attempts",
+        "tool_retries",
+        "model_retries",
+        "degraded",
+        "stop_reason",
+        "database_unchanged",
+        "model_requests"
+      ],
+      "title": "Behavior",
+      "type": "object"
+    },
+    "CaseInput": {
+      "additionalProperties": false,
+      "properties": {
+        "case": {
+          "enum": [
+            "monthly",
+            "customer",
+            "empty",
+            "clarification"
+          ],
+          "title": "Case",
+          "type": "string"
+        },
+        "scenario": {
+          "enum": [
+            "normal",
+            "tool_timeout_once",
+            "tool_timeout_always",
+            "model_timeout_once",
+            "report_timeout",
+            "invalid_report",
+            "invalid_arguments"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case",
+        "scenario"
+      ],
+      "title": "CaseInput",
+      "type": "object"
+    },
+    "Criterion": {
+      "additionalProperties": false,
+      "properties": {
+        "criterion_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Criterion Id",
+          "type": "string"
+        },
+        "field": {
+          "enum": [
+            "total_yuan",
+            "order_count",
+            "customer_id",
+            "has_citation",
+            "approval_status",
+            "simulated_effects",
+            "external_send"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "operator": {
+          "const": "eq",
+          "title": "Operator",
+          "type": "string"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected"
+        }
+      },
+      "required": [
+        "criterion_id",
+        "field",
+        "operator",
+        "expected"
+      ],
+      "title": "Criterion",
+      "type": "object"
+    },
+    "Expectation": {
+      "additionalProperties": false,
+      "properties": {
+        "business_status": {
+          "enum": [
+            "completed",
+            "no_data",
+            "needs_clarification",
+            "failed",
+            "rejected"
+          ],
+          "title": "Business Status",
+          "type": "string"
+        },
+        "criteria": {
+          "items": {
+            "$ref": "#/$defs/Criterion"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Criteria",
+          "type": "array"
+        }
+      },
+      "required": [
+        "business_status",
+        "criteria"
+      ],
+      "title": "Expectation",
+      "type": "object"
+    },
+    "FormalCase": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "task": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Task",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/CaseInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/Expectation"
+        },
+        "category": {
+          "enum": [
+            "normal",
+            "no_data",
+            "clarification",
+            "recovery",
+            "fallback",
+            "expected_failure",
+            "expected_rejection"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "golden_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GoldenReport"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "behavior": {
+          "$ref": "#/$defs/Behavior"
+        }
+      },
+      "required": [
+        "case_id",
+        "task",
+        "input",
+        "expected",
+        "category",
+        "golden_report",
+        "behavior"
+      ],
+      "title": "FormalCase",
+      "type": "object"
+    },
+    "GoldenReport": {
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "matched_order_ids": {
+          "items": {
+            "pattern": "^SO-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Matched Order Ids",
+          "type": "array"
+        },
+        "displayed_order_ids": {
+          "items": {
+            "pattern": "^SO-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Displayed Order Ids",
+          "type": "array"
+        },
+        "total_cents": {
+          "minimum": 0,
+          "title": "Total Cents",
+          "type": "integer"
+        },
+        "rows_returned": {
+          "minimum": 0,
+          "title": "Rows Returned",
+          "type": "integer"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        },
+        "fictional": {
+          "const": true,
+          "title": "Fictional",
+          "type": "boolean"
+        },
+        "citation_rule": {
+          "const": "current_task_validated_receipt",
+          "title": "Citation Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scope",
+        "matched_order_ids",
+        "displayed_order_ids",
+        "total_cents",
+        "rows_returned",
+        "truncated",
+        "fictional",
+        "citation_rule"
+      ],
+      "title": "GoldenReport",
+      "type": "object"
+    },
+    "Scope": {
+      "additionalProperties": false,
+      "properties": {
+        "year": {
+          "const": 2026,
+          "title": "Year",
+          "type": "integer"
+        },
+        "month": {
+          "enum": [
+            7,
+            9
+          ],
+          "title": "Month",
+          "type": "integer"
+        },
+        "customer_id": {
+          "anyOf": [
+            {
+              "const": "C001",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Customer Id"
+        },
+        "limit": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "month",
+        "customer_id",
+        "limit"
+      ],
+      "title": "Scope",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0-dataset",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "dataset_id": {
+      "const": "sales-prepare-fixture",
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "dataset_version": {
+      "const": "1.0.0",
+      "title": "Dataset Version",
+      "type": "string"
+    },
+    "purpose": {
+      "const": "fixed_fixture_regression",
+      "title": "Purpose",
+      "type": "string"
+    },
+    "adapter_id": {
+      "const": "day82_prepare_fixture",
+      "title": "Adapter Id",
+      "type": "string"
+    },
+    "data_kind": {
+      "const": "fictional",
+      "title": "Data Kind",
+      "type": "string"
+    },
+    "task_binding": {
+      "const": "case_selects_fixed_goal_task_is_description",
+      "title": "Task Binding",
+      "type": "string"
+    },
+    "oracle_method": {
+      "const": "manual_order_arithmetic_and_fault_policy",
+      "title": "Oracle Method",
+      "type": "string"
+    },
+    "source_sha256_lf": {
+      "additionalProperties": {
+        "pattern": "^[a-f0-9]{64}$",
+        "type": "string"
+      },
+      "title": "Source Sha256 Lf",
+      "type": "object"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/FormalCase"
+      },
+      "maxItems": 12,
+      "minItems": 12,
+      "title": "Cases",
+      "type": "array"
+    },
+    "smoke_case_ids": {
+      "items": {
+        "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+        "type": "string"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Smoke Case Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "dataset_version",
+    "purpose",
+    "adapter_id",
+    "data_kind",
+    "task_binding",
+    "oracle_method",
+    "source_sha256_lf",
+    "cases",
+    "smoke_case_ids"
+  ],
+  "title": "FormalDataset",
+  "type": "object"
+}

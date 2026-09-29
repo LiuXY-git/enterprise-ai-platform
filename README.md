@@ -30,6 +30,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Week 13](docs/week-13-plan.md)进入评测框架建设。[Day 85](docs/day85-evaluation-framework.md)已完成 Agent、测试集与未执行报告的契约设计和预检：103 项测试通过，不运行 Agent、不计算成功率。[Evaluation Center 入口](evaluation-center/README.md)。
 
+[Day 86](docs/day86-test-dataset.md)已补齐 12 例固定测试集与独立预期；[Day 87](docs/day87-evaluation-runner.md)已实现逐例自动运行、隔离目录、超时保护和证据检查。170 项测试通过，12 例均取得执行记录，业务结果与执行状态分别记录；尚未计算评分和性能指标。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标
