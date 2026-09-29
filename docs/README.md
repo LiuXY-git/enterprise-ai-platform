@@ -165,3 +165,4 @@ Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的
 
 - [Day 86 测试集与独立预期](day86-test-dataset.md)
 - [Day 87 自动执行与证据留存](day87-evaluation-runner.md)
+- [Day 88 延迟统计与计时边界](day88-latency.md)

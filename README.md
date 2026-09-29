@@ -32,6 +32,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 86](docs/day86-test-dataset.md)已补齐 12 例固定测试集与独立预期；[Day 87](docs/day87-evaluation-runner.md)已实现逐例自动运行、隔离目录、超时保护和证据检查。170 项测试通过，12 例均取得执行记录，业务结果与执行状态分别记录；尚未计算评分和性能指标。
 
+[Day 88](docs/day88-latency.md)已加入单例延迟和分组统计，198 项测试通过；12 例真实本地 fixture 流程记录了耗时。Token、成本及成功率仍待后续实现。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标
