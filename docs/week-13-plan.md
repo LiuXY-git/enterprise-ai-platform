@@ -11,7 +11,7 @@
 | Day 87 | 自动运行测试 | [已实现](day87-evaluation-runner.md)：固定 fixture 入口、独立进程、超时与逐例证据，12 例执行完成，尚未判分 |
 | Day 88 | Latency | [已实现](day88-latency.md)：单调时钟、完整单例耗时、重试等待纳入总量、异常分组及 P50/P95 |
 | Day 89 | Token 与成本 | [已实现](day89-token-cost.md)：usage 采集层、未知/模拟区分、显式价格与估算；真实模式尚未接入 |
-| Day 90 | Success Rate | 待实施：逐例规则判分、分类计数、完整性与分母 |
+| Day 90 | Success Rate | [已实现](day90-success-rate.md)：逐例独立规则判分、分类统计、完整性与分母；12/12 固定场景通过 |
 | Day 91 | 发布 Evaluation Center v0.1 | 待实施：按已实现能力冻结清单与验收 |
 
 Day 83 视频仍待补录；Day 82 Prompt 真实模型改善仍未测量。Agent Center v1.0 冻结资产保持不变，本周以新目录承载评测代码，不因为版本名称含 v1.0 就假定其适配器、身份认证或真实发送已齐备。

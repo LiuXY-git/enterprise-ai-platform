@@ -1,0 +1,213 @@
+{
+  "read_only": true,
+  "task": {
+    "task_id": "c2455d8da74e4153afda471e720994b3",
+    "case_name": "monthly",
+    "mode": "fixture_model_real_mcp",
+    "status": "completed",
+    "created_at": "2026-09-29T09:30:06.107+00:00",
+    "finished_at": "2026-09-29T09:30:08.484+00:00"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "kind": "user_request",
+      "at": "2026-09-29T09:30:06.107+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "case": "monthly",
+        "goal": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+        "fictional": true
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "agent_decision",
+      "at": "2026-09-29T09:30:06.113+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "phase": "policy",
+        "scenario": "normal",
+        "fault_injection": false,
+        "max_attempts_per_operation": 2,
+        "fallback": "validated_receipt_template_after_final_model_transient_exhaustion"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "discovery_started",
+      "at": "2026-09-29T09:30:06.119+00:00",
+      "elapsed_ms": 6,
+      "payload": {
+        "transport": "stdio"
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "discovery_result",
+      "at": "2026-09-29T09:30:07.291+00:00",
+      "elapsed_ms": 1178,
+      "payload": {
+        "tool": "query_monthly_sales",
+        "validated": true
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "model_started",
+      "at": "2026-09-29T09:30:07.298+00:00",
+      "elapsed_ms": 1185,
+      "payload": {
+        "turn": 1,
+        "tool_choice": "auto"
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "model_started",
+      "at": "2026-09-29T09:30:07.303+00:00",
+      "elapsed_ms": 1190,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "agent_decision",
+      "at": "2026-09-29T09:30:07.308+00:00",
+      "elapsed_ms": 1195,
+      "payload": {
+        "turn": 1,
+        "action": "request_tool",
+        "proposed_call_count": 1,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "tool_call",
+      "at": "2026-09-29T09:30:07.313+00:00",
+      "elapsed_ms": 1200,
+      "payload": {
+        "call_ref": "T1",
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "validation": "accepted"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "tool_call",
+      "at": "2026-09-29T09:30:07.318+00:00",
+      "elapsed_ms": 1205,
+      "payload": {
+        "phase": "attempt",
+        "call_ref": "T1",
+        "attempt": 1,
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "snapshot_policy": "same_temporary_fictional_database"
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "tool_result",
+      "at": "2026-09-29T09:30:08.459+00:00",
+      "elapsed_ms": 2346,
+      "payload": {
+        "call_ref": "T1",
+        "validated": true,
+        "fictional": true,
+        "data_status": "ok",
+        "order_count": 4,
+        "total_yuan": "3000.00",
+        "rows_returned": 2,
+        "truncated": true
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "tool_feedback",
+      "at": "2026-09-29T09:30:08.465+00:00",
+      "elapsed_ms": 2351,
+      "payload": {
+        "call_ref": "T1",
+        "receipt_id": "92c4523558e6439295a6f3bb0b1b66ba/T1",
+        "next_turn": 2
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "model_started",
+      "at": "2026-09-29T09:30:08.469+00:00",
+      "elapsed_ms": 2356,
+      "payload": {
+        "turn": 2,
+        "tool_choice": "none"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "model_started",
+      "at": "2026-09-29T09:30:08.474+00:00",
+      "elapsed_ms": 2361,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "none",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "agent_decision",
+      "at": "2026-09-29T09:30:08.479+00:00",
+      "elapsed_ms": 2366,
+      "payload": {
+        "turn": 2,
+        "action": "propose_answer",
+        "proposed_call_count": 0,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "final_answer",
+      "at": "2026-09-29T09:30:08.484+00:00",
+      "elapsed_ms": 2371,
+      "payload": {
+        "status": "completed",
+        "stop_reason": "report_verified",
+        "answer": "教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：92c4523558e6439295a6f3bb0b1b66ba/T1（MCP只读查询回执）。",
+        "agent_run_id": "92c4523558e6439295a6f3bb0b1b66ba",
+        "degraded": false,
+        "recovery_reason": null,
+        "answer_source": "verified_report_template",
+        "logical_tool_calls": 1,
+        "tool_attempts": 1,
+        "mcp_dispatches": 1,
+        "tool_retries": 0,
+        "model_attempts": 2,
+        "model_retries": 0,
+        "model_requests": 0,
+        "tool_execution_outcome": "success",
+        "database_unchanged": true,
+        "scenario": "normal",
+        "next_action": "none"
+      }
+    }
+  ],
+  "terminal_recorded": true,
+  "notice": "recorded_terminal"
+}

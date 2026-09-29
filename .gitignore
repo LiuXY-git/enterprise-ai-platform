@@ -78,3 +78,6 @@ data/day88/
 
 # Evaluation usage and cost records
 data/day89/
+
+# Scored evaluation runs
+data/day90/
