@@ -1,0 +1,251 @@
+{
+  "read_only": true,
+  "task": {
+    "task_id": "888fc2d0ca3f467c9229f0a33ac47b92",
+    "case_name": "monthly",
+    "mode": "fixture_model_real_mcp",
+    "status": "completed",
+    "created_at": "2026-09-29T07:37:53.389+00:00",
+    "finished_at": "2026-09-29T07:37:56.267+00:00"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "kind": "user_request",
+      "at": "2026-09-29T07:37:53.389+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "case": "monthly",
+        "goal": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+        "fictional": true
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:37:53.400+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "phase": "policy",
+        "scenario": "model_timeout_once",
+        "fault_injection": true,
+        "max_attempts_per_operation": 2,
+        "fallback": "validated_receipt_template_after_final_model_transient_exhaustion"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "discovery_started",
+      "at": "2026-09-29T07:37:53.409+00:00",
+      "elapsed_ms": 10,
+      "payload": {
+        "transport": "stdio"
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "discovery_result",
+      "at": "2026-09-29T07:37:54.679+00:00",
+      "elapsed_ms": 1279,
+      "payload": {
+        "tool": "query_monthly_sales",
+        "validated": true
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "model_started",
+      "at": "2026-09-29T07:37:54.691+00:00",
+      "elapsed_ms": 1291,
+      "payload": {
+        "turn": 1,
+        "tool_choice": "auto"
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "model_started",
+      "at": "2026-09-29T07:37:54.701+00:00",
+      "elapsed_ms": 1301,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:37:54.711+00:00",
+      "elapsed_ms": 1311,
+      "payload": {
+        "stage": "model_attempt",
+        "attempt": 1,
+        "reason": "provider_timeout"
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:37:54.721+00:00",
+      "elapsed_ms": 1322,
+      "payload": {
+        "phase": "recovery",
+        "stage": "model",
+        "action": "retry",
+        "attempt": 1,
+        "reason": "provider_timeout",
+        "next_attempt": 2,
+        "backoff_ms": 200,
+        "policy": "model_request_only"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "model_started",
+      "at": "2026-09-29T07:37:54.932+00:00",
+      "elapsed_ms": 1532,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 2
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:37:54.943+00:00",
+      "elapsed_ms": 1543,
+      "payload": {
+        "turn": 1,
+        "action": "request_tool",
+        "proposed_call_count": 1,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:37:54.953+00:00",
+      "elapsed_ms": 1554,
+      "payload": {
+        "call_ref": "T1",
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "validation": "accepted"
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:37:54.963+00:00",
+      "elapsed_ms": 1564,
+      "payload": {
+        "phase": "attempt",
+        "call_ref": "T1",
+        "attempt": 1,
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "snapshot_policy": "same_temporary_fictional_database"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "tool_result",
+      "at": "2026-09-29T07:37:56.212+00:00",
+      "elapsed_ms": 2812,
+      "payload": {
+        "call_ref": "T1",
+        "validated": true,
+        "fictional": true,
+        "data_status": "ok",
+        "order_count": 4,
+        "total_yuan": "3000.00",
+        "rows_returned": 2,
+        "truncated": true
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "tool_feedback",
+      "at": "2026-09-29T07:37:56.223+00:00",
+      "elapsed_ms": 2823,
+      "payload": {
+        "call_ref": "T1",
+        "receipt_id": "f40b9bc667dc4ab4b9a6a3beaee979d9/T1",
+        "next_turn": 2
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "model_started",
+      "at": "2026-09-29T07:37:56.234+00:00",
+      "elapsed_ms": 2834,
+      "payload": {
+        "turn": 2,
+        "tool_choice": "none"
+      }
+    },
+    {
+      "seq": 16,
+      "kind": "model_started",
+      "at": "2026-09-29T07:37:56.245+00:00",
+      "elapsed_ms": 2845,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "none",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 17,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:37:56.255+00:00",
+      "elapsed_ms": 2856,
+      "payload": {
+        "turn": 2,
+        "action": "propose_answer",
+        "proposed_call_count": 0,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 18,
+      "kind": "final_answer",
+      "at": "2026-09-29T07:37:56.267+00:00",
+      "elapsed_ms": 2867,
+      "payload": {
+        "status": "completed",
+        "stop_reason": "report_verified",
+        "answer": "教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：f40b9bc667dc4ab4b9a6a3beaee979d9/T1（MCP只读查询回执）。",
+        "agent_run_id": "f40b9bc667dc4ab4b9a6a3beaee979d9",
+        "degraded": false,
+        "recovery_reason": null,
+        "answer_source": "verified_report_template",
+        "logical_tool_calls": 1,
+        "tool_attempts": 1,
+        "mcp_dispatches": 1,
+        "tool_retries": 0,
+        "model_attempts": 3,
+        "model_retries": 1,
+        "model_requests": 0,
+        "tool_execution_outcome": "success",
+        "database_unchanged": true,
+        "scenario": "model_timeout_once",
+        "next_action": "none"
+      }
+    }
+  ],
+  "terminal_recorded": true,
+  "notice": "recorded_terminal"
+}

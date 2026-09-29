@@ -1,0 +1,213 @@
+{
+  "read_only": true,
+  "task": {
+    "task_id": "b7c708c49ccd4f8fb6b02d6d516bf450",
+    "case_name": "monthly",
+    "mode": "fixture_model_real_mcp",
+    "status": "rejected",
+    "created_at": "2026-09-29T07:38:15.681+00:00",
+    "finished_at": "2026-09-29T07:38:18.406+00:00"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "kind": "user_request",
+      "at": "2026-09-29T07:38:15.681+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "case": "monthly",
+        "goal": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+        "fictional": true
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:15.691+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "phase": "policy",
+        "scenario": "invalid_report",
+        "fault_injection": true,
+        "max_attempts_per_operation": 2,
+        "fallback": "validated_receipt_template_after_final_model_transient_exhaustion"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "discovery_started",
+      "at": "2026-09-29T07:38:15.701+00:00",
+      "elapsed_ms": 10,
+      "payload": {
+        "transport": "stdio"
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "discovery_result",
+      "at": "2026-09-29T07:38:16.978+00:00",
+      "elapsed_ms": 1288,
+      "payload": {
+        "tool": "query_monthly_sales",
+        "validated": true
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:16.990+00:00",
+      "elapsed_ms": 1299,
+      "payload": {
+        "turn": 1,
+        "tool_choice": "auto"
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:17.000+00:00",
+      "elapsed_ms": 1310,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:17.010+00:00",
+      "elapsed_ms": 1320,
+      "payload": {
+        "turn": 1,
+        "action": "request_tool",
+        "proposed_call_count": 1,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:38:17.023+00:00",
+      "elapsed_ms": 1332,
+      "payload": {
+        "call_ref": "T1",
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "validation": "accepted"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:38:17.033+00:00",
+      "elapsed_ms": 1342,
+      "payload": {
+        "phase": "attempt",
+        "call_ref": "T1",
+        "attempt": 1,
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "snapshot_policy": "same_temporary_fictional_database"
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "tool_result",
+      "at": "2026-09-29T07:38:18.345+00:00",
+      "elapsed_ms": 2654,
+      "payload": {
+        "call_ref": "T1",
+        "validated": true,
+        "fictional": true,
+        "data_status": "ok",
+        "order_count": 4,
+        "total_yuan": "3000.00",
+        "rows_returned": 2,
+        "truncated": true
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "tool_feedback",
+      "at": "2026-09-29T07:38:18.356+00:00",
+      "elapsed_ms": 2666,
+      "payload": {
+        "call_ref": "T1",
+        "receipt_id": "fb85e6752a3f4cf88be432b6a78c7d2a/T1",
+        "next_turn": 2
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:18.366+00:00",
+      "elapsed_ms": 2676,
+      "payload": {
+        "turn": 2,
+        "tool_choice": "none"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:18.377+00:00",
+      "elapsed_ms": 2687,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "none",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:18.393+00:00",
+      "elapsed_ms": 2703,
+      "payload": {
+        "turn": 2,
+        "action": "propose_answer",
+        "proposed_call_count": 0,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "final_answer",
+      "at": "2026-09-29T07:38:18.406+00:00",
+      "elapsed_ms": 2715,
+      "payload": {
+        "status": "rejected",
+        "stop_reason": "report_does_not_match_receipt",
+        "answer": null,
+        "agent_run_id": "fb85e6752a3f4cf88be432b6a78c7d2a",
+        "degraded": false,
+        "recovery_reason": null,
+        "answer_source": "none",
+        "logical_tool_calls": 1,
+        "tool_attempts": 1,
+        "mcp_dispatches": 1,
+        "tool_retries": 0,
+        "model_attempts": 2,
+        "model_retries": 0,
+        "model_requests": 0,
+        "tool_execution_outcome": "success",
+        "database_unchanged": true,
+        "scenario": "invalid_report",
+        "next_action": "inspect_failure_before_new_task"
+      }
+    }
+  ],
+  "terminal_recorded": true,
+  "notice": "recorded_terminal"
+}

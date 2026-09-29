@@ -1,0 +1,261 @@
+{
+  "read_only": true,
+  "task": {
+    "task_id": "c0895b3ab6c144b7bf5841392e0a3c7e",
+    "case_name": "monthly",
+    "mode": "fixture_model_real_mcp",
+    "status": "failed",
+    "created_at": "2026-09-29T07:38:07.083+00:00",
+    "finished_at": "2026-09-29T07:38:11.304+00:00"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "kind": "user_request",
+      "at": "2026-09-29T07:38:07.083+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "case": "monthly",
+        "goal": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+        "fictional": true
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:07.094+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "phase": "policy",
+        "scenario": "tool_timeout_always",
+        "fault_injection": true,
+        "max_attempts_per_operation": 2,
+        "fallback": "validated_receipt_template_after_final_model_transient_exhaustion"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "discovery_started",
+      "at": "2026-09-29T07:38:07.108+00:00",
+      "elapsed_ms": 14,
+      "payload": {
+        "transport": "stdio"
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "discovery_result",
+      "at": "2026-09-29T07:38:08.414+00:00",
+      "elapsed_ms": 1320,
+      "payload": {
+        "tool": "query_monthly_sales",
+        "validated": true
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:08.426+00:00",
+      "elapsed_ms": 1332,
+      "payload": {
+        "turn": 1,
+        "tool_choice": "auto"
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "model_started",
+      "at": "2026-09-29T07:38:08.436+00:00",
+      "elapsed_ms": 1342,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:08.447+00:00",
+      "elapsed_ms": 1353,
+      "payload": {
+        "turn": 1,
+        "action": "request_tool",
+        "proposed_call_count": 1,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:38:08.458+00:00",
+      "elapsed_ms": 1364,
+      "payload": {
+        "call_ref": "T1",
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "validation": "accepted"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:38:08.468+00:00",
+      "elapsed_ms": 1374,
+      "payload": {
+        "phase": "attempt",
+        "call_ref": "T1",
+        "attempt": 1,
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "snapshot_policy": "same_temporary_fictional_database"
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:38:09.794+00:00",
+      "elapsed_ms": 2700,
+      "payload": {
+        "stage": "fault_injection",
+        "attempt": 1,
+        "injection": "discard_validated_tool_reply_after_read"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:38:09.805+00:00",
+      "elapsed_ms": 2711,
+      "payload": {
+        "stage": "tool_attempt",
+        "attempt": 1,
+        "reason": "mcp_call_timeout",
+        "outcome": "unknown_or_error"
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:09.815+00:00",
+      "elapsed_ms": 2721,
+      "payload": {
+        "phase": "recovery",
+        "stage": "tool",
+        "action": "retry",
+        "attempt": 1,
+        "reason": "mcp_call_timeout",
+        "next_attempt": 2,
+        "backoff_ms": 200,
+        "policy": "fixed_readonly_snapshot"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "tool_call",
+      "at": "2026-09-29T07:38:10.030+00:00",
+      "elapsed_ms": 2936,
+      "payload": {
+        "phase": "attempt",
+        "call_ref": "T1",
+        "attempt": 2,
+        "tool": "query_monthly_sales",
+        "arguments": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "snapshot_policy": "same_temporary_fictional_database"
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:38:11.260+00:00",
+      "elapsed_ms": 4166,
+      "payload": {
+        "stage": "fault_injection",
+        "attempt": 2,
+        "injection": "discard_validated_tool_reply_after_read"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:38:11.271+00:00",
+      "elapsed_ms": 4177,
+      "payload": {
+        "stage": "tool_attempt",
+        "attempt": 2,
+        "reason": "mcp_call_timeout",
+        "outcome": "unknown_or_error"
+      }
+    },
+    {
+      "seq": 16,
+      "kind": "agent_decision",
+      "at": "2026-09-29T07:38:11.282+00:00",
+      "elapsed_ms": 4188,
+      "payload": {
+        "phase": "recovery",
+        "stage": "tool",
+        "action": "stop",
+        "attempt": 2,
+        "reason": "mcp_call_timeout",
+        "next_attempt": null,
+        "backoff_ms": 0,
+        "policy": "fixed_readonly_snapshot"
+      }
+    },
+    {
+      "seq": 17,
+      "kind": "stage_error",
+      "at": "2026-09-29T07:38:11.293+00:00",
+      "elapsed_ms": 4199,
+      "payload": {
+        "stage": "tool",
+        "call_ref": "T1",
+        "outcome": "unknown_or_error"
+      }
+    },
+    {
+      "seq": 18,
+      "kind": "final_answer",
+      "at": "2026-09-29T07:38:11.304+00:00",
+      "elapsed_ms": 4210,
+      "payload": {
+        "status": "failed",
+        "stop_reason": "mcp_call_timeout",
+        "answer": null,
+        "agent_run_id": "e6b9faae33a44542a55fe07a6853fd63",
+        "degraded": false,
+        "recovery_reason": null,
+        "answer_source": "none",
+        "logical_tool_calls": 1,
+        "tool_attempts": 2,
+        "mcp_dispatches": 2,
+        "tool_retries": 1,
+        "model_attempts": 1,
+        "model_retries": 0,
+        "model_requests": 0,
+        "tool_execution_outcome": "unknown",
+        "database_unchanged": true,
+        "scenario": "tool_timeout_always",
+        "next_action": "inspect_failure_before_new_task"
+      }
+    }
+  ],
+  "terminal_recorded": true,
+  "notice": "recorded_terminal"
+}

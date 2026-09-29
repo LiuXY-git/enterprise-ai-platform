@@ -68,3 +68,7 @@ data/day84/
 
 # Evaluation design previews and schema exports
 data/day85/
+
+# Formal dataset previews and isolated evaluation runs
+data/day86/
+data/day87/

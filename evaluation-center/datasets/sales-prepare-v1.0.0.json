@@ -1,0 +1,921 @@
+{
+  "schema_version": "1.0-dataset",
+  "dataset_id": "sales-prepare-fixture",
+  "dataset_version": "1.0.0",
+  "purpose": "fixed_fixture_regression",
+  "adapter_id": "day82_prepare_fixture",
+  "data_kind": "fictional",
+  "task_binding": "case_selects_fixed_goal_task_is_description",
+  "oracle_method": "manual_order_arithmetic_and_fault_policy",
+  "source_sha256_lf": {
+    "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+    "experiments/day73/mcp_agent.py": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb",
+    "experiments/day79/recovery_agent.py": "0e662e496ca403ff7c3d040ea79d8b4b83d9a0eae798528ae31afb1cf7eb1b02",
+    "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+    "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+    "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+    "agent-center/release-v1.0.0.json": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8"
+  },
+  "cases": [
+    {
+      "case_id": "monthly_normal",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "normal"
+      },
+      "category": "normal",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "3000.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 4
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-002",
+          "SO-003",
+          "SO-004"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-002"
+        ],
+        "total_cents": 300000,
+        "rows_returned": 2,
+        "truncated": true,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 2,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "customer_normal",
+      "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+      "input": {
+        "case": "customer",
+        "scenario": "normal"
+      },
+      "category": "normal",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "1550.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 2
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": "C001"
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": "C001",
+          "limit": 5
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "total_cents": 155000,
+        "rows_returned": 2,
+        "truncated": false,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 2,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "empty_normal",
+      "task": "查询虚构销售库2026年7月所有客户已支付销售额，最多展示5条明细。",
+      "input": {
+        "case": "empty",
+        "scenario": "normal"
+      },
+      "category": "no_data",
+      "expected": {
+        "business_status": "no_data",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "0.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 7,
+          "customer_id": null,
+          "limit": 5
+        },
+        "matched_order_ids": [],
+        "displayed_order_ids": [],
+        "total_cents": 0,
+        "rows_returned": 0,
+        "truncated": false,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 2,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "missing_period",
+      "task": "查询虚构销售库某月的销售额，我还没有确定年份和月份。",
+      "input": {
+        "case": "clarification",
+        "scenario": "normal"
+      },
+      "category": "clarification",
+      "expected": {
+        "business_status": "needs_clarification",
+        "criteria": [
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": false
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": null,
+      "behavior": {
+        "tool_attempts": 0,
+        "model_attempts": 1,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "missing_year_month",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "monthly_tool_retry",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "tool_timeout_once"
+      },
+      "category": "recovery",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "3000.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 4
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-002",
+          "SO-003",
+          "SO-004"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-002"
+        ],
+        "total_cents": 300000,
+        "rows_returned": 2,
+        "truncated": true,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 2,
+        "model_attempts": 2,
+        "tool_retries": 1,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "customer_tool_retry",
+      "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+      "input": {
+        "case": "customer",
+        "scenario": "tool_timeout_once"
+      },
+      "category": "recovery",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "1550.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 2
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": "C001"
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": "C001",
+          "limit": 5
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "total_cents": 155000,
+        "rows_returned": 2,
+        "truncated": false,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 2,
+        "model_attempts": 2,
+        "tool_retries": 1,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "monthly_model_retry",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "model_timeout_once"
+      },
+      "category": "recovery",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "3000.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 4
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-002",
+          "SO-003",
+          "SO-004"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-002"
+        ],
+        "total_cents": 300000,
+        "rows_returned": 2,
+        "truncated": true,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 3,
+        "tool_retries": 0,
+        "model_retries": 1,
+        "degraded": false,
+        "stop_reason": "report_verified",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "monthly_fallback",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "report_timeout"
+      },
+      "category": "fallback",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "3000.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 4
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": null,
+          "limit": 2
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-002",
+          "SO-003",
+          "SO-004"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-002"
+        ],
+        "total_cents": 300000,
+        "rows_returned": 2,
+        "truncated": true,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 3,
+        "tool_retries": 0,
+        "model_retries": 1,
+        "degraded": true,
+        "stop_reason": "receipt_template_fallback",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "customer_fallback",
+      "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+      "input": {
+        "case": "customer",
+        "scenario": "report_timeout"
+      },
+      "category": "fallback",
+      "expected": {
+        "business_status": "completed",
+        "criteria": [
+          {
+            "criterion_id": "total_yuan",
+            "field": "total_yuan",
+            "operator": "eq",
+            "expected": "1550.00"
+          },
+          {
+            "criterion_id": "order_count",
+            "field": "order_count",
+            "operator": "eq",
+            "expected": 2
+          },
+          {
+            "criterion_id": "customer_id",
+            "field": "customer_id",
+            "operator": "eq",
+            "expected": "C001"
+          },
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": true
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": "pending"
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": {
+        "scope": {
+          "year": 2026,
+          "month": 9,
+          "customer_id": "C001",
+          "limit": 5
+        },
+        "matched_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "displayed_order_ids": [
+          "SO-001",
+          "SO-003"
+        ],
+        "total_cents": 155000,
+        "rows_returned": 2,
+        "truncated": false,
+        "fictional": true,
+        "citation_rule": "current_task_validated_receipt"
+      },
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 3,
+        "tool_retries": 0,
+        "model_retries": 1,
+        "degraded": true,
+        "stop_reason": "receipt_template_fallback",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "tool_exhausted",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "tool_timeout_always"
+      },
+      "category": "expected_failure",
+      "expected": {
+        "business_status": "failed",
+        "criteria": [
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": false
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": null,
+      "behavior": {
+        "tool_attempts": 2,
+        "model_attempts": 1,
+        "tool_retries": 1,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "mcp_call_timeout",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "arguments_rejected",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "invalid_arguments"
+      },
+      "category": "expected_rejection",
+      "expected": {
+        "business_status": "rejected",
+        "criteria": [
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": false
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": null,
+      "behavior": {
+        "tool_attempts": 0,
+        "model_attempts": 1,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "tool_arguments_out_of_scope",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    },
+    {
+      "case_id": "report_rejected",
+      "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+      "input": {
+        "case": "monthly",
+        "scenario": "invalid_report"
+      },
+      "category": "expected_rejection",
+      "expected": {
+        "business_status": "rejected",
+        "criteria": [
+          {
+            "criterion_id": "has_citation",
+            "field": "has_citation",
+            "operator": "eq",
+            "expected": false
+          },
+          {
+            "criterion_id": "approval_status",
+            "field": "approval_status",
+            "operator": "eq",
+            "expected": null
+          },
+          {
+            "criterion_id": "simulated_effects",
+            "field": "simulated_effects",
+            "operator": "eq",
+            "expected": 0
+          },
+          {
+            "criterion_id": "external_send",
+            "field": "external_send",
+            "operator": "eq",
+            "expected": false
+          }
+        ]
+      },
+      "golden_report": null,
+      "behavior": {
+        "tool_attempts": 1,
+        "model_attempts": 2,
+        "tool_retries": 0,
+        "model_retries": 0,
+        "degraded": false,
+        "stop_reason": "report_does_not_match_receipt",
+        "database_unchanged": true,
+        "model_requests": 0
+      }
+    }
+  ],
+  "smoke_case_ids": [
+    "monthly_normal",
+    "customer_normal",
+    "empty_normal",
+    "missing_period"
+  ]
+}
