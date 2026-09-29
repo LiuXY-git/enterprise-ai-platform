@@ -1,0 +1,212 @@
+{
+  "day": 88,
+  "date": "2026-09-29",
+  "status": "passed",
+  "base_commit": "cd924ef212d7e349da8e0f9635842be9d15132f3",
+  "unique_tests": 198,
+  "new_tests": 28,
+  "existing_tests": 170,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "final_integration_cases": 12,
+  "model_requests": 0,
+  "real_messages_sent": 0,
+  "simulated_sends": 0,
+  "latency_summary": {
+    "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+    "percentile_method": "nearest_rank",
+    "measured_cases": 12,
+    "unmeasured_cases": 0,
+    "sum_case_elapsed_ms": 55869.119,
+    "by_execution_status": {
+      "completed": {
+        "samples": 12,
+        "min_ms": 2793.192,
+        "mean_ms": 4655.76,
+        "p50_ms": 4544.531,
+        "p95_ms": 6470.716,
+        "max_ms": 6470.716
+      },
+      "error": {
+        "samples": 0,
+        "min_ms": null,
+        "mean_ms": null,
+        "p50_ms": null,
+        "p95_ms": null,
+        "max_ms": null
+      },
+      "timeout": {
+        "samples": 0,
+        "min_ms": null,
+        "mean_ms": null,
+        "p50_ms": null,
+        "p95_ms": null,
+        "max_ms": null
+      },
+      "interrupted": {
+        "samples": 0,
+        "min_ms": null,
+        "mean_ms": null,
+        "p50_ms": null,
+        "p95_ms": null,
+        "max_ms": null
+      }
+    },
+    "by_business_status": {
+      "completed": {
+        "samples": 7,
+        "min_ms": 4454.764,
+        "mean_ms": 5152.302,
+        "p50_ms": 5063.354,
+        "p95_ms": 6470.716,
+        "max_ms": 6470.716
+      },
+      "no_data": {
+        "samples": 1,
+        "min_ms": 4424.177,
+        "mean_ms": 4424.177,
+        "p50_ms": 4424.177,
+        "p95_ms": 4424.177,
+        "max_ms": 4424.177
+      },
+      "needs_clarification": {
+        "samples": 1,
+        "min_ms": 2851.937,
+        "mean_ms": 2851.937,
+        "p50_ms": 2851.937,
+        "p95_ms": 2851.937,
+        "max_ms": 2851.937
+      },
+      "failed": {
+        "samples": 1,
+        "min_ms": 5659.483,
+        "mean_ms": 5659.483,
+        "p50_ms": 5659.483,
+        "p95_ms": 5659.483,
+        "max_ms": 5659.483
+      },
+      "rejected": {
+        "samples": 2,
+        "min_ms": 2793.192,
+        "mean_ms": 3433.703,
+        "p50_ms": 2793.192,
+        "p95_ms": 4074.215,
+        "max_ms": 4074.215
+      }
+    },
+    "completed_includes_business_failure_and_rejection": true,
+    "partial_durations_are_not_time_to_success": true
+  },
+  "frozen_integrity": {
+    "status": "passed",
+    "version": "1.0.0",
+    "release_status": "released",
+    "frozen_artifacts": 114,
+    "historical_source_hashes_checked": 21,
+    "unique_regression_tests_required": 677,
+    "demo_video_status": "deferred",
+    "prompt_quality_improvement": "not_measured",
+    "v05_integrity": {
+      "status": "passed",
+      "version": "0.5.0",
+      "release_status": "released",
+      "frozen_artifacts": 57,
+      "historical_hashes_checked": {
+        "source_hashes": 48,
+        "evidence_hashes": 11,
+        "excluded_document_hashes": 17
+      },
+      "unique_regression_tests_required": 418,
+      "v02_and_v01_integrity": {
+        "status": "passed",
+        "version": "0.2.0",
+        "release_status": "released",
+        "frozen_artifacts": 86,
+        "historical_hashes_checked": {
+          "source_hashes": 69,
+          "evidence_hashes": 22
+        },
+        "unique_historical_tests": 648,
+        "v01_integrity": {
+          "status": "passed",
+          "product": "Agent Center",
+          "version": "0.1.0",
+          "release_status": "released",
+          "frozen_artifacts": 70,
+          "historical_source_hashes_checked": 41,
+          "unique_historical_tests": 202,
+          "tests_executed_by_this_check": 0,
+          "new_model_requests": 0,
+          "remote_tag_or_release_checked": false
+        },
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "tests_executed_by_this_check": 0,
+    "new_model_requests": 0,
+    "remote_tag_or_release_checked": false
+  },
+  "full_721_release_suite_rerun": false,
+  "source_sha256_lf": {
+    "experiments/day88/latency.py": "6c452c39099c1b3c866f59e0fabce36325ba035b4b49e575698c106eca7c1ba4",
+    "experiments/day88/runner.py": "e1a88f435c1e065fd6bda8d74f6af4bf93efbd5a35edbe37e7ad91c0c516a565",
+    "experiments/day88/test_latency.py": "9bc7af33a5e31f14895af6d69a45df2b081008b8f444724981899bfe347646fb"
+  },
+  "evidence_sha256_lf": {
+    "execution.json": "0f666ab26128ce6f4c4310519ada2e619993951ecda944127d93e0fe7d0c8f3e",
+    "execution.schema.json": "e20e2e5ba8530b51f54c46bb00ab1a0ee78e927b5b6f9e8307cc30a993e67dea",
+    "README.md": "6bee58cbc22744b789ad4154fb1b3a5a9b6e16cd87f846730b14b652f06d2878",
+    "regression.xml": "5837ad096848eb2a62dac151bd265405e95da7fc61f1e1751e71c45f5eb9533f",
+    "cases/arguments_rejected/events.json": "c955bcb227f94aec579e0ec63e12b814d72560dc96de2c1bd2d64194efc8179b",
+    "cases/arguments_rejected/generation.json": "ebfdb41aeecb949eb5df95014e282dc86dc9e08fcbe7fb9ff74284ba756b50d0",
+    "cases/customer_fallback/events.json": "5a302a4f8b6c11b92ac99ebe660e250a205440361c9c1a5698f562ae029a4005",
+    "cases/customer_fallback/generation.json": "d9f01a68f9a4ed817a832155fb5ddcbf760a637056506f13e9d2ec5de5dadb37",
+    "cases/customer_normal/events.json": "a1bf01e4779f498e57e3f45ea87caff5fed243e056d03c88f4d3b8f34725fde6",
+    "cases/customer_normal/generation.json": "bc33ee331417844120d0bb4481624c75bd9e8b6954d0040ba1641fc66d5e4093",
+    "cases/customer_tool_retry/events.json": "86b15406b9ab380a9142b58f5109088ef61a379a459c287bd0419bb8f3643789",
+    "cases/customer_tool_retry/generation.json": "faf20c49802d6ac7f5d17d20203aae91cf9665392196d96e3f1408c5be62e36e",
+    "cases/empty_normal/events.json": "0a2cb2107b6eb82686fb0832b7a6ded1284fac0a7f774c841d6eb8143709e32c",
+    "cases/empty_normal/generation.json": "cab44e3cce81a23bd531ef8591b712e7156651cd11056b13c1925f532fa03e2a",
+    "cases/missing_period/events.json": "2cf0a093698d331870eb2fabf9e8ca1dec6ffe6f83c050202e7adf687d2b79b7",
+    "cases/missing_period/generation.json": "11f004ff33fd60b9fe2ea04a4e97138c60d68a7cbb45f8a37fb69d9e8353c20d",
+    "cases/monthly_fallback/events.json": "8378cdc13aab01cf6c603c82f343f053ad195df7ac40e8c17afd05c9c2ff13c3",
+    "cases/monthly_fallback/generation.json": "fea9bcfa50a67d0d08df6f9fd0b7efab69c39f3e864aecf8e627545f3dd44493",
+    "cases/monthly_model_retry/events.json": "de3bac2a2363ecdf31c77f8fe015044f9b80cce7643792995d666201b4f516f1",
+    "cases/monthly_model_retry/generation.json": "bd91e52aaf857874f60ae49a151e5aa9b7b788052f466df13baa522908cc19c1",
+    "cases/monthly_normal/events.json": "0b5db2aca612d7d6fe0df2bdd0111df0354208cb310e247b85cb477907d7ea2b",
+    "cases/monthly_normal/generation.json": "125bc600f5ee3df660651a1ec1144668d6c0d69dc485916da8ed5deeacca54a4",
+    "cases/monthly_tool_retry/events.json": "d14ba414a3e0bb7883d41959b35351faa8bfb5fbcc81ef11caf48541ad578fc5",
+    "cases/monthly_tool_retry/generation.json": "8b92ca3fa46ea0c3e1c0a76aa9e4f5408a0ae16347adf4254cec49bdbf2ea332",
+    "cases/report_rejected/events.json": "016d1e4d4229f2b3d45a6ba9204ef69b96740ceb09c45cde15f05765b57d9696",
+    "cases/report_rejected/generation.json": "bf7dac9049e6d9b82f0acb6f3361b073883b0110124f832b38c8ef7a98ca6599",
+    "cases/tool_exhausted/events.json": "2a3585d90245af193c6bf637f7be1217a4e76865664782c1597018db098020b9",
+    "cases/tool_exhausted/generation.json": "a2f620aa787a029208dc8e8488a6564dbf7e372c0c44ee1769fb95659cd7f2d7"
+  },
+  "complete_local_run": "data/day88/acceptance-20260929",
+  "checks": [
+    "deterministic monotonic-clock tests",
+    "exact ns-to-ms conversion and duration bounds",
+    "nearest-rank percentile and empty groups",
+    "error timeout interruption kept separate from complete execution samples",
+    "business and execution state grouping",
+    "retry attempts and backoff inside case timing boundary",
+    "null token cost and success-rate fields",
+    "source hashes and old frozen assets preserved",
+    "artifact integrity and schema verification",
+    "ruff format and check"
+  ],
+  "limitations": [
+    "fixture model and real local MCP only; not live model performance",
+    "single local batch; startup and background load affect durations",
+    "partial elapsed time is not time to success",
+    "case duration sum is not batch wall time",
+    "no per-attempt stage duration decomposition",
+    "no grading token or cost collection"
+  ]
+}

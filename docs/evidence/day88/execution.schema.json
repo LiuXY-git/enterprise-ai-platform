@@ -1,0 +1,1127 @@
+{
+  "$defs": {
+    "AgentSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1-design",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "agent_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "adapter_id": {
+          "const": "day82_prepare_fixture",
+          "title": "Adapter Id",
+          "type": "string"
+        },
+        "mode": {
+          "const": "fixture",
+          "title": "Mode",
+          "type": "string"
+        },
+        "declared_source_commit": {
+          "pattern": "^[a-f0-9]{40}$",
+          "title": "Declared Source Commit",
+          "type": "string"
+        },
+        "source_sha256_lf": {
+          "additionalProperties": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Source Sha256 Lf",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "agent_id",
+        "adapter_id",
+        "mode",
+        "declared_source_commit",
+        "source_sha256_lf"
+      ],
+      "title": "AgentSpec",
+      "type": "object"
+    },
+    "Behavior": {
+      "additionalProperties": false,
+      "properties": {
+        "tool_attempts": {
+          "minimum": 0,
+          "title": "Tool Attempts",
+          "type": "integer"
+        },
+        "model_attempts": {
+          "minimum": 0,
+          "title": "Model Attempts",
+          "type": "integer"
+        },
+        "tool_retries": {
+          "minimum": 0,
+          "title": "Tool Retries",
+          "type": "integer"
+        },
+        "model_retries": {
+          "minimum": 0,
+          "title": "Model Retries",
+          "type": "integer"
+        },
+        "degraded": {
+          "title": "Degraded",
+          "type": "boolean"
+        },
+        "stop_reason": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Stop Reason",
+          "type": "string"
+        },
+        "database_unchanged": {
+          "const": true,
+          "title": "Database Unchanged",
+          "type": "boolean"
+        },
+        "model_requests": {
+          "const": 0,
+          "title": "Model Requests",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tool_attempts",
+        "model_attempts",
+        "tool_retries",
+        "model_retries",
+        "degraded",
+        "stop_reason",
+        "database_unchanged",
+        "model_requests"
+      ],
+      "title": "Behavior",
+      "type": "object"
+    },
+    "CaseInput": {
+      "additionalProperties": false,
+      "properties": {
+        "case": {
+          "enum": [
+            "monthly",
+            "customer",
+            "empty",
+            "clarification"
+          ],
+          "title": "Case",
+          "type": "string"
+        },
+        "scenario": {
+          "enum": [
+            "normal",
+            "tool_timeout_once",
+            "tool_timeout_always",
+            "model_timeout_once",
+            "report_timeout",
+            "invalid_report",
+            "invalid_arguments"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case",
+        "scenario"
+      ],
+      "title": "CaseInput",
+      "type": "object"
+    },
+    "Criterion": {
+      "additionalProperties": false,
+      "properties": {
+        "criterion_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Criterion Id",
+          "type": "string"
+        },
+        "field": {
+          "enum": [
+            "total_yuan",
+            "order_count",
+            "customer_id",
+            "has_citation",
+            "approval_status",
+            "simulated_effects",
+            "external_send"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "operator": {
+          "const": "eq",
+          "title": "Operator",
+          "type": "string"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected"
+        }
+      },
+      "required": [
+        "criterion_id",
+        "field",
+        "operator",
+        "expected"
+      ],
+      "title": "Criterion",
+      "type": "object"
+    },
+    "DatasetPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0-dataset",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "report_kind": {
+          "const": "preflight_plan_not_evaluation",
+          "title": "Report Kind",
+          "type": "string"
+        },
+        "execution_status": {
+          "const": "not_run",
+          "title": "Execution Status",
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "#/$defs/AgentSpec"
+        },
+        "dataset": {
+          "$ref": "#/$defs/FormalDataset"
+        },
+        "agent_spec_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Agent Spec Sha256",
+          "type": "string"
+        },
+        "dataset_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Dataset Sha256",
+          "type": "string"
+        },
+        "suite": {
+          "enum": [
+            "smoke",
+            "full"
+          ],
+          "title": "Suite",
+          "type": "string"
+        },
+        "identity_check": {
+          "const": "local_source_hashes_only_commit_not_resolved",
+          "title": "Identity Check",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/PlannedResult"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "summary": {
+          "$ref": "#/$defs/PlanSummary"
+        }
+      },
+      "required": [
+        "schema_version",
+        "report_kind",
+        "execution_status",
+        "agent",
+        "dataset",
+        "agent_spec_sha256",
+        "dataset_sha256",
+        "suite",
+        "identity_check",
+        "rows",
+        "summary"
+      ],
+      "title": "DatasetPlan",
+      "type": "object"
+    },
+    "Expectation": {
+      "additionalProperties": false,
+      "properties": {
+        "business_status": {
+          "enum": [
+            "completed",
+            "no_data",
+            "needs_clarification",
+            "failed",
+            "rejected"
+          ],
+          "title": "Business Status",
+          "type": "string"
+        },
+        "criteria": {
+          "items": {
+            "$ref": "#/$defs/Criterion"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Criteria",
+          "type": "array"
+        }
+      },
+      "required": [
+        "business_status",
+        "criteria"
+      ],
+      "title": "Expectation",
+      "type": "object"
+    },
+    "FormalCase": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "task": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Task",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/CaseInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/Expectation"
+        },
+        "category": {
+          "enum": [
+            "normal",
+            "no_data",
+            "clarification",
+            "recovery",
+            "fallback",
+            "expected_failure",
+            "expected_rejection"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "golden_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GoldenReport"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "behavior": {
+          "$ref": "#/$defs/Behavior"
+        }
+      },
+      "required": [
+        "case_id",
+        "task",
+        "input",
+        "expected",
+        "category",
+        "golden_report",
+        "behavior"
+      ],
+      "title": "FormalCase",
+      "type": "object"
+    },
+    "FormalDataset": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0-dataset",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "dataset_id": {
+          "const": "sales-prepare-fixture",
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "dataset_version": {
+          "const": "1.0.0",
+          "title": "Dataset Version",
+          "type": "string"
+        },
+        "purpose": {
+          "const": "fixed_fixture_regression",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "adapter_id": {
+          "const": "day82_prepare_fixture",
+          "title": "Adapter Id",
+          "type": "string"
+        },
+        "data_kind": {
+          "const": "fictional",
+          "title": "Data Kind",
+          "type": "string"
+        },
+        "task_binding": {
+          "const": "case_selects_fixed_goal_task_is_description",
+          "title": "Task Binding",
+          "type": "string"
+        },
+        "oracle_method": {
+          "const": "manual_order_arithmetic_and_fault_policy",
+          "title": "Oracle Method",
+          "type": "string"
+        },
+        "source_sha256_lf": {
+          "additionalProperties": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Source Sha256 Lf",
+          "type": "object"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/FormalCase"
+          },
+          "maxItems": 12,
+          "minItems": 12,
+          "title": "Cases",
+          "type": "array"
+        },
+        "smoke_case_ids": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Smoke Case Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "dataset_id",
+        "dataset_version",
+        "purpose",
+        "adapter_id",
+        "data_kind",
+        "task_binding",
+        "oracle_method",
+        "source_sha256_lf",
+        "cases",
+        "smoke_case_ids"
+      ],
+      "title": "FormalDataset",
+      "type": "object"
+    },
+    "GoldenReport": {
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "matched_order_ids": {
+          "items": {
+            "pattern": "^SO-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Matched Order Ids",
+          "type": "array"
+        },
+        "displayed_order_ids": {
+          "items": {
+            "pattern": "^SO-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Displayed Order Ids",
+          "type": "array"
+        },
+        "total_cents": {
+          "minimum": 0,
+          "title": "Total Cents",
+          "type": "integer"
+        },
+        "rows_returned": {
+          "minimum": 0,
+          "title": "Rows Returned",
+          "type": "integer"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        },
+        "fictional": {
+          "const": true,
+          "title": "Fictional",
+          "type": "boolean"
+        },
+        "citation_rule": {
+          "const": "current_task_validated_receipt",
+          "title": "Citation Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scope",
+        "matched_order_ids",
+        "displayed_order_ids",
+        "total_cents",
+        "rows_returned",
+        "truncated",
+        "fictional",
+        "citation_rule"
+      ],
+      "title": "GoldenReport",
+      "type": "object"
+    },
+    "LatencyMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "elapsed_ns": {
+          "anyOf": [
+            {
+              "maximum": 9223372036854775807,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elapsed Ns"
+        },
+        "latency_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Ms"
+        },
+        "clock": {
+          "const": "perf_counter_ns",
+          "default": "perf_counter_ns",
+          "title": "Clock",
+          "type": "string"
+        },
+        "scope": {
+          "const": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "default": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "title": "Scope",
+          "type": "string"
+        },
+        "measurement": {
+          "default": "not_measured",
+          "enum": [
+            "not_measured",
+            "complete_case",
+            "partial_case"
+          ],
+          "title": "Measurement",
+          "type": "string"
+        },
+        "input_tokens": {
+          "default": null,
+          "title": "Input Tokens",
+          "type": "null"
+        },
+        "output_tokens": {
+          "default": null,
+          "title": "Output Tokens",
+          "type": "null"
+        },
+        "cost": {
+          "default": null,
+          "title": "Cost",
+          "type": "null"
+        },
+        "notice": {
+          "const": "latency_only_no_usage_or_cost",
+          "default": "latency_only_no_usage_or_cost",
+          "title": "Notice",
+          "type": "string"
+        }
+      },
+      "title": "LatencyMetrics",
+      "type": "object"
+    },
+    "Observations": {
+      "additionalProperties": false,
+      "properties": {
+        "business_status": {
+          "enum": [
+            "completed",
+            "no_data",
+            "needs_clarification",
+            "failed",
+            "rejected"
+          ],
+          "title": "Business Status",
+          "type": "string"
+        },
+        "task_id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Task Id",
+          "type": "string"
+        },
+        "agent_run_id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Agent Run Id",
+          "type": "string"
+        },
+        "stop_reason": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Stop Reason",
+          "type": "string"
+        },
+        "answer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Answer"
+        },
+        "answer_source": {
+          "title": "Answer Source",
+          "type": "string"
+        },
+        "tool_attempts": {
+          "minimum": 0,
+          "title": "Tool Attempts",
+          "type": "integer"
+        },
+        "mcp_dispatches": {
+          "minimum": 0,
+          "title": "Mcp Dispatches",
+          "type": "integer"
+        },
+        "tool_retries": {
+          "minimum": 0,
+          "title": "Tool Retries",
+          "type": "integer"
+        },
+        "model_attempts": {
+          "minimum": 0,
+          "title": "Model Attempts",
+          "type": "integer"
+        },
+        "model_retries": {
+          "minimum": 0,
+          "title": "Model Retries",
+          "type": "integer"
+        },
+        "model_requests": {
+          "minimum": 0,
+          "title": "Model Requests",
+          "type": "integer"
+        },
+        "degraded": {
+          "title": "Degraded",
+          "type": "boolean"
+        },
+        "database_unchanged": {
+          "title": "Database Unchanged",
+          "type": "boolean"
+        },
+        "approval_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Approval Status"
+        },
+        "simulated_effects": {
+          "minimum": 0,
+          "title": "Simulated Effects",
+          "type": "integer"
+        },
+        "external_send": {
+          "title": "External Send",
+          "type": "boolean"
+        },
+        "event_count": {
+          "minimum": 0,
+          "title": "Event Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "business_status",
+        "task_id",
+        "agent_run_id",
+        "stop_reason",
+        "answer",
+        "answer_source",
+        "tool_attempts",
+        "mcp_dispatches",
+        "tool_retries",
+        "model_attempts",
+        "model_retries",
+        "model_requests",
+        "degraded",
+        "database_unchanged",
+        "approval_status",
+        "simulated_effects",
+        "external_send",
+        "event_count"
+      ],
+      "title": "Observations",
+      "type": "object"
+    },
+    "PlanSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "total_cases": {
+          "minimum": 0,
+          "title": "Total Cases",
+          "type": "integer"
+        },
+        "not_run": {
+          "minimum": 0,
+          "title": "Not Run",
+          "type": "integer"
+        },
+        "passed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Passed",
+          "type": "integer"
+        },
+        "failed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "errors": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Errors",
+          "type": "integer"
+        },
+        "success_rate": {
+          "default": null,
+          "title": "Success Rate",
+          "type": "null"
+        }
+      },
+      "required": [
+        "total_cases",
+        "not_run"
+      ],
+      "title": "PlanSummary",
+      "type": "object"
+    },
+    "PlannedResult": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "execution_status": {
+          "const": "not_run",
+          "default": "not_run",
+          "title": "Execution Status",
+          "type": "string"
+        },
+        "judgement": {
+          "const": "not_evaluated",
+          "default": "not_evaluated",
+          "title": "Judgement",
+          "type": "string"
+        },
+        "observed_business_status": {
+          "default": null,
+          "title": "Observed Business Status",
+          "type": "null"
+        },
+        "error": {
+          "default": null,
+          "title": "Error",
+          "type": "null"
+        },
+        "metrics": {
+          "$ref": "#/$defs/UnmeasuredMetrics"
+        }
+      },
+      "required": [
+        "case_id"
+      ],
+      "title": "PlannedResult",
+      "type": "object"
+    },
+    "RunSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "selected": {
+          "minimum": 0,
+          "title": "Selected",
+          "type": "integer"
+        },
+        "completed": {
+          "minimum": 0,
+          "title": "Completed",
+          "type": "integer"
+        },
+        "errors": {
+          "minimum": 0,
+          "title": "Errors",
+          "type": "integer"
+        },
+        "timeouts": {
+          "minimum": 0,
+          "title": "Timeouts",
+          "type": "integer"
+        },
+        "interrupted": {
+          "minimum": 0,
+          "title": "Interrupted",
+          "type": "integer"
+        },
+        "not_run": {
+          "minimum": 0,
+          "title": "Not Run",
+          "type": "integer"
+        },
+        "running": {
+          "minimum": 0,
+          "title": "Running",
+          "type": "integer"
+        },
+        "business_status_counts": {
+          "additionalProperties": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "title": "Business Status Counts",
+          "type": "object"
+        },
+        "success_rate": {
+          "default": null,
+          "title": "Success Rate",
+          "type": "null"
+        }
+      },
+      "required": [
+        "selected",
+        "completed",
+        "errors",
+        "timeouts",
+        "interrupted",
+        "not_run",
+        "running",
+        "business_status_counts"
+      ],
+      "title": "RunSummary",
+      "type": "object"
+    },
+    "Scope": {
+      "additionalProperties": false,
+      "properties": {
+        "year": {
+          "const": 2026,
+          "title": "Year",
+          "type": "integer"
+        },
+        "month": {
+          "enum": [
+            7,
+            9
+          ],
+          "title": "Month",
+          "type": "integer"
+        },
+        "customer_id": {
+          "anyOf": [
+            {
+              "const": "C001",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Customer Id"
+        },
+        "limit": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "month",
+        "customer_id",
+        "limit"
+      ],
+      "title": "Scope",
+      "type": "object"
+    },
+    "TimedRow": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "execution_status": {
+          "enum": [
+            "not_run",
+            "running",
+            "completed",
+            "error",
+            "timeout",
+            "interrupted"
+          ],
+          "title": "Execution Status",
+          "type": "string"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Observations"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "error": {
+          "anyOf": [
+            {
+              "enum": [
+                "worker_start_failed",
+                "worker_exit_nonzero",
+                "worker_output_invalid",
+                "case_timeout",
+                "user_interrupted",
+                "cleanup_failed"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "worker_exit_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Worker Exit Code"
+        },
+        "cleanup_verified": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cleanup Verified"
+        },
+        "judgement": {
+          "const": "not_evaluated",
+          "default": "not_evaluated",
+          "title": "Judgement",
+          "type": "string"
+        },
+        "metrics": {
+          "$ref": "#/$defs/LatencyMetrics"
+        },
+        "artifacts": {
+          "additionalProperties": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Artifacts",
+          "type": "object"
+        }
+      },
+      "required": [
+        "case_id",
+        "execution_status"
+      ],
+      "title": "TimedRow",
+      "type": "object"
+    },
+    "UnmeasuredMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "latency_ms": {
+          "default": null,
+          "title": "Latency Ms",
+          "type": "null"
+        },
+        "input_tokens": {
+          "default": null,
+          "title": "Input Tokens",
+          "type": "null"
+        },
+        "output_tokens": {
+          "default": null,
+          "title": "Output Tokens",
+          "type": "null"
+        },
+        "cost": {
+          "default": null,
+          "title": "Cost",
+          "type": "null"
+        },
+        "notice": {
+          "const": "not_run_not_measured",
+          "default": "not_run_not_measured",
+          "title": "Notice",
+          "type": "string"
+        }
+      },
+      "title": "UnmeasuredMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "day88-latency-v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "report_kind": {
+      "const": "execution_record_not_scored_evaluation",
+      "title": "Report Kind",
+      "type": "string"
+    },
+    "run_status": {
+      "enum": [
+        "running",
+        "completed",
+        "completed_with_errors",
+        "interrupted"
+      ],
+      "title": "Run Status",
+      "type": "string"
+    },
+    "plan": {
+      "$ref": "#/$defs/DatasetPlan"
+    },
+    "plan_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "timeout_seconds": {
+      "maximum": 120,
+      "minimum": 5,
+      "title": "Timeout Seconds",
+      "type": "integer"
+    },
+    "execution_mode": {
+      "const": "fixture_model_real_local_mcp",
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/TimedRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "summary": {
+      "$ref": "#/$defs/RunSummary"
+    },
+    "source_sha256_lf": {
+      "additionalProperties": {
+        "pattern": "^[a-f0-9]{64}$",
+        "type": "string"
+      },
+      "title": "Source Sha256 Lf",
+      "type": "object"
+    },
+    "frozen_integrity": {
+      "additionalProperties": true,
+      "title": "Frozen Integrity",
+      "type": "object"
+    },
+    "latency_summary": {
+      "additionalProperties": true,
+      "title": "Latency Summary",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "report_kind",
+    "run_status",
+    "plan",
+    "plan_sha256",
+    "timeout_seconds",
+    "execution_mode",
+    "rows",
+    "summary",
+    "source_sha256_lf",
+    "frozen_integrity",
+    "latency_summary"
+  ],
+  "title": "TimedReport",
+  "type": "object"
+}

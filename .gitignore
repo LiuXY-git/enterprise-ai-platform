@@ -72,3 +72,6 @@ data/day85/
 # Formal dataset previews and isolated evaluation runs
 data/day86/
 data/day87/
+
+# Measured evaluation runs
+data/day88/
