@@ -1,0 +1,117 @@
+{
+  "read_only": true,
+  "task": {
+    "task_id": "f24359ee5c9646fdbf91b91b15fb14b1",
+    "case_name": "clarification",
+    "mode": "fixture_model_real_mcp",
+    "status": "needs_clarification",
+    "created_at": "2026-09-29T09:03:39.160+00:00",
+    "finished_at": "2026-09-29T09:03:40.522+00:00"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "kind": "user_request",
+      "at": "2026-09-29T09:03:39.160+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "case": "clarification",
+        "goal": "查询虚构销售库某月的销售额，我还没有确定年份和月份。",
+        "fictional": true
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "agent_decision",
+      "at": "2026-09-29T09:03:39.165+00:00",
+      "elapsed_ms": 0,
+      "payload": {
+        "phase": "policy",
+        "scenario": "normal",
+        "fault_injection": false,
+        "max_attempts_per_operation": 2,
+        "fallback": "validated_receipt_template_after_final_model_transient_exhaustion"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "discovery_started",
+      "at": "2026-09-29T09:03:39.171+00:00",
+      "elapsed_ms": 6,
+      "payload": {
+        "transport": "stdio"
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "discovery_result",
+      "at": "2026-09-29T09:03:40.500+00:00",
+      "elapsed_ms": 1335,
+      "payload": {
+        "tool": "query_monthly_sales",
+        "validated": true
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "model_started",
+      "at": "2026-09-29T09:03:40.506+00:00",
+      "elapsed_ms": 1341,
+      "payload": {
+        "turn": 1,
+        "tool_choice": "auto"
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "model_started",
+      "at": "2026-09-29T09:03:40.511+00:00",
+      "elapsed_ms": 1346,
+      "payload": {
+        "phase": "attempt",
+        "tool_choice": "auto",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "agent_decision",
+      "at": "2026-09-29T09:03:40.516+00:00",
+      "elapsed_ms": 1351,
+      "payload": {
+        "turn": 1,
+        "action": "propose_answer",
+        "proposed_call_count": 0,
+        "validation": "pending"
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "final_answer",
+      "at": "2026-09-29T09:03:40.522+00:00",
+      "elapsed_ms": 1357,
+      "payload": {
+        "status": "needs_clarification",
+        "stop_reason": "missing_year_month",
+        "answer": "请明确查询的年份和月份，再开始查询。",
+        "agent_run_id": "970583c4f1a44ffc89ba7e675f27791e",
+        "degraded": false,
+        "recovery_reason": null,
+        "answer_source": "clarification_template",
+        "logical_tool_calls": 0,
+        "tool_attempts": 0,
+        "mcp_dispatches": 0,
+        "tool_retries": 0,
+        "model_attempts": 1,
+        "model_retries": 0,
+        "model_requests": 0,
+        "tool_execution_outcome": "not_attempted",
+        "database_unchanged": true,
+        "scenario": "normal",
+        "next_action": "none"
+      }
+    }
+  ],
+  "terminal_recorded": true,
+  "notice": "recorded_terminal"
+}
