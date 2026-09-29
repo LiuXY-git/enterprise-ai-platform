@@ -1,0 +1,28 @@
+[
+  {
+    "attempt_id": 1,
+    "provider": "demo",
+    "model": "demo-model",
+    "origin": "synthetic_response",
+    "outcome": "response",
+    "http_status": 200,
+    "usage_status": "reported",
+    "input_tokens": 100,
+    "output_tokens": 40,
+    "total_tokens": 140,
+    "flat_pricing_supported": true
+  },
+  {
+    "attempt_id": 2,
+    "provider": "demo",
+    "model": "demo-model",
+    "origin": "synthetic_response",
+    "outcome": "response",
+    "http_status": 200,
+    "usage_status": "reported",
+    "input_tokens": 50,
+    "output_tokens": 10,
+    "total_tokens": 60,
+    "flat_pricing_supported": true
+  }
+]

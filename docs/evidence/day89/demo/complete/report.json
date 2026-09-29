@@ -1,0 +1,71 @@
+{
+  "schema_version": "day89-ledger-estimate-v1",
+  "report_kind": "usage_ledger_estimate_not_new_execution",
+  "attempts": [
+    {
+      "attempt_id": 1,
+      "provider": "demo",
+      "model": "demo-model",
+      "origin": "synthetic_response",
+      "outcome": "response",
+      "http_status": 200,
+      "usage_status": "reported",
+      "input_tokens": 100,
+      "output_tokens": 40,
+      "total_tokens": 140,
+      "flat_pricing_supported": true
+    },
+    {
+      "attempt_id": 2,
+      "provider": "demo",
+      "model": "demo-model",
+      "origin": "synthetic_response",
+      "outcome": "response",
+      "http_status": 200,
+      "usage_status": "reported",
+      "input_tokens": 50,
+      "output_tokens": 10,
+      "total_tokens": 60,
+      "flat_pricing_supported": true
+    }
+  ],
+  "summary": {
+    "attempts": 2,
+    "reported_attempts": 2,
+    "missing_or_invalid_attempts": 0,
+    "coverage": "complete",
+    "origin": "synthetic_response",
+    "input_tokens": 150,
+    "output_tokens": 50,
+    "total_tokens": 200,
+    "known_input_tokens": 150,
+    "known_output_tokens": 50,
+    "estimated_cost": "0.00070",
+    "known_estimated_cost": "0.00070",
+    "cost_coverage": "complete",
+    "currency": "CNY",
+    "cost_reasons": [
+      "estimated",
+      "estimated"
+    ],
+    "illustrative": true,
+    "notice": "reported_usage_with_configured_estimate_not_provider_invoice"
+  },
+  "pricing": {
+    "schema_version": "day89-pricing-v1",
+    "price_id": "illustration-v1",
+    "provider": "demo",
+    "model": "demo-model",
+    "currency": "CNY",
+    "input_per_million": "2",
+    "output_per_million": "8",
+    "basis": "user_supplied_flat_text_rates",
+    "effective_date": "2026-09-29",
+    "source_note": "Fictional arithmetic example; not a quote for Qwen or any provider.",
+    "illustrative": true
+  },
+  "pricing_sha256": "6cead2b53c07595139a038b5a0ffc3d8b405b5853bab8b22bd7c0aff46339eb8",
+  "ledger_sha256": "36ef94bc54a924f84fc06d2bb9d60e20917b87af90e094d903382d42cb35d02f",
+  "agent_executed": false,
+  "notice": "supplied_usage_not_independently_verified_provider_billing"
+}

@@ -10,7 +10,7 @@
 | Day 86 | 设计测试集 | [已完成](day86-test-dataset.md)：12 例测试集、独立预期、覆盖约束及版本（与 Day 87 一并交付） |
 | Day 87 | 自动运行测试 | [已实现](day87-evaluation-runner.md)：固定 fixture 入口、独立进程、超时与逐例证据，12 例执行完成，尚未判分 |
 | Day 88 | Latency | [已实现](day88-latency.md)：单调时钟、完整单例耗时、重试等待纳入总量、异常分组及 P50/P95 |
-| Day 89 | Token 与成本 | 待实施：usage 采集、缺失处理和明确价格配置 |
+| Day 89 | Token 与成本 | [已实现](day89-token-cost.md)：usage 采集层、未知/模拟区分、显式价格与估算；真实模式尚未接入 |
 | Day 90 | Success Rate | 待实施：逐例规则判分、分类计数、完整性与分母 |
 | Day 91 | 发布 Evaluation Center v0.1 | 待实施：按已实现能力冻结清单与验收 |
 

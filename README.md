@@ -34,6 +34,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 88](docs/day88-latency.md)已加入单例延迟和分组统计，198 项测试通过；12 例真实本地 fixture 流程记录了耗时。Token、成本及成功率仍待后续实现。
 
+[Day 89](docs/day89-token-cost.md)已加入 usage 采集层、显式价格及成本估算，288 项测试通过。模拟调用不伪造 Token，缺失消耗保留未知；真实模型评测入口和成功率仍待实现。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标

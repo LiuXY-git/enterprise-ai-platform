@@ -1,0 +1,2065 @@
+{
+  "schema_version": "day89-usage-v1",
+  "report_kind": "fixture_execution_with_explicit_usage_coverage",
+  "execution": {
+    "schema_version": "day88-latency-v1",
+    "report_kind": "execution_record_not_scored_evaluation",
+    "run_status": "completed",
+    "plan": {
+      "schema_version": "1.0-dataset",
+      "report_kind": "preflight_plan_not_evaluation",
+      "execution_status": "not_run",
+      "agent": {
+        "schema_version": "0.1-design",
+        "agent_id": "sales_candidate",
+        "adapter_id": "day82_prepare_fixture",
+        "mode": "fixture",
+        "declared_source_commit": "87ceb012c8054fbd6d98b991e1f94445135bce06",
+        "source_sha256_lf": {
+          "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+          "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+          "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+          "agent-center/release-v1.0.0.json": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8"
+        }
+      },
+      "dataset": {
+        "schema_version": "1.0-dataset",
+        "dataset_id": "sales-prepare-fixture",
+        "dataset_version": "1.0.0",
+        "purpose": "fixed_fixture_regression",
+        "adapter_id": "day82_prepare_fixture",
+        "data_kind": "fictional",
+        "task_binding": "case_selects_fixed_goal_task_is_description",
+        "oracle_method": "manual_order_arithmetic_and_fault_policy",
+        "source_sha256_lf": {
+          "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+          "experiments/day73/mcp_agent.py": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb",
+          "experiments/day79/recovery_agent.py": "0e662e496ca403ff7c3d040ea79d8b4b83d9a0eae798528ae31afb1cf7eb1b02",
+          "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+          "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+          "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+          "agent-center/release-v1.0.0.json": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8"
+        },
+        "cases": [
+          {
+            "case_id": "monthly_normal",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "normal"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "3000.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 4
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "normal",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": null,
+                "limit": 2
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-002",
+                "SO-003",
+                "SO-004"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-002"
+              ],
+              "total_cents": 300000,
+              "rows_returned": 2,
+              "truncated": true,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 2,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "customer_normal",
+            "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+            "input": {
+              "case": "customer",
+              "scenario": "normal"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "1550.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 2
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": "C001"
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "normal",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": "C001",
+                "limit": 5
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "total_cents": 155000,
+              "rows_returned": 2,
+              "truncated": false,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 2,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "empty_normal",
+            "task": "查询虚构销售库2026年7月所有客户已支付销售额，最多展示5条明细。",
+            "input": {
+              "case": "empty",
+              "scenario": "normal"
+            },
+            "expected": {
+              "business_status": "no_data",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "0.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "no_data",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 7,
+                "customer_id": null,
+                "limit": 5
+              },
+              "matched_order_ids": [],
+              "displayed_order_ids": [],
+              "total_cents": 0,
+              "rows_returned": 0,
+              "truncated": false,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 2,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "missing_period",
+            "task": "查询虚构销售库某月的销售额，我还没有确定年份和月份。",
+            "input": {
+              "case": "clarification",
+              "scenario": "normal"
+            },
+            "expected": {
+              "business_status": "needs_clarification",
+              "criteria": [
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": false
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "clarification",
+            "golden_report": null,
+            "behavior": {
+              "tool_attempts": 0,
+              "model_attempts": 1,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "missing_year_month",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "monthly_tool_retry",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "tool_timeout_once"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "3000.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 4
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "recovery",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": null,
+                "limit": 2
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-002",
+                "SO-003",
+                "SO-004"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-002"
+              ],
+              "total_cents": 300000,
+              "rows_returned": 2,
+              "truncated": true,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 2,
+              "model_attempts": 2,
+              "tool_retries": 1,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "customer_tool_retry",
+            "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+            "input": {
+              "case": "customer",
+              "scenario": "tool_timeout_once"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "1550.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 2
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": "C001"
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "recovery",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": "C001",
+                "limit": 5
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "total_cents": 155000,
+              "rows_returned": 2,
+              "truncated": false,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 2,
+              "model_attempts": 2,
+              "tool_retries": 1,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "monthly_model_retry",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "model_timeout_once"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "3000.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 4
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "recovery",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": null,
+                "limit": 2
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-002",
+                "SO-003",
+                "SO-004"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-002"
+              ],
+              "total_cents": 300000,
+              "rows_returned": 2,
+              "truncated": true,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 3,
+              "tool_retries": 0,
+              "model_retries": 1,
+              "degraded": false,
+              "stop_reason": "report_verified",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "monthly_fallback",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "report_timeout"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "3000.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 4
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "fallback",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": null,
+                "limit": 2
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-002",
+                "SO-003",
+                "SO-004"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-002"
+              ],
+              "total_cents": 300000,
+              "rows_returned": 2,
+              "truncated": true,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 3,
+              "tool_retries": 0,
+              "model_retries": 1,
+              "degraded": true,
+              "stop_reason": "receipt_template_fallback",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "customer_fallback",
+            "task": "查询虚构销售库客户C001在2026年9月的已支付销售额，最多展示5条明细。",
+            "input": {
+              "case": "customer",
+              "scenario": "report_timeout"
+            },
+            "expected": {
+              "business_status": "completed",
+              "criteria": [
+                {
+                  "criterion_id": "total_yuan",
+                  "field": "total_yuan",
+                  "operator": "eq",
+                  "expected": "1550.00"
+                },
+                {
+                  "criterion_id": "order_count",
+                  "field": "order_count",
+                  "operator": "eq",
+                  "expected": 2
+                },
+                {
+                  "criterion_id": "customer_id",
+                  "field": "customer_id",
+                  "operator": "eq",
+                  "expected": "C001"
+                },
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": true
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": "pending"
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "fallback",
+            "golden_report": {
+              "scope": {
+                "year": 2026,
+                "month": 9,
+                "customer_id": "C001",
+                "limit": 5
+              },
+              "matched_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "displayed_order_ids": [
+                "SO-001",
+                "SO-003"
+              ],
+              "total_cents": 155000,
+              "rows_returned": 2,
+              "truncated": false,
+              "fictional": true,
+              "citation_rule": "current_task_validated_receipt"
+            },
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 3,
+              "tool_retries": 0,
+              "model_retries": 1,
+              "degraded": true,
+              "stop_reason": "receipt_template_fallback",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "tool_exhausted",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "tool_timeout_always"
+            },
+            "expected": {
+              "business_status": "failed",
+              "criteria": [
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": false
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "expected_failure",
+            "golden_report": null,
+            "behavior": {
+              "tool_attempts": 2,
+              "model_attempts": 1,
+              "tool_retries": 1,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "mcp_call_timeout",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "arguments_rejected",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "invalid_arguments"
+            },
+            "expected": {
+              "business_status": "rejected",
+              "criteria": [
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": false
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "expected_rejection",
+            "golden_report": null,
+            "behavior": {
+              "tool_attempts": 0,
+              "model_attempts": 1,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "tool_arguments_out_of_scope",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          },
+          {
+            "case_id": "report_rejected",
+            "task": "查询虚构销售库2026年9月所有客户已支付销售额和订单数，最多展示2条明细。",
+            "input": {
+              "case": "monthly",
+              "scenario": "invalid_report"
+            },
+            "expected": {
+              "business_status": "rejected",
+              "criteria": [
+                {
+                  "criterion_id": "has_citation",
+                  "field": "has_citation",
+                  "operator": "eq",
+                  "expected": false
+                },
+                {
+                  "criterion_id": "approval_status",
+                  "field": "approval_status",
+                  "operator": "eq",
+                  "expected": null
+                },
+                {
+                  "criterion_id": "simulated_effects",
+                  "field": "simulated_effects",
+                  "operator": "eq",
+                  "expected": 0
+                },
+                {
+                  "criterion_id": "external_send",
+                  "field": "external_send",
+                  "operator": "eq",
+                  "expected": false
+                }
+              ]
+            },
+            "category": "expected_rejection",
+            "golden_report": null,
+            "behavior": {
+              "tool_attempts": 1,
+              "model_attempts": 2,
+              "tool_retries": 0,
+              "model_retries": 0,
+              "degraded": false,
+              "stop_reason": "report_does_not_match_receipt",
+              "database_unchanged": true,
+              "model_requests": 0
+            }
+          }
+        ],
+        "smoke_case_ids": [
+          "monthly_normal",
+          "customer_normal",
+          "empty_normal",
+          "missing_period"
+        ]
+      },
+      "agent_spec_sha256": "d32289712866f869f6817645e65771137f52508458ffea96e2c5e21320073f92",
+      "dataset_sha256": "7c62a9e2fabe36a5d0464c1249fb746f3e0181be5ab63f2a9588de9e9659e9b6",
+      "suite": "full",
+      "identity_check": "local_source_hashes_only_commit_not_resolved",
+      "rows": [
+        {
+          "case_id": "monthly_normal",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "customer_normal",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "empty_normal",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "missing_period",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "monthly_tool_retry",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "customer_tool_retry",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "monthly_model_retry",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "monthly_fallback",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "customer_fallback",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "tool_exhausted",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "arguments_rejected",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        },
+        {
+          "case_id": "report_rejected",
+          "execution_status": "not_run",
+          "judgement": "not_evaluated",
+          "observed_business_status": null,
+          "error": null,
+          "metrics": {
+            "latency_ms": null,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null,
+            "notice": "not_run_not_measured"
+          }
+        }
+      ],
+      "summary": {
+        "total_cases": 12,
+        "not_run": 12,
+        "passed": 0,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": null
+      }
+    },
+    "plan_sha256": "6e286cf9d9eff415b990a85192b672a0322e72ebd08821323504a566bd89ec39",
+    "timeout_seconds": 60,
+    "execution_mode": "fixture_model_real_local_mcp",
+    "rows": [
+      {
+        "case_id": "monthly_normal",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "3c3f15cff07d4c0894c19651eef8e384",
+          "agent_run_id": "1225be65f0be4b49bd0ec7dd8a5339e1",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：1225be65f0be4b49bd0ec7dd8a5339e1/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 15
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 5468194500,
+          "latency_ms": 5468.194,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "30de0518f92e7757b72178d7d962530f6cac21c83564613fcfb3be496ed31b0f",
+          "artifacts/events.json": "01dea09a34990a18075169bf7f4aa300fa91c754e4590fc9e3378f095cac1981",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "a7e718516232db27b307821d44b7084d29c336cfffca8bcf50f248bd222641e3",
+          "artifacts/tasks.sqlite": "cb8d00a7bbf95d3a12e44cb1a730b75df689505e9519740eaf6f62662cda4e0d",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "25a89e6ef11dfef7400596fe8fe206e3728ccb14f2d548fb2f4bd83749f0d3ad"
+        }
+      },
+      {
+        "case_id": "customer_normal",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "fa6ecb3396dc442d85befba82f8f1dd7",
+          "agent_run_id": "bf4136b8a22d44aa9ffc3fd18c9627c5",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年9月，C001。已支付订单2条，销售额1550.00元。\n来源：bf4136b8a22d44aa9ffc3fd18c9627c5/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 15
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 5448527800,
+          "latency_ms": 5448.528,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "3a4feabf698d7ce356750558d01b1e15caeb5887fa2f226cdcd3af8a6c2b7fbf",
+          "artifacts/events.json": "c3f09115dca5d0d3c5f99799b443393712363b6d7d8b848ee5c94027446c0409",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "0590c6defe2af48b4bd5a1a20de42900a64f9578bb7d76d55e5a3b9e5a8abf42",
+          "artifacts/tasks.sqlite": "ae47fa661c3c9e7d1411b4d8588bd09a087ce3b5c1c66507aed5752f697a67bb",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "4d841f3e8bedfe5f03b98aa0c0face43aaa0b366b8fbc583cf9ec864e023dab0"
+        }
+      },
+      {
+        "case_id": "empty_normal",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "no_data",
+          "task_id": "b83f17634c9d4449a05a170f9228f52c",
+          "agent_run_id": "4bc8038cfcbb443695c5502541d8ac02",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年7月，所有客户。该范围没有已支付订单，销售额为0.00元。\n来源：4bc8038cfcbb443695c5502541d8ac02/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 15
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 4345792900,
+          "latency_ms": 4345.793,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "f8e73ac2cba0b733f4957b9c1f8924adf567aab104b9685c833512c02f5897e1",
+          "artifacts/events.json": "245ba23db028de19fb686299735ffd15c168253069fda881a55ef224f52c0501",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "0a0f615d03fe668a75f681c06ec54f441ea9e93c285acf193e7069ddeaca5515",
+          "artifacts/tasks.sqlite": "381d78ed94f5ab7227d4b10c69322bb4a4cb7670399ee0f3df62101d416243b1",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "1fa4ea6206f3f25fc47582f9a759bf371acd1c21b29d0bf3ab43dd49c2ab47ed"
+        }
+      },
+      {
+        "case_id": "missing_period",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "needs_clarification",
+          "task_id": "f24359ee5c9646fdbf91b91b15fb14b1",
+          "agent_run_id": "970583c4f1a44ffc89ba7e675f27791e",
+          "stop_reason": "missing_year_month",
+          "answer": "请明确查询的年份和月份，再开始查询。",
+          "answer_source": "clarification_template",
+          "tool_attempts": 0,
+          "mcp_dispatches": 0,
+          "tool_retries": 0,
+          "model_attempts": 1,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": null,
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 8
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 2953473000,
+          "latency_ms": 2953.473,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/events.json": "03d07644ca5fbb336491cf3f251e8bedf460e83d952993ebb59fea1597b9f074",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "bc791ca1dc6d8680101f06631f3f28cda18f25a9ead1fbaa4c58730f839da381",
+          "artifacts/tasks.sqlite": "ebd4b41f1023bc55d3cb62d6922e1b7da1ab6b03bb4836c65af488c0ad455569",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "7ac99fc9ef60656c49823808ad1ac882c0d60de116b9207114673cff3c8d9326"
+        }
+      },
+      {
+        "case_id": "monthly_tool_retry",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "5db20eff5cb0475484f4c7dcbe6f6b02",
+          "agent_run_id": "c42ac339cc084b5b8847623b907c251c",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：c42ac339cc084b5b8847623b907c251c/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 2,
+          "mcp_dispatches": 2,
+          "tool_retries": 1,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 19
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 6034437700,
+          "latency_ms": 6034.438,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "9a954c1b8a6fcd062b91bce14359dd06e72dd3c1818d2d9561cdd76096e4fba1",
+          "artifacts/events.json": "c35e5801d9b756b7bd608f546588543eb57f26f060bfebc74a46b54ea0b2749c",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "1b0e6d2960a7fe0d82192ca7649892af8863ed388315700e27f8d75eebc8e498",
+          "artifacts/tasks.sqlite": "d67c225de489007bdd2681f6962dcb791793574e9ba09a1fed2807638f5a150a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "5b754f078ad4ce7c2fb8fee06eab5fdc8ac1d9b2c175384f466af387ad301660"
+        }
+      },
+      {
+        "case_id": "customer_tool_retry",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "af03f6d638934a7eb0dc85bf36f3d6aa",
+          "agent_run_id": "adc26b865a9845a78d3a8bb50f29e342",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年9月，C001。已支付订单2条，销售额1550.00元。\n来源：adc26b865a9845a78d3a8bb50f29e342/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 2,
+          "mcp_dispatches": 2,
+          "tool_retries": 1,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 19
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 5961701700,
+          "latency_ms": 5961.702,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "906189b2602b7ea65820f0c700981ccdba033f1739471140fdc05c556b3b92ce",
+          "artifacts/events.json": "7c108a3990b305e31b073a0d153698dc8b3e00c86b72393db00aed82db0a0356",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "6ff6fb09e0e7795f81145469a8593bbe761ae60b133d34a56d098dbe08bd6241",
+          "artifacts/tasks.sqlite": "52eccddbc96962818ab8562afa46c66be640b44011796eb93c15fe7a9b74217f",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "e33c4633130c7f32d42ced9d67b42545799bb14793009c465cf4ee32b07c1843"
+        }
+      },
+      {
+        "case_id": "monthly_model_retry",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "bdb104b15e4e4b07a14f67be748f1545",
+          "agent_run_id": "d6c3f7f9425b4326b4f962b6b6670cb3",
+          "stop_reason": "report_verified",
+          "answer": "教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：d6c3f7f9425b4326b4f962b6b6670cb3/T1（MCP只读查询回执）。",
+          "answer_source": "verified_report_template",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 3,
+          "model_retries": 1,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 18
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 4328241000,
+          "latency_ms": 4328.241,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "f8fc1fe1a806eb9574591d17494b595d55274161fbd7aa52b657eae371f0c190",
+          "artifacts/events.json": "7415a003b6ce08dc01c63a6cff9ae507fff3a30ceced6551be2f5f6fceb8962c",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "55b2d2e30b0b57120dbaba791a927c913b6e4a54dd14b227cc835d062e098288",
+          "artifacts/tasks.sqlite": "d5997958c4347e6b4e227bed959761bc68419af8f5f9336e73fdb3fc03ab3b82",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "33593fa391706b692ec3a247a516ad8312a76621433f01bd678486b5c897fd20"
+        }
+      },
+      {
+        "case_id": "monthly_fallback",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "9af3dad5b28d42ee95efff020e895d85",
+          "agent_run_id": "6e0ddad7f9da4926ace740513f1f7997",
+          "stop_reason": "receipt_template_fallback",
+          "answer": "模型回答服务暂不可用，以下为已校验回执的本地模板结果。\n教学虚构数据：2026年9月，所有客户。已支付订单4条，销售额3000.00元。仅展示2条明细，销售额仍为全量合计。\n来源：6e0ddad7f9da4926ace740513f1f7997/T1（MCP只读查询回执）。",
+          "answer_source": "validated_receipt_fallback",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 3,
+          "model_retries": 1,
+          "model_requests": 0,
+          "degraded": true,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 21
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 4457099300,
+          "latency_ms": 4457.099,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "ba0f9f2994fa29e8f50905b5a8969b6dad41a8a2e74567d92e05a078b67eae76",
+          "artifacts/events.json": "cfff9948022eb3adfa3b1dedced854fee324c711f8947be6d77f463cedfcb3c7",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "5323d30429db5084e46ed9e2e2349a1ced30b636daa65bffac930b213f3987e5",
+          "artifacts/tasks.sqlite": "09e2224d47df3b06832d645f734213ea91c7f9af6bdf1cf380bb861023b1344e",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "92768a1849dcc1e5fd7e7f27911f968433d492348b8960c42ecfbaee63ba5357"
+        }
+      },
+      {
+        "case_id": "customer_fallback",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "completed",
+          "task_id": "8a2588c1877446039abc0695869170df",
+          "agent_run_id": "cdbdd2a1dfcf46f9aba951cb84220840",
+          "stop_reason": "receipt_template_fallback",
+          "answer": "模型回答服务暂不可用，以下为已校验回执的本地模板结果。\n教学虚构数据：2026年9月，C001。已支付订单2条，销售额1550.00元。\n来源：cdbdd2a1dfcf46f9aba951cb84220840/T1（MCP只读查询回执）。",
+          "answer_source": "validated_receipt_fallback",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 3,
+          "model_retries": 1,
+          "model_requests": 0,
+          "degraded": true,
+          "database_unchanged": true,
+          "approval_status": "pending",
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 21
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 4494742700,
+          "latency_ms": 4494.743,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/approvals.sqlite": "549eb65e9f14906fc7526baedd262aa3c0c559e74467dfef751e0cc76d1e2a64",
+          "artifacts/events.json": "cdd8c250be382c19c965172830334b143fe66ecdc5d6bcf2ccbfa08f43830cf9",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "ae6f21c421acd5056136ae32803d75040b6b9df26f68d12353946154587b4351",
+          "artifacts/tasks.sqlite": "9bc4228387dccb40786fa5776273f206b1f8b271ee67e422afce8555c1b10886",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "097b7c363f983939a93b6843c97b1b67fe2f82659ae3fba14356edd549f67d64"
+        }
+      },
+      {
+        "case_id": "tool_exhausted",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "failed",
+          "task_id": "8227e2103a524fa29e04d29f32f500ee",
+          "agent_run_id": "138f6ce5031346108dfc6a83b3c0d9b7",
+          "stop_reason": "mcp_call_timeout",
+          "answer": null,
+          "answer_source": "none",
+          "tool_attempts": 2,
+          "mcp_dispatches": 2,
+          "tool_retries": 1,
+          "model_attempts": 1,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": null,
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 18
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 5600123400,
+          "latency_ms": 5600.123,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/events.json": "8553a4dd2b7b815828a38f3a2574e54d3d952676b8976d06590d056e7b32c6e0",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "5fb7917639de2510cba6747383f6b50fbbfb143accf2abbbf5ae967c9a030196",
+          "artifacts/tasks.sqlite": "27e147cfcd7296bca1be1071b4edcaccd70a80489109ffae8a173dabee03de79",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "c32ddcd99f76f401c6972a90ee9a05e5dc49c689e861f458b7471a50efc0d5c8"
+        }
+      },
+      {
+        "case_id": "arguments_rejected",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "rejected",
+          "task_id": "0060a14ddd744d588289785341c29dd0",
+          "agent_run_id": "f64cf9765f3444f681fdf1a9f3b3a4ce",
+          "stop_reason": "tool_arguments_out_of_scope",
+          "answer": null,
+          "answer_source": "none",
+          "tool_attempts": 0,
+          "mcp_dispatches": 0,
+          "tool_retries": 0,
+          "model_attempts": 1,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": null,
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 8
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 2731297000,
+          "latency_ms": 2731.297,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/events.json": "f6f19f36a23037d63a0da717857d283d96e0f1808e4238908087a9f0a602bba9",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "da5aa382735a02eba6c04f06333151a30f8bd13f773f4fbd1d01c7b1a31caea5",
+          "artifacts/tasks.sqlite": "62345c78cf6e7c3245783a15f50147fc9feacdcfed280dcd6c0e26b76384d467",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "2a44210abb2e760f2e8c6c515740f2c086296be5b46bf3965847f15454a66c56"
+        }
+      },
+      {
+        "case_id": "report_rejected",
+        "execution_status": "completed",
+        "observed": {
+          "business_status": "rejected",
+          "task_id": "75a9dbec02b2438b8844dd3553f457d1",
+          "agent_run_id": "cf41b715de2f45a6babcdb567d99daa5",
+          "stop_reason": "report_does_not_match_receipt",
+          "answer": null,
+          "answer_source": "none",
+          "tool_attempts": 1,
+          "mcp_dispatches": 1,
+          "tool_retries": 0,
+          "model_attempts": 2,
+          "model_retries": 0,
+          "model_requests": 0,
+          "degraded": false,
+          "database_unchanged": true,
+          "approval_status": null,
+          "simulated_effects": 0,
+          "external_send": false,
+          "event_count": 15
+        },
+        "error": null,
+        "worker_exit_code": 0,
+        "cleanup_verified": null,
+        "judgement": "not_evaluated",
+        "metrics": {
+          "elapsed_ns": 4199088500,
+          "latency_ms": 4199.088,
+          "clock": "perf_counter_ns",
+          "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+          "measurement": "complete_case",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cost": null,
+          "notice": "latency_only_no_usage_or_cost"
+        },
+        "artifacts": {
+          "artifacts/events.json": "57783c54f23bae5f542111eb342d63ec87550db07545fc1439a20c0f45a6ac8d",
+          "artifacts/fictional.sqlite": "8b987e539cc13764f618eef030d25c66100a381953d3a4bb35ecc5c05f25c865",
+          "artifacts/generation.json": "ff1793891bb0e70726c8ed79e10b3016eda658c9cde674eadc9bf8b53197a9d9",
+          "artifacts/tasks.sqlite": "b46886d2204a12fface0160bab5073a668b6742fbbf29c9a149bea4b73a48523",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "worker-result.json": "b6974de3c2965bed898492cecececed345b8e8d2cf39dffb34911dde76299764"
+        }
+      }
+    ],
+    "summary": {
+      "selected": 12,
+      "completed": 12,
+      "errors": 0,
+      "timeouts": 0,
+      "interrupted": 0,
+      "not_run": 0,
+      "running": 0,
+      "business_status_counts": {
+        "completed": 7,
+        "no_data": 1,
+        "needs_clarification": 1,
+        "failed": 1,
+        "rejected": 2
+      },
+      "success_rate": null
+    },
+    "source_sha256_lf": {
+      "agent-center/release-v1.0.0.json": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8",
+      "experiments/day64/chat_tools.py": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260",
+      "experiments/day64/function_calling.py": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a",
+      "experiments/day64/tool_contract.py": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233",
+      "experiments/day65/sales-data.json": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20",
+      "experiments/day65/sales_sql.py": "48df6b766fc55c6807b04eaea9d28a13e16102abff1da6a17a66c4950cd744c9",
+      "experiments/day65/sql_agent.py": "e5779fb1f317bb35e2afee65f3d9d41fa24ae407da6d78899a2a319b2085bdaf",
+      "experiments/day72/sales_mcp_server.py": "12c9e2d16ccf201f0b29b3b348a6805f7ebff8823e963688fe3a2d76fc5fe1e0",
+      "experiments/day72/smoke_client.py": "85615cc415ab744a5ce7b8a176edbb632d3211d11987b560deab33ec762dadf1",
+      "experiments/day72/wire_client.py": "6909fb13060178e14b02bd4b5211e886b436b58e45ccbf19b400884a8b331284",
+      "experiments/day73/mcp_agent.py": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb",
+      "experiments/day73/mcp_sales.py": "58337034445ddc981853c98bea0f382a6b26cee0a64b391d01079184f428fad2",
+      "experiments/day78/logged_agent.py": "a41412280947b38f1be3c3a9a555c73291a5429e1672e5300e478b2dc37cd3b2",
+      "experiments/day78/task_log.py": "18fbe709fc549e4d717a44f8ece10c0cd1af9d843d4204e9b2a961e8a5c963f6",
+      "experiments/day79/recovery_agent.py": "0e662e496ca403ff7c3d040ea79d8b4b83d9a0eae798528ae31afb1cf7eb1b02",
+      "experiments/day80/approval_store.py": "826abbd3a479b465ceee5a0fe2ffff524320fbc1e5c2c379639172cddd73020e",
+      "experiments/day80/hitl_agent.py": "3418eb7e940bcef216d8f8ffb9148524d7dd644672c33c1509c93cc2fce0798e",
+      "experiments/day82/candidate.md": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc",
+      "experiments/day82/prompt_lab.py": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138",
+      "experiments/day82/prompt_policy.py": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375",
+      "experiments/day85/contracts.py": "7e4c4420feb473e293ca36c4c41f1111fd639980e1b887bdd7ac6b3509b4e60f",
+      "experiments/day85/framework.py": "0c633efab4e50345b705e41efb100730ed40c1d677724245be1a6937cc3f1d2e",
+      "experiments/day86/dataset_contracts.py": "431fbfc435c23ce0211647b255f381363e3bc84bb2a7eb41a85e69981196563c",
+      "experiments/day86/dataset_tool.py": "3331274005afdc915ff850bc4bb8cb267e7eab1d9677c08b25f1da6337fb7f00",
+      "experiments/day87/execution_contracts.py": "33c5b904860d5da93cad5193d75903a1a620e3eb4d51c8b99a56d74bb4e19f90",
+      "experiments/day87/runner.py": "d4e98f5cf0d7e1e007abb1785fe85d727ab62ddb697b26d03af95f5ee80343f6",
+      "experiments/day87/worker.py": "fe0d4129e1663fcb6556a04aaf05e8dbff4a6324e336b3b392e0fc5fa5be4ddf",
+      "experiments/day88/latency.py": "6c452c39099c1b3c866f59e0fabce36325ba035b4b49e575698c106eca7c1ba4",
+      "experiments/day88/runner.py": "e1a88f435c1e065fd6bda8d74f6af4bf93efbd5a35edbe37e7ad91c0c516a565"
+    },
+    "frozen_integrity": {
+      "status": "passed",
+      "version": "1.0.0",
+      "release_status": "released",
+      "frozen_artifacts": 114,
+      "historical_source_hashes_checked": 21,
+      "unique_regression_tests_required": 677,
+      "demo_video_status": "deferred",
+      "prompt_quality_improvement": "not_measured",
+      "v05_integrity": {
+        "status": "passed",
+        "version": "0.5.0",
+        "release_status": "released",
+        "frozen_artifacts": 57,
+        "historical_hashes_checked": {
+          "source_hashes": 48,
+          "evidence_hashes": 11,
+          "excluded_document_hashes": 17
+        },
+        "unique_regression_tests_required": 418,
+        "v02_and_v01_integrity": {
+          "status": "passed",
+          "version": "0.2.0",
+          "release_status": "released",
+          "frozen_artifacts": 86,
+          "historical_hashes_checked": {
+            "source_hashes": 69,
+            "evidence_hashes": 22
+          },
+          "unique_historical_tests": 648,
+          "v01_integrity": {
+            "status": "passed",
+            "product": "Agent Center",
+            "version": "0.1.0",
+            "release_status": "released",
+            "frozen_artifacts": 70,
+            "historical_source_hashes_checked": 41,
+            "unique_historical_tests": 202,
+            "tests_executed_by_this_check": 0,
+            "new_model_requests": 0,
+            "remote_tag_or_release_checked": false
+          },
+          "tests_executed_by_this_check": 0,
+          "new_model_requests": 0,
+          "remote_tag_or_release_checked": false
+        },
+        "tests_executed_by_this_check": 0,
+        "new_model_requests": 0,
+        "remote_tag_or_release_checked": false
+      },
+      "tests_executed_by_this_check": 0,
+      "new_model_requests": 0,
+      "remote_tag_or_release_checked": false
+    },
+    "latency_summary": {
+      "scope": "parent_execute_case_including_startup_retries_cleanup_and_base_evidence",
+      "percentile_method": "nearest_rank",
+      "measured_cases": 12,
+      "unmeasured_cases": 0,
+      "sum_case_elapsed_ms": 56022.719,
+      "by_execution_status": {
+        "completed": {
+          "samples": 12,
+          "min_ms": 2731.297,
+          "mean_ms": 4668.56,
+          "p50_ms": 4457.099,
+          "p95_ms": 6034.438,
+          "max_ms": 6034.438
+        },
+        "error": {
+          "samples": 0,
+          "min_ms": null,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        },
+        "timeout": {
+          "samples": 0,
+          "min_ms": null,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        },
+        "interrupted": {
+          "samples": 0,
+          "min_ms": null,
+          "mean_ms": null,
+          "p50_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        }
+      },
+      "by_business_status": {
+        "completed": {
+          "samples": 7,
+          "min_ms": 4328.241,
+          "mean_ms": 5170.421,
+          "p50_ms": 5448.528,
+          "p95_ms": 6034.438,
+          "max_ms": 6034.438
+        },
+        "no_data": {
+          "samples": 1,
+          "min_ms": 4345.793,
+          "mean_ms": 4345.793,
+          "p50_ms": 4345.793,
+          "p95_ms": 4345.793,
+          "max_ms": 4345.793
+        },
+        "needs_clarification": {
+          "samples": 1,
+          "min_ms": 2953.473,
+          "mean_ms": 2953.473,
+          "p50_ms": 2953.473,
+          "p95_ms": 2953.473,
+          "max_ms": 2953.473
+        },
+        "failed": {
+          "samples": 1,
+          "min_ms": 5600.123,
+          "mean_ms": 5600.123,
+          "p50_ms": 5600.123,
+          "p95_ms": 5600.123,
+          "max_ms": 5600.123
+        },
+        "rejected": {
+          "samples": 2,
+          "min_ms": 2731.297,
+          "mean_ms": 3465.193,
+          "p50_ms": 2731.297,
+          "p95_ms": 4199.088,
+          "max_ms": 4199.088
+        }
+      },
+      "completed_includes_business_failure_and_rejection": true,
+      "partial_durations_are_not_time_to_success": true
+    }
+  },
+  "execution_sha256": "a18234403889a151047e10d8ccd92e1054a620f2aa024b9e4bba91c01081c507",
+  "pricing": null,
+  "pricing_sha256": null,
+  "usage": {
+    "rows": [
+      {
+        "case_id": "monthly_normal",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "customer_normal",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "empty_normal",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "missing_period",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 1,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "monthly_tool_retry",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "customer_tool_retry",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "monthly_model_retry",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 3,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "monthly_fallback",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 3,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "customer_fallback",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 3,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "tool_exhausted",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 1,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "arguments_rejected",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 1,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      },
+      {
+        "case_id": "report_rejected",
+        "status": "fixture_no_provider_usage",
+        "model_attempts": 2,
+        "provider_requests": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "estimated_model_api_cost": "0",
+        "token_source": "not_applicable_fixture"
+      }
+    ],
+    "summary": {
+      "selected": 12,
+      "fixture_cases": 12,
+      "unknown_cases": 0,
+      "provider_requests": 0,
+      "input_tokens": null,
+      "output_tokens": null,
+      "total_tokens": null,
+      "estimated_model_api_cost": "0",
+      "known_model_api_cost": "0",
+      "scope": "model_api_only_excludes_local_compute_and_tools",
+      "notice": "fixture_has_no_provider_usage_not_measured_zero_tokens"
+    }
+  },
+  "source_sha256_lf": {
+    "experiments/day89/demo.py": "0358a519148a4fe00435d0b33bbdea4a4b7605562bee2bf5f28c95017ff2798c",
+    "experiments/day89/reporting.py": "4692975563695656b2d58215a6bf662d12a984c62209a4003359241bd860f69a",
+    "experiments/day89/runner.py": "9354035b1a24bb0eec249a66eca8a79f4b754110ec53863afaff979164bc1eba",
+    "experiments/day89/transport.py": "756d3dadb0617723c51115e16f9ef18d82bf2e53b60e8a77d565121c9ca5ee59",
+    "experiments/day89/usage.py": "45fc5dda6af9b6169f814734142f3b19c0c9919aa303da4a2daef6f04be27f31"
+  }
+}
