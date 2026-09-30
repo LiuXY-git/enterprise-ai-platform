@@ -55,9 +55,7 @@ def test_all_operations_have_summaries() -> None:
         ("/crm/customers/{customer_id}", "get"): "查询 CRM 客户",
         ("/crm/followups", "post"): "创建 CRM 跟进记录",
         ("/crm/followups/{followup_id}", "get"): "查询 CRM 跟进记录",
-        ("/crm/customers/{customer_id}/followups", "get"): (
-            "查询客户跟进记录"
-        ),
+        ("/crm/customers/{customer_id}/followups", "get"): ("查询客户跟进记录"),
         ("/integrations/feishu/messages", "post"): ("通过飞书机器人发送文本消息"),
         ("/integrations/wecom/messages", "post"): "通过企业微信自建应用发送文本消息",
     }
@@ -192,15 +190,15 @@ def test_crm_openapi_contract() -> None:
 def test_wecom_lifecycle_is_lazy_and_resets_cache(monkeypatch) -> None:
     from fastapi.testclient import TestClient
 
-    from backend.app import main as main_module
+    from backend.app.core import lifecycle as lifecycle_module
     from backend.app.routers import wecom as wecom_router
 
     def missing_config():
         raise RuntimeError("未配置 WECOM_CORP_ID")
 
     # Lifecycle verification must not touch a real database or send real requests.
-    monkeypatch.setattr(main_module, "init_database", lambda: None)
-    monkeypatch.setattr(main_module, "configure_logging", lambda: None)
+    monkeypatch.setattr(lifecycle_module, "init_database", lambda: None)
+    monkeypatch.setattr(lifecycle_module, "configure_logging", lambda: None)
     monkeypatch.setattr(wecom_router, "get_wecom_config", missing_config)
 
     app.state.wecom_cache = object()

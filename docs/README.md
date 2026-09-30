@@ -36,6 +36,8 @@
 
 ## 项目设计
 
+- Week 14：[实施计划](week-14-plan.md)、[Day 92 后端代码重构](day92-code-refactor.md)、[后端目录](../backend/README.md)、[测试入口](../tests/README.md)。
+
 - [系统架构](architecture.md)
 - [技术选型](tech-stack.md)
 - [数据库设计](database.md)

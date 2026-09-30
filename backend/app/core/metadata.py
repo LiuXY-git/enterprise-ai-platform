@@ -1,0 +1,66 @@
+"""Public API documentation metadata, independent of application construction."""
+
+API_DESCRIPTION = """
+Enterprise AI Platform 是一个面向企业知识库场景的 AI 平台。
+
+## 核心能力
+
+- 上传并解析 PDF、DOCX 和 Markdown 文档
+- 自动切分文档并建立向量索引
+- 跨多个文档检索相关内容
+- 使用 RAG 生成带来源引用的回答
+- 支持 DeepSeek 和通义千问模型切换
+
+## 接口说明
+
+- `/health`：检查服务运行状态
+- `/chat`：基础聊天接口
+- `/dify/workflow`：由 FastAPI 调用 Dify 企业咨询工作流
+- `/upload`：上传、解析并索引文档
+- `/rag/query`：检索相关文档片段
+- `/rag/answer`：生成带来源引用的回答
+- `/retrieval`：为 Dify 提供外部知识库检索
+- `/workflow-runs`：保存、查询和回放自动化工作流执行记录
+- `/crm`：保存和查询模拟 CRM 客户与跟进记录
+- `/integrations/feishu/messages`：通过飞书机器人发送文本消息
+- `/integrations/wecom/messages`：通过企业微信自建应用发送文本消息
+"""
+
+OPENAPI_TAGS = [
+    {
+        "name": "system",
+        "description": "服务状态与运行检查接口。",
+    },
+    {
+        "name": "chat",
+        "description": "基础聊天功能接口。",
+    },
+    {
+        "name": "dify",
+        "description": "FastAPI 调用 Dify 应用工作流的集成接口。",
+    },
+    {
+        "name": "documents",
+        "description": "文档上传、解析和自动索引接口。",
+    },
+    {
+        "name": "knowledge",
+        "description": "Dify 外部知识库检索与集成接口。",
+    },
+    {
+        "name": "rag",
+        "description": "知识库检索和带来源回答接口。",
+    },
+    {
+        "name": "workflows",
+        "description": "自动化工作流运行记录、错误处理和回放接口。",
+    },
+    {
+        "name": "crm",
+        "description": "模拟 CRM 客户与销售跟进记录接口。",
+    },
+    {
+        "name": "integrations",
+        "description": "飞书等企业系统的集成接口。",
+    },
+]

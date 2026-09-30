@@ -38,7 +38,9 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 90](docs/day90-success-rate.md)已加入独立规则判分、分类计数和成功率。342 项测试通过，12 个固定 fixture 场景全部符合预期；错误保留在分母，未完成批次不给最终成功率。
 
-[Day 91](docs/day91-evaluation-release.md)已准备 Evaluation Center v0.1.0 发布候选：383 项测试通过，12 例重新运行与评分通过，新增清单、验收和正式发布教程。真实模型评测尚未接入；正式标签与 Release 待后续定版。
+[Day 91](docs/day91-evaluation-release.md)成果已于 2026-09-30 正式定版为 Evaluation Center v0.1.0，提交 `a5d7671` 与标签 `evaluation-center-v0.1.0` 已推送；维护者提供的 Release 页面截图确认标题与验收附件。383 项测试通过、12 例固定 fixture 重新运行与评分通过；真实模型评测尚未接入。候选文档保留历史状态。
+
+[Week 14](docs/week-14-plan.md)开始企业生产化优化。[Day 92](docs/day92-code-refactor.md)拆分后端应用工厂、生命周期、API 文档配置和路由注册，清理无引用空占位文件。514 项后端测试与 41 项发布门禁测试通过，25 个 OpenAPI 路径契约保持一致，历史冻结资产完整性检查通过。
 
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
