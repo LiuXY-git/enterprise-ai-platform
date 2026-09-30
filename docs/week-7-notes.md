@@ -1,10 +1,10 @@
 # Week 7：企业平台集成与销售流程验收
 
-路线范围：Day 43–49。本文件整合现有 2 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 43–49。本文件包含 2 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
-现有独立 Day 文件仅覆盖 Day 48–49；Day 43–47 的阶段记录见[Week 7 总结](week-7-summary.md)。
+本文件收录 Day 48–49；Day 43–47 的阶段记录见[Week 7 总结](week-7-summary.md)。
 
 [返回周目录](README.md#按周阅读) · [本周总结](week-7-summary.md)
 
@@ -19,7 +19,6 @@
 
 ## Day 48 故障恢复验收记录
 
-> 原始记录：[day48-failure-recovery-results.md](day48-failure-recovery-results.md)。以下正文保留编写时的状态。
 
 记录日期：2026-09-12。分支：feature/day48-failure-recovery；本记录随 Day 48 功能提交保存。
 以下联调结果来自用户提供的脚本成功输出和 n8n 执行截图，所有业务数据均为测试数据。
@@ -104,7 +103,6 @@ Day 48 Production URL 正常与重复事件测试通过；真实消息发送链�
 
 ## Day 49 发布验收记录
 
-> 原始记录：[day49-release-acceptance.md](day49-release-acceptance.md)。以下正文保留编写时的状态。
 
 记录日期：2026-09-13，时区 Asia/Shanghai。工作分支为 feature/day49-workflow-center-v0.5，基线提交为 992d0fd。Day 49 增量包括清单、脚本和文档，后端业务代码与销售工作流导出沿用 Day 48；本地定版日期为 2026-09-14，组件标签为 workflow-center-v0.5.0。
 

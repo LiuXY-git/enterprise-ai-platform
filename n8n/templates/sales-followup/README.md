@@ -30,10 +30,10 @@
 
 业务名称为 `sales-followup-assistant`。同一 event_id 去重，同一 run_id 只创建一条跟进。CRM 失败可显式回放并复用分析检查点；CRM 已保存后整条回放被拒绝。通知 delivery_unknown 先人工核对，不能直接重发；通知 sent 不会自动完成原 failed 工作流。
 
-已通过业务验收直接沿用 [Day 49 证据](../../../docs/day49-release-acceptance.md)。更详细说明见 [销售助手](../../../docs/n8n-sales-followup-assistant.md)。
+已通过业务验收直接沿用 [Day 49 证据](../../../docs/week-7-notes.md#day49)。更详细说明见 [销售助手](../../../docs/n8n-sales-followup-assistant.md)。
 
 ## Day 52 配置归属
 
 销售分析的模型位于 n8n 的 `DashScope Qwen Chat Model` 节点，凭据绑定在 n8n Credentials 中。后端 `LLM_PROVIDER`、`QWEN_MODEL` 和 `DASHSCOPE_API_KEY` 不会自动修改该节点。API 配置自检不验证 n8n 凭据。通知仍为 preview。
 
-配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/day52-configuration-center.md)。
+配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/week-8-notes.md#day52)。

@@ -127,7 +127,7 @@ Model：qwen3.7-plus
 
 退出码 0 仅表示配置有效，不验证密钥或模型服务连通性。修改本地 `.env` 后重启 FastAPI；Compose 环境变量变更需重新创建 API 容器，仅 restart 不会重新注入变量。当前支持与默认型号沿用项目已有配置，不代表供应商最新推荐。
 
-完整字段、优先级、脱敏与生效方式见 [Day 52 配置中心](day52-configuration-center.md)。
+完整字段、优先级、脱敏与生效方式见 [Day 52 配置中心](week-8-notes.md#day52)。
 
 - 修改 Provider 后需要重启服务
 - 当前不支持单个请求临时指定模型

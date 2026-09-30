@@ -1,6 +1,6 @@
 # Day 25：Docker 部署
 
-本页保留 Day 25 部署背景；当前一键启动、日志轮转与重建持久化验收请使用 [Day 53 部署说明](day53-compose-deployment.md)。
+本页保留 Day 25 部署背景；当前一键启动、日志轮转与重建持久化验收请使用 [Day 53 部署说明](week-8-notes.md#day53)。
 
 ## 今日目标
 

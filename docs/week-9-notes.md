@@ -1,8 +1,8 @@
 # Week 9：Agent 基础与状态管理
 
-路线范围：Day 57–63。本文件整合现有 7 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 57–63。本文件包含 7 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
 [返回周目录](README.md#按周阅读) · [本周计划](week-9-plan.md) · [本周总结](week-9-summary.md)
 
@@ -22,7 +22,6 @@
 
 ## Day 57：Agent Center 架构入门
 
-> 原始记录：[day57-agent-architecture.md](day57-agent-architecture.md)。以下正文保留编写时的状态。
 
 日期：2026-09-17。交付状态：架构设计与静态推演完成，Agent 运行时尚未实现。
 
@@ -186,7 +185,6 @@ Day 57 不新增 Agent 接口、不安装 LangGraph、不调整数据库或容�
 
 ## Day 58：LangGraph 的 State、Node、Edge
 
-> 原始记录：[day58-langgraph-basics.md](day58-langgraph-basics.md)。以下正文保留编写时的状态。
 
 日期：2026-09-17。已完成最小状态图、五种模拟场景和本地测试。LangGraph 实际参与执行；规划与工具结果仍是固定教学数据，尚未接入模型 Agent。
 
@@ -317,7 +315,6 @@ Day 59 将创建第一个简单任务规划 Agent，并验证结构化计划与�
 
 ## Day 59：第一个任务规划 Agent
 
-> 原始记录：[day59-task-planner.md](day59-task-planner.md)。以下正文保留编写时的状态。
 
 日期：2026-09-20。已实现独立规划实验，完成离线测试及当前 Qwen 模型的两次真实验证。
 
@@ -471,7 +468,6 @@ Day 60 将围绕任务 ID、计划进度和持久化恢复继续实现；Week 10
 
 ## Day 60：任务状态保存与重启恢复
 
-> 原始记录：[day60-task-state.md](day60-task-state.md)。以下正文保留编写时的状态。
 
 Day 59 解决“模型如何生成有效计划”；Day 60 解决“任务做到哪一步，程序退出后怎样接着走”。本次保存的是计划和模拟步骤进度，SQLite 写入与独立进程恢复均已实际验证。
 
@@ -676,7 +672,6 @@ Day 61 继续设计企业 Agent 场景；真实工具调用仍按 Week 10 计划
 
 ## Day 61：销售跟进分析 Agent 场景设计
 
-> 原始记录：[day61-sales-agent-scenario.md](day61-sales-agent-scenario.md)。以下正文保留编写时的状态。
 
 <a id="day61-1-目标与完成范围"></a>
 
@@ -850,7 +845,6 @@ Day 62 以此契约编写 Agent Prompt，并区分程序规则验收和模型输
 
 ## Day 62：销售跟进分析 Agent Prompt
 
-> 原始记录：[day62-agent-prompt.md](day62-agent-prompt.md)。以下正文保留编写时的状态。
 
 <a id="day62-1-今天解决的问题"></a>
 
@@ -1022,7 +1016,6 @@ if ($LASTEXITCODE -ne 0) { throw 'Day 61–62 测试失败' }
 
 ## Day 63：Agent Center v0.1 发布准备与验收
 
-> 原始记录：[day63-agent-center-release.md](day63-agent-center-release.md)。以下正文保留编写时的状态。
 
 <a id="day63-1-本日交付"></a>
 

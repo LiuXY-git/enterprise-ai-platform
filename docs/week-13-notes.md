@@ -1,8 +1,8 @@
 # Week 13：Agent 评测框架
 
-路线范围：Day 85–91。本文件整合现有 7 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 85–91。本文件包含 7 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
 [返回周目录](README.md#按周阅读) · [本周计划](week-13-plan.md) · [本周总结](week-13-summary.md)
 
@@ -22,7 +22,6 @@
 
 ## Day 85：评测框架设计与契约预检
 
-> 原始记录：[day85-evaluation-framework.md](day85-evaluation-framework.md)。以下正文保留编写时的状态。
 
 依据 16 周路线进入 Week 13，今天先定义 Agent + Test Dataset → Evaluation Report 的结构和职责。基线为正式定版提交 `87ceb012c8054fbd6d98b991e1f94445135bce06`。
 
@@ -60,7 +59,6 @@ Agent Center v1.0 及父版本冻结资产完整性通过。旧 Agent、API、Do
 
 ## Day 86：正式测试集
 
-> 原始记录：[day86-test-dataset.md](day86-test-dataset.md)。以下正文保留编写时的状态。
 
 补齐前次中断后未提交的测试集工作，与 Day 87 执行器一并交付。数据版本为 sales-prepare-fixture 1.0.0，范围固定为 Day 82 fixture prepare。
 
@@ -79,7 +77,6 @@ Agent Center v1.0 及父版本冻结资产完整性通过。旧 Agent、API、Do
 
 ## Day 87：自动运行 Agent 测试集
 
-> 原始记录：[day87-evaluation-runner.md](day87-evaluation-runner.md)。以下正文保留编写时的状态。
 
 将 Day 86 的固定测试集接到 Day 82 fixture 入口，逐例启动独立 Python 进程，使用真实本地 stdio MCP 查询独立虚构 SQLite，保留实际回答、事件、审批快照、数据库与文件哈希。
 
@@ -116,7 +113,6 @@ Agent Center v1.0 及历史版本冻结资产完整性通过；本次未重跑�
 
 ## Day 88：Latency 统计
 
-> 原始记录：[day88-latency.md](day88-latency.md)。以下正文保留编写时的状态。
 
 在 Day 87 执行器外增加 perf_counter_ns 单调时钟，测量每例包含进程启动、所有尝试、退避等待、清理和基础证据落盘的总耗时。独立入口与新报告 schema 保留既有代码、测试集和历史证据。
 
@@ -141,7 +137,6 @@ Agent Center v1.0 与历史版本冻结完整性检查通过；未重跑全量 7
 
 ## Day 89：Token 与成本统计
 
-> 原始记录：[day89-token-cost.md](day89-token-cost.md)。以下正文保留编写时的状态。
 
 新增独立 UsageTransport，捕获旧 ChatTools 标准化时丢弃的 usage；输入、输出 Token 严格校验，每次尝试独立记账。支持显式价格快照与 Decimal 核算，缺失 usage、缺价、身份不匹配及不支持的计费细分不产生伪造总额。
 
@@ -165,7 +160,6 @@ Day 89 CLI 封装 Day 88 完整执行记录，明确 fixture 不具有供应商 
 
 ## Day 90：Success Rate
 
-> 原始记录：[day90-success-rate.md](day90-success-rate.md)。以下正文保留编写时的状态。
 
 Day 90 为固定销售评测补上逐例规则判分、分类汇总和明确的成功率分母。使用 Day 86 独立预期，读取 Day 87 执行证据，并保留 Day 88 延迟和 Day 89 消耗快照。
 
@@ -212,7 +206,6 @@ Day 90 为固定销售评测补上逐例规则判分、分类汇总和明确的�
 
 ## Day 91：Evaluation Center v0.1 发布准备
 
-> 原始记录：[day91-evaluation-release.md](day91-evaluation-release.md)。以下正文保留编写时的状态。
 
 今天把 Day 85–90 的评测模块整理为可冻结、可重跑验收的版本。新增发布清单、完整性门禁、验收脚本、正式 Release 正文生成器和使用说明。当前为本地发布候选，不自动创建远端标签或 Release。
 

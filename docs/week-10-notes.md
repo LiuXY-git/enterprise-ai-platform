@@ -1,8 +1,8 @@
 # Week 10：Function Calling 与多工具调用
 
-路线范围：Day 64–70。本文件整合现有 7 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 64–70。本文件包含 7 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
 [返回周目录](README.md#按周阅读) · [本周计划](week-10-plan.md) · [本周总结](week-10-summary.md)
 
@@ -22,7 +22,6 @@
 
 ## Day 64：Function Calling 最小闭环
 
-> 原始记录：[day64-function-calling.md](day64-function-calling.md)。以下正文保留编写时的状态。
 
 日期：2026-09-23。交付状态：代码、离线验收和单个虚构订单的 Qwen 真实调用验证完成。原计划主题为“学习 Function Calling”，Week 10 的完整顺序见 [本周计划](week-10-plan.md)。
 
@@ -186,7 +185,6 @@ Day 55 视频补录、Workflow Center v1.0.0 正式发布及企业微信真实�
 
 ## Day 65：只读 SQL Tool
 
-> 原始记录：[day65-sql-tool.md](day65-sql-tool.md)。以下正文保留编写时的状态。
 
 日期：2026-09-23。已完成代码、96 项新增测试、141 项 Day 64 回归，以及两个虚构场景的真实模型验证。当天目标来自 [Week 10 计划](week-10-plan.md)：实现 SQL Tool，示例是查询某月销售额。
 
@@ -341,7 +339,6 @@ Day 66 将实现 Knowledge Tool；多工具组合按 Day 68 推进。Day 55 视�
 
 ## Day 66：让 Agent 检索 Knowledge Hub 并带来源回答
 
-> 原始记录：[day66-knowledge-tool.md](day66-knowledge-tool.md)。以下正文保留编写时的状态。
 
 Day 65 让 Agent 查询结构化销售数据；Day 66 让 Agent 查询文档片段。交付的是 Python `search_knowledge` 工具及独立调用闭环：模型提供查询词，程序严格验证参数，调用已有 Knowledge Hub，回填检索证据，再校验最终回答的引用。
 
@@ -498,7 +495,6 @@ $env:PYTHONUTF8 = '1'
 
 ## Day 67：受控调用外部天气 API
 
-> 原始记录：[day67-api-tool.md](day67-api-tool.md)。以下正文保留编写时的状态。
 
 Day 65 查询 SQL 数据，Day 66 检索已有知识文档，Day 67 新增 `get_weather_forecast`：模型提出城市和天数，Python 调用 Open-Meteo，验证返回数据，再交给模型生成中文回答。这是一个固定天气接口的调用能力，不是任意网页搜索或浏览器访问。
 
@@ -622,7 +618,6 @@ $env:PYTHONUTF8 = '1'
 
 ## Day 68：把多个工具组合成一个有证据的任务
 
-> 原始记录：[day68-multi-tool.md](day68-multi-tool.md)。以下正文保留编写时的状态。
 
 前三天分别实现 SQL、知识库和天气工具；Day 68 复用它们，让一次任务根据前一步结果决定后续行动，再把多个来源组合成简报。代码位于独立实验目录，原工具实现、历史证据和已发布版本冻结文件保持不变。
 
@@ -762,7 +757,6 @@ $env:PYTHONUTF8 = '1'
 
 ## Day 69：复杂任务、失败边界与简报验收
 
-> 原始记录：[day69-complex-task-tests.md](day69-complex-task-tests.md)。以下正文保留编写时的状态。
 
 Day 68 已能在一项任务中组合 SQL、知识检索和天气工具。Day 69 将正常和异常路径整理成可重复的验收集，并增加一个从工具回执生成简报的程序，解决模型摘要漏写虚构背景和来源网址的问题。
 
@@ -885,7 +879,6 @@ $env:PYTHONUTF8 = '1'
 
 ## Day 70 Agent v0.2 发布准备与验收
 
-> 原始记录：[day70-agent-v02-release.md](day70-agent-v02-release.md)。以下正文保留编写时的状态。
 
 用户提供的《FDE 16 周企业 AI 平台学习路线 优化版》将 Day 70 定为“发布 Agent v0.2”，Week 11 从 Day 71 开始学习 MCP。本日将 Week 10 已完成的工具能力整理为 Agent Center v0.2.0 发布候选，版本号与平台 API 的 1.0.0 分开管理。
 

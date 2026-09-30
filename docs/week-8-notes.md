@@ -1,10 +1,10 @@
 # Week 8：工作流整理、配置与部署
 
-路线范围：Day 50–56。本文件整合现有 6 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 50–56。本文件包含 6 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
-现有独立 Day 文件覆盖 Day 50–55；Day 56 的发布准备见[Week 8 总结](week-8-summary.md)。
+本文件收录 Day 50–55；Day 56 的发布准备见[Week 8 总结](week-8-summary.md)。
 
 [返回周目录](README.md#按周阅读) · [本周总结](week-8-summary.md)
 
@@ -23,7 +23,6 @@
 
 ## Day 50：整理可复用工作流模板
 
-> 原始记录：[day50-workflow-templates.md](day50-workflow-templates.md)。以下正文保留编写时的状态。
 
 路线依据为 16 周学习路线 Week 8 / Day 50：整理客服、销售、邮件工作流模板。基线是已发布的 Workflow Center v0.5.0，提交 fe3c00e；平台 API 保持 1.0.0。
 
@@ -71,7 +70,6 @@ Git 状态：用户已完成本地分支 `feature/day50-workflow-templates` 和�
 
 ## Day 51：工作流结构化事件日志
 
-> 原始记录：[day51-workflow-logging.md](day51-workflow-logging.md)。以下正文保留编写时的状态。
 
 Day 51 为客服、邮件和销售工作流增加统一事件日志，记录可关联的输入、输出、状态、处理时间和用量来源。基线是 Day 50 本地提交 fd59aef，平台 API 与既有请求/响应契约保持不变。
 
@@ -163,7 +161,6 @@ Get-Content -LiteralPath logs/workflow-events.jsonl -Tail 20 | ForEach-Object { 
 
 ## Day 52 配置中心与离线自检
 
-> 原始记录：[day52-configuration-center.md](day52-configuration-center.md)。以下正文保留编写时的状态。
 
 Day 52 将六组后端配置集中到 `backend/app/settings.py`，保留原来的配置导入接口，并增加按组件执行的离线自检。修改配置前，先确定读取者是后端、Dify 还是 n8n。
 
@@ -291,7 +288,6 @@ $LASTEXITCODE
 
 ## Day 53 一键启动与持久化验收
 
-> 原始记录：[day53-compose-deployment.md](day53-compose-deployment.md)。以下正文保留编写时的状态。
 
 Day 53 提供 Windows PowerShell 一键启动和部署检查，限制文件及容器日志容量，并通过独立测试容器的删除重建验证 SQLite 与日志保留。Dify 继续由已有独立部署管理。
 
@@ -432,7 +428,6 @@ Windows PowerShell 构建阶段若曾出现 `failed to get console: The handle i
 
 ## Day 54 使用与架构文档
 
-> 原始记录：[day54-documentation.md](day54-documentation.md)。以下正文保留编写时的状态。
 
 Day 54 将已有功能整理为可操作、可核对的文档入口，为 Day 55 演示准备操作依据。基线为 Day 53 合并提交 `43ec854`，此次只更新 Markdown 文档。
 
@@ -489,7 +484,6 @@ Day 54 不创建新 Release，不改变 API `1.0.0` 或 Workflow Center `0.5.0` 
 
 ## Day 55：Workflow Center 业务 Demo
 
-> 原始记录：[day55-workflow-demo.md](day55-workflow-demo.md)。以下正文保留编写时的状态。
 
 目标是在约 6–8 分钟的视频中展示一次真实的“客服咨询 → 邮件人工复核 → 销售分析与 CRM → 重复事件保护”。三个场景使用各自独立的虚构事件，不把它们描述成已实现的跨工作流自动接力。演示材料准备、现场执行、视频录制与视频验收分别记录。
 

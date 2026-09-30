@@ -1,8 +1,8 @@
 # Week 11：MCP、Memory 与 Planning
 
-路线范围：Day 71–77。本文件整合现有 8 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 71–77。本文件包含 8 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
 Day 75 分别保留设计草案和实现记录；草案是 Day 74 时的计划，实施状态以实现记录为准。
 
@@ -25,7 +25,6 @@ Day 75 分别保留设计草案和实现记录；草案是 Day 74 时的计划�
 
 ## Day 71 理解 MCP
 
-> 原始记录：[day71-mcp-basics.md](day71-mcp-basics.md)。以下正文保留编写时的状态。
 
 本日按学习路线讨论为什么需要 MCP，并以 Day 65–69 的工具实验解释其用途。完成的是概念学习，没有新增 MCP 运行时或真实调用记录。
 
@@ -52,7 +51,6 @@ MCP 的服务端还可以提供资源和提示模板；本周先从单个查询�
 
 ## Day 72 第一个 MCP Server
 
-> 原始记录：[day72-mcp-server.md](day72-mcp-server.md)。以下正文保留编写时的状态。
 
 本日对应原路线“搭建第一个 MCP Server，实现一个简单工具，例如查询数据库”。交付一个真实的本地 stdio MCP Server，将 Day 65 的虚构销售只读查询暴露为 `query_monthly_sales`，并通过两个独立客户端验证协议调用。
 
@@ -141,7 +139,6 @@ SDK 固定为官方 `mcp==2.2.0`，实际通信协议版本为 `2026-07-28`。SD
 
 ## Day 73：让 Agent 通过 MCP 使用销售工具
 
-> 原始记录：[day73-agent-mcp.md](day73-agent-mcp.md)。以下正文保留编写时的状态。
 
 日期：2026-09-24。对应原路线 Day 73“Agent 接入 MCP”。从 Day 72 主分支提交 `1ef83aa0ec913de100a0a30347d451e98054bcf1` 开始，在独立实验目录完成模型与 MCP 工具闭环。
 
@@ -216,7 +213,6 @@ sequenceDiagram
 
 ## Day 74：理解 Agent Memory
 
-> 原始记录：[day74-agent-memory.md](day74-agent-memory.md)。以下正文保留编写时的状态。
 
 日期：2026-09-24。原路线要求：学习 Agent Memory，理解短期记忆（当前任务上下文）与长期记忆（用户历史行为）。本日交付学习材料、代码阅读练习和 Day 75 设计；尚未增加 Memory 运行时，也不将材料交付记为学习者已经通过测验。
 
@@ -347,7 +343,6 @@ Day 75 计划增加 Conversation Memory，让同一会话的后续请求使用�
 
 ## Day 75 Conversation Memory 设计草案
 
-> 原始记录：[day75-conversation-memory-plan.md](day75-conversation-memory-plan.md)。以下正文保留编写时的状态。
 
 本文件保留 Day 74 时的设计草案。Day 75 已实施，实际范围、限制和验收见 [实现记录](week-11-notes.md#day75)；以下“计划”“待执行”等描述属于原设计。原路线示例为第一轮“我负责销售部门”，第二轮“给我生成日报”。Day 75 的核心是同一会话的上下文续接，不预先承诺跨会话长期画像或完整销售日报业务接入。
 
@@ -405,7 +400,6 @@ Day 75 计划增加 Conversation Memory，让同一会话的后续请求使用�
 
 ## Day 75：实现 Conversation Memory
 
-> 原始记录：[day75-conversation-memory.md](day75-conversation-memory.md)。以下正文保留编写时的状态。
 
 日期：2026-09-24。基线提交 `a4a33136a712e75ea1612883bebe2d2a2d0e2155`。
 
@@ -485,7 +479,6 @@ flowchart LR
 
 ## Day 76：理解 Planning 与复杂任务拆解
 
-> 原始记录：[day76-planning.md](day76-planning.md)。以下正文保留编写时的状态。
 
 日期：2026-09-24。按原路线学习“分析本季度销售情况 → 查询数据 → 分析趋势 → 生成报告 → 输出建议”。本日新增学习材料和人工编写的计划样例，复用 Day 59 规划代码进行离线演示，不新增自动任务执行器或模型请求。学习者的理解自测尚待完成。
 
@@ -619,7 +612,6 @@ Day 59 当前只规划一次，不自动重新规划；Day 60 只恢复模拟步
 
 ## Day 77：Agent Center v0.5.0 发布准备
 
-> 原始记录：[day77-agent-v05-release.md](day77-agent-v05-release.md)。以下正文保留编写时的状态。
 
 日期：2026-09-24；起点 `6336e3b45d21f9d7ae4b382b52aa19da6519e02d`。本日整理候选版本与离线验收。正式定版、main 合并推送、标签和 GitHub Release 是后续独立步骤，本日不自动执行。
 

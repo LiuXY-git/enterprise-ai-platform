@@ -1,8 +1,8 @@
 # Week 14：企业生产化优化
 
-路线范围：Day 92–98。本文件整合现有 1 份 Day 原文，保留完整步骤、命令、验收记录与能力边界。
+路线范围：Day 92–98。本文件包含 1 个每日章节，保留完整步骤、命令、验收记录与能力边界。
 
-日常按本周文件阅读；原始 Day 文件保留作为历史记录和发布校验依据。正文中的“候选”“待发布”“待执行”等描述属于当时记录，当前进度以[项目首页](../README.md)为准。
+本周内容按日期排列，各节保留对应日期的实施状态，当前进度以[项目首页](../README.md)为准。
 
 目前仅收录已完成的 Day 92；Day 93–98 仍是[后续计划](week-14-plan.md)。
 
@@ -18,7 +18,6 @@
 
 ## Day 92：后端代码重构与目录整理
 
-> 原始记录：[day92-code-refactor.md](day92-code-refactor.md)。以下正文保留编写时的状态。
 
 <a id="day92-目标与作用"></a>
 
@@ -70,11 +69,9 @@ $env:PYTHONUTF8 = '1'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 .\.venv\Scripts\python.exe -B -m pytest tests/test_day92_application.py -q -p no:cacheprovider
 .\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider
-.\experiments\day73\.venv\Scripts\python.exe -B -m pytest scripts/day91/test_release.py -q -p no:cacheprovider
-.\experiments\day73\.venv\Scripts\python.exe -B -m scripts.day91.release_gate
 ```
 
-这里使用项目已有的后端环境和 MCP 运行环境；依赖准备见各环境原有说明。后端测试与 Agent 发布检查分环境执行，不能将所有历史实验混在一次根目录 pytest 收集中。
+这里使用项目已有的后端环境；独立 Agent/Evaluation 实验使用各自环境，不能将所有实验混在一次根目录 pytest 收集中。
 
 本地服务启动命令仍为：
 

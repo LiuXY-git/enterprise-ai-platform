@@ -37,7 +37,7 @@
 - Day 58–60 使用 `experiments/day60/.venv`，依赖快照见 [Day 60 lock](../experiments/day60/requirements-lock.txt)。它包含本次规划与图实验所需依赖。
 - Day 61–62 和发布检查使用现有 `.venv`，沿用根 requirements 和 requirements-dev。
 
-完整命令和新环境准备见 [Day 63 操作说明](day63-agent-center-release.md)。本轮没有改动 API、容器、数据库表或历史实验代码；现有环境不需要为这次发布准备重建容器。
+完整命令和新环境准备见 [Day 63 操作说明](week-9-notes.md#day63)。本轮没有改动 API、容器、数据库表或历史实验代码；现有环境不需要为这次发布准备重建容器。
 
 ## 验收和证据来源
 

@@ -8,13 +8,13 @@
 
 | 日期 | 原计划主题 | 本项目实施范围 | 可核对的完成依据 | 状态 |
 | --- | --- | --- | --- | --- |
-| Day 64 | 学习 Function Calling | 工具 schema、允许列表、参数校验、本地纯函数与结果回填 | 141 项测试、3 个离线 fixture、单个虚构订单 Qwen 真实复验；首次失败另留记录 | [代码与本日验收完成](day64-function-calling.md) |
-| Day 65 | 实现 SQL Tool | 固定参数化 SELECT、独立虚构 SQLite、只读与查询预算 | 96 项新增测试；含 Day 64 回归共 237 项；两个 Qwen 案例共 4 次请求 | [代码与本日验收完成](day65-sql-tool.md) |
-| Day 66 | 实现 Knowledge Tool | 适配现有 Knowledge Hub，保留片段来源和引用 | 120 项新增测试；合计 358 项；真实 Hub 虚构检索与两个 Qwen 场景共 4 次请求 | [代码与本日验收完成](day66-knowledge-tool.md) |
-| Day 67 | 实现 API Tool | 固定 Open-Meteo 天气接口、密钥隔离、超时与响应校验 | 123 项新增测试；共 481 项通过；3 次真实天气请求、4 次 Qwen 请求 | [代码与本日验收完成](day67-api-tool.md) |
-| Day 68 | 组合多个 Tool | SQL 驱动分支，组合知识与天气，保留部分结果和引用 | 83 项新增测试；共 564 项通过；1 次真实组合、4 次 Qwen 请求 | [代码与本日验收完成](day68-multi-tool.md) |
-| Day 69 | 测试复杂任务 | 18 个组合场景、独立会话重跑与回执简报 | 新增 84 项测试，共 648 项；两个真实模型分支、6 次 Qwen 请求，天气故障为模拟注入 | [代码与本日验收完成](day69-complex-task-tests.md) |
-| Day 70 | 发布 Agent v0.2 | v0.2.0 候选清单、复刻说明与离线发布验收 | 648 项回归 + 40 项发布检查；标签与 Release 分别核实 | [候选准备与验收完成，正式发布待完成](day70-agent-v02-release.md) |
+| Day 64 | 学习 Function Calling | 工具 schema、允许列表、参数校验、本地纯函数与结果回填 | 141 项测试、3 个离线 fixture、单个虚构订单 Qwen 真实复验；首次失败另留记录 | [代码与本日验收完成](week-10-notes.md#day64) |
+| Day 65 | 实现 SQL Tool | 固定参数化 SELECT、独立虚构 SQLite、只读与查询预算 | 96 项新增测试；含 Day 64 回归共 237 项；两个 Qwen 案例共 4 次请求 | [代码与本日验收完成](week-10-notes.md#day65) |
+| Day 66 | 实现 Knowledge Tool | 适配现有 Knowledge Hub，保留片段来源和引用 | 120 项新增测试；合计 358 项；真实 Hub 虚构检索与两个 Qwen 场景共 4 次请求 | [代码与本日验收完成](week-10-notes.md#day66) |
+| Day 67 | 实现 API Tool | 固定 Open-Meteo 天气接口、密钥隔离、超时与响应校验 | 123 项新增测试；共 481 项通过；3 次真实天气请求、4 次 Qwen 请求 | [代码与本日验收完成](week-10-notes.md#day67) |
+| Day 68 | 组合多个 Tool | SQL 驱动分支，组合知识与天气，保留部分结果和引用 | 83 项新增测试；共 564 项通过；1 次真实组合、4 次 Qwen 请求 | [代码与本日验收完成](week-10-notes.md#day68) |
+| Day 69 | 测试复杂任务 | 18 个组合场景、独立会话重跑与回执简报 | 新增 84 项测试，共 648 项；两个真实模型分支、6 次 Qwen 请求，天气故障为模拟注入 | [代码与本日验收完成](week-10-notes.md#day69) |
+| Day 70 | 发布 Agent v0.2 | v0.2.0 候选清单、复刻说明与离线发布验收 | 648 项回归 + 40 项发布检查；标签与 Release 分别核实 | [候选准备与验收完成，正式发布待完成](week-10-notes.md#day70) |
 
 原路线对 SQL Tool 的示例是“查询本月销售额”，Knowledge Tool 调用 Knowledge Hub，API Tool 的示例包括天气、搜索或企业接口。最终工具选择应满足场景需要，不要求同时接入所有示例。
 
@@ -22,7 +22,7 @@
 
 Agent Center v0.1.0 已完成 Week 9 阶段发布，维护者已提供 GitHub Release 页面截图确认；发布入口为 [agent-center-v0.1.0](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0)。v0.1 的冻结清单及历史说明保留原版本记录，不为 Week 10 新实验重写历史证据。
 
-Week 9 已有计划生成、模拟进度持久化和固定快照报告校验；这些实验尚未组成完整业务 Agent。本周工具接入要延续 [Day 57 架构](day57-agent-architecture.md)中的参数校验、证据和停止条件，不能把模型建议直接当作执行权限。
+Week 9 已有计划生成、模拟进度持久化和固定快照报告校验；这些实验尚未组成完整业务 Agent。本周工具接入要延续 [Day 57 架构](week-9-notes.md#day57)中的参数校验、证据和停止条件，不能把模型建议直接当作执行权限。
 
 Day 64 先以无业务副作用的金额纯函数讲清协议。SQL、真实检索和业务 API 适配分别留给 Day 65–67。多工具调度留给 Day 68；MCP、跨线程记忆继续按后续阶段安排。
 

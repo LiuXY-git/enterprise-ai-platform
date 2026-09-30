@@ -28,7 +28,7 @@ if (-not (Test-Path -LiteralPath '.env')) {
 }
 ```
 
-编辑本地 `.env`，按用途配置。变量说明和离线自检见 [Day 52 配置中心](day52-configuration-center.md)，n8n 首次账户和密钥设置见 [n8n 基础](n8n-foundation.md)。保留已有 `N8N_ENCRYPTION_KEY`，它用于解密实例内保存的凭据。
+编辑本地 `.env`，按用途配置。变量说明和离线自检见 [Day 52 配置中心](week-8-notes.md#day52)，n8n 首次账户和密钥设置见 [n8n 基础](n8n-foundation.md)。保留已有 `N8N_ENCRYPTION_KEY`，它用于解密实例内保存的凭据。
 
 | 用途 | 配置位置 | 谁使用模型或密钥 |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ if (-not (Test-Path -LiteralPath '.env')) {
 & .\scripts\check-deployment.ps1 -CheckComponents llm,dify
 ```
 
-更新应用代码或 `.env` 后再运行 `start.ps1`，使修改进入容器。仅启动 API 可加 `-ApiOnly`；Compose 配置仍要求 `N8N_ENCRYPTION_KEY`，细节见 [Day 53 部署说明](day53-compose-deployment.md)。
+更新应用代码或 `.env` 后再运行 `start.ps1`，使修改进入容器。仅启动 API 可加 `-ApiOnly`；Compose 配置仍要求 `N8N_ENCRYPTION_KEY`，细节见 [Day 53 部署说明](week-8-notes.md#day53)。
 
 ### 可选：本地 Python 环境
 
@@ -167,7 +167,7 @@ HTTP 请求成功后还要检查业务字段。邮件的人工复核分支可以
 
 | 现象 | 先检查什么 | 处理方向 |
 | --- | --- | --- |
-| 容器未健康或 API 无法访问 | Docker 状态、端口、`check-deployment.ps1` 输出 | 按 [Day 53](day53-compose-deployment.md) 排查基础服务 |
+| 容器未健康或 API 无法访问 | Docker 状态、端口、`check-deployment.ps1` 输出 | 按 [Day 53](week-8-notes.md#day53) 排查基础服务 |
 | `configuration_valid`，业务调用仍失败 | Dify 是否发布、模型凭据、调用方可达的 URL、上游返回 | 离线配置检查没有验证这些条件 |
 | Webhook 找不到或没有响应 | Test URL 是否正在监听，Production URL 对应流程是否发布 | 对齐触发方式与地址 |
 | 请求返回 422 | 请求字段、类型、日期；是否误传整个请求说明文件 | 按模板契约修正；销售严格拒绝未知字段 |
@@ -179,7 +179,7 @@ HTTP 请求成功后还要检查业务字段。邮件的人工复核分支可以
 
 ## 7. 日常运维与交付边界
 
-- 应用日志在项目 `logs/app.log`，工作流事件日志在 `logs/workflow-events.jsonl`；规则与字段见 [Day 51](day51-workflow-logging.md)。排查时记录事件标识、平台运行 ID、n8n 执行 ID 和失败阶段。Dify 调用与运行完成事件的 Token 统计可能重叠，不要直接相加；缺失用量不能当作真实零用量。
+- 应用日志在项目 `logs/app.log`，工作流事件日志在 `logs/workflow-events.jsonl`；规则与字段见 [Day 51](week-8-notes.md#day51)。排查时记录事件标识、平台运行 ID、n8n 执行 ID 和失败阶段。Dify 调用与运行完成事件的 Token 统计可能重叠，不要直接相加；缺失用量不能当作真实零用量。
 - SQLite 与 Chroma 在项目 `data` 下，n8n 状态在 Compose 的 `n8n_data` 卷中。备份需覆盖业务数据、n8n 卷及其加密密钥；Dify 数据另行管理。详细路径见 [架构说明](architecture.md)。
 - 日常停用可运行 `docker compose stop`，恢复可运行 `docker compose start` 并执行部署检查；更新代码或配置用 `start.ps1`。恢复启动不会构建新镜像。
 - 当前是本机或可信网络的单机部署，业务 API/Webhook 尚无统一调用方认证、租户隔离和限流。没有统一全链路追踪，也未实现销售真实通知编排。

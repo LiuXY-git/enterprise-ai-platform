@@ -19,4 +19,4 @@
 - Evaluation Center v0.1.0 已定版；维护者提供的 GitHub 截图确认标题、标签和 `verification.json` 附件，截图不等于重新下载核验附件。
 - 已发布的 Agent/Evaluation 文件按清单冻结。重构公共后端时先检查清单引用，避免改写历史验收依据。
 - Day 83 视频延期、真实模型评测未接入、Day 82 真实 Prompt 改善未测量等既有边界继续保留。
-- [Day 92 实施与学习记录](day92-code-refactor.md)：从应用入口拆分开始，随后逐日推进。
+- [Day 92 实施与学习记录](week-14-notes.md#day92)：从应用入口拆分开始，随后逐日推进。
