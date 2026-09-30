@@ -38,6 +38,8 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 
 [Day 90](docs/day90-success-rate.md)已加入独立规则判分、分类计数和成功率。342 项测试通过，12 个固定 fixture 场景全部符合预期；错误保留在分母，未完成批次不给最终成功率。
 
+[Day 91](docs/day91-evaluation-release.md)已准备 Evaluation Center v0.1.0 发布候选：383 项测试通过，12 例重新运行与评分通过，新增清单、验收和正式发布教程。真实模型评测尚未接入；正式标签与 Release 待后续定版。
+
 首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标
