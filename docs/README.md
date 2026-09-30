@@ -168,3 +168,7 @@ Day 58 验证独立状态图与模拟节点；Day 59 验证当前 Qwen 模型的
 - [Day 88 延迟统计与计时边界](day88-latency.md)
 - [Day 89 Token、成本及缺失处理](day89-token-cost.md)
 - [Day 90 逐例判分与成功率](day90-success-rate.md)
+
+- [Day 91 Evaluation Center v0.1 发布准备](day91-evaluation-release.md)
+- [Evaluation Center v0.1 版本说明](evaluation-center-v0.1.md)
+- [Week 13 总结](week-13-summary.md)

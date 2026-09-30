@@ -1,0 +1,877 @@
+{
+  "schema_version": "evaluation-release-v1",
+  "product": "Evaluation Center",
+  "version": "0.1.0",
+  "component_tag": "evaluation-center-v0.1.0",
+  "platform_api_version": "1.0.0",
+  "release_status": "candidate",
+  "release_date": null,
+  "hash_algorithm": "sha256",
+  "hash_normalization": "CRLF_to_LF",
+  "capabilities": {
+    "adapter": "fixed_day82_fixture_real_local_stdio_mcp",
+    "dataset": "12_versioned_fictional_sales_cases_smoke_is_4_case_subset",
+    "scoring": "independent_deterministic_rules_and_exact_answer_template",
+    "success_rate": "passed_over_all_selected_errors_retained_incomplete_null",
+    "latency": "parent_case_monotonic_elapsed_including_startup_retries_cleanup",
+    "usage": "offline_tested_usage_observer_fixture_tokens_unknown",
+    "cost": "explicit_flat_text_decimal_estimate_not_provider_invoice",
+    "live_model_evaluation": "not_integrated",
+    "arbitrary_agent_adapter": "not_implemented",
+    "web_dashboard": "not_implemented",
+    "production_quality_claim": "not_measured"
+  },
+  "unique_regression_test_counts": {
+    "transport": 56,
+    "framework": 59,
+    "dataset": 32,
+    "execution": 35,
+    "latency": 28,
+    "usage": 34,
+    "scoring": 54,
+    "agent_release_protection": 44
+  },
+  "release_tests_required": 41,
+  "historical_evidence": {
+    "day85": "docs/evidence/day85/validation.json",
+    "day87": "docs/evidence/day87/validation.json",
+    "day88": "docs/evidence/day88/validation.json",
+    "day89": "docs/evidence/day89/validation.json",
+    "day90": "docs/evidence/day90/validation.json"
+  },
+  "excluded_historical_navigation_hashes": {
+    "day85:evaluation-center/README.md": "816442e5b112a983391d87c5168130801c746e45ca935769d483f9c6eb1cbae1"
+  },
+  "output_exclusion": "docs/evidence/day91 and data/day91 are verification outputs, not self-hashed release inputs",
+  "deferred": {
+    "day83_video": "deferred",
+    "day82_live_prompt_improvement": "not_measured",
+    "live_evaluation": "not_integrated"
+  },
+  "artifacts": [
+    {
+      "path": "agent-center/release-v1.0.0.json",
+      "sha256": "a75643aef84901fb43a9de611cfc802598af28001526502da44c445c6fa9f2a8"
+    },
+    {
+      "path": "docs/day85-evaluation-framework.md",
+      "sha256": "6353ed14e1d00e02b1dcd691cac2ca2a1ae6ac7357e6baf3cd652f2be0c41fa3"
+    },
+    {
+      "path": "docs/day86-test-dataset.md",
+      "sha256": "5c6adcb724a6b7c0ba2c5d9813e8577b42d6e442bd4386257c2fc3545a6c8a64"
+    },
+    {
+      "path": "docs/day87-evaluation-runner.md",
+      "sha256": "2295c0365e1957c49b147abfc57d1ea2f27975710bd45b162da1272fbc170cbc"
+    },
+    {
+      "path": "docs/day88-latency.md",
+      "sha256": "a49094a85b19ece6bcbd19da2cd63e00c6dfb949a3e2ecd77d3d0a22432ec7ea"
+    },
+    {
+      "path": "docs/day89-token-cost.md",
+      "sha256": "03a5f134eaf2e7499fd11e97fdbca2e0a1f8802007d034ba98af55e4aeeb57ab"
+    },
+    {
+      "path": "docs/day90-success-rate.md",
+      "sha256": "31735338c16b13f5fbbe6b387a03f9ff541aa1115fbd45b7b1cb3e187d022734"
+    },
+    {
+      "path": "docs/day91-evaluation-release.md",
+      "sha256": "dcb0afc66688e4c5c0126b48f955303413b219dd05a4083f3f1703c07d96a419"
+    },
+    {
+      "path": "docs/evaluation-center-v0.1.md",
+      "sha256": "fc3e8c042c4c9f8a64cca77699608275243774d4b39fb0b0d2774be275785090"
+    },
+    {
+      "path": "docs/evidence/day85/contracts.xml",
+      "sha256": "f2edf9a240d96e34b8699a150d4969ec9a0fb4bb571f6ea5d2fb7b16921e14c8"
+    },
+    {
+      "path": "docs/evidence/day85/preview/report.json",
+      "sha256": "846f1374410158308e62f0d8b575b36e1ad78ca1391d3d75d578203e86febe4b"
+    },
+    {
+      "path": "docs/evidence/day85/release-regression.xml",
+      "sha256": "e9cd94f1aa4447833d34b6cef0feb3b7d514e6912dd0bdf0108191727e03b582"
+    },
+    {
+      "path": "docs/evidence/day85/schemas/agent.schema.json",
+      "sha256": "713139624902c7de7f7b8143115a86bcd69626c5f24156625697aea32bb7489e"
+    },
+    {
+      "path": "docs/evidence/day85/schemas/dataset.schema.json",
+      "sha256": "17748cf8b4e7820342eac1088eed47e053685a283ee1435927fb39415ebb8f32"
+    },
+    {
+      "path": "docs/evidence/day85/schemas/plan-report.schema.json",
+      "sha256": "7b7910e8ec1b95a11ae522c393ec5c1e15f79d082232c6c272561cc522e6ff8c"
+    },
+    {
+      "path": "docs/evidence/day85/validation.json",
+      "sha256": "a7b9e6a9a2f8dc04b7c5ab3edbd834502c473eaa9fec00a0fa23dcee04952845"
+    },
+    {
+      "path": "docs/evidence/day86/dataset.schema.json",
+      "sha256": "98cd2acec17b6ab8d4ced0f1dfbc844db04ae0b56885a682ee1aee3f33b15b6c"
+    },
+    {
+      "path": "docs/evidence/day86/full-preflight.json",
+      "sha256": "24cef8a089719ec973cc766c464bb6d768b5c9fafea69963201b99534603784f"
+    },
+    {
+      "path": "docs/evidence/day86/plan-report.schema.json",
+      "sha256": "fad3287049b981fbd44e6ff1c3218c4950e5a2e3e0675edd7c53991460353cd7"
+    },
+    {
+      "path": "docs/evidence/day86/smoke-preflight.json",
+      "sha256": "bfba40888274d0bff107b0da72ab877fa45a301fe47c31e3532c7a0ef334af53"
+    },
+    {
+      "path": "docs/evidence/day87/README.md",
+      "sha256": "fd18630a431187128797f7a4626bc7de9693adb7e629c4b00f3923ba278c5371"
+    },
+    {
+      "path": "docs/evidence/day87/cases/arguments_rejected/events.json",
+      "sha256": "2d654b3159152fe9ba0bbdbad5f4f15c1d01dedcd05c6d1d5918bd6872f53d6a"
+    },
+    {
+      "path": "docs/evidence/day87/cases/arguments_rejected/generation.json",
+      "sha256": "21da9eaec7cbdf2aadde9bd079d0a728310ffcc4a5ed3decc3f75a87bf9b34fc"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_fallback/events.json",
+      "sha256": "c7ee464005a8cd83dc7e531d4921f604f004df3ae64b6aa3ab315943b281e231"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_fallback/generation.json",
+      "sha256": "6aa335cb90049b2878d3b83f5fd2d2819bf5cc444d167fc5d36a0f8e8f4616de"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_normal/events.json",
+      "sha256": "bf575042217d78bd95672b267b53fecf7ae8af422c57884b22920d9e57de7d8d"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_normal/generation.json",
+      "sha256": "f9c8d08de889200e5cfaf77621bb24a4cbaf3189a2b6d796c9c40d9549effd64"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_tool_retry/events.json",
+      "sha256": "9b1fc35c77dd6804e53047286016715fa1c7c9f561805fc75ea33c49072c3efb"
+    },
+    {
+      "path": "docs/evidence/day87/cases/customer_tool_retry/generation.json",
+      "sha256": "88a647b479ceedd9f60b088712f15acaf8eeaf179087fce83f747edbd2722aff"
+    },
+    {
+      "path": "docs/evidence/day87/cases/empty_normal/events.json",
+      "sha256": "5bdce90c7ec296f9c8b2d7242cdf2c3c679fee6023c930b9c9682187ecb8cc75"
+    },
+    {
+      "path": "docs/evidence/day87/cases/empty_normal/generation.json",
+      "sha256": "b5604aa84699430b903dc98f641c7a9dab41f1952f6deda085d6865be7b4e104"
+    },
+    {
+      "path": "docs/evidence/day87/cases/missing_period/events.json",
+      "sha256": "12e04c7e202bb805570dd2de7304ec719c17eb4824cb850d05cd9d0f3c2af992"
+    },
+    {
+      "path": "docs/evidence/day87/cases/missing_period/generation.json",
+      "sha256": "49767ad7b85339ea608db514c082f0f15463cebe352f02a13449f29bc31d8ae5"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_fallback/events.json",
+      "sha256": "34285bcc7d3291e7872ff53e75613f4148f010ef34a638cc74ddcebdb87be900"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_fallback/generation.json",
+      "sha256": "4b4ec63a0f17262b5c786a093b9a15c6bd017d3a505cf87197e00c76fe8d0f06"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_model_retry/events.json",
+      "sha256": "fa92275166fb64bad9068b1902cd0f5dfa30e17c0e3d6f245c6825abdf89cea5"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_model_retry/generation.json",
+      "sha256": "e5796546da8839038e72ad218d556a56676b6df052c27a0eed12a92f244f26c6"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_normal/events.json",
+      "sha256": "4b607065e91acf643e18d9b023d9db2d9677cef2014c74688c0ea16cdeee6ebc"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_normal/generation.json",
+      "sha256": "d2e60aea0913dceba01d962a18339bc944e8472ee24e5937e14b09d0a69aed89"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_tool_retry/events.json",
+      "sha256": "454df80698a5a027aa3ec93d5cf71914c4646ce2d9f8aca74bb5ef7de31ead94"
+    },
+    {
+      "path": "docs/evidence/day87/cases/monthly_tool_retry/generation.json",
+      "sha256": "ae29629e91bf75ef953329b4ba2d62bd002b42b1e1855f1e0a82a3728f5a6a78"
+    },
+    {
+      "path": "docs/evidence/day87/cases/report_rejected/events.json",
+      "sha256": "a69ba0cee6142603e9981f87e11af6cd8b3ed9edbb4fed6729cccb624446a4c2"
+    },
+    {
+      "path": "docs/evidence/day87/cases/report_rejected/generation.json",
+      "sha256": "35a2a82d54c6afe123c35929736d1b4edade0ef9f1321e26601a25e42f5d9d5f"
+    },
+    {
+      "path": "docs/evidence/day87/cases/tool_exhausted/events.json",
+      "sha256": "e10138632e2b2450eaf241798081a32ece8c6bf6be2b0019b2aedab1b04029ee"
+    },
+    {
+      "path": "docs/evidence/day87/cases/tool_exhausted/generation.json",
+      "sha256": "58f28cc352f4dc6b40581b43f7dd36063bbdc1c288d08e342d4d09b14a1f802d"
+    },
+    {
+      "path": "docs/evidence/day87/execution.json",
+      "sha256": "1b231ec30c91916c800d85170b23ab24d2924f5197a5afa98830195871fc43f5"
+    },
+    {
+      "path": "docs/evidence/day87/regression.xml",
+      "sha256": "164e7c50b75d2320dda86980d16717e43d862a626682248cb58a8f61fb6fddc4"
+    },
+    {
+      "path": "docs/evidence/day87/validation.json",
+      "sha256": "c3637045998fc9ed28ecebf4be190f4a8474d33b5974462a519d816a2fbb3aa6"
+    },
+    {
+      "path": "docs/evidence/day88/README.md",
+      "sha256": "6bee58cbc22744b789ad4154fb1b3a5a9b6e16cd87f846730b14b652f06d2878"
+    },
+    {
+      "path": "docs/evidence/day88/cases/arguments_rejected/events.json",
+      "sha256": "c955bcb227f94aec579e0ec63e12b814d72560dc96de2c1bd2d64194efc8179b"
+    },
+    {
+      "path": "docs/evidence/day88/cases/arguments_rejected/generation.json",
+      "sha256": "ebfdb41aeecb949eb5df95014e282dc86dc9e08fcbe7fb9ff74284ba756b50d0"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_fallback/events.json",
+      "sha256": "5a302a4f8b6c11b92ac99ebe660e250a205440361c9c1a5698f562ae029a4005"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_fallback/generation.json",
+      "sha256": "d9f01a68f9a4ed817a832155fb5ddcbf760a637056506f13e9d2ec5de5dadb37"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_normal/events.json",
+      "sha256": "a1bf01e4779f498e57e3f45ea87caff5fed243e056d03c88f4d3b8f34725fde6"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_normal/generation.json",
+      "sha256": "bc33ee331417844120d0bb4481624c75bd9e8b6954d0040ba1641fc66d5e4093"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_tool_retry/events.json",
+      "sha256": "86b15406b9ab380a9142b58f5109088ef61a379a459c287bd0419bb8f3643789"
+    },
+    {
+      "path": "docs/evidence/day88/cases/customer_tool_retry/generation.json",
+      "sha256": "faf20c49802d6ac7f5d17d20203aae91cf9665392196d96e3f1408c5be62e36e"
+    },
+    {
+      "path": "docs/evidence/day88/cases/empty_normal/events.json",
+      "sha256": "0a2cb2107b6eb82686fb0832b7a6ded1284fac0a7f774c841d6eb8143709e32c"
+    },
+    {
+      "path": "docs/evidence/day88/cases/empty_normal/generation.json",
+      "sha256": "cab44e3cce81a23bd531ef8591b712e7156651cd11056b13c1925f532fa03e2a"
+    },
+    {
+      "path": "docs/evidence/day88/cases/missing_period/events.json",
+      "sha256": "2cf0a093698d331870eb2fabf9e8ca1dec6ffe6f83c050202e7adf687d2b79b7"
+    },
+    {
+      "path": "docs/evidence/day88/cases/missing_period/generation.json",
+      "sha256": "11f004ff33fd60b9fe2ea04a4e97138c60d68a7cbb45f8a37fb69d9e8353c20d"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_fallback/events.json",
+      "sha256": "8378cdc13aab01cf6c603c82f343f053ad195df7ac40e8c17afd05c9c2ff13c3"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_fallback/generation.json",
+      "sha256": "fea9bcfa50a67d0d08df6f9fd0b7efab69c39f3e864aecf8e627545f3dd44493"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_model_retry/events.json",
+      "sha256": "de3bac2a2363ecdf31c77f8fe015044f9b80cce7643792995d666201b4f516f1"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_model_retry/generation.json",
+      "sha256": "bd91e52aaf857874f60ae49a151e5aa9b7b788052f466df13baa522908cc19c1"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_normal/events.json",
+      "sha256": "0b5db2aca612d7d6fe0df2bdd0111df0354208cb310e247b85cb477907d7ea2b"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_normal/generation.json",
+      "sha256": "125bc600f5ee3df660651a1ec1144668d6c0d69dc485916da8ed5deeacca54a4"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_tool_retry/events.json",
+      "sha256": "d14ba414a3e0bb7883d41959b35351faa8bfb5fbcc81ef11caf48541ad578fc5"
+    },
+    {
+      "path": "docs/evidence/day88/cases/monthly_tool_retry/generation.json",
+      "sha256": "8b92ca3fa46ea0c3e1c0a76aa9e4f5408a0ae16347adf4254cec49bdbf2ea332"
+    },
+    {
+      "path": "docs/evidence/day88/cases/report_rejected/events.json",
+      "sha256": "016d1e4d4229f2b3d45a6ba9204ef69b96740ceb09c45cde15f05765b57d9696"
+    },
+    {
+      "path": "docs/evidence/day88/cases/report_rejected/generation.json",
+      "sha256": "bf7dac9049e6d9b82f0acb6f3361b073883b0110124f832b38c8ef7a98ca6599"
+    },
+    {
+      "path": "docs/evidence/day88/cases/tool_exhausted/events.json",
+      "sha256": "2a3585d90245af193c6bf637f7be1217a4e76865664782c1597018db098020b9"
+    },
+    {
+      "path": "docs/evidence/day88/cases/tool_exhausted/generation.json",
+      "sha256": "a2f620aa787a029208dc8e8488a6564dbf7e372c0c44ee1769fb95659cd7f2d7"
+    },
+    {
+      "path": "docs/evidence/day88/execution.json",
+      "sha256": "0f666ab26128ce6f4c4310519ada2e619993951ecda944127d93e0fe7d0c8f3e"
+    },
+    {
+      "path": "docs/evidence/day88/execution.schema.json",
+      "sha256": "e20e2e5ba8530b51f54c46bb00ab1a0ee78e927b5b6f9e8307cc30a993e67dea"
+    },
+    {
+      "path": "docs/evidence/day88/regression.xml",
+      "sha256": "5837ad096848eb2a62dac151bd265405e95da7fc61f1e1751e71c45f5eb9533f"
+    },
+    {
+      "path": "docs/evidence/day88/validation.json",
+      "sha256": "fda4a6024f33f43e8bae182c6666231c04539b24498946be037d3607416c8bff"
+    },
+    {
+      "path": "docs/evidence/day89/README.md",
+      "sha256": "19d901301258bfb3d2807aea9bc2602fe7079bb199e7e22a6fc0293dc70b017e"
+    },
+    {
+      "path": "docs/evidence/day89/cases/arguments_rejected/events.json",
+      "sha256": "54c5e0a353413ba221ffecf5996eb19d0b93ae1d4c73f13d8e81adbdea41519c"
+    },
+    {
+      "path": "docs/evidence/day89/cases/arguments_rejected/generation.json",
+      "sha256": "a3f8cb40606d768a3a4028443ae93b7f7022c74e08fd39c5215d101b0beae072"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_fallback/events.json",
+      "sha256": "1786fd3218e77206bb88f2b2d849fc8564be840bc7b4730114be0011d47c3198"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_fallback/generation.json",
+      "sha256": "9b0512142c861b1e457e8c8f752b7029a600b2de1d0ac91b66f0d792cf65b58c"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_normal/events.json",
+      "sha256": "4f43d8ff2b3c29437b6a45f5f93c697173477b46aacc5e2fdc75ac2a7cead81a"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_normal/generation.json",
+      "sha256": "e6a747354348ed60f1a24f8e420b8305d267cb4949dc08dc98f1f29c863fb530"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_tool_retry/events.json",
+      "sha256": "57286ee88d9e1edfdab3dc8050a11fde5378dea148fe7131a1f5f8aed3335077"
+    },
+    {
+      "path": "docs/evidence/day89/cases/customer_tool_retry/generation.json",
+      "sha256": "022b198c2711cd22393c887dfd3043c25b1fc03604f354786454584969c495d0"
+    },
+    {
+      "path": "docs/evidence/day89/cases/empty_normal/events.json",
+      "sha256": "43a521ae3fb3eab093706548fbb32e2672975912eade5e4535a9f8d3eac957d7"
+    },
+    {
+      "path": "docs/evidence/day89/cases/empty_normal/generation.json",
+      "sha256": "f2e805cb991e57f04f3a78864ea7564db0f67d54a330f8609b9657efbe4ebc98"
+    },
+    {
+      "path": "docs/evidence/day89/cases/missing_period/events.json",
+      "sha256": "476955aec521acd3a4746261a325f18a3a4f0bc230b4f4b26fa983fbf7802120"
+    },
+    {
+      "path": "docs/evidence/day89/cases/missing_period/generation.json",
+      "sha256": "04a57ecc8c7f8e3c2a4ef3950c36ddeb169fcdba3881693671a544afca654a96"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_fallback/events.json",
+      "sha256": "66a106a6500853b6156c3f2cb2c4342e4dfbaeb48e332a7dde49fc9f21cc4f12"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_fallback/generation.json",
+      "sha256": "1a23bde9dbd444ac4d538bfb42dbe250500123813323be6e0114db045b258963"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_model_retry/events.json",
+      "sha256": "a437bf59b33b0ac8c76696dd6a3a0ddbcf69541b9bd3f66168dfe7322b0216f0"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_model_retry/generation.json",
+      "sha256": "0fcedafb782e84f485ed24334f926c5cd88127e72e03207f9077ffb7d29b6d6e"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_normal/events.json",
+      "sha256": "c15e9e8fbbd0c4efacd556056f0767f2732476317cec55f605609a83cabba6dc"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_normal/generation.json",
+      "sha256": "c6dfee4e23f5f5905f4b308f490075cdc2874409c4681aaff16b9b4c76d9f29b"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_tool_retry/events.json",
+      "sha256": "4b84d7ecca2a01fb257b5fc3358db3168b2620caa50c32746e46f7727008be26"
+    },
+    {
+      "path": "docs/evidence/day89/cases/monthly_tool_retry/generation.json",
+      "sha256": "cfec823f88278f6d47b4cf75543469db06807d53f837a93e3a4dc9ebca0ef2bd"
+    },
+    {
+      "path": "docs/evidence/day89/cases/report_rejected/events.json",
+      "sha256": "3fdf58fecae911dbdafc0348cb191473393ddf066d18dfc6deaff8e413e055ec"
+    },
+    {
+      "path": "docs/evidence/day89/cases/report_rejected/generation.json",
+      "sha256": "b8e0a3bf5ae6efdbb01258cdb0e97ab33e8945cdc176a125f227379d6a7ea649"
+    },
+    {
+      "path": "docs/evidence/day89/cases/tool_exhausted/events.json",
+      "sha256": "989f5d27bb4fead841ef5ad0e03d35d9aa66acbd09dfa4e31bf71c2d34f7c8e9"
+    },
+    {
+      "path": "docs/evidence/day89/cases/tool_exhausted/generation.json",
+      "sha256": "69827c67cbcf3d2625a6a2b9e6cb900100dde24f61b9c6099e76afea43954ef9"
+    },
+    {
+      "path": "docs/evidence/day89/demo/complete-ledger.json",
+      "sha256": "1348833058e1cfadaee317f93c0062c8496d877f75b596bab6766bfcc0adf393"
+    },
+    {
+      "path": "docs/evidence/day89/demo/complete/report.json",
+      "sha256": "5f70ac2e4f5a909cab1f4d33cd9db2c498bc1bebe692975d36c496e0bf1322f9"
+    },
+    {
+      "path": "docs/evidence/day89/demo/partial-ledger.json",
+      "sha256": "4ce34034e770f7ad648d973b3ead75de0d237e6302de59ca6b1bb08fd6f886f0"
+    },
+    {
+      "path": "docs/evidence/day89/demo/partial/report.json",
+      "sha256": "302f8abf3a514d5211bec6d0bc0a3ac6abc84b2758a3adc004eddcd41a8537d0"
+    },
+    {
+      "path": "docs/evidence/day89/demo/validation.json",
+      "sha256": "2d90b113949a667adeec17e223bd08f73da9893bfead3c1a7b77262e8837f66e"
+    },
+    {
+      "path": "docs/evidence/day89/execution.json",
+      "sha256": "c77d314addc8938cea46bb35dcdade004fb3d5ae326d334f8845b033faca08a8"
+    },
+    {
+      "path": "docs/evidence/day89/execution.schema.json",
+      "sha256": "4d49857fea2497359344a8af9275fe22bc44171fdc72afa572734105421bb41e"
+    },
+    {
+      "path": "docs/evidence/day89/regression.xml",
+      "sha256": "d1dd4f455d930dbfa2e1afbd71a31f834a16c579fd50b17b0948263486177d7d"
+    },
+    {
+      "path": "docs/evidence/day89/validation.json",
+      "sha256": "29795a25157cfa1121acf563b4314572f42fd33e68576d720f464a964718c306"
+    },
+    {
+      "path": "docs/evidence/day90/cases/arguments_rejected/events.json",
+      "sha256": "30b0c55cc2a37500749a2bf5b91cdc9ab72b80d3153d45c304d06b4a5bed33cb"
+    },
+    {
+      "path": "docs/evidence/day90/cases/arguments_rejected/generation.json",
+      "sha256": "a7b26a4e67b14e17deb4857ce19c7a813c506281ccac3d6cbd7e2e4b258cd0c3"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_fallback/events.json",
+      "sha256": "3b40438bc7be949adab4b577c93621c90a51892b90655edfde1645b40dd2c55c"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_fallback/generation.json",
+      "sha256": "79754056cb81e50393f84c66eb80806fd4f879556c6dad088ed96307bce24023"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_normal/events.json",
+      "sha256": "47764eff1c1aaab37cf2298218e25b2c69919e77ca2be373fac513a2006ac11a"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_normal/generation.json",
+      "sha256": "333348271bec2eaf3be1f262a9b8056427d080d9d2d82e259d633986a624b3ff"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_tool_retry/events.json",
+      "sha256": "5d3ead7ff8099908b32dadbaec0d2fc4c586d9a2155d9a124dd59599bdf37062"
+    },
+    {
+      "path": "docs/evidence/day90/cases/customer_tool_retry/generation.json",
+      "sha256": "b08be0e406210530ab053b19ad73e6cf4f4d4509280f002b822f1284bce0062e"
+    },
+    {
+      "path": "docs/evidence/day90/cases/empty_normal/events.json",
+      "sha256": "9a9fb70e6af05d15fdc8ea2fab73dac600991f0c14b3379b2b688ba3795e985c"
+    },
+    {
+      "path": "docs/evidence/day90/cases/empty_normal/generation.json",
+      "sha256": "604edbe4e4b30513c4beefc1aaeffebad91db5c974febda3c3e0b4b8879ff5cf"
+    },
+    {
+      "path": "docs/evidence/day90/cases/missing_period/events.json",
+      "sha256": "d24245084355b41cfaa1f89415208caea474d659262ad62305283463308aede7"
+    },
+    {
+      "path": "docs/evidence/day90/cases/missing_period/generation.json",
+      "sha256": "c8382f499d9efcb6b3140b87a269b286dc25ed8d3a1dcd067421390a61bd492a"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_fallback/events.json",
+      "sha256": "447ab2b3b8494a9ee3ee5da25da71d7fc458b4e9cbf650f471d1df736bc1b870"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_fallback/generation.json",
+      "sha256": "c866b6f3cb7352fdb02f1b3499989e464e297933bb9aa6bd3e48bce382637d1c"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_model_retry/events.json",
+      "sha256": "f1c4917c8998a311e68cb17c95d9b0e4e907e1886441c4ad7e9b91cc9c28389a"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_model_retry/generation.json",
+      "sha256": "60f07496bc29a66a9e7c0f4004446d3b20b263d1673c730b2771460e453c414e"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_normal/events.json",
+      "sha256": "0c5b0e3e4d23564e9984844b0f214c765286044ad5d2696db6e4051c2c1e86e5"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_normal/generation.json",
+      "sha256": "4767b0cbff22251e1da90577fa1859215b9fbdb634125f3072625775af1f6f23"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_tool_retry/events.json",
+      "sha256": "084415c92a8f194c2b0859af1766329cbd1fdd7c8b778c0c1e68830708d9599d"
+    },
+    {
+      "path": "docs/evidence/day90/cases/monthly_tool_retry/generation.json",
+      "sha256": "ba8ce1f87f327ab897a48add348b82353944e733a8e7278dde940b49c8385540"
+    },
+    {
+      "path": "docs/evidence/day90/cases/report_rejected/events.json",
+      "sha256": "4c90c807fa2bbffa477851b02119ee770b11adbac429a606a28ca0c0dec1a1ff"
+    },
+    {
+      "path": "docs/evidence/day90/cases/report_rejected/generation.json",
+      "sha256": "db7d458c454cebd428d8563797076e4968d83ecab35a14fe087a27967c66ad40"
+    },
+    {
+      "path": "docs/evidence/day90/cases/tool_exhausted/events.json",
+      "sha256": "f2ad903339add4077c7785e879242e8d662cca97ca9bffc4eba02b277c33c765"
+    },
+    {
+      "path": "docs/evidence/day90/cases/tool_exhausted/generation.json",
+      "sha256": "d269b8143cd21ae630f77e73b54b878d80411aace57b85d756f423fac7082c0d"
+    },
+    {
+      "path": "docs/evidence/day90/regression.xml",
+      "sha256": "49bfdff2100ff267cf7dee5c0361d5b1d27a8f024a821f547b703ac1b2d9b4b0"
+    },
+    {
+      "path": "docs/evidence/day90/scoring.json",
+      "sha256": "fc5e8643d5c40c53d283fbdd7554d7762a2ed523ba46fde28b687eb7d6ce13bd"
+    },
+    {
+      "path": "docs/evidence/day90/scoring.schema.json",
+      "sha256": "3c059650c5a69dc6442dc429349ac3d1d03cb2c4700dd332f5532850b0977fd6"
+    },
+    {
+      "path": "docs/evidence/day90/validation.json",
+      "sha256": "012d1a33ccac77a23d9b3c3b70c1249fe0e7e91f6c82a945471f0bfc476fb3e0"
+    },
+    {
+      "path": "docs/week-13-summary.md",
+      "sha256": "daca78dd79782904bfcb9843c4e2e08c976457749d0b6651e08192d899b2e950"
+    },
+    {
+      "path": "evaluation-center/datasets/README.md",
+      "sha256": "9eaac7c812de9f8bf26c7c31b9af43068fe65e2b4aedae2fee117584ecc9d5c3"
+    },
+    {
+      "path": "evaluation-center/datasets/sales-prepare-v1.0.0.json",
+      "sha256": "8a34ba6e15d91ee02630de3572e128c44bcbc9e6d4c03050ce9dbf62f2f81542"
+    },
+    {
+      "path": "evaluation-center/design.md",
+      "sha256": "68a796c2b5d8a549c20fb4c9214ac08e4db4eac6475238cce9b99612a227f2e6"
+    },
+    {
+      "path": "evaluation-center/v0.1/README.md",
+      "sha256": "092dc1576e5af04c3d1d4d297b9f68e604687c6638203d44b2981041c6af0c74"
+    },
+    {
+      "path": "experiments/day64/chat_tools.py",
+      "sha256": "23a6f764b45b736c4a74a561bde65a1a20604141c3d0accc1ac9e6c73b1f1260"
+    },
+    {
+      "path": "experiments/day64/function_calling.py",
+      "sha256": "bc31d1edab548b7f87b897bb56906f2db6ab68012c5e0e4b403e0d3ea2043c0a"
+    },
+    {
+      "path": "experiments/day64/test_chat_tools.py",
+      "sha256": "d94d08439fbe513d34737c7487c3ba00ee817480392350b10255bf4d19bfb699"
+    },
+    {
+      "path": "experiments/day64/tool_contract.py",
+      "sha256": "aed283f4ee76473834ab71bccb442aae8e509e26d24172d7ce468c7c841d7233"
+    },
+    {
+      "path": "experiments/day65/sales-data.json",
+      "sha256": "c4cc2848a3547ad4596c2e1775c006f9d2f0ad6f1331fef1f038b840672dcc20"
+    },
+    {
+      "path": "experiments/day65/sales_sql.py",
+      "sha256": "48df6b766fc55c6807b04eaea9d28a13e16102abff1da6a17a66c4950cd744c9"
+    },
+    {
+      "path": "experiments/day65/sql_agent.py",
+      "sha256": "e5779fb1f317bb35e2afee65f3d9d41fa24ae407da6d78899a2a319b2085bdaf"
+    },
+    {
+      "path": "experiments/day72/requirements.txt",
+      "sha256": "eebc60b77028583f3e8919783f28f922951e344ba5b85d4e57699ab6b56a4a19"
+    },
+    {
+      "path": "experiments/day72/sales_mcp_server.py",
+      "sha256": "12c9e2d16ccf201f0b29b3b348a6805f7ebff8823e963688fe3a2d76fc5fe1e0"
+    },
+    {
+      "path": "experiments/day72/smoke_client.py",
+      "sha256": "85615cc415ab744a5ce7b8a176edbb632d3211d11987b560deab33ec762dadf1"
+    },
+    {
+      "path": "experiments/day72/wire_client.py",
+      "sha256": "6909fb13060178e14b02bd4b5211e886b436b58e45ccbf19b400884a8b331284"
+    },
+    {
+      "path": "experiments/day73/mcp_agent.py",
+      "sha256": "be9a5c6903116ae8f5f213cfc6fd135416ecb71290f047f3149efda38f2185cb"
+    },
+    {
+      "path": "experiments/day73/mcp_sales.py",
+      "sha256": "58337034445ddc981853c98bea0f382a6b26cee0a64b391d01079184f428fad2"
+    },
+    {
+      "path": "experiments/day73/requirements-lock.txt",
+      "sha256": "549a95f118f90655fcc79452bbc34e83d7637cef7bfc85e99bb585d08b1fa02d"
+    },
+    {
+      "path": "experiments/day73/requirements.txt",
+      "sha256": "005e840f36262ba016c41f13d1f02a70fca8162391c56d9d9b4805e3efe0fa19"
+    },
+    {
+      "path": "experiments/day78/logged_agent.py",
+      "sha256": "a41412280947b38f1be3c3a9a555c73291a5429e1672e5300e478b2dc37cd3b2"
+    },
+    {
+      "path": "experiments/day78/task_log.py",
+      "sha256": "18fbe709fc549e4d717a44f8ece10c0cd1af9d843d4204e9b2a961e8a5c963f6"
+    },
+    {
+      "path": "experiments/day79/recovery_agent.py",
+      "sha256": "0e662e496ca403ff7c3d040ea79d8b4b83d9a0eae798528ae31afb1cf7eb1b02"
+    },
+    {
+      "path": "experiments/day80/approval_store.py",
+      "sha256": "826abbd3a479b465ceee5a0fe2ffff524320fbc1e5c2c379639172cddd73020e"
+    },
+    {
+      "path": "experiments/day80/hitl_agent.py",
+      "sha256": "3418eb7e940bcef216d8f8ffb9148524d7dd644672c33c1509c93cc2fce0798e"
+    },
+    {
+      "path": "experiments/day82/candidate.md",
+      "sha256": "1323fc9c3dcd5f6794d78606efc00950a6405545c84265afb5d9ded2c7e627fc"
+    },
+    {
+      "path": "experiments/day82/prompt_lab.py",
+      "sha256": "4ce3b0feee9f3628b3e3e6373e9edad8438af88444a47de5d0c4e8e0c9b20138"
+    },
+    {
+      "path": "experiments/day82/prompt_policy.py",
+      "sha256": "d4d82fedcb521640bb5a83e93e3933086f5d118eaa815c33ed8d083efd737375"
+    },
+    {
+      "path": "experiments/day85/README.md",
+      "sha256": "39ed010e2fe8aa2e109acbb6c573d8125a1649c6da37087b7e514cd0815f79a4"
+    },
+    {
+      "path": "experiments/day85/contracts.py",
+      "sha256": "7e4c4420feb473e293ca36c4c41f1111fd639980e1b887bdd7ac6b3509b4e60f"
+    },
+    {
+      "path": "experiments/day85/examples/agent.json",
+      "sha256": "26dc7acbc6499b3cfbe77155cbc7d7322e7daf088dcc2e88710fb32bf6136286"
+    },
+    {
+      "path": "experiments/day85/examples/dataset.json",
+      "sha256": "65fb7a279353005cb7bfdde1611829d3368f917c114d4f014ff5884ae885b20a"
+    },
+    {
+      "path": "experiments/day85/framework.py",
+      "sha256": "0c633efab4e50345b705e41efb100730ed40c1d677724245be1a6937cc3f1d2e"
+    },
+    {
+      "path": "experiments/day85/test_framework.py",
+      "sha256": "d5f95e5681ee6af00e8dc3a1e9ce8c7b38f75f7576ab8b26dc037c5a64ae40f8"
+    },
+    {
+      "path": "experiments/day86/README.md",
+      "sha256": "b12546aa8e5922510f3e013ff129d79857597bb2a1c2e7e61063f888ac30ea69"
+    },
+    {
+      "path": "experiments/day86/dataset_contracts.py",
+      "sha256": "431fbfc435c23ce0211647b255f381363e3bc84bb2a7eb41a85e69981196563c"
+    },
+    {
+      "path": "experiments/day86/dataset_tool.py",
+      "sha256": "3331274005afdc915ff850bc4bb8cb267e7eab1d9677c08b25f1da6337fb7f00"
+    },
+    {
+      "path": "experiments/day86/test_dataset.py",
+      "sha256": "eaa946758f92020d757cda1884f8bf9499397141392e63c61fe9d5c9d787f744"
+    },
+    {
+      "path": "experiments/day87/README.md",
+      "sha256": "94e8b39261a789c61310656734e6eaa777e45b9648edeca1c5630e65dacb2195"
+    },
+    {
+      "path": "experiments/day87/execution_contracts.py",
+      "sha256": "33c5b904860d5da93cad5193d75903a1a620e3eb4d51c8b99a56d74bb4e19f90"
+    },
+    {
+      "path": "experiments/day87/runner.py",
+      "sha256": "d4e98f5cf0d7e1e007abb1785fe85d727ab62ddb697b26d03af95f5ee80343f6"
+    },
+    {
+      "path": "experiments/day87/test_runner.py",
+      "sha256": "6bffb6bd30894cfb5ce3b7c84614293ff6a14ea6e40062e0a30c8e3c940692aa"
+    },
+    {
+      "path": "experiments/day87/worker.py",
+      "sha256": "fe0d4129e1663fcb6556a04aaf05e8dbff4a6324e336b3b392e0fc5fa5be4ddf"
+    },
+    {
+      "path": "experiments/day88/README.md",
+      "sha256": "03c14a9aafe62e96be15fc1d8751097789f86461b7a704880b08b61884e0bdde"
+    },
+    {
+      "path": "experiments/day88/latency.py",
+      "sha256": "6c452c39099c1b3c866f59e0fabce36325ba035b4b49e575698c106eca7c1ba4"
+    },
+    {
+      "path": "experiments/day88/runner.py",
+      "sha256": "e1a88f435c1e065fd6bda8d74f6af4bf93efbd5a35edbe37e7ad91c0c516a565"
+    },
+    {
+      "path": "experiments/day88/test_latency.py",
+      "sha256": "9bc7af33a5e31f14895af6d69a45df2b081008b8f444724981899bfe347646fb"
+    },
+    {
+      "path": "experiments/day89/README.md",
+      "sha256": "10fa569fee27ce57fb4bc34a32d1014a25181471a3e8b0f5b844a01a42c20d6b"
+    },
+    {
+      "path": "experiments/day89/demo.py",
+      "sha256": "0358a519148a4fe00435d0b33bbdea4a4b7605562bee2bf5f28c95017ff2798c"
+    },
+    {
+      "path": "experiments/day89/examples/illustrative-pricing.json",
+      "sha256": "ae279ddfc9a1c620d92676dac795338534cfe4eded2e357beb6a9143d9e023a8"
+    },
+    {
+      "path": "experiments/day89/reporting.py",
+      "sha256": "4692975563695656b2d58215a6bf662d12a984c62209a4003359241bd860f69a"
+    },
+    {
+      "path": "experiments/day89/runner.py",
+      "sha256": "9354035b1a24bb0eec249a66eca8a79f4b754110ec53863afaff979164bc1eba"
+    },
+    {
+      "path": "experiments/day89/test_usage.py",
+      "sha256": "5f2d22fde1cbc129a278133da8dd4441a3afbdb9f96031d8b2a62df62514b2db"
+    },
+    {
+      "path": "experiments/day89/transport.py",
+      "sha256": "756d3dadb0617723c51115e16f9ef18d82bf2e53b60e8a77d565121c9ca5ee59"
+    },
+    {
+      "path": "experiments/day89/usage.py",
+      "sha256": "45fc5dda6af9b6169f814734142f3b19c0c9919aa303da4a2daef6f04be27f31"
+    },
+    {
+      "path": "experiments/day90/README.md",
+      "sha256": "9a87c9bb224672788dfec18584a11f33321110cf02a255a83991aa742839b169"
+    },
+    {
+      "path": "experiments/day90/runner.py",
+      "sha256": "ab58f3ac1ba633b2f0c638afc24dc09ba5face30aedb415eb1e10ad8a4c0b443"
+    },
+    {
+      "path": "experiments/day90/scoring.py",
+      "sha256": "055c6edd329768e0c29c0fb021c96c4add4f8577e706f873974575d61541ca14"
+    },
+    {
+      "path": "experiments/day90/test_scoring.py",
+      "sha256": "91301ef1942c3146c1ff20b4a7f2eb3825063d1b63a81a6a99d05d6761b0e082"
+    },
+    {
+      "path": "scripts/day84/test_v10_release.py",
+      "sha256": "6fb5fa5b00e87d8b76b1ed87b8fa79e8079dfa357c7b3bbc8c7bce4525ee1895"
+    },
+    {
+      "path": "scripts/day84/v10_gate.py",
+      "sha256": "65d2b7518af841ddd929e933f0d67a445b3640fb25dbe24913f55a6301a233f9"
+    },
+    {
+      "path": "scripts/day84/verify_v10.py",
+      "sha256": "bb6d09e8fa6e41603217b2019fe64061db1a71ec7b13f89291f59f555c0d42a9"
+    },
+    {
+      "path": "scripts/day91/README.md",
+      "sha256": "84525558fb67d6d265bdba4898895797305dc3d6e0827fbd8ab5b78657b86a9e"
+    },
+    {
+      "path": "scripts/day91/release_gate.py",
+      "sha256": "92811e5aa4b121996d0c1b9339767d637701aac17e474c0e453aa158a1529931"
+    },
+    {
+      "path": "scripts/day91/release_notes.py",
+      "sha256": "9693c89030f1abce9e9e731bf80f848a83fbcf9e7a23b40d4a9984b7b2dca935"
+    },
+    {
+      "path": "scripts/day91/test_release.py",
+      "sha256": "3a991f8e1cd1d4ac02048aeeb798055839b522830af5197c13f996ff6b2fc66e"
+    },
+    {
+      "path": "scripts/day91/verify_release.py",
+      "sha256": "e5cc8a4954ba1b93dc438fdf2e4ce35ae57120a2c4462b88ae1dd18f1da20242"
+    }
+  ]
+}
