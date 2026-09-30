@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "date": "2026-09-30",
+  "original_records": 301,
+  "weekly_archives": 8,
+  "weekly_reading_pages": 8,
+  "all_original_bytes_preserved": true,
+  "compatibility_tests": 13,
+  "evaluation_regression": {
+    "total": 383,
+    "initial_passed": 382,
+    "initial_failed": 1,
+    "failed_test": "test_real_child_timeout_cleanup",
+    "recheck_passed": 1,
+    "recheck_context": "outside_restricted_sandbox_to_allow_own_child_process_tree_cleanup"
+  },
+  "new_fixture_run": {
+    "cases": 12,
+    "passed": 12,
+    "live_model_requests": 0,
+    "external_messages_sent": 0
+  },
+  "report_reinspection": "passed",
+  "test_entry_stage88": 28,
+  "markdown_links_checked": 798,
+  "original_engine_code_unchanged": true,
+  "source_sha256": {
+    "scripts/evidence_layout/test_layout.py": "a519e75aba1f75e18b74c4365f9ac2342a3833b19e2fcabcac1aec2a6cec4391",
+    "scripts/evaluate.py": "92f4cf8302119f3d54694cb8b1e5e1ede8f506a5e5ddd00e086833a9a04bec28",
+    "scripts/evidence_layout/__init__.py": "66792f2c2f94b166a55fd8b1d6234e35c659e202bcc1038f08d2efe3781ecb6a"
+  },
+  "archive_sha256": {
+    "docs/evidence/week-09.zip": "e676cb2269c1cf0345b4617870d2c5d5aac96e3f19a6a47a45f61628e1aaddc6",
+    "docs/evidence/week-08.zip": "475072591a8f376bc2b091df70a434a7086ba8752a9077b78ab8773a99ae3088",
+    "docs/evidence/week-07.zip": "e96df9cbb248e7325834f723219adc00f45fbe1e0efa4608f1bfbc718404b152",
+    "docs/evidence/week-12.zip": "0ad4fd00022601575b09ef2b19389244f5b0a6062f1687f496215325f1e903b8",
+    "scripts/evidence_layout/documents.zip": "789ff99fe0ed1c0c0f0b3500bd0d18b4caf23b674e21a127d3c75dcbd8598f4a",
+    "docs/evidence/week-10.zip": "7f86a5fdb654e0e496aac773f77bbe3a223e93a57945dffecb018926edf4715c",
+    "docs/evidence/week-13.zip": "bcb19855a7e8cbd77c5269ab9b9b3bd8997a9a96d0c6a5e5de55c65373902976",
+    "docs/evidence/week-11.zip": "bd1d0649f8b7f9116c4a00523688292b5bdc343dc2d59bed67d5875fdbc7bb5e",
+    "docs/evidence/week-14.zip": "454ba58d8a7a550a0415e59c2a124dc49eed362500f8558b1577b7ffcb8ac8f2"
+  }
+}

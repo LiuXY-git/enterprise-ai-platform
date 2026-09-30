@@ -92,6 +92,6 @@ $env:PYTHONDONTWRITEBYTECODE = '1'
 - Evaluation Center 206 个冻结资产及历史 Agent 冻结链完整性检查通过。完整性检查自身执行测试数为零，与上面的 41 项测试分别记录。
 - 改动 Python 文件 Ruff 检查及格式检查通过。
 
-证据见 [validation.json](evidence/day92/validation.json)、[后端 JUnit](evidence/day92/backend-tests.xml)、[发布门禁 JUnit](evidence/day92/release-tests.xml)、[冻结资产检查](evidence/day92/frozen-integrity.json)。测试使用临时数据库；新测试拦截外部 socket 连接，允许 Windows 事件循环所需的本机回环。
+证据见 [validation.json](evidence/week-14.md#day92)、[后端 JUnit](evidence/week-14.md#day92)、[发布门禁 JUnit](evidence/week-14.md#day92)、[冻结资产检查](evidence/week-14.md#day92)。测试使用临时数据库；新测试拦截外部 socket 连接，允许 Windows 事件循环所需的本机回环。
 
 存在一条 Chroma 使用已弃用 asyncio API 的依赖警告，本次不升级依赖。未重跑全部历史发布测试、真实模型请求或通知发送；未重建容器。现有数据库、日志路径及 Docker 入口未改动。Week 14 后续事项见 [计划](week-14-plan.md)。

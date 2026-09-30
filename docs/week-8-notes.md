@@ -418,7 +418,7 @@ Windows PowerShell 构建阶段若曾出现 `failed to get console: The handle i
 - 真实隔离 Docker 验收通过：同一启动脚本成功启动 API，强制重建后 SQLite 记录、应用日志、工作流事件日志保留，日志驱动容量设置符合预期。
 - 独立测试容器、网络和镜像已清理；原业务 API 容器 ID 与镜像保持一致，API 和 n8n 仍 healthy。
 
-可提交证据见 [Day 53 部署验收结果](evidence/day53/deployment-validation.json)。当前业务环境的更新、分支推送和合并由维护者按交付步骤执行；本轮没有部署 Day 53 到业务容器，也没有调用真实模型或发送消息。
+可提交证据见 [Day 53 部署验收结果](evidence/week-08.md#day53)。当前业务环境的更新、分支推送和合并由维护者按交付步骤执行；本轮没有部署 Day 53 到业务容器，也没有调用真实模型或发送消息。
 
 控制台兼容修复补验：8 项部署脚本测试及 Ruff 通过；在 Windows PowerShell 5.1 中设置 `BUILDKIT_PROGRESS=tty`，修复后的脚本仍以纯文本完成独立镜像构建、启动和重建持久化验证，测试资源已清理。未重复执行业务测试或更新业务容器。
 

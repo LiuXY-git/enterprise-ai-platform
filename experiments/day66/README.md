@@ -27,7 +27,7 @@
 & .\.venv\Scripts\python.exe experiments/day66/knowledge_agent.py --live --backend hub-demo --case empty
 ```
 
-`--live` 使用项目已有模型配置，可加 `--env-file .env`。该 CLI 只允许向模型发送虚构 `hub-demo` 结果，不能选择业务 `hub`。本轮 Qwen qwen3.7-plus 两例共 4 次请求均通过，详见 [实际验收证据](../../docs/evidence/day66/validation.json)。重复执行会产生新的模型请求。
+`--live` 使用项目已有模型配置，可加 `--env-file .env`。该 CLI 只允许向模型发送虚构 `hub-demo` 结果，不能选择业务 `hub`。本轮 Qwen qwen3.7-plus 两例共 4 次请求均通过，详见 [实际验收证据](../../docs/evidence/week-10.md#day66)。重复执行会产生新的模型请求。
 
 只查看检索结果：
 

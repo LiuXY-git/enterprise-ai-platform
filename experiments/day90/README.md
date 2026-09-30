@@ -1,5 +1,7 @@
 # Day 90：逐例判分与成功率
 
+当前项目使用[统一评测入口](../../evaluation-center/README.md#运行评测)读取按周资料。下面运行命令已切换到该入口，阶段编号保持不变。
+
 今天给 Day 87–89 的执行报告加上评分层。运行完成表示拿到了结果；评分通过表示结果符合 Day 86 的独立标准。12 个固定虚构销售场景都有业务预期和安全要求，任一必需规则不符合，该用例就失败。
 
 ## 1. 完整运行并评分
@@ -11,7 +13,7 @@ Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
 $env:PYTHONUTF8 = '1'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 $day90Out = Join-Path '.\data\day90' ('full-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day90\runner.py run --suite full --output-dir $day90Out
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 90 run --suite full --output-dir $day90Out
 $day90Exit = $LASTEXITCODE
 if ($day90Exit -ne 0) { Write-Warning '存在失败、执行错误或未完成用例，请保留输出并检查。' }
 $day90ReportPath = Join-Path $day90Out 'evaluation\report.json'
@@ -79,7 +81,7 @@ $day90Report.by_category | ConvertTo-Json -Depth 6
 
 ```powershell
 $day90Regrade = Join-Path '.\data\day90' ('regrade-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day90\runner.py grade --input-dir .\data\day89\acceptance-20260929 --output-dir $day90Regrade
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 90 grade --input-dir .\data\day89\acceptance-20260929 --output-dir $day90Regrade
 if ($LASTEXITCODE -ne 0) { Write-Warning '输入无效，或存在不通过/未完成用例。' }
 ```
 
@@ -88,7 +90,7 @@ if ($LASTEXITCODE -ne 0) { Write-Warning '输入无效，或存在不通过/未�
 ## 6. 只读复核评分
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day90\runner.py inspect --input-dir (Join-Path $day90Out 'run') --report (Join-Path $day90Out 'evaluation\report.json')
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 90 inspect --input-dir (Join-Path $day90Out 'run') --report (Join-Path $day90Out 'evaluation\report.json')
 if ($LASTEXITCODE -ne 0) { throw '评分证据复核失败' }
 ```
 

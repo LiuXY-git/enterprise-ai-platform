@@ -114,11 +114,11 @@ Day 48 Production URL 正常与重复事件测试通过；真实消息发送链�
 
 | 场景 | run_id | 工作流状态 | 通知状态 | 通知尝试 | 证据 |
 | --- | --- | --- | --- | --- | --- |
-| confirmed_delivered | `a06b1757-baf5-4139-832a-0eef125b5935` | failed | sent | 1 | [JSON](evidence/day49/day49-notification-resolution-7975a813112249e394725f60c88a6ff4.json) |
-| confirmed_not_delivered | `4488410b-af08-403a-b490-c8a6e09198e1` | failed | sent | 2 | [JSON](evidence/day49/day49-notification-resolution-7975a813112249e394725f60c88a6ff4.json) |
-| Production 正常与重复事件 | `f5d944b0-3468-460f-bf47-a3bbbc83e650` | succeeded | preview | 0 | [JSON](evidence/day49/day49-production-fc8d9aebad1e42b5b658d74dd57e155b.json) |
-| failed | `85148ae8-feac-4b3a-8897-38cbbd311a24` | failed | failed | 1 | [JSON](evidence/day49/day49-replay-guard-17e171ec3a4a470b8118a25c512d0268.json) |
-| delivery_unknown | `dc337f30-160d-4b64-8a30-5807004537c5` | failed | delivery_unknown | 1 | [JSON](evidence/day49/day49-replay-guard-17e171ec3a4a470b8118a25c512d0268.json) |
+| confirmed_delivered | `a06b1757-baf5-4139-832a-0eef125b5935` | failed | sent | 1 | [JSON](evidence/week-07.md#day49) |
+| confirmed_not_delivered | `4488410b-af08-403a-b490-c8a6e09198e1` | failed | sent | 2 | [JSON](evidence/week-07.md#day49) |
+| Production 正常与重复事件 | `f5d944b0-3468-460f-bf47-a3bbbc83e650` | succeeded | preview | 0 | [JSON](evidence/week-07.md#day49) |
+| failed | `85148ae8-feac-4b3a-8897-38cbbd311a24` | failed | failed | 1 | [JSON](evidence/week-07.md#day49) |
+| delivery_unknown | `dc337f30-160d-4b64-8a30-5807004537c5` | failed | delivery_unknown | 1 | [JSON](evidence/week-07.md#day49) |
 
 <a id="day49-crm-保存后的回放保护"></a>
 

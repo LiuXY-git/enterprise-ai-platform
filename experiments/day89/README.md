@@ -1,5 +1,7 @@
 # Day 89：Token 与模型 API 成本
 
+当前项目使用[统一评测入口](../../evaluation-center/README.md#运行评测)读取按周资料。下面运行命令已切换到该入口，阶段编号保持不变。
+
 今天新增 usage 采集层、按输入/输出 Token 分别计价的核算器，以及带消耗覆盖状态的评测报告。默认仍运行 fixture，不请求真实模型。真实计费采集接口已用离线 HTTP 响应验证，尚未接通评测器的真实模型模式。
 
 ## 1. 运行十二例并看清模拟调用
@@ -9,7 +11,7 @@ Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
 $env:PYTHONUTF8 = '1'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 $day89Out = Join-Path '.\data\day89' ('full-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day89\runner.py run --suite full --output-dir $day89Out
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 89 run --suite full --output-dir $day89Out
 $day89Exit = $LASTEXITCODE
 if ($day89Exit -ne 0) { Write-Warning '执行有异常，保留目录并检查证据。' }
 $day89Report = Get-Content (Join-Path $day89Out 'report.json') -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -56,7 +58,7 @@ if ($LASTEXITCODE -ne 0) { throw '离线示例失败' }
 
 ```powershell
 $day89Replay = Join-Path '.\data\day89' ('replay-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day89\runner.py replay --ledger (Join-Path $day89Demo 'complete-ledger.json') --prices .\experiments\day89\examples\illustrative-pricing.json --output-dir $day89Replay
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 89 replay --ledger (Join-Path $day89Demo 'complete-ledger.json') --prices .\experiments\day89\examples\illustrative-pricing.json --output-dir $day89Replay
 if ($LASTEXITCODE -ne 0) { throw '核算失败' }
 ```
 
@@ -77,7 +79,7 @@ replay 只读取已有账本，不调用 Agent。报告保存账本摘要和完�
 ## 5. 验证本轮证据
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day89\runner.py inspect --output-dir $day89Out
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 89 inspect --output-dir $day89Out
 if ($LASTEXITCODE -ne 0) { throw 'usage、执行快照或底层证据不一致' }
 ```
 

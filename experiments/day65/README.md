@@ -43,7 +43,7 @@
 
 仅 `--live` 请求已有模型配置；可加 `--env-file .env`。每个案例最多 2 次模型请求、1 次 SQL 工具调用。真实查询失败会直接停止，不让模型把错误解释成“销售额为零”。
 
-本轮 Qwen qwen3.7-plus 的 `monthly` 和 `empty` 共 4 次模型请求均完成闭环；客户筛选的证据为离线 SQL 与 fixture，不宣称已做第三个 live 场景。详见 [验收记录](../../docs/evidence/day65/validation.json)。
+本轮 Qwen qwen3.7-plus 的 `monthly` 和 `empty` 共 4 次模型请求均完成闭环；客户筛选的证据为离线 SQL 与 fixture，不宣称已做第三个 live 场景。详见 [验收记录](../../docs/evidence/week-10.md#day65)。
 
 ## 验收和范围
 

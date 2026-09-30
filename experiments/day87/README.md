@@ -1,5 +1,7 @@
 # Day 87：自动执行测试集并保存证据
 
+当前项目使用[统一评测入口](../../evaluation-center/README.md#运行评测)读取按周资料。下面运行命令已切换到该入口，阶段编号保持不变。
+
 今天把 **测试集 → 固定 Agent 入口 → 执行记录** 接起来。先预检 Day 86 的 12 例数据，再逐例启动独立 Python 子进程；每例运行 Day 82 的 fixture 模型、真实本地 stdio MCP 和虚构 SQLite。不会请求 Qwen，不会批准或发送消息。
 
 ## 1. 准备环境
@@ -18,7 +20,7 @@ if ($LASTEXITCODE -ne 0) { throw '先修复测试集预检' }
 
 ```powershell
 $day87Smoke = Join-Path '.\data\day87' ('smoke-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day87\runner.py run --suite smoke --timeout-seconds 60 --output-dir $day87Smoke
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 87 run --suite smoke --timeout-seconds 60 --output-dir $day87Smoke
 if ($LASTEXITCODE -ne 0) { throw '执行有异常；保留目录并查看 report.json' }
 ```
 
@@ -28,7 +30,7 @@ if ($LASTEXITCODE -ne 0) { throw '执行有异常；保留目录并查看 report
 
 ```powershell
 $day87Full = Join-Path '.\data\day87' ('full-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day87\runner.py run --suite full --timeout-seconds 60 --output-dir $day87Full
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 87 run --suite full --timeout-seconds 60 --output-dir $day87Full
 $day87Exit = $LASTEXITCODE
 $day87Report = Get-Content (Join-Path $day87Full 'report.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $day87Report.summary | Format-List
@@ -51,7 +53,7 @@ if ($day87Exit -ne 0) { Write-Warning '执行存在异常；按下方说明检�
 ## 4. 查看并核对证据
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day87\runner.py inspect --output-dir $day87Full
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 87 inspect --output-dir $day87Full
 if ($LASTEXITCODE -ne 0) { throw '报告或证据不一致' }
 Get-Content (Join-Path $day87Full 'cases\monthly_normal\artifacts\generation.json') -Raw -Encoding UTF8
 Get-Content (Join-Path $day87Full 'cases\tool_exhausted\artifacts\events.json') -Raw -Encoding UTF8
@@ -86,7 +88,7 @@ cases/<case_id>/artifacts/approvals.sqlite # 仅报告成功/空数据时存在
 ## 6. 开发验证
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B -m pytest .\experiments\day85\test_framework.py .\experiments\day86\test_dataset.py .\experiments\day87\test_runner.py .\scripts\day84\test_v10_release.py -q -p no:cacheprovider
+& .\experiments\day73\.venv\Scripts\python.exe -B scripts/evaluate.py --stage 87 test
 if ($LASTEXITCODE -ne 0) { throw '回归测试未通过' }
 ```
 

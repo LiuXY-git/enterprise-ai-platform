@@ -41,7 +41,7 @@
 
 59 项新增契约测试、44 项 v1.0 发布保护回归，共 103 项通过，无失败、错误或跳过。包含重复/冲突输入、值类型、伪造完成状态、未知指标不能写成 0、来源哈希改变、目录保护、JSON Schema 结构检查及不执行 Agent 的测试。
 
-额外生成一份可读的预检报告并导出 Schema；其两行状态均为 `not_run`，不计作 Agent 业务任务通过。证据见 [validation.json](evidence/day85/validation.json) 与 [预检报告](evidence/day85/preview/report.json)。
+额外生成一份可读的预检报告并导出 Schema；其两行状态均为 `not_run`，不计作 Agent 业务任务通过。证据见 [validation.json](evidence/week-13.md#day85) 与 [预检报告](evidence/week-13.md#day85)。
 
 Agent Center v1.0 及父版本冻结资产完整性通过。旧 Agent、API、Docker 配置与发布资产均未修改；没有重新运行全部 721 项旧版发布测试。本次不调用模型、MCP 或发送服务。
 
@@ -102,9 +102,9 @@ Agent Center v1.0 及历史版本冻结资产完整性通过；本次未重跑�
 - [执行器](../experiments/day87/runner.py)
 - [固定 worker](../experiments/day87/worker.py)
 - [执行报告契约](../experiments/day87/execution_contracts.py)
-- [验证记录](evidence/day87/validation.json)
-- [本次完整执行报告快照](evidence/day87/execution.json)
-- [证据范围说明](evidence/day87/README.md)
+- [验证记录](evidence/week-13.md#day87)
+- [本次完整执行报告快照](evidence/week-13.md#day87)
+- [证据范围说明](evidence/week-13.md#day87)
 - [Week 13 计划](week-13-plan.md)
 
 ---
@@ -127,9 +127,9 @@ Agent Center v1.0 与历史版本冻结完整性检查通过；未重跑全量 7
 - [操作教程与计时边界](../experiments/day88/README.md)
 - [延迟契约与汇总](../experiments/day88/latency.py)
 - [执行入口](../experiments/day88/runner.py)
-- [验收记录](evidence/day88/validation.json)
-- [执行报告](evidence/day88/execution.json)
-- [证据范围](evidence/day88/README.md)
+- [验收记录](evidence/week-13.md#day88)
+- [执行报告](evidence/week-13.md#day88)
+- [证据范围](evidence/week-13.md#day88)
 
 ---
 
@@ -150,9 +150,9 @@ Day 89 CLI 封装 Day 88 完整执行记录，明确 fixture 不具有供应商 
 - [usage 采集层](../experiments/day89/transport.py)
 - [Token 与费用规则](../experiments/day89/usage.py)
 - [显式示例价格](../experiments/day89/examples/illustrative-pricing.json)
-- [验收记录](evidence/day89/validation.json)
-- [评测报告](evidence/day89/execution.json)
-- [证据范围说明](evidence/day89/README.md)
+- [验收记录](evidence/week-13.md#day89)
+- [评测报告](evidence/week-13.md#day89)
+- [证据范围说明](evidence/week-13.md#day89)
 
 ---
 
@@ -192,7 +192,7 @@ Day 90 为固定销售评测补上逐例规则判分、分类汇总和明确的�
 
 除了业务状态、金额、范围、引用和重试策略，还检查最终回答、审批草案、发送边界和证据一致性。每条规则记录 expected/actual/passed，失败时提供 failed_rules。评分标准不调用 Agent 的报告渲染器，不使用待测 Agent 自己生成的答案作为金标准。
 
-证据：[评分报告](evidence/day90/scoring.json)、[Schema](evidence/day90/scoring.schema.json)、[测试结果](evidence/day90/regression.xml)、[验收摘要](evidence/day90/validation.json)。完整原始运行保留在本机忽略目录 `data/day90/acceptance-20260929`，其中 `run/` 是输入证据，`evaluation/report.json` 是评分。版本库中的单例 generation/events 用于阅读，不能代替 SQLite 复核材料。
+证据：[评分报告](evidence/week-13.md#day90)、[Schema](evidence/week-13.md#day90)、[测试结果](evidence/week-13.md#day90)、[验收摘要](evidence/week-13.md#day90)。完整原始运行保留在本机忽略目录 `data/day90/acceptance-20260929`，其中 `run/` 是输入证据，`evaluation/report.json` 是评分。版本库中的单例 generation/events 用于阅读，不能代替 SQLite 复核材料。
 
 <a id="day90-能力边界"></a>
 
@@ -221,7 +221,7 @@ Day 90 为固定销售评测补上逐例规则判分、分类汇总和明确的�
 
 文件：[发布清单](../evaluation-center/release-v0.1.0.json)、[门禁](../scripts/day91/release_gate.py)、[验收脚本](../scripts/day91/verify_release.py)、[正文生成器](../scripts/day91/release_notes.py)。
 
-证据：[verification.json](evidence/day91/verification.json)、[本次评分](evidence/day91/scoring.json)、[回归测试 XML](evidence/day91/regression.xml)、[发布测试 XML](evidence/day91/release.xml)、[验收摘要](evidence/day91/validation.json)。本机完整验收目录为 `data/day91/candidate-20260930`。版本库只保存摘要，不假装包含所有 SQLite。
+证据：[verification.json](evidence/week-13.md#day91)、[本次评分](evidence/week-13.md#day91)、[回归测试 XML](evidence/week-13.md#day91)、[发布测试 XML](evidence/week-13.md#day91)、[验收摘要](evidence/week-13.md#day91)。本机完整验收目录为 `data/day91/candidate-20260930`。版本库只保存摘要，不假装包含所有 SQLite。
 
 <a id="day91-为什么有用"></a>
 

@@ -297,7 +297,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Day 58 graph tests failed' }
 
 本轮完成 **14 项测试**：五类终止路径、成功回答来源与条件、三个部分结果不编造报销结论、零额度不执行查询、多次调用不串进度、递归保护、禁用环境开启的远程追踪、拒绝未知场景。
 
-测试期间阻断 socket 连接与 DNS 查询；图入口显式关闭远程追踪，不加载项目 `.env`。还通过 `pip check`、Ruff 检查与格式检查。结构化结果见 [本轮验证记录](evidence/day58/graph-validation.json)。这是模拟节点的图执行验收，不包含真实检索、模型输出质量或容器验收。
+测试期间阻断 socket 连接与 DNS 查询；图入口显式关闭远程追踪，不加载项目 `.env`。还通过 `pip check`、Ruff 检查与格式检查。结构化结果见 [本轮验证记录](evidence/week-09.md#day58)。这是模拟节点的图执行验收，不包含真实检索、模型输出质量或容器验收。
 
 根项目环境未安装 LangGraph 时，实验测试按可选依赖跳过。验收必须使用上方独立环境，核对输出为 `14 passed`，不能把 skipped 当成通过。
 
@@ -452,7 +452,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Day 59 tests failed' }
 | P1 故障流程与 8000 元报销审批的规划任务 | `planned`，生成 4 步：分别取资料、分析、汇总；依赖关系通过校验 |
 | “帮我处理一下。” | `waiting_for_input`，提出任务对象和期望结果两个问题 |
 
-真实返回见 [live-plans.json](evidence/day59/live-plans.json)，测试和源码版本记录见 [validation.json](evidence/day59/validation.json)。两条样例是有限的适配验证，不代表所有输入或所有模型已验收。模型建议获取的文档名称没有被知识库验证，不是实际来源引用。DeepSeek 仅通过请求契约 Mock 测试，本次没有调用其真实服务。
+真实返回见 [live-plans.json](evidence/week-09.md#day59)，测试和源码版本记录见 [validation.json](evidence/week-09.md#day59)。两条样例是有限的适配验证，不代表所有输入或所有模型已验收。模型建议获取的文档名称没有被知识库验证，不是实际来源引用。DeepSeek 仅通过请求契约 Mock 测试，本次没有调用其真实服务。
 
 <a id="day59-7-后续边界"></a>
 
@@ -662,7 +662,7 @@ $task | ConvertTo-Json -Depth 20
 if ($LASTEXITCODE -ne 0) { throw 'Agent 实验测试失败' }
 ```
 
-本次 23 项 Day 60 测试及 63 项 Day 58–59 回归测试通过，共 86 项。验证记录见 [validation.json](evidence/day60/validation.json)，独立进程与异常恢复样例见 [process-recovery.json](evidence/day60/process-recovery.json)。API 环境缺少独立实验依赖时测试跳过，不计为通过；本次未重跑完整 API 套件或 Docker 验收。
+本次 23 项 Day 60 测试及 63 项 Day 58–59 回归测试通过，共 86 项。验证记录见 [validation.json](evidence/week-09.md#day60)，独立进程与异常恢复样例见 [process-recovery.json](evidence/week-09.md#day60)。API 环境缺少独立实验依赖时测试跳过，不计为通过；本次未重跑完整 API 套件或 Docker 验收。
 
 Day 61 继续设计企业 Agent 场景；真实工具调用仍按 Week 10 计划推进。Day 55 视频补录和 Workflow Center v1.0.0 发布候选的待办继续保留。
 
@@ -835,7 +835,7 @@ $task | ConvertTo-Json -Depth 20
 
 [cases.json](../experiments/day61/cases.json)包含 13 组人工规定预期结果的场景：正常、缺输入、无记录、缺信息、最新记录冲突、全部查询失败、部分查询失败、人工复核、时区边界、历史优先级变化、资料中的指令、客户不存在、部分客户无记录。
 
-57 项自动化测试进一步覆盖非法日期、重复标识、错误客户归属、越界来源、伪造完成状态和隐藏资料缺口。实际验证记录见 [validation.json](evidence/day61/validation.json)，规则运行结果见 [scenario-results.json](evidence/day61/scenario-results.json)，计划持久化衔接见 [plan-progress.json](evidence/day61/plan-progress.json)。
+57 项自动化测试进一步覆盖非法日期、重复标识、错误客户归属、越界来源、伪造完成状态和隐藏资料缺口。实际验证记录见 [validation.json](evidence/week-09.md#day61)，规则运行结果见 [scenario-results.json](evidence/week-09.md#day61)，计划持久化衔接见 [plan-progress.json](evidence/week-09.md#day61)。
 
 Day 62 以此契约编写 Agent Prompt，并区分程序规则验收和模型输出质量。Day 63 汇总 Agent Center v0.1 的实际能力。真实 Tool Calling、SQLTool、KnowledgeTool、APITool 继续按 Week 10 推进；当前没有新 Agent API、真实 CRM 查询或消息发送。Day 55 视频和 Workflow Center v1.0.0 发布候选待办保持原状态。
 
@@ -1004,7 +1004,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Day 61–62 测试失败' }
 | conflicting-priority | incomplete | 不任意选择有冲突的最新优先级 |
 | untrusted-text | completed | 输入中的发送通知指令没有改变类别或输出业务动作 |
 
-原始验收输出见 [live-reports.json](evidence/day62/live-reports.json)，离线运行汇总见 [offline-results.json](evidence/day62/offline-results.json)，环境、Prompt 哈希与代码哈希见 [validation.json](evidence/day62/validation.json)。这里保存的是解析并通过核对的模型 JSON，不包含原始 HTTP 正文或内部推理。
+原始验收输出见 [live-reports.json](evidence/week-09.md#day62)，离线运行汇总见 [offline-results.json](evidence/week-09.md#day62)，环境、Prompt 哈希与代码哈希见 [validation.json](evidence/week-09.md#day62)。这里保存的是解析并通过核对的模型 JSON，不包含原始 HTTP 正文或内部推理。
 
 这些结果是有限样例上的一次性验证，不证明模型永远稳定，也不证明所有 Prompt 注入都能防住。DeepSeek 只完成 Mock 适配测试，本日没有真实请求。未重跑完整 API、Day 58–60 或 Docker 套件；相关运行代码和依赖保持原样。
 
@@ -1113,6 +1113,6 @@ Day 59/62 的 --live 会产生真实模型请求，完整离线验收不会启�
 
 ### 6. 本轮结论
 
-219 项离线测试通过，详情见 [validation.json](evidence/day63/validation.json)。本轮检查覆盖候选资产、依赖分组、进程恢复和报告约束；没有新增模型请求，没有重跑平台全部 API 或 Docker 验收。
+219 项离线测试通过，详情见 [validation.json](evidence/week-09.md#day63)。本轮检查覆盖候选资产、依赖分组、进程恢复和报告约束；没有新增模型请求，没有重跑平台全部 API 或 Docker 验收。
 
 历史候选已合并到 main；当前清单和文档已完成内容定版，并修正两处发布状态测试的前置条件。历史 validation.json 保留原始记录；定版后应重新运行完整验收，结果保存在新的输出目录。后续提交、标签与 GitHub Release 由维护者执行，见 [版本说明](agent-center-v0.1.md)。

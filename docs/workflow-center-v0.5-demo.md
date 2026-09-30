@@ -8,7 +8,7 @@
 
 ## 0:40–1:40：展示正常处理与防重复
 
-打开 [Production 验收证据](evidence/day49/day49-production-fc8d9aebad1e42b5b658d74dd57e155b.json)，使用编辑器搜索已有 run_id `f5d944b0-3468-460f-bf47-a3bbbc83e650`。
+打开 [Production 验收证据](evidence/week-07.md#day49)，使用编辑器搜索已有 run_id `f5d944b0-3468-460f-bf47-a3bbbc83e650`。
 
 讲解：“首次处理成功并保存分析检查点。再次提交同一事件仍只有一条跟进，重复计数为 1，CRM 保持不变。通知状态是 preview，通知尝试为 0。”
 

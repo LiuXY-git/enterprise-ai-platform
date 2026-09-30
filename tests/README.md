@@ -10,6 +10,8 @@
 
 Agent/Evaluation 的独立实验和发布检查位于 `experiments`、`scripts`，使用各阶段说明指定的环境和命令，避免从仓库根目录无范围收集所有实验。
 
+按周资料布局下，Evaluation 测试使用 Day 73 环境执行 `python scripts/evaluate.py test`；该入口自动准备程序所需的资料路径。不要直接用原测试路径读取已经归档的 Day 目录。
+
 Day 92 新增 [应用工厂与生命周期测试](test_day92_application.py)，覆盖启动失败、关闭清理、应用实例隔离、临时 SQLite 初始化、原有 HTTP 行为以及完整 OpenAPI 契约。
 
 [OpenAPI 快照](fixtures/day92-openapi.json)取自重构前提交 `a5d7671d3d376d8020d9a9b37489f17ca03f598a` 的后端环境。接口有意变更时需审核路径、模型和响应差异，再更新快照；不能仅为消除测试失败而覆盖基线。依赖升级造成的 schema 差异也需要审查。

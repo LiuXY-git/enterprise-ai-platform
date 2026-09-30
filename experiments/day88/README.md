@@ -1,5 +1,7 @@
 # Day 88：测量每例执行延迟
 
+当前项目使用[统一评测入口](../../evaluation-center/README.md#运行评测)读取按周资料。下面运行命令已切换到该入口，阶段编号保持不变。
+
 在 Day 87 执行器外增加单调时钟计时，继续使用 Day 86 的固定测试集、Day 82 fixture 模型和真实本地 stdio MCP。旧版代码与历史报告保持不变，新入口生成 `day88-latency-v1` 报告。
 
 ## 1. 运行
@@ -11,7 +13,7 @@ Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
 $env:PYTHONUTF8 = '1'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 $day88Out = Join-Path '.\data\day88' ('full-' + [Guid]::NewGuid().ToString('N'))
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day88\runner.py run --suite full --timeout-seconds 60 --output-dir $day88Out
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 88 run --suite full --timeout-seconds 60 --output-dir $day88Out
 $day88Exit = $LASTEXITCODE
 if ($day88Exit -ne 0) { Write-Warning '本次有执行异常，保留输出并检查 report.json。' }
 ```
@@ -63,7 +65,7 @@ completed 组仍包含业务 failed/rejected：这些 Agent 已经正常结束�
 ## 4. 检查证据
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B .\experiments\day88\runner.py inspect --output-dir $day88Out
+& .\experiments\day73\.venv\Scripts\python.exe -B .\scripts/evaluate.py --stage 88 inspect --output-dir $day88Out
 if ($LASTEXITCODE -ne 0) { throw '执行记录、计时统计或证据哈希不一致' }
 ```
 
@@ -80,7 +82,7 @@ Token、成本和成功率仍为 null，分别留给 Day 89、Day 90。模型为
 开发验证：
 
 ```powershell
-& .\experiments\day73\.venv\Scripts\python.exe -B -m pytest .\experiments\day88\test_latency.py -q -p no:cacheprovider
+& .\experiments\day73\.venv\Scripts\python.exe -B scripts/evaluate.py --stage 88 test
 if ($LASTEXITCODE -ne 0) { throw '延迟测试未通过' }
 ```
 

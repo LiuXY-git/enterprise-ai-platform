@@ -4,6 +4,8 @@
 
 学习记录已按周整合，请从[Week 文档目录](docs/README.md#按周阅读)进入。
 
+测试与运行记录也已整理为[周摘要](docs/evidence/README.md)；重新评测使用[统一入口](evaluation-center/README.md#运行评测)。
+
 当前平台 API 版本为 `1.0.0`。Workflow Center `0.5.0` 已完成业务验收，版本内容于 2026-09-14 定版，组件标签为 `workflow-center-v0.5.0`。GitHub 发布状态以远端标签和 Release 页面为准。销售助手通知为预览模式。
 
 Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-center-v1.0.md)仍为发布候选，标签与 GitHub Release 待发布。维护者于 2026-09-17 确认 Day 55 视频之后补录。Week 9 已完成 [Day 58 LangGraph 实验](docs/week-9-notes.md#day58)和 [Day 59 任务规划 Agent](docs/week-9-notes.md#day59)：模型生成计划，本地校验，业务步骤尚未执行。[Day 60](docs/week-9-notes.md#day60)已加入 SQLite 任务检查点，支持模拟进度保存和进程重启恢复。[Day 61](docs/week-9-notes.md#day61)已完成销售跟进分析场景、输入输出契约与离线规则验收。[Day 62](docs/week-9-notes.md#day62)已加入销售报告 Prompt、模型输出核对，并通过 5 个 Qwen 真实请求验证。[Day 63](docs/week-9-notes.md#day63)成果已合并到 main；[Agent Center v0.1.0](docs/agent-center-v0.1.md)于 2026-09-21 完成内容定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认正式发布。

@@ -64,7 +64,7 @@
 
 ### 验收与证据
 
-本日证据见 [validation.json](evidence/day78/validation.json) 和同目录回放样例。验收覆盖新增日志行为、Day 73 相关回归、四种场景的真实 MCP 运行、独立进程读取，以及 v0.5 冻结资产完整性检查。
+本日证据见 [validation.json](evidence/week-12.md#day78) 和同目录回放样例。验收覆盖新增日志行为、Day 73 相关回归、四种场景的真实 MCP 运行、独立进程读取，以及 v0.5 冻结资产完整性检查。
 
 共 358 项离线测试通过：39 项新增日志测试、319 项既有回归，无失败、错误或跳过。额外保存四个 CLI 场景及四次独立进程只读回放；其中三次真实 MCP 工具调用，澄清场景只发现工具。Ruff 检查通过。
 
@@ -132,7 +132,7 @@ Day 78 交付的是独立 CLI 任务日志，尚无自动重试、执行恢复�
 
 ### 验证范围
 
-证据见 [validation.json](evidence/day79/validation.json)、离线场景回放及 JUnit。包含恢复规则、重试上限、相同输入、快照变化、日志失败、拒绝路径、本地模板降级、真实 MCP stdio 和新进程只读回放；并运行 Day 64/65/72/73/78 相关回归以及 v0.5 冻结文件完整性检查。
+证据见 [validation.json](evidence/week-12.md#day79)、离线场景回放及 JUnit。包含恢复规则、重试上限、相同输入、快照变化、日志失败、拒绝路径、本地模板降级、真实 MCP stdio 和新进程只读回放；并运行 Day 64/65/72/73/78 相关回归以及 v0.5 冻结文件完整性检查。
 
 424 项测试全部通过：新增 66 项、既有回归 358 项，无失败、错误或跳过。另保存 9 组 CLI 场景和 9 次新进程日志读取，演示累计发起 9 次真实 MCP 工具调用；Ruff 与发布文件完整性检查通过。
 
@@ -189,7 +189,7 @@ Day 79 让程序能在特定故障后继续工作，Day 80 则让程序知道在
 
 ### 验收与边界
 
-验证记录见 [validation.json](evidence/day80/validation.json)、CLI 演示和 JUnit 文件。测试包括未批准零执行、拒绝、过期、内容修订、重复与跨进程并发批准、事务故障及进程中断恢复，以及查询失败不创建审批单。
+验证记录见 [validation.json](evidence/week-12.md#day80)、CLI 演示和 JUnit 文件。测试包括未批准零执行、拒绝、过期、内容修订、重复与跨进程并发批准、事务故障及进程中断恢复，以及查询失败不创建审批单。
 
 479 项离线测试全部通过：新增 55 项、既有回归 424 项，无失败、错误或跳过。另保存 9 组 CLI 审批演示和跨进程生成日志读取；Ruff 检查及 v0.5 冻结资产完整性检查通过。
 
@@ -236,7 +236,7 @@ Day 79 让程序能在特定故障后继续工作，Day 80 则让程序知道在
 
 ### 交付与验证
 
-交付场景清单、可重复执行的验收 CLI、反向校验测试、业务追踪记录及学习文档。证据入口为 [validation.json](evidence/day81/validation.json)，15 个场景汇总见 [report.json](evidence/day81/acceptance/report.json)。
+交付场景清单、可重复执行的验收 CLI、反向校验测试、业务追踪记录及学习文档。证据入口为 [validation.json](evidence/week-12.md#day81)，15 个场景汇总见 [report.json](evidence/week-12.md#day81)。
 
 相关既有测试与 Day 81 新增测试分别运行，统计不重复；还检查 Ruff、文档链接及已发布 v0.5 冻结资产。所有业务数据均为虚构，审批决定由测试程序模拟，真实模型请求和真实消息发送均为 0。
 
@@ -275,7 +275,7 @@ Day 79 让程序能在特定故障后继续工作，Day 80 则让程序知道在
 - 既有回归包含 Day 81 的完整 15 个业务场景；它仍调用既有流程，不等于 15 个场景全部替换成新版 Prompt 后执行。
 - Ruff 与 v0.5/v0.2/v0.1 冻结资产完整性检查通过。旧实现与旧发布证据保持原样。
 
-机器可读结果：[validation.json](evidence/day82/validation.json)，双版本报告：[report.json](evidence/day82/comparison/report.json)。完整实际输入、输出和回执按报告中的相对路径定位；本次 JSON 证据均使用虚构资料。
+机器可读结果：[validation.json](evidence/week-12.md#day82)，双版本报告：[report.json](evidence/week-12.md#day82)。完整实际输入、输出和回执按报告中的相对路径定位；本次 JSON 证据均使用虚构资料。
 
 <a id="day82-结论与边界"></a>
 
@@ -339,7 +339,7 @@ if ($LASTEXITCODE -ne 0) { throw '发布验收失败，请检查输出日志' }
 
 可传 `--planner-python`、`--runtime-python` 和 `--output-dir`；输出目录必须不存在。成功生成 `verification.json`，包含清单摘要、各组计数、日志/JUnit 摘要、延期状态和验收时间。失败仅保存 `failure.json` 和已有输出，不生成成功报告。验收前后都检查资产，并拒绝过程中清单变化。
 
-本次候选证据：[verification.json](evidence/day84/verification.json)和 [validation.json](evidence/day84/validation.json)。这些输出不纳入自身输入清单，避免循环哈希；验收报告记录清单摘要，文档与检查器本身纳入清单。
+本次候选证据：[verification.json](evidence/week-12.md#day84)和 [validation.json](evidence/week-12.md#day84)。这些输出不纳入自身输入清单，避免循环哈希；验收报告记录清单摘要，文档与检查器本身纳入清单。
 
 <a id="day84-后续正式发布顺序"></a>
 

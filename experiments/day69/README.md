@@ -18,7 +18,7 @@
 & .\.venv\Scripts\python.exe experiments/day69/acceptance.py --render-day68 --markdown
 ```
 
-先检查历史证据哈希再渲染，不改写原摘要或历史文件。天气是 2026-09-24 查询时的快照，不是重新获取的当前天气。[已生成的简报](../../docs/evidence/day69/historical-briefing.md) 可直接阅读。
+先检查历史证据哈希再渲染，不改写原摘要或历史文件。天气是 2026-09-24 查询时的快照，不是重新获取的当前天气。[已生成的简报](../../docs/evidence/week-10.md#day69) 可直接阅读。
 
 可选真实模型分支验证：
 
@@ -36,4 +36,4 @@ $day69TestDir = Join-Path $env:TEMP ('day69-tests-' + [guid]::NewGuid().ToString
 & .\.venv\Scripts\python.exe -m pytest experiments/day64 experiments/day65 experiments/day66 experiments/day67 experiments/day68 experiments/day69 tests/test_retrieval_service.py -q -p no:cacheprovider --basetemp $day69TestDir
 ```
 
-详见 [场景与复刻说明](../../docs/week-10-notes.md#day69) 和 [验收清单](../../docs/evidence/day69/validation.json)。恢复验证是检查后另建会话重跑，仍不支持断点续跑或跨进程恢复；没有自动重试和业务写入。
+详见 [场景与复刻说明](../../docs/week-10-notes.md#day69) 和 [验收清单](../../docs/evidence/week-10.md#day69)。恢复验证是检查后另建会话重跑，仍不支持断点续跑或跨进程恢复；没有自动重试和业务写入。

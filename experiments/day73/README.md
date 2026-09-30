@@ -52,7 +52,7 @@ $env:PYTHONDONTWRITEBYTECODE = '1'
 
 工具正常返回时最多 2 次模型请求：第一次提出调用，第二次根据回执输出报告。最多 1 次 MCP 工具调用；不自动重试。`--live` 必须指定 `--case`，不能与 `--check-all` 一起运行。
 
-本次真实验收使用 `qwen3.7-plus`，`monthly` 和 `empty` 各完成 2 次模型请求、1 次 MCP 查询，共 4 次模型请求。证据保存于 [Day 73 证据目录](../../docs/evidence/day73/validation.json)，两次数据库文件哈希均保持不变。`customer` 和 `clarification` 仅作模拟模型验证。
+本次真实验收使用 `qwen3.7-plus`，`monthly` 和 `empty` 各完成 2 次模型请求、1 次 MCP 查询，共 4 次模型请求。证据保存于 [Day 73 证据目录](../../docs/evidence/week-11.md#day73)，两次数据库文件哈希均保持不变。`customer` 和 `clarification` 仅作模拟模型验证。
 
 ## 4. 对照代码学习
 

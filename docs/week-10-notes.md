@@ -167,7 +167,7 @@ sequenceDiagram
 & .\.venv\Scripts\python.exe -m pytest experiments/day64 -q -p no:cacheprovider
 ```
 
-证据分别保存为 [验收记录](evidence/day64/validation.json)、[fixture 结果](evidence/day64/fixtures.json)、[首次真实尝试](evidence/day64/live-first-attempt.json)和[成功复验](evidence/day64/live-quote.json)。Week 9 的 219 项历史测试与本日验收分别记录。
+证据分别保存为 [验收记录](evidence/week-10.md#day64)、[fixture 结果](evidence/week-10.md#day64)、[首次真实尝试](evidence/week-10.md#day64)和[成功复验](evidence/week-10.md#day64)。Week 9 的 219 项历史测试与本日验收分别记录。
 
 <a id="day64-7-和后续几天如何衔接"></a>
 
@@ -321,7 +321,7 @@ $day65TestDir = Join-Path $env:TEMP ('day65-tests-' + [guid]::NewGuid().ToString
 - 全月案例返回 4 笔、3000.00 元，并正确说明仅展示 2 条明细；空结果案例明确表示 2026 年 7 月无已支付订单。
 - 真实验证前后教学数据库 SHA-256 一致。已发布 v0.1 的完整性检查通过；没有重跑其全部 219 项测试，也没有重建 Docker 或执行全部平台 API 测试。
 
-证据：[验证汇总](evidence/day65/validation.json)、[离线案例](evidence/day65/fixtures.json)、[真实全月查询](evidence/day65/live-monthly.json)、[真实空结果查询](evidence/day65/live-empty.json)。测试覆盖错误参数、注入文本、越权 SQL、只读模式、覆盖保护、异常库、锁等待和预算中断。
+证据：[验证汇总](evidence/week-10.md#day65)、[离线案例](evidence/week-10.md#day65)、[真实全月查询](evidence/week-10.md#day65)、[真实空结果查询](evidence/week-10.md#day65)。测试覆盖错误参数、注入文本、越权 SQL、只读模式、覆盖保护、异常库、锁等待和预算中断。
 
 上述真实回答已核对这两个样例的金额、订单数和空结果表述；运行时没有通用自然语言语义验证器。参数类型合法也不能保证模型理解了所有任务。`status=completed` 表示当前协议完成，不能当成生产业务验收结论。
 
@@ -482,10 +482,10 @@ $env:PYTHONUTF8 = '1'
 验证日期：2026-09-23。
 
 - 358 项离线测试全部通过：新增 120 项，Day 64–65 回归 237 项，现有检索服务回归 1 项；Ruff 检查及格式检查通过。Chroma 存在一条 Python 未来版本 API 弃用提示，未影响本次测试。
-- [fixture 记录](evidence/day66/fixtures.json)：3 例、0 次模型请求，检索结果也是固定样例。
-- [真实检索记录](evidence/day66/real-retrieval.json)：两个隔离集合场景，使用现有检索函数、本地 ONNX 和 Chroma，无 Qwen 请求。
-- [Qwen 有证据场景](evidence/day66/live-supported.json)、[Qwen 空库场景](evidence/day66/live-empty.json)：共 4 次真实请求、2 次真实检索，输入和来源全部虚构。
-- [验收清单及哈希](evidence/day66/validation.json)：环境版本、代码与证据关联、冻结版本完整性检查。
+- [fixture 记录](evidence/week-10.md#day66)：3 例、0 次模型请求，检索结果也是固定样例。
+- [真实检索记录](evidence/week-10.md#day66)：两个隔离集合场景，使用现有检索函数、本地 ONNX 和 Chroma，无 Qwen 请求。
+- [Qwen 有证据场景](evidence/week-10.md#day66)、[Qwen 空库场景](evidence/week-10.md#day66)：共 4 次真实请求、2 次真实检索，输入和来源全部虚构。
+- [验收清单及哈希](evidence/week-10.md#day66)：环境版本、代码与证据关联、冻结版本完整性检查。
 
 本日没有新增依赖、业务写入工具、Agent HTTP API、多工具编排或检查点恢复。未重建容器、未运行平台全套 API 测试，也未把本次结果当作已发布 v0.1 的新内容。API Tool 留给 Day 67，多工具组合留给 Day 68。
 
@@ -605,10 +605,10 @@ $env:PYTHONUTF8 = '1'
 验证日期：2026-09-23。
 
 - 新增 123 项测试，包含 Day 64–66 与原检索服务回归共 **481 项通过**，无失败、错误或跳过；Ruff 与格式检查通过。Chroma 原有弃用提示 1 条。
-- [离线记录](evidence/day67/fixtures.json)：2 个成功、2 个预期失败场景；0 次模型请求、0 次真实 API 请求。
-- [单独 API 验证](evidence/day67/live-api.json)：北京一天预报，1 次真实天气请求。
-- [北京 Qwen 场景](evidence/day67/live-beijing.json)、[上海 Qwen 场景](evidence/day67/live-shanghai.json)：共 4 次 Qwen 请求、2 次真实天气请求；日期、温度、概率和来源已与各自工具结果逐项核对。
-- [验收清单](evidence/day67/validation.json)：环境、来源代码哈希、证据哈希、历史冻结资产完整性。
+- [离线记录](evidence/week-10.md#day67)：2 个成功、2 个预期失败场景；0 次模型请求、0 次真实 API 请求。
+- [单独 API 验证](evidence/week-10.md#day67)：北京一天预报，1 次真实天气请求。
+- [北京 Qwen 场景](evidence/week-10.md#day67)、[上海 Qwen 场景](evidence/week-10.md#day67)：共 4 次 Qwen 请求、2 次真实天气请求；日期、温度、概率和来源已与各自工具结果逐项核对。
+- [验收清单](evidence/week-10.md#day67)：环境、来源代码哈希、证据哈希、历史冻结资产完整性。
 
 广州的证据是离线测试；真实超时、限流与服务故障未人为触发，错误路径采用 Mock。未进行长期可用性、预测准确率或高并发验证，未修改业务数据，未更新容器，未运行全平台 API 测试。Day 68 将处理 SQL、知识库、API 多工具组合，本日仍是独立单工具调用。
 
@@ -743,9 +743,9 @@ $env:PYTHONUTF8 = '1'
 验证日期：2026-09-24。
 
 - 新增 **83 项测试**，含此前 481 项回归共 **564 项通过**；无失败、错误、跳过，Ruff 与格式检查通过。仍有 Chroma 原有弃用提示一条。
-- [五个离线分支](evidence/day68/fixtures.json)：完整、无销售、天气失败、知识为空、SQL 失败；没有外部请求。
-- [真实完整链路](evidence/day68/live-full.json)：Qwen qwen3.7-plus 共 4 次请求、1 次公开天气请求，真实 SQL 与隔离 Knowledge Hub 检索各一次，数据库文件哈希前后相同。
-- [验收清单及代码哈希](evidence/day68/validation.json)：历史代码、证据和冻结版本完整性检查。
+- [五个离线分支](evidence/week-10.md#day68)：完整、无销售、天气失败、知识为空、SQL 失败；没有外部请求。
+- [真实完整链路](evidence/week-10.md#day68)：Qwen qwen3.7-plus 共 4 次请求、1 次公开天气请求，真实 SQL 与隔离 Knowledge Hub 检索各一次，数据库文件哈希前后相同。
+- [验收清单及代码哈希](evidence/week-10.md#day68)：历史代码、证据和冻结版本完整性检查。
 
 真实模型选择了 SQL → 知识 → 天气的顺序，摘要中的销售额、订单数、报销限额及天气数值与回执一致。摘要未按提示写出天气来源 URL，也没有在销售句中明确写“虚构”；完整输出的 scope、提示词和回执保留了这些背景与来源。这是自然语言呈现的已知限制，不影响本次状态与引用关联验收，也不应被当作已经解决。
 
@@ -846,7 +846,7 @@ $env:PYTHONUTF8 = '1'
 & .\.venv\Scripts\python.exe experiments/day69/acceptance.py --render-day68 --markdown
 ```
 
-该命令先核对 Day 68 `live-full.json` 在原验收清单中的哈希，再生成新简报。0 次模型请求、0 次天气请求，原文件未修改。天气日期与查询时间保持历史值。可直接阅读 [本轮保存的历史简报](evidence/day69/historical-briefing.md)。
+该命令先核对 Day 68 `live-full.json` 在原验收清单中的哈希，再生成新简报。0 次模型请求、0 次天气请求，原文件未修改。天气日期与查询时间保持历史值。可直接阅读 [本轮保存的历史简报](evidence/week-10.md#day69)。
 
 第五步，可选真实 Qwen 验证：
 
@@ -866,10 +866,10 @@ $env:PYTHONUTF8 = '1'
 验证日期：2026-09-24。
 
 - **648 项测试通过**：Day 69 新增 84 项，已有回归 564 项；无失败、错误或跳过，Ruff 和格式检查通过。保留一条既有 Chroma 弃用提示。
-- [18 个离线场景记录](evidence/day69/scenarios.json) 与 [新会话重跑记录](evidence/day69/recovery.json)：均不联网。
-- [历史渲染记录](evidence/day69/historical-render.json) 与 [简报文件](evidence/day69/historical-briefing.md)：补齐 Day 68 原摘要遗漏的背景与来源，不增加真实请求。
-- [真实 Qwen 无销售场景](evidence/day69/live-no_sales.json)、[真实 Qwen 加模拟天气失败](evidence/day69/live-weather_timeout.json)：共 6 次模型请求、0 次天气网络请求。
-- [验收清单与代码/证据哈希](evidence/day69/validation.json)：记录环境、来源、请求数与历史完整性检查。
+- [18 个离线场景记录](evidence/week-10.md#day69) 与 [新会话重跑记录](evidence/week-10.md#day69)：均不联网。
+- [历史渲染记录](evidence/week-10.md#day69) 与 [简报文件](evidence/week-10.md#day69)：补齐 Day 68 原摘要遗漏的背景与来源，不增加真实请求。
+- [真实 Qwen 无销售场景](evidence/week-10.md#day69)、[真实 Qwen 加模拟天气失败](evidence/week-10.md#day69)：共 6 次模型请求、0 次天气网络请求。
+- [验收清单与代码/证据哈希](evidence/week-10.md#day69)：记录环境、来源、请求数与历史完整性检查。
 
 本日是单一教学任务的复杂路径测试，不是通用任意目标 Agent 验收；未覆盖真实企业权限、线上故障恢复、高并发或长期稳定性。未更新容器、未重跑全平台 API 测试，也不将原始模型摘要宣称为已完成语义验证。Week 10 的版本清单、发布范围和发行验收留给 Day 70。
 
@@ -960,7 +960,7 @@ if ($LASTEXITCODE -ne 0) { throw '离线验收失败' }
 
 ### 本轮记录与发布状态
 
-验收记录放在 [docs/evidence/day70/validation.json](evidence/day70/validation.json)，原始机器结果为 [verification.json](evidence/day70/verification.json)。本日不修改原工具执行代码，不新增真实外部调用，不更新容器；验证范围为工具实验回归、发布检查和 v0.1 完整性。
+验收记录放在 [docs/evidence/day70/validation.json](evidence/week-10.md#day70)，原始机器结果为 [verification.json](evidence/week-10.md#day70)。本日不修改原工具执行代码，不新增真实外部调用，不更新容器；验证范围为工具实验回归、发布检查和 v0.1 完整性。
 
 本轮候选完成后，main 合并、分支推送、正式定版、组件标签与 GitHub Release 仍需分别完成和核实。工作流程如下：
 

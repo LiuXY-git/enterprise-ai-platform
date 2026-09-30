@@ -27,6 +27,8 @@ Week 7/8 的收录范围见表格，其他日期可查看对应周总结；Week 
 
 后续学习内容直接追加到当周 `week-*-notes.md`，并更新该文件的目录。
 
+测试结果统一看[按周结果摘要](evidence/README.md)，重新运行使用[统一评测入口](../evaluation-center/README.md#运行评测)。
+
 ## 专题与操作入口
 
 ### 项目设计

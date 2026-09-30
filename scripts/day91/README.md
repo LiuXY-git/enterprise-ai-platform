@@ -56,7 +56,7 @@ candidate-<id>/
   integration/full/evaluation/report.json
 ```
 
-本次维护者验收目录为 `data/day91/candidate-20260930`；提交到 Git 的摘要位于 [docs/evidence/day91](../../docs/evidence/day91/README.md)。本机原始 SQLite 留在忽略目录，新的克隆请自行运行验收。
+本次维护者验收目录为 `data/day91/candidate-20260930`；提交到 Git 的摘要位于 [docs/evidence/day91](../../docs/evidence/week-13.md#day91)。本机原始 SQLite 留在忽略目录，新的克隆请自行运行验收。
 
 ## 4. 合并 main 之后正式定版
 

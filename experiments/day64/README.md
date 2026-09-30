@@ -41,7 +41,7 @@
 
 本轮通过 141 项测试（核心 85 项、传输 56 项），三个 fixture 均通过且未发模型请求。真实调用首次因 `invalid_tool_call` 被拒绝，使用一次请求且未执行工具；补充官方工具调用 `index` 元数据和 `function_call: null` 的兼容处理及 Mock 端到端测试后复验通过。首次未保留原始响应，不将兼容修复描述为已逐字段还原该次失败。总新增模型请求为 3 次，包含失败尝试 1 次和成功复验 2 次。
 
-核对 [验收记录](../../docs/evidence/day64/validation.json)、[fixture 结果](../../docs/evidence/day64/fixtures.json)、[首次真实尝试](../../docs/evidence/day64/live-first-attempt.json)和[成功复验](../../docs/evidence/day64/live-quote.json)。
+核对 [验收记录](../../docs/evidence/week-10.md#day64)、[fixture 结果](../../docs/evidence/week-10.md#day64)、[首次真实尝试](../../docs/evidence/week-10.md#day64)和[成功复验](../../docs/evidence/week-10.md#day64)。
 
 ## 范围
 

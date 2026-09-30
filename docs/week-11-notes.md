@@ -109,7 +109,7 @@ SDK 固定为官方 `mcp==2.2.0`，实际通信协议版本为 `2026-07-28`。SD
 - v0.1 与 v0.2 完整性检查通过；未重跑旧版全部测试或全平台 API 测试。
 - 0 次模型调用、0 次外部业务服务请求；只有安装依赖使用网络。没有更改平台 API 环境或容器。
 
-证据：[validation.json](evidence/day72/validation.json)、[SDK 客户端结果](evidence/day72/sdk-client.json)、[原始协议交换](evidence/day72/wire-client.json)、[JUnit](evidence/day72/pytest.xml)。
+证据：[validation.json](evidence/week-11.md#day72)、[SDK 客户端结果](evidence/week-11.md#day72)、[原始协议交换](evidence/week-11.md#day72)、[JUnit](evidence/week-11.md#day72)。
 
 “跨客户端”在本轮具体指官方 Python SDK Client 与独立标准库探针，不表示已接入桌面 AI 宿主或其他语言 SDK。多数测试使用进程内 SDK 连接做快速契约检查，另有真实 stdio 子进程测试，二者不会混称为全部跨进程。
 
@@ -197,7 +197,7 @@ sequenceDiagram
 - 2026 年 9 月返回虚构已支付 4 单、3000.00 元，明细展示 2 条；2026 年 7 月明确返回 `no_data`。
 - v0.1/v0.2 冻结资产及历史证据完整性检查通过。完整平台 API、Docker 和旧版全量发布测试本次未重跑。
 
-查看 [验证记录](evidence/day73/validation.json)、[四场景离线演示](evidence/day73/fixture-mcp.json)、[真实月度调用](evidence/day73/live-monthly.json)、[真实空结果调用](evidence/day73/live-empty.json)、[测试 JUnit](evidence/day73/pytest.xml)。记录包含虚构查询、对话与回执，不包含 API Key 或环境配置文件内容。
+查看 [验证记录](evidence/week-11.md#day73)、[四场景离线演示](evidence/week-11.md#day73)、[真实月度调用](evidence/week-11.md#day73)、[真实空结果调用](evidence/week-11.md#day73)、[测试 JUnit](evidence/week-11.md#day73)。记录包含虚构查询、对话与回执，不包含 API Key 或环境配置文件内容。
 
 <a id="day73-学习入口"></a>
 
@@ -335,7 +335,7 @@ Day 60 已有 SQLite 检查点，保存的是模拟任务走到哪一步；并�
 
 Day 75 计划增加 Conversation Memory，让同一会话的后续请求使用先前信息；先完成本地存储、会话归属、读取、更新、清除和上下文边界，再做模型对话验证。详见 [Day 75 设计草案](week-11-notes.md#day75-plan)。
 
-本日验证只包含文档链接、代码对应关系与冻结发布资产完整性，不新增运行时测试或模型请求。交付记录见 [Day 74 文档验证](evidence/day74/validation.json)。
+本日验证只包含文档链接、代码对应关系与冻结发布资产完整性，不新增运行时测试或模型请求。交付记录见 [Day 74 文档验证](evidence/week-11.md#day74)。
 
 ---
 
@@ -463,7 +463,7 @@ flowchart LR
 - `ruff check`、格式检查、依赖检查、v0.1/v0.2 发布资产完整性检查通过。
 - 此次没有重新执行全平台 API、Docker、Day 73 MCP 或旧版本全量测试。
 
-参见 [验证记录](evidence/day75/validation.json)、[离线跨进程演示](evidence/day75/offline-session.json)、[真实模型演示](evidence/day75/live-session.json)、[测试 JUnit](evidence/day75/pytest.xml)。
+参见 [验证记录](evidence/week-11.md#day75)、[离线跨进程演示](evidence/week-11.md#day75)、[真实模型演示](evidence/week-11.md#day75)、[测试 JUnit](evidence/week-11.md#day75)。
 
 <a id="day75-学习与复刻"></a>
 
@@ -604,7 +604,7 @@ Day 59 当前只规划一次，不自动重新规划；Day 60 只恢复模拟步
 
 交付学习文档、两份人工计划样例、既有规划器的离线运行证据与导航更新。没有新增规划算法、模型请求、工具调用或 Memory/MCP 自动集成；不将样例检查数计为新增单元测试，也不将材料交付记为学习者已通过自测。
 
-记录见 [Day 76 验证](evidence/day76/validation.json)。Day 77 按路线整理 Agent Center v0.5 发布候选，需要基于实际能力和证据确定发布范围；本日不创建正式标签或 Release。
+记录见 [Day 76 验证](evidence/week-11.md#day76)。Day 77 按路线整理 Agent Center v0.5 发布候选，需要基于实际能力和证据确定发布范围；本日不创建正式标签或 Release。
 
 ---
 
@@ -663,7 +663,7 @@ if ($LASTEXITCODE -ne 0) { throw '发布验收失败，查看输出目录日志'
 
 可用 `--runtime-python`、`--planner-python` 指定对应环境；`--output-dir` 必须是尚不存在的目录。不要指向原有证据目录，避免覆盖候选记录。完整性检查本身不运行测试。
 
-本日证据见 [验证记录](evidence/day77/validation.json)和 [候选验收](evidence/day77/verification.json)。模型验证沿用 Day 73/75 的历史虚构输入证据，本次新增模型请求为 0。
+本日证据见 [验证记录](evidence/week-11.md#day77)和 [候选验收](evidence/week-11.md#day77)。模型验证沿用 Day 73/75 的历史虚构输入证据，本次新增模型请求为 0。
 
 <a id="day77-4-后续正式发布顺序"></a>
 
