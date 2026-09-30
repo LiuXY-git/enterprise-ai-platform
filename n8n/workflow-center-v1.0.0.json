@@ -270,7 +270,7 @@
     }
   },
   "release_note": "Day 56 发布候选已准备；candidate 不表示已创建标签或 GitHub Release。维护者于 2026-09-17 同意先进行 Day 56、后补 Day 55 录制。视频延期单独记录，历史验收与本轮静态检查不代替本轮业务演示。",
-  "acceptance_record": "docs/workflow-center-v1.0.md",
+  "acceptance_record": "docs/week-8.md",
   "prepared_date": "2026-09-17",
   "based_on_release": "workflow-center-v0.5.0",
   "based_on_commit": "8429fbb525937bb2b55f20812d6d4ce2d1c570d3",
@@ -292,7 +292,7 @@
       "paths": [
         "backend/app/workflow_logging.py",
         "backend/app/logging_config.py",
-        "docs/day51-workflow-logging.md"
+        "docs/week-8.md"
       ]
     },
     {
@@ -300,7 +300,7 @@
       "paths": [
         "backend/app/settings.py",
         "backend/app/check_config.py",
-        "docs/day52-configuration-center.md"
+        "docs/week-8.md"
       ]
     },
     {
@@ -311,18 +311,15 @@
         "scripts/check-deployment.ps1",
         "scripts/deployment-common.ps1",
         "scripts/verify_persistence.py",
-        "docs/day53-compose-deployment.md"
+        "docs/week-8.md"
       ]
     },
     {
       "area": "documentation",
       "paths": [
-        "docs/user-guide.md",
-        "docs/architecture.md",
-        "docs/tech-stack.md",
-        "backend/README.md",
-        "docs/week-8-summary.md",
-        "docs/workflow-center-v1.0.md"
+        "docs/week-8.md",
+        "docs/week-1.md",
+        "backend/README.md"
       ]
     },
     {
@@ -331,7 +328,7 @@
         "scripts/day55/prepare_demo.py",
         "scripts/day55/invoke-demo-step.ps1",
         "scripts/day55/README.md",
-        "docs/day55-workflow-demo.md",
+        "docs/week-8.md",
         "demo/day55-recording-checklist.md"
       ]
     }
@@ -340,37 +337,37 @@
     {
       "area": "workflow_business_and_recovery",
       "status": "inherited",
-      "record": "docs/day49-release-acceptance.md"
+      "record": "docs/week-7.md"
     },
     {
       "area": "workflow_logging",
       "status": "inherited",
-      "record": "docs/day51-workflow-logging.md"
+      "record": "docs/week-8.md"
     },
     {
       "area": "configuration",
       "status": "inherited",
-      "record": "docs/day52-configuration-center.md"
+      "record": "docs/week-8.md"
     },
     {
       "area": "deployment_and_506_test_baseline",
       "status": "inherited",
-      "record": "docs/day53-compose-deployment.md"
+      "record": "docs/week-8.md"
     },
     {
       "area": "usage_and_architecture_docs",
       "status": "inherited",
-      "record": "docs/day54-documentation.md"
+      "record": "docs/week-8.md"
     },
     {
       "area": "demo_tools_19_isolated_checks",
       "status": "inherited",
-      "record": "docs/day55-workflow-demo.md"
+      "record": "docs/week-8.md"
     },
     {
       "area": "day56_manifest_and_documentation",
       "status": "validated",
-      "record": "docs/workflow-center-v1.0.md",
+      "record": "docs/week-8.md",
       "validation_scope": "offline_manifest_and_documentation_only",
       "checks_passed": 13
     }
@@ -384,7 +381,7 @@
     "reason": "维护者暂时无法录制，先推进 Day 56，之后补录。",
     "blocks_day56": false,
     "resume_when": "维护者具备录制条件后，使用新演示包执行并录制。",
-    "runbook": "docs/day55-workflow-demo.md",
+    "runbook": "docs/week-8.md",
     "checklist": "demo/day55-recording-checklist.md",
     "video_file": null,
     "video_sha256": null

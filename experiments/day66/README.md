@@ -35,7 +35,7 @@
 & .\.venv\Scripts\python.exe experiments/day66/knowledge_tool.py --backend hub-demo --query 'hotel reimbursement invoice' --top-k 3
 ```
 
-已有业务知识库的本地检索入口、参数含义、完整复刻步骤和限制，见 [Day 66 操作说明](../../docs/week-10-notes.md#day66)。本日是宿主机 CLI 实验，不需要更新 API 容器。
+已有业务知识库的本地检索入口、参数含义、完整复刻步骤和限制，见 [Day 66 操作说明](../../docs/week-10.md#day66)。本日是宿主机 CLI 实验，不需要更新 API 容器。
 
 离线测试：
 

@@ -4,7 +4,7 @@
 
 ## [Agent Center 0.1.0] - 2026-09-21
 
-2026-09-21 完成 Agent Center 内容定版，平台 API 保持 1.0.0。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。范围见 [版本说明](docs/agent-center-v0.1.md)。
+2026-09-21 完成 Agent Center 内容定版，平台 API 保持 1.0.0。远端发布状态以 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 为准；清单定版不代表远端发布已完成。范围见 [版本说明](docs/week-9.md#agent-center-v0.1)。
 
 ### Added
 
@@ -25,7 +25,7 @@
 
 ## [Workflow Center 1.0.0] - Unreleased
 
-2026-09-17 完成 Day 56 发布候选准备，平台 API 保持 `1.0.0`。本项尚未创建组件标签或 GitHub Release；版本范围与状态见 [候选说明](docs/workflow-center-v1.0.md)。
+2026-09-17 完成 Day 56 发布候选准备，平台 API 保持 `1.0.0`。本项尚未创建组件标签或 GitHub Release；版本范围与状态见 [候选说明](docs/week-8.md#workflow-center-v1.0)。
 
 ### Added
 

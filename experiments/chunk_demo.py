@@ -6,7 +6,7 @@ from backend.app.services.chunk_service import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_FILE = PROJECT_ROOT / "docs" / "week-2-summary.md"
+SOURCE_FILE = PROJECT_ROOT / "docs" / "week-2.md"
 
 
 def print_chunks(name: str, chunks: list[str]) -> None:

@@ -8,45 +8,45 @@
 
 当前平台 API 版本为 `1.0.0`。Workflow Center `0.5.0` 已完成业务验收，版本内容于 2026-09-14 定版，组件标签为 `workflow-center-v0.5.0`。GitHub 发布状态以远端标签和 Release 页面为准。销售助手通知为预览模式。
 
-Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-center-v1.0.md)仍为发布候选，标签与 GitHub Release 待发布。维护者于 2026-09-17 确认 Day 55 视频之后补录。Week 9 已完成 [Day 58 LangGraph 实验](docs/week-9-notes.md#day58)和 [Day 59 任务规划 Agent](docs/week-9-notes.md#day59)：模型生成计划，本地校验，业务步骤尚未执行。[Day 60](docs/week-9-notes.md#day60)已加入 SQLite 任务检查点，支持模拟进度保存和进程重启恢复。[Day 61](docs/week-9-notes.md#day61)已完成销售跟进分析场景、输入输出契约与离线规则验收。[Day 62](docs/week-9-notes.md#day62)已加入销售报告 Prompt、模型输出核对，并通过 5 个 Qwen 真实请求验证。[Day 63](docs/week-9-notes.md#day63)成果已合并到 main；[Agent Center v0.1.0](docs/agent-center-v0.1.md)于 2026-09-21 完成内容定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认正式发布。
+Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/week-8.md#workflow-center-v1.0)仍为发布候选，标签与 GitHub Release 待发布。维护者于 2026-09-17 确认 Day 55 视频之后补录。Week 9 已完成 [Day 58 LangGraph 实验](docs/week-9.md#day58)和 [Day 59 任务规划 Agent](docs/week-9.md#day59)：模型生成计划，本地校验，业务步骤尚未执行。[Day 60](docs/week-9.md#day60)已加入 SQLite 任务检查点，支持模拟进度保存和进程重启恢复。[Day 61](docs/week-9.md#day61)已完成销售跟进分析场景、输入输出契约与离线规则验收。[Day 62](docs/week-9.md#day62)已加入销售报告 Prompt、模型输出核对，并通过 5 个 Qwen 真实请求验证。[Day 63](docs/week-9.md#day63)成果已合并到 main；[Agent Center v0.1.0](docs/week-9.md#agent-center-v0.1)于 2026-09-21 完成内容定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.1.0) 页面截图确认正式发布。
 
-[Week 10](docs/week-10-plan.md)开始学习 Tool Calling。[Day 64](docs/week-10-notes.md#day64)已完成工具 schema、严格参数校验与本地金额纯函数的调用闭环，通过 141 项测试、3 个离线 fixture 和单个虚构订单的 Qwen 真实复验；首次真实失败保留记录，离线与真实证据分别计数。[Day 65](docs/week-10-notes.md#day65)已实现只读 SQL Tool，通过 96 项新增测试及两个 Qwen 虚构查询场景；[Day 66](docs/week-10-notes.md#day66)已接入 Knowledge Hub 检索与引用校验，通过 120 项新增测试及两个 Qwen 虚构知识库场景；[Day 67](docs/week-10-notes.md#day67)已完成天气 API Tool，包含固定接口、响应校验、错误处理和两个真实 Qwen 天气查询场景。[Day 68](docs/week-10-notes.md#day68)已组合 SQL、知识库、天气三个工具，支持条件分支、部分完成和跨工具引用，完成一次真实 Qwen 全链路验收。[Day 69](docs/week-10-notes.md#day69)已完成 18 个复杂场景验收、独立会话重跑验证及确定性简报，补齐虚构背景、来源和未完成项。[Day 70](docs/week-10-notes.md#day70)已完成 Agent Center v0.2.0 发布准备；2026-09-24 正式定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.2.0) 截图确认。旧版候选文档保留为历史记录。
+[Week 10](docs/week-10.md#plan)开始学习 Tool Calling。[Day 64](docs/week-10.md#day64)已完成工具 schema、严格参数校验与本地金额纯函数的调用闭环，通过 141 项测试、3 个离线 fixture 和单个虚构订单的 Qwen 真实复验；首次真实失败保留记录，离线与真实证据分别计数。[Day 65](docs/week-10.md#day65)已实现只读 SQL Tool，通过 96 项新增测试及两个 Qwen 虚构查询场景；[Day 66](docs/week-10.md#day66)已接入 Knowledge Hub 检索与引用校验，通过 120 项新增测试及两个 Qwen 虚构知识库场景；[Day 67](docs/week-10.md#day67)已完成天气 API Tool，包含固定接口、响应校验、错误处理和两个真实 Qwen 天气查询场景。[Day 68](docs/week-10.md#day68)已组合 SQL、知识库、天气三个工具，支持条件分支、部分完成和跨工具引用，完成一次真实 Qwen 全链路验收。[Day 69](docs/week-10.md#day69)已完成 18 个复杂场景验收、独立会话重跑验证及确定性简报，补齐虚构背景、来源和未完成项。[Day 70](docs/week-10.md#day70)已完成 Agent Center v0.2.0 发布准备；2026-09-24 正式定版，维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.2.0) 截图确认。旧版候选文档保留为历史记录。
 
-[Week 11](docs/week-11-plan.md)进入 MCP 与高级 Agent。[Day 71](docs/week-11-notes.md#day71)完成概念学习；[Day 72](docs/week-11-notes.md#day72)将虚构销售查询包装为 MCP Server，通过 99 项测试和两个独立客户端验证。[Day 73](docs/week-11-notes.md#day73)已完成 Agent 通过 MCP 查询与结果回填：319 项离线测试通过、两组真实 Qwen 场景通过；复刻入口见 [Day 73 实验说明](experiments/day73/README.md)。
+[Week 11](docs/week-11.md#plan)进入 MCP 与高级 Agent。[Day 71](docs/week-11.md#day71)完成概念学习；[Day 72](docs/week-11.md#day72)将虚构销售查询包装为 MCP Server，通过 99 项测试和两个独立客户端验证。[Day 73](docs/week-11.md#day73)已完成 Agent 通过 MCP 查询与结果回填：319 项离线测试通过、两组真实 Qwen 场景通过；复刻入口见 [Day 73 实验说明](experiments/day73/README.md)。
 
-[Day 74](docs/week-11-notes.md#day74)提供 Agent Memory 学习材料与代码阅读练习，区分会话上下文、长期记忆和任务检查点；[Day 75 Conversation Memory](docs/week-11-notes.md#day75)已实现 SQLite 会话保存、跨进程恢复、部门更新与清除；191 项离线测试通过，真实 Qwen 两次模板调用通过，[复刻入口](experiments/day75/README.md)。
+[Day 74](docs/week-11.md#day74)提供 Agent Memory 学习材料与代码阅读练习，区分会话上下文、长期记忆和任务检查点；[Day 75 Conversation Memory](docs/week-11.md#day75)已实现 SQLite 会话保存、跨进程恢复、部门更新与清除；191 项离线测试通过，真实 Qwen 两次模板调用通过，[复刻入口](experiments/day75/README.md)。
 
-[Day 76](docs/week-11-notes.md#day76)提供 Planning 学习材料，以季度销售分析说明任务拆解、依赖与完成标准；复用 Day 59 做离线观察，尚未把 Memory、MCP 与季度计划自动集成。[操作入口](experiments/day76/README.md)。
+[Day 76](docs/week-11.md#day76)提供 Planning 学习材料，以季度销售分析说明任务拆解、依赖与完成标准；复用 Day 59 做离线观察，尚未把 Memory、MCP 与季度计划自动集成。[操作入口](experiments/day76/README.md)。
 
-[Day 77](docs/week-11-notes.md#day77)汇总 MCP、独立会话记忆与 Planning 学习成果；Agent Center v0.5.0 于 2026-09-24 正式定版，456 项离线验收全部通过。维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.5.0) 页面和验收附件截图确认发布，旧版候选文档保留为历史记录。
+[Day 77](docs/week-11.md#day77)汇总 MCP、独立会话记忆与 Planning 学习成果；Agent Center v0.5.0 于 2026-09-24 正式定版，456 项离线验收全部通过。维护者已提供 [GitHub Release](https://github.com/LiuXY-git/enterprise-ai-platform/releases/tag/agent-center-v0.5.0) 页面和验收附件截图确认发布，旧版候选文档保留为历史记录。
 
-[Week 12](docs/week-12-plan.md)开始学习 Agent 企业化。[Day 78](docs/week-12-notes.md#day78)为现有 MCP 查询增加 SQLite 任务日志：请求、决策、调用、结果和最终回答逐条保存，可按任务编号跨进程查看；[操作入口](experiments/day78/README.md)。
+[Week 12](docs/week-12.md#plan)开始学习 Agent 企业化。[Day 78](docs/week-12.md#day78)为现有 MCP 查询增加 SQLite 任务日志：请求、决策、调用、结果和最终回答逐条保存，可按任务编号跨进程查看；[操作入口](experiments/day78/README.md)。
 
-[Day 79](docs/week-12-notes.md#day79)已加入有边界的错误恢复：固定只读 MCP 查询和瞬时模型错误最多重试一次；最终模型持续失败但回执有效时切换本地模板，校验错误直接停止。424 项离线测试通过；[复刻入口](experiments/day79/README.md)。
+[Day 79](docs/week-12.md#day79)已加入有边界的错误恢复：固定只读 MCP 查询和瞬时模型错误最多重试一次；最终模型持续失败但回执有效时切换本地模板，校验错误直接停止。424 项离线测试通过；[复刻入口](experiments/day79/README.md)。
 
-[Day 80](docs/week-12-notes.md#day80)已加入销售简报的人工确认：持久化待审批事项、批准/拒绝、内容绑定与过期检查；批准后仅生成一条本地模拟发送记录。479 项离线测试通过；[审批操作教程](experiments/day80/README.md)。
+[Day 80](docs/week-12.md#day80)已加入销售简报的人工确认：持久化待审批事项、批准/拒绝、内容绑定与过期检查；批准后仅生成一条本地模拟发送记录。479 项离线测试通过；[审批操作教程](experiments/day80/README.md)。
 
-[Day 81](docs/week-12-notes.md#day81)已完成销售业务全流程验收：15 个固定场景覆盖范围、失败恢复与审批控制；39 项新增测试和 479 项既有回归共 518 项通过。[复刻入口](experiments/day81/README.md)。
+[Day 81](docs/week-12.md#day81)已完成销售业务全流程验收：15 个固定场景覆盖范围、失败恢复与审批控制；39 项新增测试和 479 项既有回归共 518 项通过。[复刻入口](experiments/day81/README.md)。
 
-[Day 82](docs/week-12-notes.md#day82)已加入分阶段 Prompt 候选、双版本对照和恢复/审批集成：60 项新增与 518 项既有回归通过。离线回放不代表模型质量提升，真实对照入口见 [操作教程](experiments/day82/README.md)。
+[Day 82](docs/week-12.md#day82)已加入分阶段 Prompt 候选、双版本对照和恢复/审批集成：60 项新增与 518 项既有回归通过。离线回放不代表模型质量提升，真实对照入口见 [操作教程](experiments/day82/README.md)。
 
-[Day 83](docs/week-12-notes.md#day83)视频仍待补录。[Agent Center v1.0](agent-center/release-v1.0.0.json)于 2026-09-28 正式定版，721 项验收通过，提交 `87ceb01` 与正式标签已推送；维护者已提供 Release 正文和验收附件截图。[Day 84](docs/week-12-notes.md#day84)候选准备文档保留历史状态。
+[Day 83](docs/week-12.md#day83)视频仍待补录。[Agent Center v1.0](agent-center/release-v1.0.0.json)于 2026-09-28 正式定版，721 项验收通过，提交 `87ceb01` 与正式标签已推送；维护者已提供 Release 正文和验收附件截图。[Day 84](docs/week-12.md#day84)候选准备文档保留历史状态。
 
-[Week 13](docs/week-13-plan.md)进入评测框架建设。[Day 85](docs/week-13-notes.md#day85)已完成 Agent、测试集与未执行报告的契约设计和预检：103 项测试通过，不运行 Agent、不计算成功率。[Evaluation Center 入口](evaluation-center/README.md)。
+[Week 13](docs/week-13.md#plan)进入评测框架建设。[Day 85](docs/week-13.md#day85)已完成 Agent、测试集与未执行报告的契约设计和预检：103 项测试通过，不运行 Agent、不计算成功率。[Evaluation Center 入口](evaluation-center/README.md)。
 
-[Day 86](docs/week-13-notes.md#day86)已补齐 12 例固定测试集与独立预期；[Day 87](docs/week-13-notes.md#day87)已实现逐例自动运行、隔离目录、超时保护和证据检查。170 项测试通过，12 例均取得执行记录，业务结果与执行状态分别记录；尚未计算评分和性能指标。
+[Day 86](docs/week-13.md#day86)已补齐 12 例固定测试集与独立预期；[Day 87](docs/week-13.md#day87)已实现逐例自动运行、隔离目录、超时保护和证据检查。170 项测试通过，12 例均取得执行记录，业务结果与执行状态分别记录；尚未计算评分和性能指标。
 
-[Day 88](docs/week-13-notes.md#day88)已加入单例延迟和分组统计，198 项测试通过；12 例真实本地 fixture 流程记录了耗时。Token、成本及成功率仍待后续实现。
+[Day 88](docs/week-13.md#day88)已加入单例延迟和分组统计，198 项测试通过；12 例真实本地 fixture 流程记录了耗时。Token、成本及成功率仍待后续实现。
 
-[Day 89](docs/week-13-notes.md#day89)已加入 usage 采集层、显式价格及成本估算，288 项测试通过。模拟调用不伪造 Token，缺失消耗保留未知；真实模型评测入口仍待实现。
+[Day 89](docs/week-13.md#day89)已加入 usage 采集层、显式价格及成本估算，288 项测试通过。模拟调用不伪造 Token，缺失消耗保留未知；真实模型评测入口仍待实现。
 
-[Day 90](docs/week-13-notes.md#day90)已加入独立规则判分、分类计数和成功率。342 项测试通过，12 个固定 fixture 场景全部符合预期；错误保留在分母，未完成批次不给最终成功率。
+[Day 90](docs/week-13.md#day90)已加入独立规则判分、分类计数和成功率。342 项测试通过，12 个固定 fixture 场景全部符合预期；错误保留在分母，未完成批次不给最终成功率。
 
-[Day 91](docs/week-13-notes.md#day91)成果已于 2026-09-30 正式定版为 Evaluation Center v0.1.0，提交 `a5d7671` 与标签 `evaluation-center-v0.1.0` 已推送；维护者提供的 Release 页面截图确认标题与验收附件。383 项测试通过、12 例固定 fixture 重新运行与评分通过；真实模型评测尚未接入。候选文档保留历史状态。
+[Day 91](docs/week-13.md#day91)成果已于 2026-09-30 正式定版为 Evaluation Center v0.1.0，提交 `a5d7671` 与标签 `evaluation-center-v0.1.0` 已推送；维护者提供的 Release 页面截图确认标题与验收附件。383 项测试通过、12 例固定 fixture 重新运行与评分通过；真实模型评测尚未接入。候选文档保留历史状态。
 
-[Week 14](docs/week-14-plan.md)开始企业生产化优化。[Day 92](docs/week-14-notes.md#day92)拆分后端应用工厂、生命周期、API 文档配置和路由注册，清理无引用空占位文件。514 项后端测试与 41 项发布门禁测试通过，25 个 OpenAPI 路径契约保持一致，历史冻结资产完整性检查通过。
+[Week 14](docs/week-14.md#plan)开始企业生产化优化。[Day 92](docs/week-14.md#day92)拆分后端应用工厂、生命周期、API 文档配置和路由注册，清理无引用空占位文件。514 项后端测试与 41 项发布门禁测试通过，25 个 OpenAPI 路径契约保持一致，历史冻结资产完整性检查通过。
 
-首次使用请从 [平台使用指南](docs/user-guide.md) 开始；理解服务关系请看 [系统架构](docs/architecture.md)，完整导航见 [文档目录](docs/README.md)。
+首次使用请从 [平台使用指南](docs/week-8.md#user-guide) 开始；理解服务关系请看 [系统架构](docs/week-1.md#architecture)，完整导航见 [文档目录](docs/README.md)。
 
 ## 项目目标
 
@@ -147,25 +147,25 @@ Day 55–56 成果已合并到 `main`；[Workflow Center v1.0.0](docs/workflow-c
 - [x] 完成 Day 73 Agent 接入 MCP、回执与报告校验及真实模型验证
 
 模板入口：[客服、邮件与销售模板目录](n8n/templates/README.md)。
-日志说明：[Day 51 工作流日志](docs/week-8-notes.md#day51)。
-配置说明：[Day 52 配置中心与离线自检](docs/week-8-notes.md#day52)。
-部署说明：[Day 53 一键启动与持久化验收](docs/week-8-notes.md#day53)。
-文档交付：[Day 54 使用与架构文档](docs/week-8-notes.md#day54)。
-演示准备：[Day 55 业务 Demo](docs/week-8-notes.md#day55)；视频与现场业务结果延期补齐。
-阶段交付：[Week 8 总结](docs/week-8-summary.md)、[Workflow Center v1.0.0 候选说明](docs/workflow-center-v1.0.md)。
-Agent 起点：[Day 57 架构](docs/week-9-notes.md#day57)、[静态推演](demo/agent-center/README.md)、[Week 9 计划](docs/week-9-plan.md)。
-状态图实验：[Day 58 说明与运行命令](docs/week-9-notes.md#day58)、[实验代码](experiments/day58/README.md)。
-模型规划：[Day 59 说明与运行命令](docs/week-9-notes.md#day59)、[规划实验代码](experiments/day59/README.md)。
-任务状态：[Day 60 保存与恢复操作](docs/week-9-notes.md#day60)、[持久化实验代码](experiments/day60/README.md)。
-业务场景：[Day 61 销售跟进分析设计](docs/week-9-notes.md#day61)、[契约与样例代码](experiments/day61/README.md)。
-Agent Prompt：[Day 62 提示词与模型验证](docs/week-9-notes.md#day62)、[运行入口](experiments/day62/README.md)。
-Week 9 交付：[Agent Center 入口](agent-center/README.md)、[v0.1 版本说明](docs/agent-center-v0.1.md)、[Week 9 总结](docs/week-9-summary.md)。
-工具调用：[Week 10 计划](docs/week-10-plan.md)、[Day 64 操作流程](docs/week-10-notes.md#day64)、[实验入口](experiments/day64/README.md)。
-SQL 工具：[Day 65 只读查询](docs/week-10-notes.md#day65)、[运行入口](experiments/day65/README.md)；已通过虚构销售数据的离线与 Qwen 真实查询验收。
-知识工具：[Day 66 检索与引用](docs/week-10-notes.md#day66)、[运行入口](experiments/day66/README.md)；支持 fixture、隔离的真实向量检索与 Qwen 闭环。
-API 工具：[Day 67 天气查询](docs/week-10-notes.md#day67)、[运行入口](experiments/day67/README.md)；支持三个预设城市、1–3 天预报及异常停止。
-工具组合：[Day 68 多工具简报](docs/week-10-notes.md#day68)、[运行入口](experiments/day68/README.md)；整合 SQL、知识库、天气，保留结果来源和部分完成状态。
-复杂验收：[Day 69 场景与恢复边界](docs/week-10-notes.md#day69)、[运行入口](experiments/day69/README.md)；18 个场景与回执生成的完整说明。
+日志说明：[Day 51 工作流日志](docs/week-8.md#day51)。
+配置说明：[Day 52 配置中心与离线自检](docs/week-8.md#day52)。
+部署说明：[Day 53 一键启动与持久化验收](docs/week-8.md#day53)。
+文档交付：[Day 54 使用与架构文档](docs/week-8.md#day54)。
+演示准备：[Day 55 业务 Demo](docs/week-8.md#day55)；视频与现场业务结果延期补齐。
+阶段交付：[Week 8 总结](docs/week-8.md#summary)、[Workflow Center v1.0.0 候选说明](docs/week-8.md#workflow-center-v1.0)。
+Agent 起点：[Day 57 架构](docs/week-9.md#day57)、[静态推演](demo/agent-center/README.md)、[Week 9 计划](docs/week-9.md#plan)。
+状态图实验：[Day 58 说明与运行命令](docs/week-9.md#day58)、[实验代码](experiments/day58/README.md)。
+模型规划：[Day 59 说明与运行命令](docs/week-9.md#day59)、[规划实验代码](experiments/day59/README.md)。
+任务状态：[Day 60 保存与恢复操作](docs/week-9.md#day60)、[持久化实验代码](experiments/day60/README.md)。
+业务场景：[Day 61 销售跟进分析设计](docs/week-9.md#day61)、[契约与样例代码](experiments/day61/README.md)。
+Agent Prompt：[Day 62 提示词与模型验证](docs/week-9.md#day62)、[运行入口](experiments/day62/README.md)。
+Week 9 交付：[Agent Center 入口](agent-center/README.md)、[v0.1 版本说明](docs/week-9.md#agent-center-v0.1)、[Week 9 总结](docs/week-9.md#summary)。
+工具调用：[Week 10 计划](docs/week-10.md#plan)、[Day 64 操作流程](docs/week-10.md#day64)、[实验入口](experiments/day64/README.md)。
+SQL 工具：[Day 65 只读查询](docs/week-10.md#day65)、[运行入口](experiments/day65/README.md)；已通过虚构销售数据的离线与 Qwen 真实查询验收。
+知识工具：[Day 66 检索与引用](docs/week-10.md#day66)、[运行入口](experiments/day66/README.md)；支持 fixture、隔离的真实向量检索与 Qwen 闭环。
+API 工具：[Day 67 天气查询](docs/week-10.md#day67)、[运行入口](experiments/day67/README.md)；支持三个预设城市、1–3 天预报及异常停止。
+工具组合：[Day 68 多工具简报](docs/week-10.md#day68)、[运行入口](experiments/day68/README.md)；整合 SQL、知识库、天气，保留结果来源和部分完成状态。
+复杂验收：[Day 69 场景与恢复边界](docs/week-10.md#day69)、[运行入口](experiments/day69/README.md)；18 个场景与回执生成的完整说明。
 
 ## 项目结构
 
@@ -182,7 +182,7 @@ enterprise-ai-platform/
 
 ## 快速启动
 
-以下命令在仓库根目录执行。首次配置 `.env`、Python 环境及 n8n 凭据，请先阅读 [使用指南](docs/user-guide.md)。Docker API 与本地 API 默认使用同一端口，选择一种运行方式。
+以下命令在仓库根目录执行。首次配置 `.env`、Python 环境及 n8n 凭据，请先阅读 [使用指南](docs/week-8.md#user-guide)。Docker API 与本地 API 默认使用同一端口，选择一种运行方式。
 
 ### 本地运行
 
@@ -218,55 +218,55 @@ docker compose stop
 
 ## 项目文档
 
-- [平台使用指南](docs/user-guide.md)
-- [Day 54 使用与架构文档](docs/week-8-notes.md#day54)
-- [系统架构](docs/architecture.md)
-- [技术选型](docs/tech-stack.md)
-- [数据库设计](docs/database.md)
-- [Week 1 总结](docs/week-1-summary.md)
-- [Week 2 总结](docs/week-2-summary.md)
-- [Embedding 学习笔记](docs/embedding.md)
-- [RAG 黄金问题集](docs/rag-golden-questions.md)
-- [Chunk 文本切分学习笔记](docs/chunking.md)
-- [Chroma 向量数据库](docs/vector-database.md)
-- [文档 Embedding 流程](docs/document-embedding.md)
-- [RAG Query 检索](docs/rag-query.md)
-- [RAG Prompt 与来源引用](docs/rag-prompt.md)
-- [Week 3 总结](docs/week-3-summary.md)
-- [多文档自动索引](docs/multi-document-indexing.md)
-- [RAG 检索参数优化](docs/retrieval-optimization.md)
-- [LLM 模型切换](docs/llm-switching.md)
-- [Docker 部署](docs/docker-deployment.md)
-- [API 文档](docs/api.md)
+- [平台使用指南](docs/week-8.md#user-guide)
+- [Day 54 使用与架构文档](docs/week-8.md#day54)
+- [系统架构](docs/week-1.md#architecture)
+- [技术选型](docs/week-1.md#tech-stack)
+- [数据库设计](docs/week-2.md#database)
+- [Week 1 总结](docs/week-1.md#summary)
+- [Week 2 总结](docs/week-2.md#summary)
+- [Embedding 学习笔记](docs/week-3.md#embedding)
+- [RAG 黄金问题集](docs/week-3.md#rag-golden-questions)
+- [Chunk 文本切分学习笔记](docs/week-3.md#chunking)
+- [Chroma 向量数据库](docs/week-3.md#vector-database)
+- [文档 Embedding 流程](docs/week-3.md#document-embedding)
+- [RAG Query 检索](docs/week-3.md#rag-query)
+- [RAG Prompt 与来源引用](docs/week-3.md#rag-prompt)
+- [Week 3 总结](docs/week-3.md#summary)
+- [多文档自动索引](docs/week-4.md#multi-document-indexing)
+- [RAG 检索参数优化](docs/week-4.md#retrieval-optimization)
+- [LLM 模型切换](docs/week-4.md#llm-switching)
+- [Docker 部署](docs/week-4.md#docker-deployment)
+- [API 文档](docs/week-4.md#api)
 - [Demo 演示数据与说明](demo/README.md)
-- [Demo 录制脚本](docs/demo-script.md)
-- [Demo 最终验收记录](docs/demo-acceptance.md)
-- [Enterprise AI Platform v1.0.0 发布说明](docs/release-v1.0.md)
-- [Week 4 总结](docs/week-4-summary.md)
+- [Demo 录制脚本](docs/week-4.md#demo-script)
+- [Demo 最终验收记录](docs/week-5.md#demo-acceptance)
+- [Enterprise AI Platform v1.0.0 发布说明](docs/week-4.md#release-v1.0)
+- [Week 4 总结](docs/week-4.md#summary)
 - [版本变更记录](CHANGELOG.md)
-- [Dify 基础与首个 AI 应用](docs/dify-basics.md)
-- [Dify 接入 Knowledge Hub](docs/dify-knowledge-hub.md)
-- [Dify Workflow 基础与企业咨询分流](docs/dify-workflow-basics.md)
-- [Dify 企业客服场景](docs/dify-customer-service-scenario.md)
-- [Dify 企业场景 Prompt 优化](docs/dify-enterprise-prompt-optimization.md)
-- [FastAPI 调用 Dify 工作流](docs/dify-fastapi-integration.md)
-- [Week 5 总结：AI 客服助手 v1.0](docs/week-5-summary.md)
-- [n8n 基础与本地部署](docs/n8n-foundation.md)
-- [n8n Webhook 触发与请求响应](docs/n8n-webhook-trigger.md)
-- [n8n 连接 AI 工作流](docs/n8n-ai-integration.md)
-- [n8n AI 邮件助手](docs/n8n-ai-email-assistant.md)
-- [n8n AI 工作流日报](docs/n8n-daily-workflow-report.md)
-- [n8n 工作流数据库持久化](docs/n8n-workflow-persistence.md)
-- [Workflow Center v0.1.0 发布说明](docs/workflow-center-v0.1.md)
-- [Week 6 总结：Workflow Center v0.1.0](docs/week-6-summary.md)
-- [飞书开放平台接入基础](docs/feishu-open-platform.md)
-- [企业微信自建应用通知](docs/wecom-notifications.md)
-- [销售线索跟进助手设计](docs/sales-followup-design.md)
-- [销售线索跟进助手验收方案](docs/sales-followup-acceptance.md)
-- [n8n 销售线索跟进助手](docs/n8n-sales-followup-assistant.md)
-- [Workflow Center v0.5.0 发布说明](docs/workflow-center-v0.5.md)
-- [Day 49 发布验收记录](docs/week-7-notes.md#day49)
-- [Week 7 总结](docs/week-7-summary.md)
+- [Dify 基础与首个 AI 应用](docs/week-5.md#dify-basics)
+- [Dify 接入 Knowledge Hub](docs/week-5.md#dify-knowledge-hub)
+- [Dify Workflow 基础与企业咨询分流](docs/week-5.md#dify-workflow-basics)
+- [Dify 企业客服场景](docs/week-5.md#dify-customer-service-scenario)
+- [Dify 企业场景 Prompt 优化](docs/week-5.md#dify-enterprise-prompt-optimization)
+- [FastAPI 调用 Dify 工作流](docs/week-5.md#dify-fastapi-integration)
+- [Week 5 总结：AI 客服助手 v1.0](docs/week-5.md#summary)
+- [n8n 基础与本地部署](docs/week-6.md#n8n-foundation)
+- [n8n Webhook 触发与请求响应](docs/week-6.md#n8n-webhook-trigger)
+- [n8n 连接 AI 工作流](docs/week-6.md#n8n-ai-integration)
+- [n8n AI 邮件助手](docs/week-6.md#n8n-ai-email-assistant)
+- [n8n AI 工作流日报](docs/week-6.md#n8n-daily-workflow-report)
+- [n8n 工作流数据库持久化](docs/week-6.md#n8n-workflow-persistence)
+- [Workflow Center v0.1.0 发布说明](docs/week-6.md#workflow-center-v0.1)
+- [Week 6 总结：Workflow Center v0.1.0](docs/week-6.md#summary)
+- [飞书开放平台接入基础](docs/week-7.md#feishu-open-platform)
+- [企业微信自建应用通知](docs/week-7.md#wecom-notifications)
+- [销售线索跟进助手设计](docs/week-7.md#sales-followup-design)
+- [销售线索跟进助手验收方案](docs/week-7.md#sales-followup-acceptance)
+- [n8n 销售线索跟进助手](docs/week-7.md#n8n-sales-followup-assistant)
+- [Workflow Center v0.5.0 发布说明](docs/week-7.md#workflow-center-v0.5)
+- [Day 49 发布验收记录](docs/week-7.md#day49)
+- [Week 7 总结](docs/week-7.md#summary)
 
 ## 技术栈
 
@@ -327,7 +327,7 @@ Week 4 产品化阶段进度：
 
 平台 v1.0.0 历史版本的代码、文档和 Demo 已完成最终验收。自动化测试、Ruff、Docker、OpenAPI 和 FastAPI / Dify 双向真实接口均已通过，正式版本使用 `v1.0.0` Git 标签标记。
 
-Demo 视频作为独立交付资产保存，不直接纳入 Git 仓库；详细验收结果见 [Demo 最终验收记录](docs/demo-acceptance.md)。GitHub Release 可在需要公开发布时基于 `v1.0.0` 标签创建。
+Demo 视频作为独立交付资产保存，不直接纳入 Git 仓库；详细验收结果见 [Demo 最终验收记录](docs/week-5.md#demo-acceptance)。GitHub Release 可在需要公开发布时基于 `v1.0.0` 标签创建。
 
 ### Week 5：企业工作流中心
 
@@ -387,4 +387,4 @@ Day 46 产出：销售线索跟进助手设计与验收方案，以及覆盖正�
 
 本周交付范围与限制：飞书独立发送接口已有真实联调；企业微信接口已有 Mock/本地验收，真实发送仍待域名条件满足。销售流程当前固定为 preview，通知异常及人工核对通过本地状态 API 模拟。通知恢复为 sent 不会自动把原 failed 工作流改成 succeeded。
 
-已通过且未受本次改动影响的验收沿用已有证据，不重复执行。后续发布状态、证据及待办统一见 [v0.5.0 发布说明](docs/workflow-center-v0.5.md)。
+已通过且未受本次改动影响的验收沿用已有证据，不重复执行。后续发布状态、证据及待办统一见 [v0.5.0 发布说明](docs/week-7.md#workflow-center-v0.5)。

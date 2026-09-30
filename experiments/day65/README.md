@@ -54,4 +54,4 @@ $day65TestDir = Join-Path $env:TEMP ('day65-tests-' + [guid]::NewGuid().ToString
 & .\.venv\Scripts\python.exe -m pytest experiments/day65 experiments/day64 -q -p no:cacheprovider --basetemp $day65TestDir
 ```
 
-SQL 模板固定，查询连接只读，参数严格校验，返回明细最多 20 条，执行受 SQLite 指令预算和时间检查约束。没有自由 SQL 生成、真实 CRM 接入、数据库写入工具、权限管理服务或新 Agent HTTP API。完整原理、失败行为与复刻步骤见 [Day 65 操作说明](../../docs/week-10-notes.md#day65)。
+SQL 模板固定，查询连接只读，参数严格校验，返回明细最多 20 条，执行受 SQLite 指令预算和时间检查约束。没有自由 SQL 生成、真实 CRM 接入、数据库写入工具、权限管理服务或新 Agent HTTP API。完整原理、失败行为与复刻步骤见 [Day 65 操作说明](../../docs/week-10.md#day65)。

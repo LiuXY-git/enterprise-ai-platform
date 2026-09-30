@@ -36,4 +36,4 @@ $day69TestDir = Join-Path $env:TEMP ('day69-tests-' + [guid]::NewGuid().ToString
 & .\.venv\Scripts\python.exe -m pytest experiments/day64 experiments/day65 experiments/day66 experiments/day67 experiments/day68 experiments/day69 tests/test_retrieval_service.py -q -p no:cacheprovider --basetemp $day69TestDir
 ```
 
-详见 [场景与复刻说明](../../docs/week-10-notes.md#day69) 和 [验收清单](../../docs/evidence/week-10.md#day69)。恢复验证是检查后另建会话重跑，仍不支持断点续跑或跨进程恢复；没有自动重试和业务写入。
+详见 [场景与复刻说明](../../docs/week-10.md#day69) 和 [验收清单](../../docs/evidence/week-10.md#day69)。恢复验证是检查后另建会话重跑，仍不支持断点续跑或跨进程恢复；没有自动重试和业务写入。

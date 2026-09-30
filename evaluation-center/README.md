@@ -31,7 +31,7 @@ $runDir = "data/evaluation/run-$([guid]::NewGuid().ToString('N'))"
 - [Day 89 Token 与成本](../experiments/day89/README.md)：usage 采集、显式价格、完整/部分账本与 fixture 计费边界。
 - [Day 90 成功率](../experiments/day90/README.md)：独立规则判分、失败原因、分类统计及分母。
 - [Evaluation Center v0.1.0 发布候选](v0.1/README.md)：版本范围、验收与正式发布操作。
-- [Week 13 计划](../docs/week-13-plan.md)。
+- [Week 13 计划](../docs/week-13.md#plan)。
 
 当前可以自动执行并保留结果。执行状态与业务状态分别记录；已增加单例延迟和 usage/成本核算；Day 90 已增加独立判分与成功率，真实模型评测尚未接入。Evaluation Center v0.1.0 已正式发布，旧阶段文档保留当时的说明。
 

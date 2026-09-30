@@ -2,7 +2,7 @@
 
 本周收录 Day 58、59、60、61、62、63，共 12 份原始记录。日常阅读本页即可，详细 JSON、XML 和运行记录收在[本周数据包](week-09.zip)。
 
-[返回周目录](README.md) · [学习与操作记录](../week-9-notes.md)
+[返回周目录](README.md) · [学习与操作记录](../week-9.md#days)
 
 ## 一览
 
@@ -22,39 +22,39 @@
 ## Day 58：LangGraph 状态图与模拟分支
 
 - 主要结果：`graph-validation.json`；共 1 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day58)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day58)。
 
 <a id="day59"></a>
 
 ## Day 59：Qwen 规划与澄清
 
 - 主要结果：`validation.json`；共 2 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day59)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day59)。
 
 <a id="day60"></a>
 
 ## Day 60：SQLite 检查点与跨进程恢复
 
 - 主要结果：`validation.json`；共 2 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day60)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day60)。
 
 <a id="day61"></a>
 
 ## Day 61：销售任务契约与固定规则
 
 - 主要结果：`validation.json`；共 3 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day61)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day61)。
 
 <a id="day62"></a>
 
 ## Day 62：销售报告 Prompt 与来源核对
 
 - 主要结果：`validation.json`；共 3 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day62)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day62)。
 
 <a id="day63"></a>
 
 ## Day 63：Agent Center v0.1 阶段验收
 
 - 主要结果：`validation.json`；共 1 份记录。
-- 操作说明：[Week 9 对应章节](../week-9-notes.md#day63)。
+- 操作说明：[Week 9 对应章节](../week-9.md#day63)。

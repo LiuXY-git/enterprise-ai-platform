@@ -6,7 +6,7 @@ Week 13（Day 85–91）的本地 CLI 发布候选。它能运行固定虚构销
 
 - [Day 90 操作教程](../../experiments/day90/README.md)：运行 12 例、查看分类/失败规则、只读重新评分。
 - [Day 89 消耗教程](../../experiments/day89/README.md)：Token 缺失处理、合成 usage 示例、显式价格算术估算。
-- [版本说明](../../docs/evaluation-center-v0.1.md)：交付范围和能力限制。
+- [版本说明](../../docs/week-13.md#evaluation-center-v0.1)：交付范围和能力限制。
 - [发布验收与正式标签教程](../../scripts/day91/README.md)：完整性检查、重新验收、正式定版和 Release 正文生成。
 
 ## 指标应该怎样理解

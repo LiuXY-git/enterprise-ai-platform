@@ -2,7 +2,7 @@
 
 本周收录 Day 49，共 3 份原始记录。日常阅读本页即可，详细 JSON、XML 和运行记录收在[本周数据包](week-07.zip)。
 
-[返回周目录](README.md) · [学习与操作记录](../week-7-notes.md)
+[返回周目录](README.md) · [学习与操作记录](../week-7.md#days)
 
 ## 一览
 
@@ -18,4 +18,4 @@
 
 - 主要结果：`day49-notification-resolution-7975a813112249e394725f60c88a6ff4.json`、`day49-production-fc8d9aebad1e42b5b658d74dd57e155b.json`、`day49-replay-guard-17e171ec3a4a470b8118a25c512d0268.json`；共 3 份记录。
 - 保存重复事件、回放保护和模拟通知状态验收，不代表真实通知发送。
-- 操作说明：[Week 7 对应章节](../week-7-notes.md#day49)。
+- 操作说明：[Week 7 对应章节](../week-7.md#day49)。

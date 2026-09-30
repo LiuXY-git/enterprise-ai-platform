@@ -2,7 +2,7 @@
 
 本周收录 Day 78、79、80、81、82、84，共 84 份原始记录。日常阅读本页即可，详细 JSON、XML 和运行记录收在[本周数据包](week-12.zip)。
 
-[返回周目录](README.md) · [学习与操作记录](../week-12-notes.md)
+[返回周目录](README.md) · [学习与操作记录](../week-12.md#days)
 
 ## 一览
 
@@ -22,28 +22,28 @@
 ## Day 78：任务日志与只读回放
 
 - 主要结果：`validation.json`；共 3 份记录。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day78)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day78)。
 
 <a id="day79"></a>
 
 ## Day 79：有界重试与模板降级
 
 - 主要结果：`validation.json`；共 3 份记录。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day79)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day79)。
 
 <a id="day80"></a>
 
 ## Day 80：人工确认与模拟发送
 
 - 主要结果：`validation.json`；共 3 份记录。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day80)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day80)。
 
 <a id="day81"></a>
 
 ## Day 81：销售业务完整流程
 
 - 主要结果：`validation.json`；共 19 份记录。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day81)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day81)。
 
 <a id="day82"></a>
 
@@ -51,7 +51,7 @@
 
 - 主要结果：`validation.json`；共 45 份记录。
 - 完成离线控制与集成验证，真实模型质量改善尚未测量。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day82)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day82)。
 
 <a id="day84"></a>
 
@@ -59,4 +59,4 @@
 
 - 主要结果：`validation.json`、`verification.json`；共 11 份记录。
 - Demo 视频仍待补录；本次记录没有新增真实模型请求或消息发送。
-- 操作说明：[Week 12 对应章节](../week-12-notes.md#day84)。
+- 操作说明：[Week 12 对应章节](../week-12.md#day84)。

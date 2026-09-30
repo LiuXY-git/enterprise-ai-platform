@@ -92,4 +92,4 @@ cases/<case_id>/artifacts/approvals.sqlite # 仅报告成功/空数据时存在
 if ($LASTEXITCODE -ne 0) { throw '回归测试未通过' }
 ```
 
-超时清理测试仅终止测试自身创建的子进程树，需在允许 taskkill 的普通本地会话中执行。[交付与实测记录](../../docs/week-13-notes.md#day87)。
+超时清理测试仅终止测试自身创建的子进程树，需在允许 taskkill 的普通本地会话中执行。[交付与实测记录](../../docs/week-13.md#day87)。

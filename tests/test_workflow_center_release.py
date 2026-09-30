@@ -39,13 +39,9 @@ def test_release_manifest_identifies_component_versions() -> None:
 
 def test_release_manifest_references_existing_versioned_workflows() -> None:
     manifest = load_json(MANIFEST_PATH)
-    declared_files = {
-        item["file"]
-        for item in manifest["workflows"]
-    }
+    declared_files = {item["file"] for item in manifest["workflows"]}
     actual_files = {
-        path.relative_to(N8N_DIR).as_posix()
-        for path in WORKFLOW_DIR.glob("*.json")
+        path.relative_to(N8N_DIR).as_posix() for path in WORKFLOW_DIR.glob("*.json")
     }
 
     assert declared_files <= actual_files
@@ -79,37 +75,24 @@ def test_release_workflows_are_portable_and_secret_free() -> None:
         assert workflow["active"] is False
         assert workflow["pinData"] == {}
         assert not INSTANCE_FIELDS & workflow.keys()
-        assert all(
-            "webhookId" not in node
-            for node in workflow["nodes"]
-        )
-        assert all(
-            "credentials" not in node
-            for node in workflow["nodes"]
-        )
-        assert not any(
-            pattern.search(serialized)
-            for pattern in SECRET_PATTERNS
-        )
+        assert all("webhookId" not in node for node in workflow["nodes"])
+        assert all("credentials" not in node for node in workflow["nodes"])
+        assert not any(pattern.search(serialized) for pattern in SECRET_PATTERNS)
 
 
 def test_release_publish_order_preserves_error_binding() -> None:
     manifest = load_json(MANIFEST_PATH)
     deployment = manifest["deployment"]
-    error_workflow = (
-        "workflows/w6d41-workflow-error-handler.json"
-    )
-    main_workflow = (
-        "workflows/w6d41-persistent-ai-email-assistant.json"
-    )
+    error_workflow = "workflows/w6d41-workflow-error-handler.json"
+    main_workflow = "workflows/w6d41-persistent-ai-email-assistant.json"
 
     assert deployment["publish_order"] == [
         error_workflow,
         main_workflow,
     ]
-    assert deployment["import_order"].index(
-        error_workflow
-    ) < deployment["import_order"].index(main_workflow)
+    assert deployment["import_order"].index(error_workflow) < deployment[
+        "import_order"
+    ].index(main_workflow)
     assert {
         "workflow": main_workflow,
         "setting": "Error Workflow",
@@ -136,24 +119,15 @@ def test_release_declares_runtime_and_quality_requirements() -> None:
 
 
 def test_release_documentation_is_complete_and_indexed() -> None:
-    readme = (PROJECT_ROOT / "README.md").read_text(
-        encoding="utf-8"
-    )
-    docs_index = (PROJECT_ROOT / "docs" / "README.md").read_text(
-        encoding="utf-8"
-    )
-    changelog = (PROJECT_ROOT / "CHANGELOG.md").read_text(
-        encoding="utf-8"
-    )
+    readme = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+    docs_index = (PROJECT_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+    changelog = (PROJECT_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
 
-    for path in (
-        PROJECT_ROOT / "docs" / "workflow-center-v0.1.md",
-        PROJECT_ROOT / "docs" / "week-6-summary.md",
-    ):
-        assert path.is_file()
-
-    assert "docs/workflow-center-v0.1.md" in readme
-    assert "docs/week-6-summary.md" in readme
-    assert "workflow-center-v0.1.md" in docs_index
-    assert "week-6-summary.md" in docs_index
+    weekly_doc = PROJECT_ROOT / "docs" / "week-6.md"
+    assert weekly_doc.is_file()
+    content = weekly_doc.read_text(encoding="utf-8")
+    for anchor in ("workflow-center-v0.1", "summary"):
+        assert f'<a id="{anchor}"></a>' in content
+        assert f"docs/week-6.md#{anchor}" in readme
+    assert "week-6.md" in docs_index
     assert "[Workflow Center 0.1.0] - 2026-09-04" in changelog

@@ -29,10 +29,10 @@
 
 业务名称为 `w6d41_ai_email_assistant`；平台按 workflow_name 与 event_id 去重。重复请求不再生成草稿。仅 failed 运行可显式 replay，最多 3 次，复用首次保存的输入。错误处理需正确绑定，不能凭一次 HTTP 200 代替查看业务状态。
 
-历史依据见 [持久化与回放说明](../../../docs/n8n-workflow-persistence.md)。
+历史依据见 [持久化与回放说明](../../../docs/week-6.md#n8n-workflow-persistence)。
 
 ## Day 52 配置归属
 
 模型由对应的 Dify 应用节点与凭据选择；后端 `LLM_PROVIDER` 不影响本模板。后端用 `DIFY_WORKFLOW_API_KEY` 和 `DIFY_API_BASE_URL` 连接已发布的 Dify 工作流。可在项目根目录运行 `.\.venv\Scripts\python.exe -m backend.app.check_config --component dify` 检查本地调用配置；这不验证 Dify 内部模型或网络连通性。
 
-配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/week-8-notes.md#day52)。
+配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/week-8.md#day52)。

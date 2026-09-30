@@ -2,7 +2,7 @@
 
 本周收录 Day 53，共 1 份原始记录。日常阅读本页即可，详细 JSON、XML 和运行记录收在[本周数据包](week-08.zip)。
 
-[返回周目录](README.md) · [学习与操作记录](../week-8-notes.md)
+[返回周目录](README.md) · [学习与操作记录](../week-8.md#days)
 
 ## 一览
 
@@ -18,4 +18,4 @@
 
 - 主要结果：`deployment-validation.json`；共 1 份记录。
 - API 重建后 SQLite、日志与事件记录保留；该次隔离验收未测试 n8n 重建。
-- 操作说明：[Week 8 对应章节](../week-8-notes.md#day53)。
+- 操作说明：[Week 8 对应章节](../week-8.md#day53)。

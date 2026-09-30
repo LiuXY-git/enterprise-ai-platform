@@ -11,7 +11,7 @@ from backend.app.services.vector_store import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_FILE = PROJECT_ROOT / "docs" / "week-2-summary.md"
+SOURCE_FILE = PROJECT_ROOT / "docs" / "week-2.md"
 DOCUMENT_ID = "week-2-summary"
 
 

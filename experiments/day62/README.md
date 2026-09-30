@@ -17,7 +17,7 @@
 & .\.venv\Scripts\python.exe .\experiments\day62\sales_prompt.py --live --case normal
 ```
 
-该命令读取现有模型配置并发出一次请求；不会自动重试。`--check-all` 只允许离线模式，不能与 `--live` 同用。Windows 中文输出和完整复刻流程见 [Day 62 说明](../../docs/week-9-notes.md#day62)。
+该命令读取现有模型配置并发出一次请求；不会自动重试。`--check-all` 只允许离线模式，不能与 `--live` 同用。Windows 中文输出和完整复刻流程见 [Day 62 说明](../../docs/week-9.md#day62)。
 
 | 文件 | 作用 |
 | --- | --- |

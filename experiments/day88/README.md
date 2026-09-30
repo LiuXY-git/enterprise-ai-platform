@@ -86,4 +86,4 @@ Token、成本和成功率仍为 null，分别留给 Day 89、Day 90。模型为
 if ($LASTEXITCODE -ne 0) { throw '延迟测试未通过' }
 ```
 
-[交付与验收](../../docs/week-13-notes.md#day88)。
+[交付与验收](../../docs/week-13.md#day88)。

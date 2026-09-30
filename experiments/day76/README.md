@@ -1,10 +1,10 @@
 # Day 76：Planning 学习操作
 
-本目录只增加人工编写的 [planning-examples.json](planning-examples.json)，复用 Day 59 的规划器和环境。完整讲解见 [Day 76 学习文档](../../docs/week-11-notes.md#day76)。示例不执行季度查询，不新增模型请求。
+本目录只增加人工编写的 [planning-examples.json](planning-examples.json)，复用 Day 59 的规划器和环境。完整讲解见 [Day 76 学习文档](../../docs/week-11.md#day76)。示例不执行季度查询，不新增模型请求。
 
 ## 1. 观察计划、澄清和失败
 
-已有 Day 59 环境时直接执行；缺少环境则按 [Day 59 安装说明](../../docs/week-9-notes.md#day59)安装到其独立 `.venv`。
+已有 Day 59 环境时直接执行；缺少环境则按 [Day 59 安装说明](../../docs/week-9.md#day59)安装到其独立 `.venv`。
 
 ```powershell
 Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'

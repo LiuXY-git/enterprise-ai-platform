@@ -2,7 +2,7 @@
 
 本周收录 Day 92，共 4 份原始记录。日常阅读本页即可，详细 JSON、XML 和运行记录收在[本周数据包](week-14.zip)。
 
-[返回周目录](README.md) · [学习与操作记录](../week-14-notes.md)
+[返回周目录](README.md) · [学习与操作记录](../week-14.md#days)
 
 ## 一览
 
@@ -18,4 +18,4 @@
 
 - 主要结果：`validation.json`；共 4 份记录。
 - 后端 514 项及发布测试 41 项通过；25 个 OpenAPI 路径在重构时保持一致。
-- 操作说明：[Week 14 对应章节](../week-14-notes.md#day92)。
+- 操作说明：[Week 14 对应章节](../week-14.md#day92)。
