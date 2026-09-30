@@ -31,4 +31,4 @@
 
 模型由对应的 Dify 应用节点与凭据选择；后端 `LLM_PROVIDER` 不影响本模板。后端用 `DIFY_WORKFLOW_API_KEY` 和 `DIFY_API_BASE_URL` 连接已发布的 Dify 工作流。可在项目根目录运行 `.\.venv\Scripts\python.exe -m backend.app.check_config --component dify` 检查本地调用配置；这不验证 Dify 内部模型或网络连通性。
 
-配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/day52-configuration-center.md)。
+配置优先级、完整字段与生效方式见 [配置中心说明](../../../docs/week-8-notes.md#day52)。

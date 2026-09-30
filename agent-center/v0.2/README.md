@@ -5,7 +5,7 @@
 当前状态为发布候选，组件标签计划使用 `agent-center-v0.2.0`。代码提交、main 合并、远端推送、标签和 GitHub Release 是不同步骤，候选验收不代表已经上线。
 
 - [版本说明与边界](../../docs/agent-center-v0.2.md)
-- [Day 70 版本验收与发布流程](../../docs/day70-agent-v02-release.md)
+- [Day 70 版本验收与发布流程](../../docs/week-10-notes.md#day70)
 - [Week 10 总结](../../docs/week-10-summary.md)
 - [机器可读清单](../release-v0.2.0.json)
 - [v0.1 历史入口](../README.md)
@@ -43,8 +43,8 @@ if ($LASTEXITCODE -ne 0) { throw '版本离线验收失败，请查看输出日�
 
 ## 环境与可选真实调用
 
-已配置的项目环境无需重装。新检出目录按 [Day 70 环境说明](../../docs/day70-agent-v02-release.md)准备，测试依赖见 [requirements-test.txt](requirements-test.txt)。离线测试使用模拟模型、HTTP Mock 和临时虚构 SQLite，不需要模型密钥或下载 ONNX；真实知识检索另外需要本地 ONNX 缓存。
+已配置的项目环境无需重装。新检出目录按 [Day 70 环境说明](../../docs/week-10-notes.md#day70)准备，测试依赖见 [requirements-test.txt](requirements-test.txt)。离线测试使用模拟模型、HTTP Mock 和临时虚构 SQLite，不需要模型密钥或下载 ONNX；真实知识检索另外需要本地 ONNX 缓存。
 
-真实模式是可选项，会产生外部请求。逐个工具与真实组合的参数见 [Day 65](../../docs/day65-sql-tool.md)、[Day 66](../../docs/day66-knowledge-tool.md)、[Day 67](../../docs/day67-api-tool.md)、[Day 68](../../docs/day68-multi-tool.md)、[Day 69](../../docs/day69-complex-task-tests.md)。不要把任意企业数据库直接当作演示数据源。
+真实模式是可选项，会产生外部请求。逐个工具与真实组合的参数见 [Day 65](../../docs/week-10-notes.md#day65)、[Day 66](../../docs/week-10-notes.md#day66)、[Day 67](../../docs/week-10-notes.md#day67)、[Day 68](../../docs/week-10-notes.md#day68)、[Day 69](../../docs/week-10-notes.md#day69)。不要把任意企业数据库直接当作演示数据源。
 
 历史天气简报可通过 `experiments/day69/acceptance.py --render-day68 --markdown` 查看；日期和查询时间保持历史值，不是当前天气。

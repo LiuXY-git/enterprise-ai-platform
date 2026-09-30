@@ -18,7 +18,7 @@
 | 飞书、企业微信 HTTP API | 独立消息接口与企业集成 | 飞书有历史真实联调；企业微信真实发送仍待环境条件；销售仅预览 |
 | python-dotenv、dataclasses | 显式环境加载与分组配置 | [settings.py](../backend/app/settings.py)，按需校验与脱敏自检 |
 | Python logging、JSONL | 应用日志和工作流边界事件 | 文件轮转；没有统一分布式追踪 |
-| Docker、Compose、PowerShell | 打包、部署、健康及挂载检查 | [Day 53 说明](day53-compose-deployment.md)；Dify 不由本项目 Compose 管理 |
+| Docker、Compose、PowerShell | 打包、部署、健康及挂载检查 | [Day 53 说明](week-8-notes.md#day53)；Dify 不由本项目 Compose 管理 |
 | pytest、Ruff | 自动化测试与代码检查 | [测试目录](../tests)、[项目配置](../pyproject.toml) |
 | Git、GitHub | 版本管理与协作 | 平台 API 和 Workflow Center 的发布范围分别记录 |
 
@@ -26,17 +26,17 @@ Python 依赖以 [requirements.txt](../requirements.txt) 和 [requirements-dev.t
 
 ## 独立实验
 
-[Day 58](day58-langgraph-basics.md)在独立 Python 3.14.2 环境运行 LangGraph `1.2.11`，使用固定计划与模拟节点。版本快照位于 [实验依赖](../experiments/day58/requirements-lock.txt)。实验 SDK 要求 `websockets < 17`，与 API 的 `17.0.1` 固定版本冲突，因此不合并进根目录依赖，也不加入当前容器。
+[Day 58](week-9-notes.md#day58)在独立 Python 3.14.2 环境运行 LangGraph `1.2.11`，使用固定计划与模拟节点。版本快照位于 [实验依赖](../experiments/day58/requirements-lock.txt)。实验 SDK 要求 `websockets < 17`，与 API 的 `17.0.1` 固定版本冲突，因此不合并进根目录依赖，也不加入当前容器。
 
-[Day 59](day59-task-planner.md)增加 HTTPX JSON Mode 模型请求和 Pydantic 计划校验，复用现有 `settings.py`，在单独环境验证 `qwen3.7-plus` 的计划与澄清输出。完整依赖见 [Day 59 快照](../experiments/day59/requirements-lock.txt)，不修改 API 或 Day 58 环境。
+[Day 59](week-9-notes.md#day59)增加 HTTPX JSON Mode 模型请求和 Pydantic 计划校验，复用现有 `settings.py`，在单独环境验证 `qwen3.7-plus` 的计划与澄清输出。完整依赖见 [Day 59 快照](../experiments/day59/requirements-lock.txt)，不修改 API 或 Day 58 环境。
 
-[Day 60](day60-task-state.md)在独立环境增加 `langgraph-checkpoint-sqlite==3.1.1` 与 `filelock==3.32.3`，用原生 SqliteSaver 保存线程检查点并限制同一任务并发推进。依赖见 [Day 60 快照](../experiments/day60/requirements-lock.txt)；任务恢复不等于跨线程长期记忆。
+[Day 60](week-9-notes.md#day60)在独立环境增加 `langgraph-checkpoint-sqlite==3.1.1` 与 `filelock==3.32.3`，用原生 SqliteSaver 保存线程检查点并限制同一任务并发推进。依赖见 [Day 60 快照](../experiments/day60/requirements-lock.txt)；任务恢复不等于跨线程长期记忆。
 
-[Day 61](day61-sales-agent-scenario.md)用现有 Pydantic 定义销售场景输入输出，并通过确定性规则校验虚构来源、报告状态与范围。该脚本不导入 LangGraph、不调用模型，复用现有 API Python 环境即可运行。
+[Day 61](week-9-notes.md#day61)用现有 Pydantic 定义销售场景输入输出，并通过确定性规则校验虚构来源、报告状态与范围。该脚本不导入 LangGraph、不调用模型，复用现有 API Python 环境即可运行。
 
-[Day 62](day62-agent-prompt.md)复用 API 环境中的 HTTPX、Pydantic 和配置入口，以 JSON Mode 请求模型并做证据核对。Qwen qwen3.7-plus 的 5 个虚构场景真实请求已通过；无新增依赖，无新的 LangGraph 运行图。
+[Day 62](week-9-notes.md#day62)复用 API 环境中的 HTTPX、Pydantic 和配置入口，以 JSON Mode 请求模型并做证据核对。Qwen qwen3.7-plus 的 5 个虚构场景真实请求已通过；无新增依赖，无新的 LangGraph 运行图。
 
-[Day 63](day63-agent-center-release.md)使用 Python 标准库实现候选完整性检查，复用既有 pytest 环境执行分组验收。新增版本清单与文档入口，无新运行依赖。
+[Day 63](week-9-notes.md#day63)使用 Python 标准库实现候选完整性检查，复用既有 pytest 环境执行分组验收。新增版本清单与文档入口，无新运行依赖。
 
 ## 后续候选与待实现模块
 

@@ -92,4 +92,4 @@ $day72Temp = Join-Path $env:TEMP ('day72-pytest-' + [guid]::NewGuid().ToString()
 if ($LASTEXITCODE -ne 0) { throw 'Day 72 回归失败' }
 ```
 
-预期 99 项通过：32 项 MCP 测试、67 项原 SQL 回归。完整证据与能力边界见 [Day 72 文档](../../docs/day72-mcp-server.md)。本轮尚未接入 Qwen 或其他模型，Agent 自动选择工具留给 Day 73；HTTP、鉴权、多用户、桌面宿主接入和旧协议兼容性未验收。
+预期 99 项通过：32 项 MCP 测试、67 项原 SQL 回归。完整证据与能力边界见 [Day 72 文档](../../docs/week-11-notes.md#day72)。本轮尚未接入 Qwen 或其他模型，Agent 自动选择工具留给 Day 73；HTTP、鉴权、多用户、桌面宿主接入和旧协议兼容性未验收。

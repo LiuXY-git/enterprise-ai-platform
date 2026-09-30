@@ -194,9 +194,10 @@ def test_config_reprs_hide_secrets_and_reads_are_not_cached(monkeypatch):
 
 def test_app_boots_without_optional_integrations(monkeypatch):
     from backend.app import main as main_module
+    from backend.app.core import lifecycle as lifecycle_module
 
-    monkeypatch.setattr(main_module, "init_database", lambda: None)
-    monkeypatch.setattr(main_module, "configure_logging", lambda: None)
+    monkeypatch.setattr(lifecycle_module, "init_database", lambda: None)
+    monkeypatch.setattr(lifecycle_module, "configure_logging", lambda: None)
     with TestClient(main_module.app) as client:
         assert client.get("/health").status_code == 200
         assert client.get("/openapi.json").status_code == 200

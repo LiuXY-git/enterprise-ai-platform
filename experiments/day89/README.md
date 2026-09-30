@@ -85,4 +85,4 @@ inspect 验证主报告与 execution/ 的实际文件一致，不执行任务、
 
 输出的 estimated_cost 是按配置估算，不是最终发票；未知总量与 known_* 小计必须区分。Day 90 将继续实现成功率，本次仍未自动判分。
 
-[交付与验收](../../docs/day89-token-cost.md)。
+[交付与验收](../../docs/week-13-notes.md#day89)。

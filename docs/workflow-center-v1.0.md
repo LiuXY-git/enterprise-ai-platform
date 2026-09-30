@@ -24,11 +24,11 @@
 | 交付部分 | 内容与入口 |
 | --- | --- |
 | 工作流模板 | [客服、邮件和销售目录](../n8n/templates/README.md)，含契约、样例与绑定说明 |
-| 日志 | [Day 51](day51-workflow-logging.md)：HTTP 业务边界事件、有限脱敏快照、耗时与用量来源 |
-| 配置 | [Day 52](day52-configuration-center.md)：集中配置、按需校验、环境优先级与离线自检 |
-| 部署 | [Day 53](day53-compose-deployment.md)：一键启动、部署检查、日志容量、隔离重建验证 |
+| 日志 | [Day 51](week-8-notes.md#day51)：HTTP 业务边界事件、有限脱敏快照、耗时与用量来源 |
+| 配置 | [Day 52](week-8-notes.md#day52)：集中配置、按需校验、环境优先级与离线自检 |
+| 部署 | [Day 53](week-8-notes.md#day53)：一键启动、部署检查、日志容量、隔离重建验证 |
 | 文档 | [使用指南](user-guide.md)、[系统架构](architecture.md)、[技术选型](tech-stack.md) |
-| 演示工具 | [Day 55](day55-workflow-demo.md)：独立请求包、逐步执行、超时留证与录制验收表；视频延期 |
+| 演示工具 | [Day 55](week-8-notes.md#day55)：独立请求包、逐步执行、超时留证与录制验收表；视频延期 |
 
 Day 56 新增候选清单、总结与发布元数据，更新录制延期状态；后端业务代码、模型配置、工作流导出和部署脚本均沿用当前基线。
 
@@ -55,7 +55,7 @@ API 与 n8n 由本项目 Compose 管理，Dify 独立部署。API 的 `LLM_PROVI
 
 维护者已反馈 Day 53 容器更新和健康检查通过，Day 54、Day 55、Day 56 的增量是文档及宿主机演示工具，**已部署 Day 53 的环境无需因这些增量重建容器**。已经验收的工作流也无需为候选清单重新导入。
 
-若使用的是更早代码或新环境，按 [使用指南](user-guide.md) 和 [Day 53](day53-compose-deployment.md) 执行部署与检查。更新程序和更新文档是不同操作，不把代码合并当作容器已经更新，也不把健康状态当作真实模型调用成功。
+若使用的是更早代码或新环境，按 [使用指南](user-guide.md) 和 [Day 53](week-8-notes.md#day53) 执行部署与检查。更新程序和更新文档是不同操作，不把代码合并当作容器已经更新，也不把健康状态当作真实模型调用成功。
 
 ## 证据与本轮检查
 
@@ -63,11 +63,11 @@ API 与 n8n 由本项目 Compose 管理，Dify 独立部署。API 的 `LLM_PROVI
 
 | 范围 | 来源与状态 |
 | --- | --- |
-| 正常、复核、重复、失败与恢复保护 | 沿用 [Day 49 及其基线记录](day49-release-acceptance.md) |
-| 日志与集中配置 | 沿用 [Day 51](day51-workflow-logging.md)、[Day 52](day52-configuration-center.md) |
-| 全量 506 项测试与隔离容器重建 | 沿用 [Day 53](day53-compose-deployment.md)，不是 Day 56 重跑 |
-| 使用与架构文档 | 沿用 [Day 54](day54-documentation.md) |
-| 演示工具的 19 项离线/模拟检查 | 沿用 [Day 55](day55-workflow-demo.md)，不是本轮真实业务或视频验收 |
+| 正常、复核、重复、失败与恢复保护 | 沿用 [Day 49 及其基线记录](week-7-notes.md#day49) |
+| 日志与集中配置 | 沿用 [Day 51](week-8-notes.md#day51)、[Day 52](week-8-notes.md#day52) |
+| 全量 506 项测试与隔离容器重建 | 沿用 [Day 53](week-8-notes.md#day53)，不是 Day 56 重跑 |
+| 使用与架构文档 | 沿用 [Day 54](week-8-notes.md#day54) |
+| 演示工具的 19 项离线/模拟检查 | 沿用 [Day 55](week-8-notes.md#day55)，不是本轮真实业务或视频验收 |
 | Day 56 清单与文档 | 13 项一致性检查通过，其中复用六项既有发布清单检查逻辑验证 v1 候选 |
 | Day 55 新录制 | 明确延期，不计为通过项 |
 
@@ -97,6 +97,6 @@ API 与 n8n 由本项目 Compose 管理，Dify 独立部署。API 的 `LLM_PROVI
 
 ## 之后补录
 
-录制条件具备后，先运行现有部署检查，为当日演示创建新的请求包，按 [Day 55 操作稿](day55-workflow-demo.md) 完成场景并核对实际响应与持久化结果，再按 [验收表](../demo/day55-recording-checklist.md) 检查视频。只有实际文件存在并通过核对后才填写视频路径、时长和 SHA-256。
+录制条件具备后，先运行现有部署检查，为当日演示创建新的请求包，按 [Day 55 操作稿](week-8-notes.md#day55) 完成场景并核对实际响应与持久化结果，再按 [验收表](../demo/day55-recording-checklist.md) 检查视频。只有实际文件存在并通过核对后才填写视频路径、时长和 SHA-256。
 
 新一轮录制不要复用旧的已执行事件作为新业务，失败或超时也不要删除结果文件重发。若补录发现需要修复程序，则对相关改动验证并正常提交；视频补录和程序修复分别记录。

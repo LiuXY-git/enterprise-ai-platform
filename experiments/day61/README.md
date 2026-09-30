@@ -25,4 +25,4 @@
 
 JSON Schema 描述字段结构，不能表达所有跨记录业务约束；消费方仍需运行 Pydantic 校验和 `validate_report(source, report)`。CLI 的 `validation=passed` 表示样例符合契约，即使样例的业务状态是 `failed`，退出码也为 0。未知样例或验收不匹配退出码为 1。
 
-完整业务定义、类别说明和实施边界见 [Day 61 说明](../../docs/day61-sales-agent-scenario.md)。
+完整业务定义、类别说明和实施边界见 [Day 61 说明](../../docs/week-9-notes.md#day61)。

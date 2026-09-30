@@ -1,6 +1,6 @@
 # Day 55 录制验收表
 
-本表为待填写模板，不代表演示已经通过。操作步骤与讲稿见 [Day 55 Demo](../docs/day55-workflow-demo.md)。
+本表为待填写模板，不代表演示已经通过。操作步骤与讲稿见 [Day 55 Demo](../docs/week-8-notes.md#day55)。
 
 ## 本次身份
 

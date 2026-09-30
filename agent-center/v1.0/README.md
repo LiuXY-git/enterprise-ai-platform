@@ -7,7 +7,7 @@ Week 12（Day 78–84）学习成果的统一入口：固定销售任务的日�
 - [能力范围](../../docs/agent-center-v1.0.md)
 - [Week 12 总结](../../docs/week-12-summary.md)
 - [Demo 讲稿与补录步骤](../../demo/day83/README.md)
-- [离线验收与后续发布流程](../../docs/day84-agent-v1-release.md)
+- [离线验收与后续发布流程](../../docs/week-12-notes.md#day84)
 - [Release 说明草稿](release-notes.md)
 
 ## 快速体验
@@ -34,6 +34,6 @@ if ($LASTEXITCODE -ne 0) { throw '离线发布验收失败' }
 
 要求 **721 项**全部通过：规划器 49、MCP/会话等基础回归 369、Week 12 回归 259、发布检查 44。各组 JUnit 必须与实际条目一致，测试编号不得跨组重复，无失败、错误或跳过；验收前后清单和资产必须一致。
 
-解释器分别使用 Day 59 与 Day 73 的现有环境。新检出仓库参照 [环境准备](../../docs/day84-agent-v1-release.md)，不要将独立实验依赖安装进 API 环境。验收不安装包，不启用 live，不创建 Git 标签或 Release。
+解释器分别使用 Day 59 与 Day 73 的现有环境。新检出仓库参照 [环境准备](../../docs/week-12-notes.md#day84)，不要将独立实验依赖安装进 API 环境。验收不安装包，不启用 live，不创建 Git 标签或 Release。
 
 MCP、独立会话记忆和规划器的 v0.5 内容继续受父版本完整性检查保护；本次测试覆盖上述明确列出的集合，不重新运行全部历史工具/API/Docker 测试。

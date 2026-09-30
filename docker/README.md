@@ -41,4 +41,6 @@
 
 ```powershell
 & .\scripts\start.ps1 -CheckComponents llm,dify
-只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 53 部署说明](../docs/day53-compose-deployment.md)。
+```
+
+只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 53 部署说明](../docs/week-8-notes.md#day53)。

@@ -1,6 +1,6 @@
 # Day 58：LangGraph 最小状态图
 
-真实运行 LangGraph，节点使用固定计划和模拟知识结果。完整说明与运行命令见 [Day 58 文档](../../docs/day58-langgraph-basics.md)。
+真实运行 LangGraph，节点使用固定计划和模拟知识结果。完整说明与运行命令见 [Day 58 文档](../../docs/week-9-notes.md#day58)。
 
 | 文件 | 用途 |
 | --- | --- |

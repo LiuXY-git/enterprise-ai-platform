@@ -123,4 +123,4 @@ workflow_runs.retry_count 统计整条工作流的显式失败回放，最多 3 
 
 应用启动执行 init_database，创建缺失的表和索引，并通过 _ensure_column 补充 Day 48 新列。该机制不删除现有数据，也不等同于完整的版本迁移工具。切换历史代码前需保留数据库与 n8n 卷备份，避免把代码回退误当作数据库已回退。
 
-当前验收和已知限制见 [Day 49 发布验收记录](day49-release-acceptance.md)。
+当前验收和已知限制见 [Day 49 发布验收记录](week-7-notes.md#day49)。

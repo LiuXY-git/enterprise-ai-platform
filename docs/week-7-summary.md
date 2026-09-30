@@ -36,7 +36,7 @@ Day 49 将依赖旧 run_id 的回放保护检查改成自动生成独立测试�
 
 发现并修复了两个验收工具问题：PowerShell 有序字典直接交给 Select-Object 会显示空字段；直接比较 JSON 文本会将字段顺序差异误判成内容差异。分别通过转换 PSCustomObject、规范化对象键顺序修复，同时保留数组顺序和真实值差异。对已成功的 Production 事件采用续跑，只补做尚未执行的重复请求。
 
-已通过且未受改动影响的业务验收直接沿用证据，避免为重复确认而反复调用模型或制造测试数据。本轮质量数字和具体记录见 [Day 49 发布验收记录](day49-release-acceptance.md)。
+已通过且未受改动影响的业务验收直接沿用证据，避免为重复确认而反复调用模型或制造测试数据。本轮质量数字和具体记录见 [Day 49 发布验收记录](week-7-notes.md#day49)。
 
 ## 可以讲述的项目经历
 
@@ -58,4 +58,4 @@ Day 49 将依赖旧 run_id 的回放保护检查改成自动生成独立测试�
 
 销售真实通知编排、通知恢复后的工作流收尾、企业微信真实发送条件和接口加固分别进入后续任务，按范围逐项推进。
 
-相关资料：[发布说明](workflow-center-v0.5.md)、[销售设计](sales-followup-design.md)、[Day 48 故障记录](day48-failure-recovery-results.md)、[Day 49 脚本](../scripts/day49/README.md)。
+相关资料：[发布说明](workflow-center-v0.5.md)、[销售设计](sales-followup-design.md)、[Day 48 故障记录](week-7-notes.md#day48)、[Day 49 脚本](../scripts/day49/README.md)。

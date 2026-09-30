@@ -37,4 +37,4 @@ Day 50 将已有客服、邮件和销售工作流整理为可复用模板。每�
 
 API 与 n8n 使用现有 Compose，n8n 内部 API 地址沿用 http://api:8000。客服、邮件由 API 使用 DIFY_WORKFLOW_API_KEY 和 DIFY_API_BASE_URL 访问 Dify；销售绑定 n8n 中的 DashScope 凭据。密钥不写入模板或请求样例。
 
-输入字段和输出名称保留各流程的约定。日志字段与耗时/Token 来源见 [Day 51](../../docs/day51-workflow-logging.md)，配置归属与模型选择见 [Day 52](../../docs/day52-configuration-center.md)，启动与检查见 [Day 53](../../docs/day53-compose-deployment.md)。当前接口及 Webhook 面向本机或可信网络，统一认证和租户隔离仍为待办。
+输入字段和输出名称保留各流程的约定。日志字段与耗时/Token 来源见 [Day 51](../../docs/week-8-notes.md#day51)，配置归属与模型选择见 [Day 52](../../docs/week-8-notes.md#day52)，启动与检查见 [Day 53](../../docs/week-8-notes.md#day53)。当前接口及 Webhook 面向本机或可信网络，统一认证和租户隔离仍为待办。

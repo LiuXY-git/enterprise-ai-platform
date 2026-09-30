@@ -104,7 +104,7 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 
 事件日志覆盖 `dify.call`、工作流登记、完成、检查点和失败等 HTTP 业务边界，包含有限脱敏快照、耗时和用量来源。它不是所有 HTTP 请求、CRM 操作或 n8n 节点的完整审计；日志写入为尽力而为，不与数据库事务原子提交。没有统一 `trace_id`，Dify 调用并非总能关联平台运行。不同事件的 Token 可能重叠，不能直接求和。
 
-详见 [Day 51 日志](day51-workflow-logging.md)、[Day 52 配置](day52-configuration-center.md)、[Day 53 部署](day53-compose-deployment.md)。
+详见 [Day 51 日志](week-8-notes.md#day51)、[Day 52 配置](week-8-notes.md#day52)、[Day 53 部署](week-8-notes.md#day53)。
 
 ## 6. 持久化与部署边界
 
@@ -124,18 +124,18 @@ AI 成功后保存检查点；CRM 失败可显式 `replay` 并复用分析及运
 
 ## 7. Agent Center 设计与实验进展（Day 57–63）
 
-Day 57 已补充 [Agent 架构与任务生命周期](day57-agent-architecture.md)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
+Day 57 已补充 [Agent 架构与任务生命周期](week-9-notes.md#day57)及 [Week 9 计划](week-9-plan.md)。拟议控制流为“接收任务 → 规划 → 校验行动 → 调用工具 → 观察结果 → 继续或结束”，具有独立的任务状态和停止条件。
 
 这是后续模块设计，尚未接入上方运行架构。现有 RAG 检索可作为后续知识工具的基础，n8n 运行账本和边界日志不能直接替代 Agent 的任务检查点。
 
-[Day 58 独立实验](day58-langgraph-basics.md)已使用 LangGraph 运行固定计划与模拟知识结果，验证条件边和终止分支。[Day 59](day59-task-planner.md)进一步复用模型配置，在独立环境中请求 Qwen 生成计划并校验步骤结构；已验证明确任务与澄清分支。
+[Day 58 独立实验](week-9-notes.md#day58)已使用 LangGraph 运行固定计划与模拟知识结果，验证条件边和终止分支。[Day 59](week-9-notes.md#day59)进一步复用模型配置，在独立环境中请求 Qwen 生成计划并校验步骤结构；已验证明确任务与澄清分支。
 
-[Day 60](day60-task-state.md)接收有效计划，使用 LangGraph 原生 SQLite 检查点保存模拟步骤进度。task_id 等于 thread_id；每个任务使用独立数据库，进程锁和 checkpoint_id 防止并发与重复推进。已通过真实独立进程恢复和异常退出实验。
+[Day 60](week-9-notes.md#day60)接收有效计划，使用 LangGraph 原生 SQLite 检查点保存模拟步骤进度。task_id 等于 thread_id；每个任务使用独立数据库，进程锁和 checkpoint_id 防止并发与重复推进。已通过真实独立进程恢复和异常退出实验。
 
-[Day 61](day61-sales-agent-scenario.md)定义基于指定客户与时间范围的销售跟进分析场景，包含输入快照、报告契约和来源校验。离线规则读取虚构资料，输出建议类别及缺口；未接入真实 CRM 或 Agent 控制循环。该校验器复用现有 Pydantic，无新依赖。
+[Day 61](week-9-notes.md#day61)定义基于指定客户与时间范围的销售跟进分析场景，包含输入快照、报告契约和来源校验。离线规则读取虚构资料，输出建议类别及缺口；未接入真实 CRM 或 Agent 控制循环。该校验器复用现有 Pydantic，无新依赖。
 
-[Day 62](day62-agent-prompt.md)以独立 CLI 请求当前模型生成销售报告，复用 Day 61 的规则检查来源、范围和状态。Prompt 与 Schema 放在 System 消息，虚构快照单独作为 User 数据。5 个 Qwen 真实请求通过；每次单请求、无自动重试，结果尚未接入 Day 60 检查点或业务工具。
+[Day 62](week-9-notes.md#day62)以独立 CLI 请求当前模型生成销售报告，复用 Day 61 的规则检查来源、范围和状态。Prompt 与 Schema 放在 System 消息，虚构快照单独作为 User 数据。5 个 Qwen 真实请求通过；每次单请求、无自动重试，结果尚未接入 Day 60 检查点或业务工具。
 
-[Day 63](day63-agent-center-release.md)将上述模块纳入 Agent Center v0.1.0 版本范围，增加文档入口、版本哈希清单和两套依赖环境的离线验收。该组件仍为宿主机实验集合，未扩展平台运行架构。
+[Day 63](week-9-notes.md#day63)将上述模块纳入 Agent Center v0.1.0 版本范围，增加文档入口、版本哈希清单和两套依赖环境的离线验收。该组件仍为宿主机实验集合，未扩展平台运行架构。
 
 Day 58–60 的 LangGraph 实验依赖与 API 隔离。Day 60 数据在 `data/day60/`，状态格式版本为 1。计划的业务步骤尚未执行；当前没有 Agent HTTP API 或真实业务工具调用。检查点恢复不提供外部副作用恰好执行一次的保证。

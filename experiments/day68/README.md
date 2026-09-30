@@ -36,4 +36,4 @@ $day68TestDir = Join-Path $env:TEMP ('day68-tests-' + [guid]::NewGuid().ToString
 & .\.venv\Scripts\python.exe -m pytest experiments/day64 experiments/day65 experiments/day66 experiments/day67 experiments/day68 tests/test_retrieval_service.py -q -p no:cacheprovider --basetemp $day68TestDir
 ```
 
-详见 [完整复刻流程](../../docs/day68-multi-tool.md) 和 [验收证据](../../docs/evidence/day68/validation.json)。`completed` 表示所需工具结果齐全且报告状态/引用格式通过，不能代替业务事实或预测质量验证。销售、制度数据始终虚构，不能直接作为真实拜访计划。
+详见 [完整复刻流程](../../docs/week-10-notes.md#day68) 和 [验收证据](../../docs/evidence/day68/validation.json)。`completed` 表示所需工具结果齐全且报告状态/引用格式通过，不能代替业务事实或预测质量验证。销售、制度数据始终虚构，不能直接作为真实拜访计划。
