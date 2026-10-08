@@ -1,4 +1,30 @@
 services:
+  frontend:
+    image: enterprise-ai-platform-frontend:1.0.0
+    build:
+      context: ./frontend
+    container_name: enterprise-ai-platform-frontend
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   api:
     image: enterprise-ai-platform:1.0.0
     build:

@@ -20,8 +20,8 @@
 项目根目录的 `compose.yaml` 用于：
 
 - 构建后端镜像
-- 启动 API 容器
-- 映射 8000 端口
+- 启动 API、前端与 n8n 容器
+- 仅在本机映射 8000（API）、8080（前端）、5678（n8n）端口
 - 注入本地环境变量
 - 持久化数据库、向量数据和日志
 - 持久化 Embedding 模型缓存
@@ -43,4 +43,6 @@
 & .\scripts\start.ps1 -CheckComponents llm,dify
 ```
 
-只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 53 部署说明](../docs/week-8.md#day53)。
+只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 93 部署说明](../docs/week-14.md#day93)。
+
+API 和前端一起更新时使用 -WithoutN8n。前端使用 [独立 Dockerfile](../frontend/Dockerfile) 构建静态资源及 Nginx，同源代理到 API。数据库沿用 API 内的 SQLite 和 Chroma，以宿主机目录持久化。

@@ -2,6 +2,8 @@
 
 一个面向企业场景的 AI 平台学习项目。
 
+Day 93 新增知识库前端，默认启动 API、前端和 n8n；SQLite 与 Chroma 继续持久化到本机。详见[当前 Compose 部署与学习记录](docs/week-14.md#day93)。
+
 学习记录已按周整合，请从[Week 文档目录](docs/README.md#按周阅读)进入。
 
 测试与运行记录也已整理为[周摘要](docs/evidence/README.md)；重新评测使用[统一入口](evaluation-center/README.md#运行评测)。

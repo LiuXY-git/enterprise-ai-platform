@@ -1,8 +1,8 @@
 # 文档目录
 
-每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 92，Week 14 尚未完成。
+每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 93，Week 14 尚未完成。
 
-快速使用：[平台使用指南](week-8.md#user-guide) · [当前部署步骤](week-8.md#day53) · [API 参考](week-4.md#api) · [架构资料](week-1.md#architecture) · [Day 92 后端目录](week-14.md#day92)。
+快速使用：[平台使用指南](week-8.md#user-guide) · [当前部署步骤](week-14.md#day93) · [API 参考](week-4.md#api) · [架构资料](week-1.md#architecture) · [Day 92 后端目录](week-14.md#day92)。
 
 专题资料按首次引入的周次归档，并标注后续修订范围。历史记录中的成功率、版本与限制只适用于相应阶段；计划不是已完成功能。
 
@@ -23,13 +23,13 @@
 | [Week 11](week-11.md) | Day 71–77 | MCP、Memory 与 Planning |
 | [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
 | [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
-| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；目前完成 Day 92 |
+| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署 |
 
 ## 专题与操作入口
 
 | 查找内容 | 阅读位置 |
 | --- | --- |
-| 使用、配置与部署 | [使用指南](week-8.md#user-guide) · [配置中心](week-8.md#day52) · [启动与检查](week-8.md#day53) |
+| 使用、配置与部署 | [使用指南](week-8.md#user-guide) · [配置中心](week-8.md#day52) · [启动与检查](week-14.md#day93) |
 | 架构、技术与数据库 | [系统架构](week-1.md#architecture) · [技术选型](week-1.md#tech-stack) · [SQLite 表结构](week-2.md#database) · [后端重构](week-14.md#day92) |
 | API | [接口参考](week-4.md#api) · [后端说明](../backend/README.md) |
 | 知识库与 RAG | [Week 3](week-3.md) · [黄金问题](week-3.md#rag-golden-questions) · [检索优化](week-4.md#retrieval-optimization) |

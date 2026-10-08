@@ -17,3 +17,5 @@ Day 92 新增 [应用工厂与生命周期测试](test_day92_application.py)，�
 [OpenAPI 快照](fixtures/day92-openapi.json)取自重构前提交 `a5d7671d3d376d8020d9a9b37489f17ca03f598a` 的后端环境。接口有意变更时需审核路径、模型和响应差异，再更新快照；不能仅为消除测试失败而覆盖基线。依赖升级造成的 schema 差异也需要审查。
 
 Day 92 验证范围和复刻步骤见 [记录](../docs/week-14.md#day92)。
+
+Day 93 新增 [Compose 与接口测试](test_day93_compose.py)、[隔离持久化脚本测试](test_day93_persistence.py)。浏览器测试和真实 Docker 重建验收分别执行，入口见 [Week 14](../docs/week-14.md#day93)。
