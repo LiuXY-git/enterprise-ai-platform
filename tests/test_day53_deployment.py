@@ -90,6 +90,8 @@ def run_script(
     checker=False,
     env_file=True,
     without_n8n=False,
+    selected_file=".env",
+    env_argument=None,
 ):
     project = tmp_path / "project with spaces"
     scripts = project / "scripts"
@@ -97,7 +99,7 @@ def run_script(
     for name in ("start.ps1", "check-deployment.ps1", "deployment-common.ps1"):
         shutil.copyfile(ROOT / "scripts" / name, scripts / name)
     if env_file:
-        (project / ".env").write_text(
+        (project / selected_file).write_text(
             "N8N_ENCRYPTION_KEY=fake-test-key\n", encoding="utf-8"
         )
     trace = tmp_path / "trace.jsonl"
@@ -114,6 +116,7 @@ def run_script(
         + f"\n& (Join-Path $env:DAY53_ROOT 'scripts/{entry}') "
         + ("-ApiOnly " if api_only else "")
         + ("-WithoutN8n " if without_n8n else "")
+        + (f"-EnvFile '{env_argument}' " if env_argument else "")
         + "-CheckComponents @('llm', 'dify')\n",
         encoding="utf-8-sig",
     )

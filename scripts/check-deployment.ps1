@@ -1,5 +1,6 @@
 [CmdletBinding()]
 param(
+    [string]$EnvFile = '.env',
     [switch]$ApiOnly,
     [switch]$WithoutN8n,
     [ValidateSet('llm', 'dify', 'external-knowledge', 'feishu', 'wecom')]
@@ -9,7 +10,7 @@ param(
 . (Join-Path $PSScriptRoot 'deployment-common.ps1')
 if ($ApiOnly -and $WithoutN8n) { throw 'Choose ApiOnly or WithoutN8n, not both.' }
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$compose = @(Get-PlatformComposeArguments $projectRoot)
+$compose = @(Get-PlatformComposeArguments $projectRoot $EnvFile)
 Test-PlatformDocker
 Invoke-PlatformDocker ($compose + @('config', '--quiet')) | Out-Null
 $apiId = Get-PlatformContainer $compose 'api'

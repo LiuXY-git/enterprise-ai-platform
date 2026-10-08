@@ -11,11 +11,21 @@ function Invoke-PlatformDocker {
 }
 
 function Get-PlatformComposeArguments {
-    param([Parameter(Mandatory = $true)][string]$ProjectRoot)
+    param(
+        [Parameter(Mandatory = $true)][string]$ProjectRoot,
+        [string]$EnvFile = '.env'
+    )
+    if ([string]::IsNullOrWhiteSpace($EnvFile)) { throw 'Environment file path is empty.' }
+    $selected = $EnvFile
+    if (-not [IO.Path]::IsPathRooted($selected)) { $selected = Join-Path $ProjectRoot $selected }
+    if (-not (Test-Path -LiteralPath $selected -PathType Leaf)) {
+        throw 'Selected environment file is missing. Initialize or choose a local file first.'
+    }
+    $selected = (Resolve-Path -LiteralPath $selected).Path
     # Redirected PowerShell output is not always a valid Windows console handle.
     # Use text progress explicitly; never let Compose/buildx select a TTY UI.
     return @('compose', '--ansi', 'never', '--progress', 'plain',
-        '--project-directory', $ProjectRoot,
+        '--project-directory', $ProjectRoot, '--env-file', $selected,
         '-f', (Join-Path $ProjectRoot 'compose.yaml'))
 }
 

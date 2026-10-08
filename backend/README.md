@@ -27,14 +27,14 @@ FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、�
 .\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-默认访问 [API 文档](http://127.0.0.1:8000/docs)。应用启动时加载仓库根目录 `.env`，进程已有环境变量优先；缺少未使用组件的密钥不应阻止基础健康接口。离线检查选定组件：
+默认访问 [API 文档](http://127.0.0.1:8000/docs)。应用启动时默认加载仓库根目录 `.env`；可在启动前设置进程变量 `EAP_ENV_FILE` 选择其他文件（相对路径以仓库根目录为基准），明确选择的文件不存在时启动失败，进程已有环境变量优先；缺少未使用组件的密钥不应阻止基础健康接口。离线检查选定组件：
 
 ```powershell
 .\.venv\Scripts\python.exe -m backend.app.check_config --component llm
 .\.venv\Scripts\python.exe -m backend.app.check_config --component dify
 ```
 
-这些命令不验证密钥有效性和真实网络。API 模型配置不会改变 Dify/n8n 内部模型，详见 [配置说明](../docs/week-8.md#day52)。
+这些命令不验证密钥有效性和真实网络。API 模型配置不会改变 Dify/n8n 内部模型，详见 [配置说明](../docs/week-8.md#day52)。Day 94 新增环境初始化、来源检查和 Compose 文件选择，使用 [环境变量管理](../docs/week-14.md#day94)；上述旧检查命令指定文件仍需显式传入 `--env-file`。
 
 ## 验证与数据
 
