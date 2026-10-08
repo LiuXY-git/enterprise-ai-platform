@@ -21,3 +21,5 @@ Day 92 验证范围和复刻步骤见 [记录](../docs/week-14.md#day92)。
 Day 93 新增 [Compose 与接口测试](test_day93_compose.py)、[隔离持久化脚本测试](test_day93_persistence.py)。浏览器测试和真实 Docker 重建验收分别执行，入口见 [Week 14](../docs/week-14.md#day93)。
 
 Day 94 的 [环境管理测试](test_day94_environment.py)覆盖文件选择、配置来源、脱敏、特殊字符和 PowerShell 参数传递；实际 Compose CLI 与隔离容器检查的范围见 [Week 14](../docs/week-14.md#day94)。
+
+Day 95 的 [日志测试](test_day95_observability.py)覆盖并发上下文、500/流式/后台错误、敏感内容保护和日志故障。另行运行 [隔离 Uvicorn 验收](../scripts/verify_logging.py)；它使用随机回环端口、临时数据库和虚构输入，不修改现有容器。

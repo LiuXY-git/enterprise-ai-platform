@@ -34,9 +34,23 @@ def test_application_log_rotates_without_duplicate_handlers(tmp_path, monkeypatc
         assert handler.backupCount == 3
         handler.maxBytes = 200
         for number in range(20):
-            app_logger.info("rotation %s %s", number, "x" * 100)
+            app_logger.info(
+                "http_request_completed",
+                extra={
+                    "method": "GET",
+                    "route": "/fixture",
+                    "status_code": 200,
+                    "duration_ms": number,
+                    "response_complete": True,
+                },
+            )
         assert len(list(tmp_path.glob("app.log*"))) == 4
-        assert "rotation 19" in (tmp_path / "app.log").read_text(encoding="utf-8")
+        assert (
+            json.loads((tmp_path / "app.log").read_text(encoding="utf-8"))[
+                "duration_ms"
+            ]
+            == 19
+        )
     finally:
         for logger, level, propagate in originals:
             for handler in logger.handlers:

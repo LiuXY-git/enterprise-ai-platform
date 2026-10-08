@@ -50,3 +50,5 @@ SQLite 与 Chroma 默认在根目录 `data` 下，日志在根目录 `logs` 下�
 详细接口及当前边界见 [API 文档](../docs/week-4.md#api)。`/chat` 是回显示例；使用 `/rag/answer` 获取知识库生成回答。
 
 Day 92 重构保留 Uvicorn/Docker 入口、接口契约和数据路径。`create_app()` 构建应用时不启动数据库或配置日志；这些操作发生在 ASGI lifespan。测试应通过 `with TestClient(create_app())` 触发生命周期，并替换 `backend.app.core.lifecycle` 中的依赖。工厂隔离应用状态、依赖覆盖和文档标签，不承诺每个应用使用不同的进程环境或数据库，详见 [Day 92](../docs/week-14.md#day92)。
+
+Day 95 为应用增加 JSON 日志与服务端生成的 X-Request-ID，通过同一编号关联请求和工作流事件。日志字段、保护范围及复刻步骤见 [Week 14 日志系统](../docs/week-14.md#day95)。现有接口正文保持不变；应用使用 LoggedFastAPI 在错误处理栈外记录请求，不改写原异常响应。
