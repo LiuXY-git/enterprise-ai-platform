@@ -43,6 +43,6 @@
 & .\scripts\start.ps1 -CheckComponents llm,dify
 ```
 
-只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 93 部署说明](../docs/week-14.md#day93)。
+只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 93 部署说明](../docs/week-14.md#day93)。Day 94 增加 `-EnvFile`，启动和检查均需使用同一选中文件；初始化与配置检查见 [环境变量管理](../docs/week-14.md#day94)。
 
 API 和前端一起更新时使用 -WithoutN8n。前端使用 [独立 Dockerfile](../frontend/Dockerfile) 构建静态资源及 Nginx，同源代理到 API。数据库沿用 API 内的 SQLite 和 Chroma，以宿主机目录持久化。

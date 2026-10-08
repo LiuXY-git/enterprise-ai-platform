@@ -8,7 +8,7 @@ from fastapi import FastAPI
 
 from ..database import init_database
 from ..logging_config import LOGGER_NAME, configure_logging
-from ..settings import load_environment
+from .environment import load_environment
 
 logger = logging.getLogger(LOGGER_NAME)
 

@@ -2,6 +2,8 @@
 
 一个面向企业场景的 AI 平台学习项目。
 
+Day 94 已补齐[环境变量管理](docs/week-14.md#day94)：环境文件选择、初始化与脱敏检查。
+
 Day 93 新增知识库前端，默认启动 API、前端和 n8n；SQLite 与 Chroma 继续持久化到本机。详见[当前 Compose 部署与学习记录](docs/week-14.md#day93)。
 
 学习记录已按周整合，请从[Week 文档目录](docs/README.md#按周阅读)进入。
