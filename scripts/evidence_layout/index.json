@@ -1,0 +1,1613 @@
+{
+  "format_version": 1,
+  "archives": [
+    {
+      "path": "docs/evidence/week-07.zip",
+      "sha256": "e96df9cbb248e7325834f723219adc00f45fbe1e0efa4608f1bfbc718404b152",
+      "entries": {
+        "docs/evidence/day49/day49-notification-resolution-7975a813112249e394725f60c88a6ff4.json": {
+          "sha256": "ea6714ec3bffe80f4fceeb9cf1be819e8159d09c5293c33e22331109401274f2",
+          "size": 52129
+        },
+        "docs/evidence/day49/day49-production-fc8d9aebad1e42b5b658d74dd57e155b.json": {
+          "sha256": "bb12094dce61fe26b1de265f052327ceeed4d063266b95bed14f321d5a1a6fe6",
+          "size": 54152
+        },
+        "docs/evidence/day49/day49-replay-guard-17e171ec3a4a470b8118a25c512d0268.json": {
+          "sha256": "bfe36380d4b59466767f11ac653d7b8c0d4674126ef9d9a72cb96e82f3a124f7",
+          "size": 47841
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-08.zip",
+      "sha256": "475072591a8f376bc2b091df70a434a7086ba8752a9077b78ab8773a99ae3088",
+      "entries": {
+        "docs/evidence/day53/deployment-validation.json": {
+          "sha256": "708211b2986a35eb30bc957e2ed319fa73edac7226b599df0607321b38b47c19",
+          "size": 1111
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-09.zip",
+      "sha256": "e676cb2269c1cf0345b4617870d2c5d5aac96e3f19a6a47a45f61628e1aaddc6",
+      "entries": {
+        "docs/evidence/day58/graph-validation.json": {
+          "sha256": "bfb9e135fdff128876c274b9c625abc8d38fc8e17b8cf1acd62dd53b39911963",
+          "size": 3721
+        },
+        "docs/evidence/day59/live-plans.json": {
+          "sha256": "5b815f28eeee11087fbc9b236dc142cb64d039f29e5105677a63fad7b62c8169",
+          "size": 3949
+        },
+        "docs/evidence/day59/validation.json": {
+          "sha256": "db74373d995dd0cae2a6c040b7743cbf55cb980c704f550a161b38b31fc6b233",
+          "size": 3341
+        },
+        "docs/evidence/day60/process-recovery.json": {
+          "sha256": "07dcf20a7e3a37890f88a4fa04f7abc5ebb089dc75e3618b2e731ea6d713c994",
+          "size": 6404
+        },
+        "docs/evidence/day60/validation.json": {
+          "sha256": "e6f1a8df5eec90f56cc2ffd23fe432c8348edf48a0af55e6475b128729d4d851",
+          "size": 2370
+        },
+        "docs/evidence/day61/plan-progress.json": {
+          "sha256": "f2f638d6b06fe466ca4649f185680894a48d881e8df393d89b1b6fd8ebf48157",
+          "size": 2296
+        },
+        "docs/evidence/day61/scenario-results.json": {
+          "sha256": "79d9aaae805128f12572dab41db3169d16a3663394932a7893ae85ef90618ee6",
+          "size": 13705
+        },
+        "docs/evidence/day61/validation.json": {
+          "sha256": "f41e2452b803ff35c55262cc354e830b955885cdd9a7b00507b8b0efa5d57301",
+          "size": 2249
+        },
+        "docs/evidence/day62/live-reports.json": {
+          "sha256": "0abdc3cac3e21c8a717ded63211093602135d416e4de9c2df43302becd128f4f",
+          "size": 7122
+        },
+        "docs/evidence/day62/offline-results.json": {
+          "sha256": "6bd4b583a83cb9e22713df06b202fe0309fb23d0dc7dfb15daf176bba6ce80e6",
+          "size": 1743
+        },
+        "docs/evidence/day62/validation.json": {
+          "sha256": "95aa8b94f4498b627655c416fa943f2d0554b363a5f319095d7c21ed6f05e098",
+          "size": 2882
+        },
+        "docs/evidence/day63/validation.json": {
+          "sha256": "ea0e134fda4190e3d1bd0477046546912611ca49c039ba2207f85e9761e6e1f0",
+          "size": 2571
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-10.zip",
+      "sha256": "7f86a5fdb654e0e496aac773f77bbe3a223e93a57945dffecb018926edf4715c",
+      "entries": {
+        "docs/evidence/day64/fixtures.json": {
+          "sha256": "902890afd0c28e3465a241cf88de301d04086ffc02992ad189b82787a7d99a3e",
+          "size": 6368
+        },
+        "docs/evidence/day64/live-first-attempt.json": {
+          "sha256": "4f9b247378abc83d1607b7273908628e23caf38aa560d245e7c08c364ea271b5",
+          "size": 1635
+        },
+        "docs/evidence/day64/live-quote.json": {
+          "sha256": "e9a0b4b31acf488ab3a0daa331a3bf4d9eb3a8052854537c8abc8e43d7406786",
+          "size": 2923
+        },
+        "docs/evidence/day64/validation.json": {
+          "sha256": "8890250c87027edb0c90029092c7ca00757dd4ef890d49a897f2f53105625dd5",
+          "size": 3243
+        },
+        "docs/evidence/day65/fixtures.json": {
+          "sha256": "7462852d5f596c18c78352c8c10a5427ba2f2c13c29fe476a9432b67867c8ccc",
+          "size": 13045
+        },
+        "docs/evidence/day65/live-empty.json": {
+          "sha256": "d839fa197bf813a11f8b7f6b32fcb88084bfff8a010d76d49a669ef0418df82e",
+          "size": 3953
+        },
+        "docs/evidence/day65/live-monthly.json": {
+          "sha256": "b70298560c7d3977351f2d5de9d28b72dcbe008c569a466ba5b89f6289835a08",
+          "size": 5118
+        },
+        "docs/evidence/day65/validation.json": {
+          "sha256": "79242d47a752087a564bc75e1f1068358e9d88526455c88dff6009d47223707f",
+          "size": 3934
+        },
+        "docs/evidence/day66/fixtures.json": {
+          "sha256": "dc94400df3be5ef4789ba0cd65cef5e1dc728eef1b55cf45c7ebc1a276cf7860",
+          "size": 14522
+        },
+        "docs/evidence/day66/live-empty.json": {
+          "sha256": "54c3f39a6e40d2ab585812180695709300c5410d11525bfa35c87c21b0c6a63d",
+          "size": 3699
+        },
+        "docs/evidence/day66/live-supported.json": {
+          "sha256": "822c374e7d38b918ff6ecbff29408c64f072fe4078fdac0e255d457f775b07c9",
+          "size": 6312
+        },
+        "docs/evidence/day66/real-retrieval.json": {
+          "sha256": "b8f38ca9e7254d5cd49a116666423a4fe966d6d5ed2be30bb3079795f80e1f83",
+          "size": 1697
+        },
+        "docs/evidence/day66/validation.json": {
+          "sha256": "9b258437a881f9181764b2935c46d3a556a80d310d6d8ba3b0a248278095fc59",
+          "size": 5515
+        },
+        "docs/evidence/day67/fixtures.json": {
+          "sha256": "4cbd6ae246153d1e2995e81d2a022d0034aec500e9cd96985b4882645bf80b5f",
+          "size": 14119
+        },
+        "docs/evidence/day67/live-api.json": {
+          "sha256": "1174eef9a69dd92f9c3a5bf1818a8fb99aecc237cf1a24fb37aea4d47ff653a7",
+          "size": 767
+        },
+        "docs/evidence/day67/live-beijing.json": {
+          "sha256": "e88504d3e5adfd9732e42651dcaabe3c353411e26c4c841125dd23bd98eb15cd",
+          "size": 4954
+        },
+        "docs/evidence/day67/live-shanghai.json": {
+          "sha256": "3a43f8c465f4be172edc794e2084569e23fc99cc9f0f43decb4e46e14c597374",
+          "size": 6097
+        },
+        "docs/evidence/day67/validation.json": {
+          "sha256": "46eee51af45f94df1f5f275922e4d4ae85d599dad1bba05921d524018fa8a65f",
+          "size": 4996
+        },
+        "docs/evidence/day68/fixtures.json": {
+          "sha256": "daeb16cecdb131dd36f59b62b5e0edc18c0a6a5077dfe9aeb24d6c494e30c1f9",
+          "size": 47021
+        },
+        "docs/evidence/day68/live-full.json": {
+          "sha256": "46df62f9f71d760c84e9629e27350c3856ffa8e6b99d7c231cb73ceb70041093",
+          "size": 14220
+        },
+        "docs/evidence/day68/validation.json": {
+          "sha256": "12b45b76ed5ce8fe94d7f0ad4ca5d106dd86a8d33cec59ec107ec9c640411499",
+          "size": 6221
+        },
+        "docs/evidence/day69/historical-briefing.md": {
+          "sha256": "d9d6947ae4a062c03657b8f74b5d68e262a1e97d28e522c9f99440308508ce68",
+          "size": 1694
+        },
+        "docs/evidence/day69/historical-render.json": {
+          "sha256": "509ab7af6cb0066e39cc4bec7ad12f6e03969f5e8a404e42831a659b9380597c",
+          "size": 3275
+        },
+        "docs/evidence/day69/live-no_sales.json": {
+          "sha256": "27e8470aad589c0a9740b7765061ddda436b1dcfc5aa1e5cb7f24a3f212ef5ec",
+          "size": 8114
+        },
+        "docs/evidence/day69/live-weather_timeout.json": {
+          "sha256": "c808360eccc5c79a59309358454c9cadbf58bb370ba3f83451fcebb04a7f7dbc",
+          "size": 15899
+        },
+        "docs/evidence/day69/recovery.json": {
+          "sha256": "5ab7b11edb36e91eab8103966ce53b73c5f80640dca48b3e8324eebdba58d883",
+          "size": 30403
+        },
+        "docs/evidence/day69/scenarios.json": {
+          "sha256": "8022915704085dcec51754297e709f8892c201f93155d7d7c0943fd3f6c0437a",
+          "size": 214545
+        },
+        "docs/evidence/day69/validation.json": {
+          "sha256": "7b4db8738c07f7df40d259d1046c4ae15b53cbea1fa22b1be22cbc3e210d5edc",
+          "size": 6668
+        },
+        "docs/evidence/day70/release.txt": {
+          "sha256": "f334d0e8204367adeea0c3a1021076e91eef383ff15bef16d236aa8ebb2bdf4c",
+          "size": 101
+        },
+        "docs/evidence/day70/release.xml": {
+          "sha256": "276ec61b69138de4da22f7b6f056731eccd6b3356c48f2c782eaa3a365d809cf",
+          "size": 5592
+        },
+        "docs/evidence/day70/tools.txt": {
+          "sha256": "59040c9fa2a692b028af4aaec85fab31c742ae21d5d2737c200c1f0863b28cf1",
+          "size": 1337
+        },
+        "docs/evidence/day70/tools.xml": {
+          "sha256": "1cb66525248fb63d807cf62c2de392c3cc150cf14648b57c60168a9d205c786c",
+          "size": 107095
+        },
+        "docs/evidence/day70/validation.json": {
+          "sha256": "f7ea21479863bc6dd411fd1cf83c4a502194c17a949da5ceb740ac08a011b41f",
+          "size": 5007
+        },
+        "docs/evidence/day70/verification.json": {
+          "sha256": "f8160344bc08543d9c178182a903bff396311d8f23d025ba88c54b7e2025cd82",
+          "size": 2785
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-11.zip",
+      "sha256": "bd1d0649f8b7f9116c4a00523688292b5bdc343dc2d59bed67d5875fdbc7bb5e",
+      "entries": {
+        "docs/evidence/day72/pytest.xml": {
+          "sha256": "4c6eb9a95fcc800b9adf97b1821f62dba7c0656b0a98e2d0aecdb08f7b436fe3",
+          "size": 15488
+        },
+        "docs/evidence/day72/sdk-client.json": {
+          "sha256": "aafe2f1e49be82ace4ed512801e7ae06e5b4c9b6e4f248f4b3f752fec642ede1",
+          "size": 6811
+        },
+        "docs/evidence/day72/validation.json": {
+          "sha256": "f51bf5a8995346939116c0b91477cee4d4ee0121a92f2ce07c568de2023d2c18",
+          "size": 5241
+        },
+        "docs/evidence/day72/wire-client.json": {
+          "sha256": "1f48c435fd800c3fa6b39968c6ee110ca1443d4c16eb79781b20bf5595731a03",
+          "size": 12586
+        },
+        "docs/evidence/day73/fixture-mcp.json": {
+          "sha256": "b545ad9230b669d5dade6d4646802280c41a4ed11bd97bd99a7c42c6e979020c",
+          "size": 25139
+        },
+        "docs/evidence/day73/live-empty.json": {
+          "sha256": "7b9e55d47447bb3b8e3e258027545325253eb137de8f772899b402f2a85f456b",
+          "size": 6714
+        },
+        "docs/evidence/day73/live-monthly.json": {
+          "sha256": "ded3df882cb62dcc76d2dd7ca94dcf650aea9348b5fcfa3b5095a912bd5618c3",
+          "size": 7504
+        },
+        "docs/evidence/day73/pytest.xml": {
+          "sha256": "fd6b4132ccd5049a25a28ad1d8a6ed97f6dd734f3b63e70076824f4bef9a70a9",
+          "size": 48456
+        },
+        "docs/evidence/day73/validation.json": {
+          "sha256": "49adeb95f2b4abdf8dcda3d2f0e4a29bd420cc12c252ac9486287c1dd960aa22",
+          "size": 5752
+        },
+        "docs/evidence/day74/validation.json": {
+          "sha256": "6e988b181251b62060928b2e00a8a10f93555326b1f08614cede6cc73c6ed6b4",
+          "size": 2310
+        },
+        "docs/evidence/day75/live-session.json": {
+          "sha256": "20c0585c4eca8ec4f36e0796674c4b6a357cf9e0518eee23d81b551dfc31c9b0",
+          "size": 13136
+        },
+        "docs/evidence/day75/offline-session.json": {
+          "sha256": "a3335c70653dd45412bbc7844065284c6debb97a3a1a4189a5f46e45917f4276",
+          "size": 12920
+        },
+        "docs/evidence/day75/pytest.xml": {
+          "sha256": "3ab992bb26f1c57826433ea8cfebce929757763bb5c980c64f889b541fbdee0f",
+          "size": 29432
+        },
+        "docs/evidence/day75/validation.json": {
+          "sha256": "9f4f858099ae445fa07802b0f7b19dd2850e09f6823e233c9255ff1897efbc5b",
+          "size": 5164
+        },
+        "docs/evidence/day76/offline-review.json": {
+          "sha256": "9142643f9f5af5f4830efabeb545285da23f69dc28b9a9ea85b64c04faf3f176",
+          "size": 5768
+        },
+        "docs/evidence/day76/validation.json": {
+          "sha256": "e2cb3d5edf4e025d48bf14e8cd6e964c02276afff6b4ef144644dd7b9df2bab9",
+          "size": 2872
+        },
+        "docs/evidence/day77/mcp-demo.json": {
+          "sha256": "66c60b6a9e600477de5d7cadba033bc73c204e68d78afd056cc1167633244f11",
+          "size": 25139
+        },
+        "docs/evidence/day77/memory-demo.json": {
+          "sha256": "8761990e5bf736b557b4d7d8fcfebb3351cb36c8df6fb19350f33b26e0eb8aff",
+          "size": 12920
+        },
+        "docs/evidence/day77/planner.txt": {
+          "sha256": "91660ef66bfdd021b2b6784d92ed94e356f8f0074bb7e81a5d7d9a71c748ceae",
+          "size": 727
+        },
+        "docs/evidence/day77/planner.xml": {
+          "sha256": "ca5c0845a79e4cdc52c9d8579605d9b5b9cfc3c96fe0f5a89a76e889aaf2f69c",
+          "size": 24779
+        },
+        "docs/evidence/day77/planning-demo.json": {
+          "sha256": "f444b8477d686679ade457d537bff98e3c7c9aee52df25bdb8e6c70560da9de7",
+          "size": 1775
+        },
+        "docs/evidence/day77/release.txt": {
+          "sha256": "065d001d936ae7093fb2269e670db19f7d6cf0e49130dfe3de0c26d52e6c8d9b",
+          "size": 101
+        },
+        "docs/evidence/day77/release.xml": {
+          "sha256": "27f09b736c47da7f1bcb2102b04eff079a0964e85907af10a142839942d1bb2f",
+          "size": 4949
+        },
+        "docs/evidence/day77/runtime.txt": {
+          "sha256": "d9fc8498217e9b946f2a8ff63b3f205536fff0c6f92ed3fdbebd8fde7ced9b74",
+          "size": 508
+        },
+        "docs/evidence/day77/runtime.xml": {
+          "sha256": "8fd0b8da587fb04589c582d73cdbcd7f0294cfc019228789a67826e4f3a5db3e",
+          "size": 55210
+        },
+        "docs/evidence/day77/validation.json": {
+          "sha256": "18d849c7970c644115264aa2769a847d245e85fb078f3d7812a43fedbe76f8b0",
+          "size": 5564
+        },
+        "docs/evidence/day77/verification.json": {
+          "sha256": "daa5bccf330623a5ab9484d91eeb3bf46d07ae698fa92bdef8bdb27048ca3ae9",
+          "size": 4223
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-12.zip",
+      "sha256": "0ad4fd00022601575b09ef2b19389244f5b0a6062f1687f496215325f1e903b8",
+      "entries": {
+        "docs/evidence/day78/offline-demo.json": {
+          "sha256": "213170f1467811ebe9dad911105b46cbe459cdb906d8fa7ed02a639acfe92842",
+          "size": 19905
+        },
+        "docs/evidence/day78/regression.xml": {
+          "sha256": "8aeb6d47c5980778b3bae6bd3eeeee6e89eca1f34667bd7240ed841e7b4035d2",
+          "size": 53203
+        },
+        "docs/evidence/day78/validation.json": {
+          "sha256": "df4aad9d3031969fa34288f1a1283d3643450a9f2a84d1fdb9c89182803be1b7",
+          "size": 3247
+        },
+        "docs/evidence/day79/offline-demo.json": {
+          "sha256": "ffe7033347eedde21b0136b815e7b245f36b225b99d47eefbf4512d0184f8707",
+          "size": 75096
+        },
+        "docs/evidence/day79/regression.xml": {
+          "sha256": "ee3abe0f393ea88e391c037576ea43de51c5487b23fa79f98f876ad9b1905170",
+          "size": 61994
+        },
+        "docs/evidence/day79/validation.json": {
+          "sha256": "34f6572488f42ebf00831835f7adffbdf629977c5ae91d021885a47183ffc534",
+          "size": 3254
+        },
+        "docs/evidence/day80/approval-demo.json": {
+          "sha256": "f8625ab0f5aaaef010622f0ddf400d79c023f2a0fe42781d8fd6431a808bc56b",
+          "size": 46443
+        },
+        "docs/evidence/day80/regression.xml": {
+          "sha256": "76938a55f5a7541a594db742b2e1c127ee1ecbdc71c002143b14825d94ffd077",
+          "size": 69173
+        },
+        "docs/evidence/day80/validation.json": {
+          "sha256": "0a70aceb5d3ccd0816ee39e7d270dd1a49af2d8867c1f89b530eb9b49f4b52e1",
+          "size": 3461
+        },
+        "docs/evidence/day81/acceptance-tests.xml": {
+          "sha256": "68c410db6e269f9ca2ef007dd918a4c79b41125944f088c67f8550453edeb7d5",
+          "size": 5895
+        },
+        "docs/evidence/day81/acceptance/clarification_stop/trace.json": {
+          "sha256": "ff4a87df0c80b7b98c211ee15cc7905007f4d302732397e5c550aa9b9affeb7a",
+          "size": 6671
+        },
+        "docs/evidence/day81/acceptance/cross_task_approval/trace.json": {
+          "sha256": "ba91482f376461e3fdf3bf778e9f9d242c81e4fe3c8367fe9980b086f87ad272",
+          "size": 35822
+        },
+        "docs/evidence/day81/acceptance/customer_approve/trace.json": {
+          "sha256": "fc7c26a65042a0961b5d257911b919b812c7be446d7f4065f653b091cd4b43b7",
+          "size": 19344
+        },
+        "docs/evidence/day81/acceptance/duplicate_approval/trace.json": {
+          "sha256": "6acb9d5b01ef3c8dc6c581c902621fa9facb8ecfaa7f09df27a908dc08ec3014",
+          "size": 22381
+        },
+        "docs/evidence/day81/acceptance/empty_approve/trace.json": {
+          "sha256": "0dc43351b24f861c1e51f554d511adf3164c9bdeb8d0bf068dd441cb5bae4f18",
+          "size": 19443
+        },
+        "docs/evidence/day81/acceptance/expired_approval/trace.json": {
+          "sha256": "9b3e5b041944326094951a9144339cd2229c5f0232904105561b43d7c3825ac4",
+          "size": 18329
+        },
+        "docs/evidence/day81/acceptance/fallback_approve/trace.json": {
+          "sha256": "a8b5bb02cd037316412e83f870de64172f0e7ced6184fbaecb59149aed5d9a46",
+          "size": 23049
+        },
+        "docs/evidence/day81/acceptance/human_reject/trace.json": {
+          "sha256": "21abb97316f89c8a33215a0323bed8b41d4bc37a6a002b38551731502cab7a21",
+          "size": 20570
+        },
+        "docs/evidence/day81/acceptance/invalid_arguments/trace.json": {
+          "sha256": "6606de1b9025fdb62771de33b410846019d38e2467cce727731d8b27512a69be",
+          "size": 6563
+        },
+        "docs/evidence/day81/acceptance/invalid_report/trace.json": {
+          "sha256": "e35dc7b50064e9290a22f3c3d0aa4def0e165fc35116fed519a2064cf8d0128e",
+          "size": 9427
+        },
+        "docs/evidence/day81/acceptance/monthly_approve/trace.json": {
+          "sha256": "71340095a0883096782447d956adc36cfa58dfb33103931a0b8f09a5d46686b0",
+          "size": 19871
+        },
+        "docs/evidence/day81/acceptance/parallel_approval/trace.json": {
+          "sha256": "c9b93ccbf24e06faa5aa208ab82cbb40b778b92ca183e2888c6adc21a6a16271",
+          "size": 24870
+        },
+        "docs/evidence/day81/acceptance/report.json": {
+          "sha256": "ce88c4a54ae69aa437cd3bd98c1937304d08997a6e31191c4493950d3038c9f2",
+          "size": 4129
+        },
+        "docs/evidence/day81/acceptance/retry_approve/trace.json": {
+          "sha256": "38b9cf82eff6a663725504302c9041dcf4b5db0e6f93b122248affb240fc07a3",
+          "size": 21775
+        },
+        "docs/evidence/day81/acceptance/revision_approve/trace.json": {
+          "sha256": "bbaafe466acfa1f5295c54ee31fb220c7277804f0640f391bd853f7c639c1aff",
+          "size": 28494
+        },
+        "docs/evidence/day81/acceptance/tool_exhausted/trace.json": {
+          "sha256": "686a6122b62e4cddb5c3c0c7e52d520303db91cf8b7dbd8424cbbb904d93760e",
+          "size": 11010
+        },
+        "docs/evidence/day81/regression.xml": {
+          "sha256": "b39e3bae54c727d098a84e7a30030038e96578fed34b61ccfc1b86f49a7fae0f",
+          "size": 69173
+        },
+        "docs/evidence/day81/validation.json": {
+          "sha256": "5b689836c8d5684f960526390e1a7952b42c803b5c9790729343a235c5cb75f1",
+          "size": 3647
+        },
+        "docs/evidence/day82/comparison/broaden_customer-baseline.json": {
+          "sha256": "98065e5441940def14c0172d34491a6f4da027440060a9f190cbe543a335abd2",
+          "size": 11181
+        },
+        "docs/evidence/day82/comparison/broaden_customer-candidate.json": {
+          "sha256": "41b621b07be4e7275ea0f5ef748b3e147b03a075c95cd6de6446f8e884ef0c85",
+          "size": 14669
+        },
+        "docs/evidence/day82/comparison/claim_sent-baseline.json": {
+          "sha256": "d6ae1ac3c11d42790698f084d00eb4897baa09ef41cf6d2aa55b5e444dfee786",
+          "size": 11204
+        },
+        "docs/evidence/day82/comparison/claim_sent-candidate.json": {
+          "sha256": "f9bab6e67f9db2b2e07c50132b1ea4fd3fd0c75a3228df013620553f7494b343",
+          "size": 14692
+        },
+        "docs/evidence/day82/comparison/clarification-baseline.json": {
+          "sha256": "34a7290ff12120e0e9beb1ab2109c909606b47416ca2b35b241091e8962a5dd7",
+          "size": 4828
+        },
+        "docs/evidence/day82/comparison/clarification-candidate.json": {
+          "sha256": "87c8cb39d2df7d1f9da0e2aca80b923bcf12a758ec26c8a90c3eecbf00067d86",
+          "size": 6573
+        },
+        "docs/evidence/day82/comparison/customer-baseline.json": {
+          "sha256": "5913bf83ae6e09219546ae3129b1377ff0403572352a4f43b3d171b97f0a82fd",
+          "size": 10985
+        },
+        "docs/evidence/day82/comparison/customer-candidate.json": {
+          "sha256": "b0e7e5c58bdfdaa32077c0f5cd2a3f0395e22ba84f2e1d1dbfcc0580698a02e0",
+          "size": 14473
+        },
+        "docs/evidence/day82/comparison/empty-baseline.json": {
+          "sha256": "bb89e7975e583443cc6d453a14b50cd7f9a5d3c858efe3be643663da7fa80e48",
+          "size": 9968
+        },
+        "docs/evidence/day82/comparison/empty-candidate.json": {
+          "sha256": "d7bac02a074736121aa26067aaf318896325253c8b91b18c9a038c813ddcccda",
+          "size": 13456
+        },
+        "docs/evidence/day82/comparison/invent_amount-baseline.json": {
+          "sha256": "968db2e4a7886f6be8b033f16e4ffbba74d7ed83257aba1e9ab8fd9d7f74bf0c",
+          "size": 11215
+        },
+        "docs/evidence/day82/comparison/invent_amount-candidate.json": {
+          "sha256": "a8e7fe4e7c54934636e8211c4f1fbac48decc6d17402773334025ccb58970a9e",
+          "size": 14703
+        },
+        "docs/evidence/day82/comparison/invent_growth-baseline.json": {
+          "sha256": "95fe935bacf8127a57e15eb59ffd43b30f98c51765a36ac6578ec6ad8d26f534",
+          "size": 10142
+        },
+        "docs/evidence/day82/comparison/invent_growth-candidate.json": {
+          "sha256": "768901e8d1a2303fd04c77f4f8cc95a6b871c816ab12daa9eec317e905f0424d",
+          "size": 13630
+        },
+        "docs/evidence/day82/comparison/monthly-baseline.json": {
+          "sha256": "c2806672aed8a5b9761cfd1e13145729e151546bbacd1969c475b6c77bd147e0",
+          "size": 11023
+        },
+        "docs/evidence/day82/comparison/monthly-candidate.json": {
+          "sha256": "57da9278b8bbda7fbad141832c668a20199a913489ba9635ae9f6bbc8c5ee7db",
+          "size": 14511
+        },
+        "docs/evidence/day82/comparison/reject_extra_call-baseline.json": {
+          "sha256": "c07a2cac7092ad0c30f91be9c51d9a65bbbeec8307fdca08b8acbbe22ab733b7",
+          "size": 4605
+        },
+        "docs/evidence/day82/comparison/reject_extra_call-candidate.json": {
+          "sha256": "92e0d92ba9b16dd0166c8382e184b9918b1de1fa23095fcc2edaffaeb90dbcca",
+          "size": 6350
+        },
+        "docs/evidence/day82/comparison/reject_false_fictional-baseline.json": {
+          "sha256": "001966d9470dd98ff1df638a6e5e699f2b7415e05f941f502aac71a0b4f4f88d",
+          "size": 10538
+        },
+        "docs/evidence/day82/comparison/reject_false_fictional-candidate.json": {
+          "sha256": "92e50341876fdd75932fb31d344d68a4b5b32b10fdd264f81216f1fa2be4ebda",
+          "size": 14026
+        },
+        "docs/evidence/day82/comparison/reject_invalid_json-baseline.json": {
+          "sha256": "ed7661261c859664cfc85729dc954aa3da361e07c50d658dfe07fbb265a750d9",
+          "size": 10552
+        },
+        "docs/evidence/day82/comparison/reject_invalid_json-candidate.json": {
+          "sha256": "202ac73f85d6a6d8c8fb6e2911b43a193d6228a43fe24e599fcd61a637b3e7cb",
+          "size": 14040
+        },
+        "docs/evidence/day82/comparison/reject_no_receipt-baseline.json": {
+          "sha256": "40a9fbd99a6b99280ca93d9d4964db288de534f96384df594af4aa0da2d27051",
+          "size": 4712
+        },
+        "docs/evidence/day82/comparison/reject_no_receipt-candidate.json": {
+          "sha256": "18957cde3eef0904264e0cb6c69596732ad5a38b4ba10df470c6f519b46b741c",
+          "size": 6457
+        },
+        "docs/evidence/day82/comparison/reject_second_call-baseline.json": {
+          "sha256": "188fc5cb7bf791a98a4a6364eedf3739958560a6262e5a8316c9ea2b957478b8",
+          "size": 9958
+        },
+        "docs/evidence/day82/comparison/reject_second_call-candidate.json": {
+          "sha256": "f1c53856788a29c3d81e1ec12a2db4258604cdd2cdca25bab8dcf4615057045a",
+          "size": 13446
+        },
+        "docs/evidence/day82/comparison/reject_wrong_citation-baseline.json": {
+          "sha256": "0a99d5682bcf96796c3ee258667cde3c6237ab0a45424e447d999f7b20852fbd",
+          "size": 10491
+        },
+        "docs/evidence/day82/comparison/reject_wrong_citation-candidate.json": {
+          "sha256": "e88db328da79a320c1ceef3be0c9980c28944eff27a3c7271f65204b4c121a68",
+          "size": 13979
+        },
+        "docs/evidence/day82/comparison/reject_wrong_scope-baseline.json": {
+          "sha256": "65e4092d578422afa8069e197d58fbb3653a8f6e6262df99c10c63e34542d559",
+          "size": 4605
+        },
+        "docs/evidence/day82/comparison/reject_wrong_scope-candidate.json": {
+          "sha256": "3ad46fe03eac369956a570037dca3f343b4966d3b9825b35e86c6157df8d0ad5",
+          "size": 6350
+        },
+        "docs/evidence/day82/comparison/reject_wrong_total-baseline.json": {
+          "sha256": "12b7091b74d927b78475da6c2c86747e69950c1f4a44e85ad92a5d681bf11234",
+          "size": 10532
+        },
+        "docs/evidence/day82/comparison/reject_wrong_total-candidate.json": {
+          "sha256": "26c99a597bf4e27feda69c1259f5540008d7183be1dd56dfb4501595492e0258",
+          "size": 14020
+        },
+        "docs/evidence/day82/comparison/report.json": {
+          "sha256": "a2fa30a513923f531f692ddadfbfc92efa095d749aba32babd73de1cacd6dc47",
+          "size": 10631
+        },
+        "docs/evidence/day82/integration/case-1.json": {
+          "sha256": "3b8204fe8a33890f308771fef08943972a5dc611709117c1730b8589917f8c99",
+          "size": 9894
+        },
+        "docs/evidence/day82/integration/case-2.json": {
+          "sha256": "ef1be10dde59e774c2429497eab51e214dc3f59bfc2a94df2af707009d2c9891",
+          "size": 9772
+        },
+        "docs/evidence/day82/integration/case-3.json": {
+          "sha256": "9b6f077261b3cc4c34fbbfe6a9772e5117bd292b1d24078839327fe5cc499927",
+          "size": 9513
+        },
+        "docs/evidence/day82/integration/case-4.json": {
+          "sha256": "83e4e9338b6323207eab5570b240686ccd9a4505713e8f3766555d0bc8518710",
+          "size": 3867
+        },
+        "docs/evidence/day82/integration/case-5.json": {
+          "sha256": "493aa517a6e6136956333638b4b1381db963432f5dc7e9ce13de293ccf24c4a6",
+          "size": 9905
+        },
+        "docs/evidence/day82/integration/case-6.json": {
+          "sha256": "02e3db860c142e35c6f4589d60f5f9bb5ab8b0903442f2aa6f0156dfdffd4cb3",
+          "size": 3840
+        },
+        "docs/evidence/day82/integration/case-7.json": {
+          "sha256": "e44b3ff8acc4ff5bffc4ed41393448510f8802d80f77913f70886a35ad22f094",
+          "size": 14504
+        },
+        "docs/evidence/day82/integration/case-8.json": {
+          "sha256": "ec35ec0319c183bf54bfa21f4ea81a898d4cf0acb1b4ea4387d89fc3c20101e7",
+          "size": 8260
+        },
+        "docs/evidence/day82/integration/case-9.json": {
+          "sha256": "b937c2cad5b3e119c4e523d4d9cc4642c92fb5788ac93a09c883ce5a96be4264",
+          "size": 3857
+        },
+        "docs/evidence/day82/prompt-tests.xml": {
+          "sha256": "1fb045c1a932a281772bed39ec2d489735a18b858bf8403c1b6099b8f1561234",
+          "size": 8189
+        },
+        "docs/evidence/day82/regression.xml": {
+          "sha256": "8459674f9ebaae0ab14d812f1805631fc7317e0894ba9b9e2b0a2f33f8542535",
+          "size": 74814
+        },
+        "docs/evidence/day82/validation.json": {
+          "sha256": "75d0ce39a8a334e9d55b48a89b0e535f13046a4f0763f1a79ab732e1898c57c9",
+          "size": 5422
+        },
+        "docs/evidence/day84/core.txt": {
+          "sha256": "df0461f7dcfec7a2e56e73b3804553e5c2bd82847b65cb31ad4366bbe9b56d28",
+          "size": 508
+        },
+        "docs/evidence/day84/core.xml": {
+          "sha256": "6205fee2475a68cd0ced09d8e9f5a21facd4662fbd8aadddd6be4ec1b9de8d36",
+          "size": 55210
+        },
+        "docs/evidence/day84/demo-rehearsal.json": {
+          "sha256": "fb8d5b7b30f53b14b9d548165fb40a8acf47e3169baf128209d0e25cdc99ff71",
+          "size": 20095
+        },
+        "docs/evidence/day84/enterprise.txt": {
+          "sha256": "9deb39e6e3001e42da36eba9320f1a221e707d84254aa596298515c2ff090c3d",
+          "size": 357
+        },
+        "docs/evidence/day84/enterprise.xml": {
+          "sha256": "0b84d1b29fa6b0d3966d2fe1951e9c1c9679b96160247dd3e4e53df61d81b4d1",
+          "size": 34546
+        },
+        "docs/evidence/day84/planner.txt": {
+          "sha256": "816b66d179a9660307d83677837dceb7fd16a8e61a84fb58b811cf7615208f6f",
+          "size": 727
+        },
+        "docs/evidence/day84/planner.xml": {
+          "sha256": "45b14a31761e1bf9908b4a323e2afc12c135a36f5794275c481c909b3a121277",
+          "size": 24779
+        },
+        "docs/evidence/day84/release.txt": {
+          "sha256": "a48d7f94ababb27d577b078781214697bf690db435628d251995b97b37cd0284",
+          "size": 102
+        },
+        "docs/evidence/day84/release.xml": {
+          "sha256": "e602a403de4e76ab78fa64f5c9bb153e537f8683501360922da415419ad1a7c9",
+          "size": 5840
+        },
+        "docs/evidence/day84/validation.json": {
+          "sha256": "d4c789aea52479da34fb4358075efe71a5408c07a8ba993822f1aef7a294b723",
+          "size": 5745
+        },
+        "docs/evidence/day84/verification.json": {
+          "sha256": "7f51901a1e3aa10684ba99e620409510fb7489c3db317b1e7234adeecf3b7134",
+          "size": 5680
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-13.zip",
+      "sha256": "bcb19855a7e8cbd77c5269ab9b9b3bd8997a9a96d0c6a5e5de55c65373902976",
+      "entries": {
+        "docs/evidence/day85/contracts.xml": {
+          "sha256": "f2edf9a240d96e34b8699a150d4969ec9a0fb4bb571f6ea5d2fb7b16921e14c8",
+          "size": 9832
+        },
+        "docs/evidence/day85/preview/report.json": {
+          "sha256": "6c09305075860a3cc2edf297fcb65ba28175e8744e4b0cb709f1a8f2a2ddd1ca",
+          "size": 4806
+        },
+        "docs/evidence/day85/release-regression.xml": {
+          "sha256": "e9cd94f1aa4447833d34b6cef0feb3b7d514e6912dd0bdf0108191727e03b582",
+          "size": 5840
+        },
+        "docs/evidence/day85/schemas/agent.schema.json": {
+          "sha256": "cf0a3ab981e7b58710b7399f90825d84965385d8b550d3ade778933ea9fd40ea",
+          "size": 1071
+        },
+        "docs/evidence/day85/schemas/dataset.schema.json": {
+          "sha256": "5206d381e637c854291c49c621d4e1731acc8ab9cbc9ff9bacd5d4bbb9ce3579",
+          "size": 4625
+        },
+        "docs/evidence/day85/schemas/plan-report.schema.json": {
+          "sha256": "3b49f97bcb77cf10da369480f5dad60311f5751d90cebf47ba9fa4c342900c92",
+          "size": 10506
+        },
+        "docs/evidence/day85/validation.json": {
+          "sha256": "f4c34c8234076b6cc1971f2cfe47cc5d8b5496ce71bd1f6dd4b45b6e4eda4f19",
+          "size": 5004
+        },
+        "docs/evidence/day86/dataset.schema.json": {
+          "sha256": "ca5283e5c7e25240cabe2370766f027d666180b9056f897717c0a6cd438716f8",
+          "size": 10032
+        },
+        "docs/evidence/day86/full-preflight.json": {
+          "sha256": "9acd024449392d0d6e51775b119f9e9638bb890cf175f4644f50509ffbee9632",
+          "size": 34031
+        },
+        "docs/evidence/day86/plan-report.schema.json": {
+          "sha256": "204ef51a8864f9997ed8a7f9e2bf483ec82f4a0e7858321258457177f7bdad74",
+          "size": 16198
+        },
+        "docs/evidence/day86/smoke-preflight.json": {
+          "sha256": "3db50fb8e629e8daaf11009d4e7625a2b0cfbf214e7d183004fa2ac83179e561",
+          "size": 31006
+        },
+        "docs/evidence/day87/README.md": {
+          "sha256": "c682ffb132f87846e9b86f132f7770ad0ca94e38d6fe084a54fb76f3650b0fe1",
+          "size": 889
+        },
+        "docs/evidence/day87/cases/arguments_rejected/events.json": {
+          "sha256": "1f90d8c476d08be398783194458d6f94bf6ca86f4cde77b5e09282b53cf84526",
+          "size": 3142
+        },
+        "docs/evidence/day87/cases/arguments_rejected/generation.json": {
+          "sha256": "dc7cbef32ef3363537088b63491bd8c3e23dbfec3d1d9a1b574e4bf5dcdea903",
+          "size": 3857
+        },
+        "docs/evidence/day87/cases/customer_fallback/events.json": {
+          "sha256": "c1c3e359dcd67dea9409a65626107a5b6f543751d9ee2c028c532108f1035cdf",
+          "size": 7543
+        },
+        "docs/evidence/day87/cases/customer_fallback/generation.json": {
+          "sha256": "16691a38086dd31585ff7fddd222b12d0dce99de8456a3a935e4ba3b4cf5b0b4",
+          "size": 14387
+        },
+        "docs/evidence/day87/cases/customer_normal/events.json": {
+          "sha256": "01cf998489534b47e1bf0cf1de667ef27cc6e5612bcd050b8d9c7b529488f70d",
+          "size": 5578
+        },
+        "docs/evidence/day87/cases/customer_normal/generation.json": {
+          "sha256": "d83e9c00d6f786be07a3ac1a1b5e028c8845456efe238b99739e6dd02e290b4c",
+          "size": 9772
+        },
+        "docs/evidence/day87/cases/customer_tool_retry/events.json": {
+          "sha256": "749e5f7d6a5691a2ac1abd1429ac6732c82ed11fe53fcd334bc92f45c84c3839",
+          "size": 7089
+        },
+        "docs/evidence/day87/cases/customer_tool_retry/generation.json": {
+          "sha256": "3655f9106328f6d161fde1f619c6f02762074d3cc2d99e3cd3ad0330efdea725",
+          "size": 9783
+        },
+        "docs/evidence/day87/cases/empty_normal/events.json": {
+          "sha256": "53432dc0a45a7299cbd4c984f257930e483add50e9224b2b30d3be141a283229",
+          "size": 5581
+        },
+        "docs/evidence/day87/cases/empty_normal/generation.json": {
+          "sha256": "4843db358b3efec684479e448d5d6161e0b3ed9ad8bb6e5507aed3571b8e2770",
+          "size": 9513
+        },
+        "docs/evidence/day87/cases/missing_period/events.json": {
+          "sha256": "356cfdb869222a9a10bf4c451bb681e41d33c2896d2d34c12b7fc7fa729061ee",
+          "size": 3167
+        },
+        "docs/evidence/day87/cases/missing_period/generation.json": {
+          "sha256": "097ebb7d0195a10624560f278ee8825d8d5df3dde4b664f6fb54757c1cc110b4",
+          "size": 3867
+        },
+        "docs/evidence/day87/cases/monthly_fallback/events.json": {
+          "sha256": "c0926f086c1cc20609a7a026ee76e45c01538323e650f30f60e379f78138a374",
+          "size": 7604
+        },
+        "docs/evidence/day87/cases/monthly_fallback/generation.json": {
+          "sha256": "4ca358b241ce5d8cd84a608362bccaa411e60a1ec0d2f7fc305a30630b8bda0c",
+          "size": 14504
+        },
+        "docs/evidence/day87/cases/monthly_model_retry/events.json": {
+          "sha256": "5e3eaa4579e5c05d4407d6f5873d6c47d387df6fc6f863d72e219f08ce327386",
+          "size": 6584
+        },
+        "docs/evidence/day87/cases/monthly_model_retry/generation.json": {
+          "sha256": "b9f0b7602306b1918c99246790b6a1a06137c786671b1b2b306e4d6158a45161",
+          "size": 12845
+        },
+        "docs/evidence/day87/cases/monthly_normal/events.json": {
+          "sha256": "9b74d303be12309a02053ecc368d283cbe6c40cf28eb3bc971f2d7d99252d037",
+          "size": 5639
+        },
+        "docs/evidence/day87/cases/monthly_normal/generation.json": {
+          "sha256": "e3f92a936fa4b4366ced2a84ab4a59d8b1bc84f73a423a61a48b2c3f3a1bf55f",
+          "size": 9894
+        },
+        "docs/evidence/day87/cases/monthly_tool_retry/events.json": {
+          "sha256": "b7ae88a8500ae47533d013271824150aed3374f5ad9f9cd64770c129482c391c",
+          "size": 7148
+        },
+        "docs/evidence/day87/cases/monthly_tool_retry/generation.json": {
+          "sha256": "b85bcce0973662580ae9c0d0b6dca9ae3b345b5085da7e8ee3b141de4695a44c",
+          "size": 9905
+        },
+        "docs/evidence/day87/cases/report_rejected/events.json": {
+          "sha256": "3004599ae7d5cf7ca296ec14014a366171af09eab2caf5b8c08de0ece18d108d",
+          "size": 5453
+        },
+        "docs/evidence/day87/cases/report_rejected/generation.json": {
+          "sha256": "1096630bc541643d205e61394c6259000a63b3875e6f17ee1dbcac66a749e932",
+          "size": 8260
+        },
+        "docs/evidence/day87/cases/tool_exhausted/events.json": {
+          "sha256": "4ac3dc906adab6de7c2b3b2f56b9ef0521fe729692c85b40bf2794ac60de0415",
+          "size": 6759
+        },
+        "docs/evidence/day87/cases/tool_exhausted/generation.json": {
+          "sha256": "e13f8368d419e7ea95bdce6d8a521cfc1a91c9358e4b116f720efedbfe9d429c",
+          "size": 3840
+        },
+        "docs/evidence/day87/execution.json": {
+          "sha256": "641a1dc16ec8306a51a32c123f2ebc38039406e28c684186c0b955708080f7a5",
+          "size": 66096
+        },
+        "docs/evidence/day87/regression.xml": {
+          "sha256": "164e7c50b75d2320dda86980d16717e43d862a626682248cb58a8f61fb6fddc4",
+          "size": 23486
+        },
+        "docs/evidence/day87/validation.json": {
+          "sha256": "875728df0b321c1d09e9abc299328b992f22e1dac22a4bfd03c75205f1b5b8f2",
+          "size": 10422
+        },
+        "docs/evidence/day88/README.md": {
+          "sha256": "0c856b93ded0831dc55b9b85e35776a276fb1239430c535d1021131108fab4c5",
+          "size": 802
+        },
+        "docs/evidence/day88/cases/arguments_rejected/events.json": {
+          "sha256": "dc81c3f5989cd6a657a44555e36bfb02673d5e3c7f6e5e7c4a03e417627be0dc",
+          "size": 3141
+        },
+        "docs/evidence/day88/cases/arguments_rejected/generation.json": {
+          "sha256": "3f1744ac75c8d638a3432f6b9034e12868f4940f886947660f609c30d945d232",
+          "size": 3857
+        },
+        "docs/evidence/day88/cases/customer_fallback/events.json": {
+          "sha256": "58f66e684146a63637c77965158d55d079d35b624c70bfd5e53910ea5795500c",
+          "size": 7542
+        },
+        "docs/evidence/day88/cases/customer_fallback/generation.json": {
+          "sha256": "f971095414f2d3bddd8006aa84a84bad1dc5152ba3635bd1eac52a3f71df561a",
+          "size": 14387
+        },
+        "docs/evidence/day88/cases/customer_normal/events.json": {
+          "sha256": "5e51467cda4c3837ac804d4174cf843574fb655a1b9c8b0a6f3c138424b2db12",
+          "size": 5577
+        },
+        "docs/evidence/day88/cases/customer_normal/generation.json": {
+          "sha256": "838d8f797d4d2e418cdd8919af2194d2cbcf8b694bf01bdaf80c4bddd056ef7a",
+          "size": 9772
+        },
+        "docs/evidence/day88/cases/customer_tool_retry/events.json": {
+          "sha256": "d6cd8ef4eb32fff8ffac245dc80abae89a03bd83c44f82d2f84f5344888f9cae",
+          "size": 7088
+        },
+        "docs/evidence/day88/cases/customer_tool_retry/generation.json": {
+          "sha256": "67a0a0ccf34d39587c40b3df78791563c4a38c89428f2b108986d1739e84cc21",
+          "size": 9783
+        },
+        "docs/evidence/day88/cases/empty_normal/events.json": {
+          "sha256": "f5bbda69c9bedbc7706f1f253c46dcef3b40f80624bb23b8f91a5da503f7b969",
+          "size": 5580
+        },
+        "docs/evidence/day88/cases/empty_normal/generation.json": {
+          "sha256": "82cd1d1833c8f034382ceba1ae8aa3ff551aa09acfc99734dec66b82a03c5406",
+          "size": 9513
+        },
+        "docs/evidence/day88/cases/missing_period/events.json": {
+          "sha256": "6ab88a20847e2cb1147f25ded44fe2d11f0083edb27bc107bf562a7853cb0c7f",
+          "size": 3166
+        },
+        "docs/evidence/day88/cases/missing_period/generation.json": {
+          "sha256": "b11fdfa549fa4c54560af9bd8cb54cb540b3f7d6c86a26f2d976eecf84d0028f",
+          "size": 3867
+        },
+        "docs/evidence/day88/cases/monthly_fallback/events.json": {
+          "sha256": "0c154176e1663c860753193af3391bc7e8ebf54a25888593dfbfc1368b476f9c",
+          "size": 7603
+        },
+        "docs/evidence/day88/cases/monthly_fallback/generation.json": {
+          "sha256": "9cd6599bcf1160988c72609901d09b6443df535f2a130a2ba18e0252718258cb",
+          "size": 14504
+        },
+        "docs/evidence/day88/cases/monthly_model_retry/events.json": {
+          "sha256": "978d30521b55d9029e6e6ea1ede741f10a9bf7d0d2322efb413418420a1fd752",
+          "size": 6583
+        },
+        "docs/evidence/day88/cases/monthly_model_retry/generation.json": {
+          "sha256": "03252536cbe1337b0a84f8ae010a96ff8b174959639151b2edbc7bb929b96860",
+          "size": 12845
+        },
+        "docs/evidence/day88/cases/monthly_normal/events.json": {
+          "sha256": "863ec6e612eb5284f16565a0f7134f0e79f1fe81ab087903952264d701b203b9",
+          "size": 5638
+        },
+        "docs/evidence/day88/cases/monthly_normal/generation.json": {
+          "sha256": "c82ade13c21905d151eaf23247965c9fbe9c474bb6e74e41bc9ca0d3fbcfa34f",
+          "size": 9894
+        },
+        "docs/evidence/day88/cases/monthly_tool_retry/events.json": {
+          "sha256": "8ce6e46ea775bbdfa48278af42ddf122b0fd9ce046f5c2699c374873b7d64cf9",
+          "size": 7147
+        },
+        "docs/evidence/day88/cases/monthly_tool_retry/generation.json": {
+          "sha256": "419717bcb2e8fa841fd25ea9a31399d9f25ca58f3f65e72a7722ee75fce243ac",
+          "size": 9905
+        },
+        "docs/evidence/day88/cases/report_rejected/events.json": {
+          "sha256": "24b848c09668743ee0912d3316d0eef81fb94e634ec1d608add7a233060e49de",
+          "size": 5452
+        },
+        "docs/evidence/day88/cases/report_rejected/generation.json": {
+          "sha256": "1cd05c6a98c1838590433132ba3d81e2c84a1a5b81b4dbc81712d5708adf7f88",
+          "size": 8260
+        },
+        "docs/evidence/day88/cases/tool_exhausted/events.json": {
+          "sha256": "354ef09ab03445e654e6a3a857d57323b01cf8a63a958f48cc2dee809dd754b6",
+          "size": 6758
+        },
+        "docs/evidence/day88/cases/tool_exhausted/generation.json": {
+          "sha256": "12d319fca749f17ba6efaa96989d78db798c14886b1f69c3fcdce30874e819a9",
+          "size": 3840
+        },
+        "docs/evidence/day88/execution.json": {
+          "sha256": "230cc23fcc6b0ebe93f24d21378f72ce3594ec74a824a2ef1600676dbbe4ba2a",
+          "size": 71130
+        },
+        "docs/evidence/day88/execution.schema.json": {
+          "sha256": "e64ec4816bfdb698c6214d960d42a560da31c1f5e6983a8079bd73a9a970681d",
+          "size": 27813
+        },
+        "docs/evidence/day88/regression.xml": {
+          "sha256": "5837ad096848eb2a62dac151bd265405e95da7fc61f1e1751e71c45f5eb9533f",
+          "size": 26952
+        },
+        "docs/evidence/day88/validation.json": {
+          "sha256": "324ca3108d7c3c3a50448312798d8d9aa18c7555865605a041497256dd3bfa57",
+          "size": 8827
+        },
+        "docs/evidence/day89/README.md": {
+          "sha256": "0cd82f9931193192527e0d351da9d8aa86a879190e4d967dd96c684b0f7e530d",
+          "size": 831
+        },
+        "docs/evidence/day89/cases/arguments_rejected/events.json": {
+          "sha256": "f6f19f36a23037d63a0da717857d283d96e0f1808e4238908087a9f0a602bba9",
+          "size": 3141
+        },
+        "docs/evidence/day89/cases/arguments_rejected/generation.json": {
+          "sha256": "da5aa382735a02eba6c04f06333151a30f8bd13f773f4fbd1d01c7b1a31caea5",
+          "size": 3857
+        },
+        "docs/evidence/day89/cases/customer_fallback/events.json": {
+          "sha256": "cdd8c250be382c19c965172830334b143fe66ecdc5d6bcf2ccbfa08f43830cf9",
+          "size": 7542
+        },
+        "docs/evidence/day89/cases/customer_fallback/generation.json": {
+          "sha256": "ae6f21c421acd5056136ae32803d75040b6b9df26f68d12353946154587b4351",
+          "size": 14387
+        },
+        "docs/evidence/day89/cases/customer_normal/events.json": {
+          "sha256": "c3f09115dca5d0d3c5f99799b443393712363b6d7d8b848ee5c94027446c0409",
+          "size": 5577
+        },
+        "docs/evidence/day89/cases/customer_normal/generation.json": {
+          "sha256": "0590c6defe2af48b4bd5a1a20de42900a64f9578bb7d76d55e5a3b9e5a8abf42",
+          "size": 9772
+        },
+        "docs/evidence/day89/cases/customer_tool_retry/events.json": {
+          "sha256": "7c108a3990b305e31b073a0d153698dc8b3e00c86b72393db00aed82db0a0356",
+          "size": 7088
+        },
+        "docs/evidence/day89/cases/customer_tool_retry/generation.json": {
+          "sha256": "6ff6fb09e0e7795f81145469a8593bbe761ae60b133d34a56d098dbe08bd6241",
+          "size": 9783
+        },
+        "docs/evidence/day89/cases/empty_normal/events.json": {
+          "sha256": "245ba23db028de19fb686299735ffd15c168253069fda881a55ef224f52c0501",
+          "size": 5581
+        },
+        "docs/evidence/day89/cases/empty_normal/generation.json": {
+          "sha256": "0a0f615d03fe668a75f681c06ec54f441ea9e93c285acf193e7069ddeaca5515",
+          "size": 9513
+        },
+        "docs/evidence/day89/cases/missing_period/events.json": {
+          "sha256": "03d07644ca5fbb336491cf3f251e8bedf460e83d952993ebb59fea1597b9f074",
+          "size": 3166
+        },
+        "docs/evidence/day89/cases/missing_period/generation.json": {
+          "sha256": "bc791ca1dc6d8680101f06631f3f28cda18f25a9ead1fbaa4c58730f839da381",
+          "size": 3867
+        },
+        "docs/evidence/day89/cases/monthly_fallback/events.json": {
+          "sha256": "cfff9948022eb3adfa3b1dedced854fee324c711f8947be6d77f463cedfcb3c7",
+          "size": 7603
+        },
+        "docs/evidence/day89/cases/monthly_fallback/generation.json": {
+          "sha256": "5323d30429db5084e46ed9e2e2349a1ced30b636daa65bffac930b213f3987e5",
+          "size": 14504
+        },
+        "docs/evidence/day89/cases/monthly_model_retry/events.json": {
+          "sha256": "7415a003b6ce08dc01c63a6cff9ae507fff3a30ceced6551be2f5f6fceb8962c",
+          "size": 6583
+        },
+        "docs/evidence/day89/cases/monthly_model_retry/generation.json": {
+          "sha256": "55b2d2e30b0b57120dbaba791a927c913b6e4a54dd14b227cc835d062e098288",
+          "size": 12845
+        },
+        "docs/evidence/day89/cases/monthly_normal/events.json": {
+          "sha256": "01dea09a34990a18075169bf7f4aa300fa91c754e4590fc9e3378f095cac1981",
+          "size": 5638
+        },
+        "docs/evidence/day89/cases/monthly_normal/generation.json": {
+          "sha256": "a7e718516232db27b307821d44b7084d29c336cfffca8bcf50f248bd222641e3",
+          "size": 9894
+        },
+        "docs/evidence/day89/cases/monthly_tool_retry/events.json": {
+          "sha256": "c35e5801d9b756b7bd608f546588543eb57f26f060bfebc74a46b54ea0b2749c",
+          "size": 7147
+        },
+        "docs/evidence/day89/cases/monthly_tool_retry/generation.json": {
+          "sha256": "1b0e6d2960a7fe0d82192ca7649892af8863ed388315700e27f8d75eebc8e498",
+          "size": 9905
+        },
+        "docs/evidence/day89/cases/report_rejected/events.json": {
+          "sha256": "57783c54f23bae5f542111eb342d63ec87550db07545fc1439a20c0f45a6ac8d",
+          "size": 5452
+        },
+        "docs/evidence/day89/cases/report_rejected/generation.json": {
+          "sha256": "ff1793891bb0e70726c8ed79e10b3016eda658c9cde674eadc9bf8b53197a9d9",
+          "size": 8260
+        },
+        "docs/evidence/day89/cases/tool_exhausted/events.json": {
+          "sha256": "8553a4dd2b7b815828a38f3a2574e54d3d952676b8976d06590d056e7b32c6e0",
+          "size": 6758
+        },
+        "docs/evidence/day89/cases/tool_exhausted/generation.json": {
+          "sha256": "5fb7917639de2510cba6747383f6b50fbbfb143accf2abbbf5ae967c9a030196",
+          "size": 3840
+        },
+        "docs/evidence/day89/demo/complete-ledger.json": {
+          "sha256": "b60a5902d5d0f923e178351fd34520a6b1e2e4f21fc0aa93f0f04c8cd90ddd2f",
+          "size": 649
+        },
+        "docs/evidence/day89/demo/complete/report.json": {
+          "sha256": "0a778cc760aed6bffbd3d0e41977b0f68f400a48acacdddd6614be38c26b2d20",
+          "size": 2180
+        },
+        "docs/evidence/day89/demo/partial-ledger.json": {
+          "sha256": "9231a23019d35eef2c3e6a7ab201a1e3e2ea8d260a1b6c2b7f9014ccdde92cab",
+          "size": 984
+        },
+        "docs/evidence/day89/demo/partial/report.json": {
+          "sha256": "a472a522a87b011f41151b8db52faff5ca32956e8264c276621827d18a5cc5ba",
+          "size": 2566
+        },
+        "docs/evidence/day89/demo/validation.json": {
+          "sha256": "70e2fa3cfe55997abbcab5d5631bbe6b368de6a9cc271e67bd271d01f2d8902e",
+          "size": 168
+        },
+        "docs/evidence/day89/execution.json": {
+          "sha256": "30b3bd00cbdf4122d71db2dc84fe1ed8307415684dd6294afea6d6637d002fc3",
+          "size": 80503
+        },
+        "docs/evidence/day89/execution.schema.json": {
+          "sha256": "761e289d4170aac75fc22aca4de931a778f77e9333d3a77c158792aa6ba2da3e",
+          "size": 31793
+        },
+        "docs/evidence/day89/regression.xml": {
+          "sha256": "d1dd4f455d930dbfa2e1afbd71a31f834a16c579fd50b17b0948263486177d7d",
+          "size": 38829
+        },
+        "docs/evidence/day89/validation.json": {
+          "sha256": "41a724e1bbbb18807ff8891dc5a1784f3ff8bd032b5954968345808615d0bed2",
+          "size": 9382
+        },
+        "docs/evidence/day90/cases/arguments_rejected/events.json": {
+          "sha256": "d43c8545a364935886c2ce9d59c0753cd9affa15351ef5bccd888bcce8640700",
+          "size": 3142
+        },
+        "docs/evidence/day90/cases/arguments_rejected/generation.json": {
+          "sha256": "a4a52a3bc014532479637caab359dfd58ee2cd5034d58dca97de2972e7b41878",
+          "size": 3857
+        },
+        "docs/evidence/day90/cases/customer_fallback/events.json": {
+          "sha256": "7c81bfea92d00bc26f7140f439dd618b1932958b2a9a860a2c9d8f78fb08c8ab",
+          "size": 7542
+        },
+        "docs/evidence/day90/cases/customer_fallback/generation.json": {
+          "sha256": "5b584bca5e3099adc66f9c27bb774bfdc7008216f0ef3bf9d6b3dd99902b62bb",
+          "size": 14387
+        },
+        "docs/evidence/day90/cases/customer_normal/events.json": {
+          "sha256": "88b9efe21cadeee208356d993348a088bfc2f0f0946f0d07b9fcbfec02548ed4",
+          "size": 5577
+        },
+        "docs/evidence/day90/cases/customer_normal/generation.json": {
+          "sha256": "02fa67f2d22876b1b65901b2d9c652c8a440d68a3bf37a737659e12153609d99",
+          "size": 9772
+        },
+        "docs/evidence/day90/cases/customer_tool_retry/events.json": {
+          "sha256": "385c5ec4f76c9255c13715fe8fc781af71ad910e465aad5967ed9b1b7e549c44",
+          "size": 7088
+        },
+        "docs/evidence/day90/cases/customer_tool_retry/generation.json": {
+          "sha256": "9dd38e8b70dbcb5f2ada310e5c008acb4a6220c368db232c72611009009041ae",
+          "size": 9783
+        },
+        "docs/evidence/day90/cases/empty_normal/events.json": {
+          "sha256": "8b347c15ba291db64e461c0e5003c66fc4e0318e77b5c8bf3618ae8f4855bc2e",
+          "size": 5580
+        },
+        "docs/evidence/day90/cases/empty_normal/generation.json": {
+          "sha256": "51933022ef3f754a672dd68117b7ee310e9ae0e755abee8739b57d5396200642",
+          "size": 9513
+        },
+        "docs/evidence/day90/cases/missing_period/events.json": {
+          "sha256": "9a62100513d5059ff8edfb27f231b27d8e12ef75612facea9243f64c3aa9c93a",
+          "size": 3166
+        },
+        "docs/evidence/day90/cases/missing_period/generation.json": {
+          "sha256": "9efaf692ecee75073d21fa037ee2003cac072d24551792ddf8099fdf8bbdbedb",
+          "size": 3867
+        },
+        "docs/evidence/day90/cases/monthly_fallback/events.json": {
+          "sha256": "f4af83aa90ee9e24228d6e4916d1151e00d72ce792ad7977732a0968d68dd559",
+          "size": 7603
+        },
+        "docs/evidence/day90/cases/monthly_fallback/generation.json": {
+          "sha256": "71adaa21eeedea884ff7015f930046e4f0f23514630cbc42327b8ff64fc36bbe",
+          "size": 14504
+        },
+        "docs/evidence/day90/cases/monthly_model_retry/events.json": {
+          "sha256": "503e4cb8f1281b58226d352794305eebf879464f085eb335d78548fee613551e",
+          "size": 6583
+        },
+        "docs/evidence/day90/cases/monthly_model_retry/generation.json": {
+          "sha256": "3016b97aa213dc845b9f6f7c054351c5183adc0cd97103e03377959d94580970",
+          "size": 12845
+        },
+        "docs/evidence/day90/cases/monthly_normal/events.json": {
+          "sha256": "6ab6c3e68ac254cc42acc2722725d560e64b70afff0f8e239234d5f0a1ccd871",
+          "size": 5638
+        },
+        "docs/evidence/day90/cases/monthly_normal/generation.json": {
+          "sha256": "dcb72d987c0cee052137a0c788551ed403f4904c4397d8748637c11efebd97e3",
+          "size": 9894
+        },
+        "docs/evidence/day90/cases/monthly_tool_retry/events.json": {
+          "sha256": "87209a87ba9646e1a9e4276d55380bb9fdde58b3947a8be19dfd4f5991e6a462",
+          "size": 7147
+        },
+        "docs/evidence/day90/cases/monthly_tool_retry/generation.json": {
+          "sha256": "9e35e039aa6c6efcee711b60183002bf344e3c7cfe3b2325adb1352238d878a3",
+          "size": 9905
+        },
+        "docs/evidence/day90/cases/report_rejected/events.json": {
+          "sha256": "2f0ea5a365fea9c2eaab04552bf4f5ad66756a5e8702ea9e69ebfc855d126716",
+          "size": 5452
+        },
+        "docs/evidence/day90/cases/report_rejected/generation.json": {
+          "sha256": "119e109d15456cb4d8d1a73e8d83c702be8918fecc9a8c356f3e10a4164a9769",
+          "size": 8260
+        },
+        "docs/evidence/day90/cases/tool_exhausted/events.json": {
+          "sha256": "ea4cf9859eb53a8fe5ec4ce242635e1b5de8b0161c7cd764d0faf449abb3010d",
+          "size": 6758
+        },
+        "docs/evidence/day90/cases/tool_exhausted/generation.json": {
+          "sha256": "f3de7e960976b7652993691be0b797a5ef789b8049f5b4bb34217915a12f2216",
+          "size": 3840
+        },
+        "docs/evidence/day90/regression.xml": {
+          "sha256": "49bfdff2100ff267cf7dee5c0361d5b1d27a8f024a821f547b703ac1b2d9b4b0",
+          "size": 45439
+        },
+        "docs/evidence/day90/scoring.json": {
+          "sha256": "46e9a24cb04b131b6edbadd577435f632bf83e798db5fcb4f948a4e50c836cae",
+          "size": 191111
+        },
+        "docs/evidence/day90/scoring.schema.json": {
+          "sha256": "0ac87694ca3795239f1a6978e35e888c7da67c32e360af2899d8a00fa034200b",
+          "size": 36041
+        },
+        "docs/evidence/day90/validation.json": {
+          "sha256": "3171c98b18534fa733c9687945e0563afc77370a840a15215b2001300a2c7048",
+          "size": 8853
+        },
+        "docs/evidence/day91/README.md": {
+          "sha256": "d3c3d1f6b7d0f74e1c1183592457cda12b0de1638d5c3e1bf48f553530252999",
+          "size": 868
+        },
+        "docs/evidence/day91/regression.xml": {
+          "sha256": "7c252babf8ae7b6a56429060d1d79bdce681c130cf1c000652688c41e10f55d5",
+          "size": 45439
+        },
+        "docs/evidence/day91/release.xml": {
+          "sha256": "1409cad73d1f8d3628a8d2bf706ee501ebe3de53b134f57925adc6899ab547e6",
+          "size": 4848
+        },
+        "docs/evidence/day91/scoring.json": {
+          "sha256": "168e9b14a4cc263e465569467f8f5626aa7ffa707a866a6d3ad1d481934ccc42",
+          "size": 191129
+        },
+        "docs/evidence/day91/validation.json": {
+          "sha256": "c11b98a1e71be2962c2c492d1f359270a196599321982070246d446640e06aa8",
+          "size": 3551
+        },
+        "docs/evidence/day91/verification.json": {
+          "sha256": "bb275e2a5bc3ad2a0028cd3eb537117dd0a115f3d371082d722c24ebe0a44295",
+          "size": 9629
+        }
+      }
+    },
+    {
+      "path": "docs/evidence/week-14.zip",
+      "sha256": "454ba58d8a7a550a0415e59c2a124dc49eed362500f8558b1577b7ffcb8ac8f2",
+      "entries": {
+        "docs/evidence/day92/backend-tests.xml": {
+          "sha256": "263c1c27e3ab90b5c9ce04e2427ee2f7094734d9900fc6c10410fcf06a64f595",
+          "size": 87099
+        },
+        "docs/evidence/day92/frozen-integrity.json": {
+          "sha256": "784837365a83eccab52f1e1ec3f21296de60859db056993c354ab4cb1bd9a9d7",
+          "size": 2531
+        },
+        "docs/evidence/day92/release-tests.xml": {
+          "sha256": "0c49c6dedf2d418425c37087b1e27c539b2ff1c6732b5c3326bb2ede9e506133",
+          "size": 4848
+        },
+        "docs/evidence/day92/validation.json": {
+          "sha256": "f3e06e8a8c54e4166f29f6faa834488992aacff30100e99862748dc33d42e458",
+          "size": 2555
+        }
+      }
+    },
+    {
+      "path": "scripts/evidence_layout/documents.zip",
+      "sha256": "789ff99fe0ed1c0c0f0b3500bd0d18b4caf23b674e21a127d3c75dcbd8598f4a",
+      "entries": {
+        "agent-center/README.md": {
+          "sha256": "80dfff87ad549dbfc2429af48224a859f7c2ea23dc5c0ea31751c4e69d17d1a2",
+          "size": 1905
+        },
+        "agent-center/v0.2/README.md": {
+          "sha256": "1ca3cafe147cba702ad5fd2a6eea3999f01317ae7d667ba354c9607d2766648b",
+          "size": 3625
+        },
+        "agent-center/v0.2/release-notes.md": {
+          "sha256": "9738d7583549b7e505a6344c260637b7f4509b686f7d760b67da133f6c87e883",
+          "size": 1939
+        },
+        "agent-center/v0.5/README.md": {
+          "sha256": "d1a13785961c3dcbabc407bbe43d92c31fa79ccd004428cbc482119f2f68ef32",
+          "size": 2978
+        },
+        "agent-center/v0.5/release-notes.md": {
+          "sha256": "86dfc41672634a4cd7878993a724725071069f5cb7593dbd61a0eb8f8d209a2e",
+          "size": 1902
+        },
+        "agent-center/v1.0/README.md": {
+          "sha256": "2437f5a9bcfea7c66ebe7c25b0eaacc9bb0b13be1c1ff677483467ab505d4947",
+          "size": 2407
+        },
+        "agent-center/v1.0/release-notes.md": {
+          "sha256": "2f56300ce62e4042756935d14d17273b4151b25c9f9063b0b5861cbcadc3207c",
+          "size": 2127
+        },
+        "demo/agent-center/README.md": {
+          "sha256": "c2baef91103343a51cc98338c2f45030b72243bae4b2c8f9775d464a18c08b1a",
+          "size": 2115
+        },
+        "demo/day83/README.md": {
+          "sha256": "fa85eb5611986e05e3d1f1d364a497f18a9cb8926d9a6e343cf58ea3320800dc",
+          "size": 5582
+        },
+        "docs/agent-center-v0.1.md": {
+          "sha256": "ff62ccd555c346a00c154bef6de9e901a10f16c68b6afb81881e01cbc05470b8",
+          "size": 5411
+        },
+        "docs/agent-center-v0.2.md": {
+          "sha256": "392bd1d1896438da5c0ce16a7ef0e6baf55991860cfb321ec98db8541022a9bf",
+          "size": 4158
+        },
+        "docs/agent-center-v0.5.md": {
+          "sha256": "d083baee1229068374adc360a5789b3c0488a53ad2d178b9de70107322f86e53",
+          "size": 3137
+        },
+        "docs/agent-center-v1.0.md": {
+          "sha256": "6d00ed7b1fd63f4cc7dac475823383a0270465114ba2535f903a21455c46d3d6",
+          "size": 1653
+        },
+        "docs/day57-agent-architecture.md": {
+          "sha256": "b6511dac4022af4e35a0797dc5b35f71da4cefd79052cdfaef5083f6645d0d33",
+          "size": 11602
+        },
+        "docs/day58-langgraph-basics.md": {
+          "sha256": "dd993f2b63ccbea3f4f584c6612ab23ea655978daea9954485d4f33474c9c932",
+          "size": 7389
+        },
+        "docs/day59-task-planner.md": {
+          "sha256": "2c6c7c2fbc98ef79ae60463bfbfff07957f353ed00e159b9a645d42e9448fb0a",
+          "size": 8748
+        },
+        "docs/day60-task-state.md": {
+          "sha256": "dc65760be31b11fdf99ce542c32584bbd957a3c9e3ff27c99f59ba23ff15b76e",
+          "size": 10912
+        },
+        "docs/day61-sales-agent-scenario.md": {
+          "sha256": "c84af88156e016c63219ecd26904b96d0af8eb6e1f0fbac414f6565f89068195",
+          "size": 11784
+        },
+        "docs/day62-agent-prompt.md": {
+          "sha256": "1a5faa5ad8a0617f33a6778ecbdc410bd195496a0148d88b9b0dcb90bcfd549a",
+          "size": 10181
+        },
+        "docs/day63-agent-center-release.md": {
+          "sha256": "ead0ce9a0f9c690d7d32876fddcc82404fea17b23936a1dfadfecfcc5279aff0",
+          "size": 5871
+        },
+        "docs/day64-function-calling.md": {
+          "sha256": "390eaa22c53e610acf65d54d3476132452bade6acdf15117340311e838952104",
+          "size": 9038
+        },
+        "docs/day65-sql-tool.md": {
+          "sha256": "db3ab8bf5151b5e90e55f812130f18dbd1f34307e22a1cf43de8a562737b0411",
+          "size": 8890
+        },
+        "docs/day66-knowledge-tool.md": {
+          "sha256": "313501a58338b39009df86bdb37f13c2673b0f2ca66c91685cc1d92bf37f59c5",
+          "size": 10322
+        },
+        "docs/day67-api-tool.md": {
+          "sha256": "7a37182b7e01d9303da27fc2b4aa4b3e7cfed509325588983a0e23d44e385936",
+          "size": 8320
+        },
+        "docs/day68-multi-tool.md": {
+          "sha256": "c945dfaba650bf949171b3c2873313b25068a57f9c0761906a7da0f73d2cd64b",
+          "size": 9262
+        },
+        "docs/day69-complex-task-tests.md": {
+          "sha256": "54f73617cce97cbcede3d8c686e70e3a7158e074942c88d68fadbcae1f9793a7",
+          "size": 8373
+        },
+        "docs/day70-agent-v02-release.md": {
+          "sha256": "9e56935cbd5694c3bc27ec4f983cf3cd412bc75361c9376c267b4c4702fa648a",
+          "size": 6525
+        },
+        "docs/day71-mcp-basics.md": {
+          "sha256": "5a96a4fa23a3d7b94a1201b1c4bb319af11825f29d8b18560e2788fc4e8be1ec",
+          "size": 1745
+        },
+        "docs/day72-mcp-server.md": {
+          "sha256": "39e0a150bdca10d1d1bd123c9d1ffe905c4c89e5dea2a42edc8ec99237ef9d96",
+          "size": 6117
+        },
+        "docs/day73-agent-mcp.md": {
+          "sha256": "9219efb37480931332b5814b3efe5ca836a14e578b3c32582120262d0fbecd29",
+          "size": 3883
+        },
+        "docs/day74-agent-memory.md": {
+          "sha256": "3c0f0eb37b734468199c8c61d1a3e2139a01a5f1afc507676b81b8e8f82be11d",
+          "size": 8051
+        },
+        "docs/day75-conversation-memory-plan.md": {
+          "sha256": "1bcf7f04e91cabc5207f2ad0bc80dc850ed072371a79950c86aee80b44b934d7",
+          "size": 3472
+        },
+        "docs/day75-conversation-memory.md": {
+          "sha256": "0b00879c5e8b6a9293b0f44636e973105adcd1d88b8f87cf57328497e1eec5d3",
+          "size": 3896
+        },
+        "docs/day76-planning.md": {
+          "sha256": "b14b58b25c66943908d5b1750975c34c8046a0cb436b7ca9f756ffffb0e0d2d9",
+          "size": 8848
+        },
+        "docs/day77-agent-v05-release.md": {
+          "sha256": "70ef2a4ce26c51c6ea5146a433c8683ea678795b815b0a4b5eb9cb08a4c14f1e",
+          "size": 4611
+        },
+        "docs/day78-task-logging.md": {
+          "sha256": "31915d4fd3f3c4f6cf32dd38c5178787e92c3e0e4d92de129c1502765fc79a3e",
+          "size": 3841
+        },
+        "docs/day79-error-recovery.md": {
+          "sha256": "89a62ef332127f661d70103b04101c145ff7f2c70d506f089eaf3a96bd7bc459",
+          "size": 3924
+        },
+        "docs/day80-human-in-the-loop.md": {
+          "sha256": "c1d7ea8b1e1cfa4a1826e1b44aaed88d8ae589bf62116e4f6f0d129b56e267b6",
+          "size": 3792
+        },
+        "docs/day81-complex-business-tests.md": {
+          "sha256": "946c29c2726ef0a8c940483dc4a68ab6f40ea8d6de64183cd6c5958147d2d960",
+          "size": 3314
+        },
+        "docs/day82-prompt-optimization.md": {
+          "sha256": "77564283b5f106ed121698d53aa37c489020e2ffaf5e2b86544aa66cd295f295",
+          "size": 3346
+        },
+        "docs/day83-agent-demo.md": {
+          "sha256": "c55f6d3192eee17ae5fbef7bd18a8a6798ca0c2544832781c542d6704ab5233a",
+          "size": 833
+        },
+        "docs/day84-agent-v1-release.md": {
+          "sha256": "9461311d996251467196fcce975f2dad42f53586df94aafd23173511bf2f0266",
+          "size": 4100
+        },
+        "docs/day85-evaluation-framework.md": {
+          "sha256": "ffe9dc8281a43b41195b7b2c7a1cd5d34cf0023762ab202f6731325b2ee1c959",
+          "size": 2134
+        },
+        "docs/day86-test-dataset.md": {
+          "sha256": "2d97971c05318ecb0c7c25ac8bead08a6d3983616b2c3e1de25538dae0e090ba",
+          "size": 883
+        },
+        "docs/day87-evaluation-runner.md": {
+          "sha256": "29ebe5745283a61135fe2adeabba5aa6aa6b4a13d2b67e19707c37dc4d06cc1e",
+          "size": 2101
+        },
+        "docs/day88-latency.md": {
+          "sha256": "5d96d31e9df9c63be436d00fd1068cfe6f9e3cd55fb3d4510da3dfd49fa2786d",
+          "size": 1494
+        },
+        "docs/day89-token-cost.md": {
+          "sha256": "42a0395b766917234f5738e8b5891f018720f6c2406d4ccdf404996a5af41b33",
+          "size": 1674
+        },
+        "docs/day90-success-rate.md": {
+          "sha256": "eae052e47d96caab4100b025b8f0960ba87ee252b7c87d58875f951b4a0a2771",
+          "size": 2698
+        },
+        "docs/day91-evaluation-release.md": {
+          "sha256": "ac462ce180d66396fa79ea0755a89d6095e78da63463c6738c6d23ce912b992e",
+          "size": 2254
+        },
+        "docs/evaluation-center-v0.1.md": {
+          "sha256": "53b27dfaa2126be1cca80d29c5af8828f15f80c606c413f26ca4bf9590f08aab",
+          "size": 2644
+        },
+        "docs/week-10-summary.md": {
+          "sha256": "c203ce0bad722cf66d8ef99548346935afc4b131f46b89340753e46d5abee3fc",
+          "size": 2295
+        },
+        "docs/week-11-summary.md": {
+          "sha256": "f4418478e33ad52abea46e24ad27c036f54f223b09bf0ad4847f394e1156a08c",
+          "size": 1805
+        },
+        "docs/week-12-summary.md": {
+          "sha256": "dfc7f51684559119bb099c9990e6ffd146f4dee263a3ffd0a1ce9481eaafa4c5",
+          "size": 1492
+        },
+        "docs/week-13-summary.md": {
+          "sha256": "cbe24817135e65bddbfef7985bd4ab001dc82a819252f2da19e22b96d92340e1",
+          "size": 1622
+        },
+        "docs/week-9-summary.md": {
+          "sha256": "96b3de76a3c844c8751517b753c2bbd4701ab2836c0f258ed0f3be0602dc5eaf",
+          "size": 3073
+        },
+        "evaluation-center/datasets/README.md": {
+          "sha256": "02e7d6e5d1b2c156b327f850ba86e695086aa10a7d102b68bc98801bf1a210b9",
+          "size": 2976
+        },
+        "evaluation-center/design.md": {
+          "sha256": "75bc9b381db137eb9630451493c4cbcd5966281fcb51facbaa31c2c8d9423cb4",
+          "size": 7404
+        },
+        "evaluation-center/v0.1/README.md": {
+          "sha256": "d3f39b93095ebc4f6dbc3fecc4bdd6afc0d119c5ee967f584c9b784a49e0655f",
+          "size": 2011
+        },
+        "experiments/day58/README.md": {
+          "sha256": "87c0da82f99337c024762e801ba819494edb43f38fdd67b2b68542e0d20a7691",
+          "size": 1686
+        },
+        "experiments/day59/README.md": {
+          "sha256": "ea46f5fd439ef9dc8a5ea17739a2b05045563a99d01b60e43648c01cb7999370",
+          "size": 1916
+        },
+        "experiments/day60/README.md": {
+          "sha256": "510972dfefb1a0b92602f1ce6deb14d2b87c13e421f06ffc611754f248e9cf6f",
+          "size": 1014
+        },
+        "experiments/day61/README.md": {
+          "sha256": "78f79f35a67cc98563953286440771101b17e2f68ee0f08a04125fba3a711aa6",
+          "size": 1905
+        },
+        "experiments/day62/README.md": {
+          "sha256": "e2b76a7098e78e96d599dd14599244c80c210cb68da0bc9157ee13dc2649f6bd",
+          "size": 2068
+        },
+        "experiments/day62/system-prompt.md": {
+          "sha256": "43ec7761f95c751d6c9fdb51d3cc4adb5c114edac1acf686bd66d7f08b53bacb",
+          "size": 4693
+        },
+        "experiments/day64/README.md": {
+          "sha256": "aa8e1ff1b550f18a25bdea5a61ed17cbe9e20d87ba45466e0bedf5f05d04592c",
+          "size": 3927
+        },
+        "experiments/day65/README.md": {
+          "sha256": "524cf091355c3b695dfb8e81b7ec9204355075544b4d63f506eefa9671c2789f",
+          "size": 3243
+        },
+        "experiments/day66/README.md": {
+          "sha256": "e73175b27f9175ae67e276cd9f5d745d83c8eee43dd25c9834292bcbc9db205c",
+          "size": 2880
+        },
+        "experiments/day67/README.md": {
+          "sha256": "a0a131550c5e5a28b8738342bd6859f938948f73569b19e7bbc8239d6dfd533f",
+          "size": 2405
+        },
+        "experiments/day68/README.md": {
+          "sha256": "d6d2e4b85e3e616275fabeb915c95fa9ef2481f2609a93f7fc6512e097f99a7e",
+          "size": 2838
+        },
+        "experiments/day69/README.md": {
+          "sha256": "b37edf73281537de6cc6040f9d48fcdc9d807966bcea3bc308398c880a45d65f",
+          "size": 2617
+        },
+        "experiments/day72/README.md": {
+          "sha256": "e039266599a2fb7c8543a0127c56177d914a66fa2de11dbdd8cba604081104cb",
+          "size": 5530
+        },
+        "experiments/day73/README.md": {
+          "sha256": "330c3e00485a361f554eb7ae956438f7c5f87c96efcb7bf1686b3481e96de6ce",
+          "size": 6799
+        },
+        "experiments/day75/README.md": {
+          "sha256": "c2377e5fcf7aa9c6773820db6b883a20ace37cf05d473ad96529b75a4b89686b",
+          "size": 8466
+        },
+        "experiments/day76/README.md": {
+          "sha256": "a2457c332c916f84638c443d46b433a465a52b2050701ea9f217dc3274b1151d",
+          "size": 3553
+        },
+        "experiments/day78/README.md": {
+          "sha256": "0165b4c61154f98c39a535d5efeae1eb2d3822b901fda3b88f97d279a53b0750",
+          "size": 7770
+        },
+        "experiments/day79/README.md": {
+          "sha256": "48684ea32542423e874906ab98008765657f05242603cb44810e99b11cb75d6d",
+          "size": 9192
+        },
+        "experiments/day80/README.md": {
+          "sha256": "c14094ee84c59fcb7c34a00c8238388e7c0b69c1d3c970ec1710ce20e86c2265",
+          "size": 9366
+        },
+        "experiments/day81/README.md": {
+          "sha256": "4495f75316351e280dbba6fe348be39c8a91659ac984e0377492ba6af14f4340",
+          "size": 7836
+        },
+        "experiments/day82/README.md": {
+          "sha256": "cc58e42c12579655c96e755495fb5e772e9a93700f04822ac924451b2e5df833",
+          "size": 8024
+        },
+        "experiments/day82/candidate.md": {
+          "sha256": "27d72988b991c1643391acd50f9f0ad16bb1a53c7811380576a807e5d963e530",
+          "size": 2601
+        },
+        "experiments/day85/README.md": {
+          "sha256": "cf921af841b3b45d4022211391ea7c7aca5dba1db86288c2666b1a3c9bdd6b12",
+          "size": 4956
+        },
+        "experiments/day86/README.md": {
+          "sha256": "611c48479049b51c5d9bc6f01b2580c553dd185658cb743ce2e2e4add4e4f0a7",
+          "size": 1795
+        },
+        "experiments/day87/README.md": {
+          "sha256": "d8a9e0d307fd2e1fd2fc3c8ec64403bc0ccb5e413b563d1e2be762decbe5143c",
+          "size": 6148
+        },
+        "experiments/day88/README.md": {
+          "sha256": "7158dfc3c868c865cc1a425cb9ed122ca88b59d20d83ff9dfc2507dbfab536bf",
+          "size": 5847
+        },
+        "experiments/day89/README.md": {
+          "sha256": "b61f214d61393f5a8cfd286972692f98962875fcf9a1f508b700b0bddb14f990",
+          "size": 6795
+        },
+        "experiments/day90/README.md": {
+          "sha256": "759cc643dedd9fe8d9f2da3f35c27ec221d499e074d25c2c8a5b38006d46045d",
+          "size": 7424
+        },
+        "scripts/day91/README.md": {
+          "sha256": "453ebf9234c309c329d6c8c8ae3a4d22a92c348953acb7cb032987b36dc9d686",
+          "size": 7564
+        }
+      }
+    }
+  ],
+  "evidence_records": 301,
+  "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
+}

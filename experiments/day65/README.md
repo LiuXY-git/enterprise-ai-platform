@@ -43,7 +43,7 @@
 
 仅 `--live` 请求已有模型配置；可加 `--env-file .env`。每个案例最多 2 次模型请求、1 次 SQL 工具调用。真实查询失败会直接停止，不让模型把错误解释成“销售额为零”。
 
-本轮 Qwen qwen3.7-plus 的 `monthly` 和 `empty` 共 4 次模型请求均完成闭环；客户筛选的证据为离线 SQL 与 fixture，不宣称已做第三个 live 场景。详见 [验收记录](../../docs/evidence/day65/validation.json)。
+本轮 Qwen qwen3.7-plus 的 `monthly` 和 `empty` 共 4 次模型请求均完成闭环；客户筛选的证据为离线 SQL 与 fixture，不宣称已做第三个 live 场景。详见 [验收记录](../../docs/evidence/week-10.md#day65)。
 
 ## 验收和范围
 
@@ -54,4 +54,4 @@ $day65TestDir = Join-Path $env:TEMP ('day65-tests-' + [guid]::NewGuid().ToString
 & .\.venv\Scripts\python.exe -m pytest experiments/day65 experiments/day64 -q -p no:cacheprovider --basetemp $day65TestDir
 ```
 
-SQL 模板固定，查询连接只读，参数严格校验，返回明细最多 20 条，执行受 SQLite 指令预算和时间检查约束。没有自由 SQL 生成、真实 CRM 接入、数据库写入工具、权限管理服务或新 Agent HTTP API。完整原理、失败行为与复刻步骤见 [Day 65 操作说明](../../docs/week-10-notes.md#day65)。
+SQL 模板固定，查询连接只读，参数严格校验，返回明细最多 20 条，执行受 SQLite 指令预算和时间检查约束。没有自由 SQL 生成、真实 CRM 接入、数据库写入工具、权限管理服务或新 Agent HTTP API。完整原理、失败行为与复刻步骤见 [Day 65 操作说明](../../docs/week-10.md#day65)。

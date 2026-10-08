@@ -1,6 +1,6 @@
 # Day 58：LangGraph 最小状态图
 
-真实运行 LangGraph，节点使用固定计划和模拟知识结果。完整说明与运行命令见 [Day 58 文档](../../docs/week-9-notes.md#day58)。
+真实运行 LangGraph，节点使用固定计划和模拟知识结果。完整说明与运行命令见 [Day 58 文档](../../docs/week-9.md#day58)。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -16,4 +16,4 @@
 
 状态保存在一次图调用的内存中；没有检查点和重启恢复。`waiting_for_input` 在本实验中结束本次调用，不是可以恢复的 LangGraph interrupt。
 
-项目默认测试环境没有 LangGraph 时，本目录测试会跳过；这不代表通过。有效验收必须在独立环境中运行，并确认 **14 passed、没有 skipped**。运行证据见 [graph-validation.json](../../docs/evidence/day58/graph-validation.json)。
+项目默认测试环境没有 LangGraph 时，本目录测试会跳过；这不代表通过。有效验收必须在独立环境中运行，并确认 **14 passed、没有 skipped**。运行证据见 [graph-validation.json](../../docs/evidence/week-09.md#day58)。

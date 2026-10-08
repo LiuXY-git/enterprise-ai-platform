@@ -1,6 +1,6 @@
 # Day 64：Function Calling 实验
 
-交付状态：代码、离线验收和单个虚构订单的 Qwen 真实验证完成。教学目标是观察模型如何提出工具调用，以及本地程序如何校验、执行并回传结果。完整说明见 [Day 64 操作流程](../../docs/week-10-notes.md#day64)，后续安排见 [Week 10 计划](../../docs/week-10-plan.md)。
+交付状态：代码、离线验收和单个虚构订单的 Qwen 真实验证完成。教学目标是观察模型如何提出工具调用，以及本地程序如何校验、执行并回传结果。完整说明见 [Day 64 操作流程](../../docs/week-10.md#day64)，后续安排见 [Week 10 计划](../../docs/week-10.md#plan)。
 
 唯一工具为 `calculate_order_total`，接收整数单价（分）、数量和减免百分比，返回确定的金额。示例中 199 元 × 3 件 × 九折 = 537.30 元。`discount_percent=10` 表示减免 10%，即九折。
 
@@ -41,7 +41,7 @@
 
 本轮通过 141 项测试（核心 85 项、传输 56 项），三个 fixture 均通过且未发模型请求。真实调用首次因 `invalid_tool_call` 被拒绝，使用一次请求且未执行工具；补充官方工具调用 `index` 元数据和 `function_call: null` 的兼容处理及 Mock 端到端测试后复验通过。首次未保留原始响应，不将兼容修复描述为已逐字段还原该次失败。总新增模型请求为 3 次，包含失败尝试 1 次和成功复验 2 次。
 
-核对 [验收记录](../../docs/evidence/day64/validation.json)、[fixture 结果](../../docs/evidence/day64/fixtures.json)、[首次真实尝试](../../docs/evidence/day64/live-first-attempt.json)和[成功复验](../../docs/evidence/day64/live-quote.json)。
+核对 [验收记录](../../docs/evidence/week-10.md#day64)、[fixture 结果](../../docs/evidence/week-10.md#day64)、[首次真实尝试](../../docs/evidence/week-10.md#day64)和[成功复验](../../docs/evidence/week-10.md#day64)。
 
 ## 范围
 

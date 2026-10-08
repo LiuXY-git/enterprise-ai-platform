@@ -10,10 +10,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 DOCUMENT_PATHS = (
     Path("README.md"),
-    Path("docs/database.md"),
-    Path("docs/week-2-summary.md"),
-    Path("docs/architecture.md"),
-    Path("docs/week-3-summary.md"),
+    Path("docs/week-2.md"),
+    Path("docs/week-1.md"),
+    Path("docs/week-3.md"),
 )
 
 
@@ -36,7 +35,7 @@ GOLDEN_CASES = (
         expected_sources=frozenset(
             {
                 "README.md",
-                "docs/week-2-summary.md",
+                "docs/week-2.md",
             }
         ),
     ),
@@ -60,8 +59,7 @@ GOLDEN_CASES = (
         question="数据库保存了哪些文档信息？",
         expected_sources=frozenset(
             {
-                "docs/database.md",
-                "docs/week-2-summary.md",
+                "docs/week-2.md",
             }
         ),
     ),
@@ -77,7 +75,7 @@ GOLDEN_CASES = (
         question="Docker、FastAPI、Routers 和 Services 之间是什么关系？",
         expected_sources=frozenset(
             {
-                "docs/architecture.md",
+                "docs/week-1.md",
             }
         ),
     ),
@@ -85,7 +83,7 @@ GOLDEN_CASES = (
         question="Week 3 完成了哪些 RAG 功能？",
         expected_sources=frozenset(
             {
-                "docs/week-3-summary.md",
+                "docs/week-3.md",
             }
         ),
     ),

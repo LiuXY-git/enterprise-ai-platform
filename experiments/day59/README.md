@@ -1,6 +1,6 @@
 # Day 59：任务规划 Agent
 
-模型生成结构化计划，LangGraph 编排输入检查、模型请求、计划校验和结果返回。计划中的步骤不会执行。完整操作说明见 [Day 59 文档](../../docs/week-9-notes.md#day59)。
+模型生成结构化计划，LangGraph 编排输入检查、模型请求、计划校验和结果返回。计划中的步骤不会执行。完整操作说明见 [Day 59 文档](../../docs/week-9.md#day59)。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -17,4 +17,4 @@
 
 状态含义：`planned` 表示计划通过结构检查；`waiting_for_input` 表示需要补充；`failed` 表示输入、模型调用或输出校验失败。`planned` 不表示资料已查到、问题已回答或计划已经执行。
 
-使用独立 `.venv` 安装锁定依赖；不要安装进 API 或 Day 58 环境。没有 LangGraph 时实验测试会跳过，验收需要在独立环境确认全部通过且无 skipped。真实 Qwen 样例见 [live-plans.json](../../docs/evidence/day59/live-plans.json)，完整验证范围见 [validation.json](../../docs/evidence/day59/validation.json)。
+使用独立 `.venv` 安装锁定依赖；不要安装进 API 或 Day 58 环境。没有 LangGraph 时实验测试会跳过，验收需要在独立环境确认全部通过且无 skipped。真实 Qwen 样例见 [live-plans.json](../../docs/evidence/week-09.md#day59)，完整验证范围见 [validation.json](../../docs/evidence/week-09.md#day59)。

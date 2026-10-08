@@ -35,4 +35,4 @@ $day67TestDir = Join-Path $env:TEMP ('day67-tests-' + [guid]::NewGuid().ToString
 
 天气数据来自 [Open-Meteo](https://open-meteo.com/)，按 CC BY 4.0 署名。免费接口用于本次非商业学习，商业产品应按 [官方使用条件](https://open-meteo.com/en/terms)选择适当方案。
 
-详细参数、失败行为、可复刻流程和能力边界见 [Day 67 操作说明](../../docs/week-10-notes.md#day67)；结果见 [验收清单](../../docs/evidence/day67/validation.json)。
+详细参数、失败行为、可复刻流程和能力边界见 [Day 67 操作说明](../../docs/week-10.md#day67)；结果见 [验收清单](../../docs/evidence/week-10.md#day67)。

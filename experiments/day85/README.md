@@ -2,7 +2,7 @@
 
 今天先确定“考谁、考什么、怎样判定、怎样保存结果”。代码负责检查配置并生成未执行的评测计划；不会启动 Agent、MCP 或模型，也不会创建审批。
 
-完整设计：[Evaluation Center](../../evaluation-center/design.md)。后续顺序：[Week 13](../../docs/week-13-plan.md)。
+完整设计：[Evaluation Center](../../evaluation-center/design.md)。后续顺序：[Week 13](../../docs/week-13.md#plan)。
 
 ## 1. 使用已有环境
 

@@ -1,10 +1,10 @@
 # Day 76：Planning 学习操作
 
-本目录只增加人工编写的 [planning-examples.json](planning-examples.json)，复用 Day 59 的规划器和环境。完整讲解见 [Day 76 学习文档](../../docs/week-11-notes.md#day76)。示例不执行季度查询，不新增模型请求。
+本目录只增加人工编写的 [planning-examples.json](planning-examples.json)，复用 Day 59 的规划器和环境。完整讲解见 [Day 76 学习文档](../../docs/week-11.md#day76)。示例不执行季度查询，不新增模型请求。
 
 ## 1. 观察计划、澄清和失败
 
-已有 Day 59 环境时直接执行；缺少环境则按 [Day 59 安装说明](../../docs/week-9-notes.md#day59)安装到其独立 `.venv`。
+已有 Day 59 环境时直接执行；缺少环境则按 [Day 59 安装说明](../../docs/week-9.md#day59)安装到其独立 `.venv`。
 
 ```powershell
 Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
@@ -60,6 +60,6 @@ for item in examples["examples"]:
 - 保持格式，把描述改成无关内容：可能通过结构检查，说明还需要业务语义检查。
 - 只有“分析本季度销售情况”时：先列出缺失范围，避免直接编造销售数字。
 
-本日保存了四个原有 Mock 场景和两个新人工样例的实际离线校验结果，见 [offline-review.json](../../docs/evidence/day76/offline-review.json)。六次观察不是新增单元测试，也不等于业务任务执行成功。
+本日保存了四个原有 Mock 场景和两个新人工样例的实际离线校验结果，见 [offline-review.json](../../docs/evidence/week-11.md#day76)。六次观察不是新增单元测试，也不等于业务任务执行成功。
 
 你可以继续复跑 Day 59 的既有测试，但本日没有修改其代码，也没有重跑整套旧版测试。原模型实验、发布版本和历史证据保持不变。

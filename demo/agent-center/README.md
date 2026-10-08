@@ -1,6 +1,6 @@
 # Agent Center 教学材料
 
-[Day 57 静态任务推演](day57-task-walkthrough.json)用于阅读和讨论架构，没有可执行 Agent，也不是模型输出或线上验收记录。架构说明见 [Day 57 文档](../../docs/week-9-notes.md#day57)，后续安排见 [Week 9 计划](../../docs/week-9-plan.md)。
+[Day 57 静态任务推演](day57-task-walkthrough.json)用于阅读和讨论架构，没有可执行 Agent，也不是模型输出或线上验收记录。架构说明见 [Day 57 文档](../../docs/week-9.md#day57)，后续安排见 [Week 9 计划](../../docs/week-9.md#plan)。
 
 ## 如何阅读
 

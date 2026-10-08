@@ -1,6 +1,6 @@
 # Backend
 
-FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、模拟 CRM 和独立通知接口。用户操作见 [平台使用指南](../docs/user-guide.md)，数据流见 [系统架构](../docs/architecture.md)。
+FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、模拟 CRM 和独立通知接口。用户操作见 [平台使用指南](../docs/week-8.md#user-guide)，数据流见 [系统架构](../docs/week-1.md#architecture)。
 
 ## 目录
 
@@ -34,7 +34,7 @@ FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、�
 .\.venv\Scripts\python.exe -m backend.app.check_config --component dify
 ```
 
-这些命令不验证密钥有效性和真实网络。API 模型配置不会改变 Dify/n8n 内部模型，详见 [配置说明](../docs/week-8-notes.md#day52)。
+这些命令不验证密钥有效性和真实网络。API 模型配置不会改变 Dify/n8n 内部模型，详见 [配置说明](../docs/week-8.md#day52)。
 
 ## 验证与数据
 
@@ -45,8 +45,8 @@ FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、�
 .\.venv\Scripts\python.exe -m ruff check backend tests
 ```
 
-SQLite 与 Chroma 默认在根目录 `data` 下，日志在根目录 `logs` 下；不是 `backend/data` 或 `backend/logs`。容器挂载与重建验收见 [Day 53](../docs/week-8-notes.md#day53)。
+SQLite 与 Chroma 默认在根目录 `data` 下，日志在根目录 `logs` 下；不是 `backend/data` 或 `backend/logs`。容器挂载与重建验收见 [Day 53](../docs/week-8.md#day53)。
 
-详细接口及当前边界见 [API 文档](../docs/api.md)。`/chat` 是回显示例；使用 `/rag/answer` 获取知识库生成回答。
+详细接口及当前边界见 [API 文档](../docs/week-4.md#api)。`/chat` 是回显示例；使用 `/rag/answer` 获取知识库生成回答。
 
-Day 92 重构保留 Uvicorn/Docker 入口、接口契约和数据路径。`create_app()` 构建应用时不启动数据库或配置日志；这些操作发生在 ASGI lifespan。测试应通过 `with TestClient(create_app())` 触发生命周期，并替换 `backend.app.core.lifecycle` 中的依赖。工厂隔离应用状态、依赖覆盖和文档标签，不承诺每个应用使用不同的进程环境或数据库，详见 [Day 92](../docs/week-14-notes.md#day92)。
+Day 92 重构保留 Uvicorn/Docker 入口、接口契约和数据路径。`create_app()` 构建应用时不启动数据库或配置日志；这些操作发生在 ASGI lifespan。测试应通过 `with TestClient(create_app())` 触发生命周期，并替换 `backend.app.core.lifecycle` 中的依赖。工厂隔离应用状态、依赖覆盖和文档标签，不承诺每个应用使用不同的进程环境或数据库，详见 [Day 92](../docs/week-14.md#day92)。

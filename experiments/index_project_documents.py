@@ -12,12 +12,8 @@ PROJECT_DOCUMENTS = [
         Path("README.md"),
     ),
     (
-        "database",
-        Path("docs/database.md"),
-    ),
-    (
         "week-2-summary",
-        Path("docs/week-2-summary.md"),
+        Path("docs/week-2.md"),
     ),
 ]
 

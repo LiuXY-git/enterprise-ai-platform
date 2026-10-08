@@ -123,6 +123,6 @@ $day75Session = '填入刚才保存的会话ID'
 & .\experiments\day75\.venv\Scripts\python.exe -B .\scripts\day70\release_gate.py
 ```
 
-191 项离线测试通过：新增 50 项，复用的 Day 64 模型传输与协议回归 141 项。另有离线与真实模型各 14 步独立进程演示。代码入口：[存储与请求状态](memory_store.py)、[上下文组装与回答](conversation.py)、[跨进程演示](demo.py)、[测试](test_conversation.py)。验证记录见 [Day 75 证据](../../docs/evidence/day75/validation.json)。
+191 项离线测试通过：新增 50 项，复用的 Day 64 模型传输与协议回归 141 项。另有离线与真实模型各 14 步独立进程演示。代码入口：[存储与请求状态](memory_store.py)、[上下文组装与回答](conversation.py)、[跨进程演示](demo.py)、[测试](test_conversation.py)。验证记录见 [Day 75 证据](../../docs/evidence/week-11.md#day75)。
 
 这是独立 CLI 实验；没有接入 FastAPI、Docker、MCP 或 LangGraph，也没有修改既有 Day 60/73 实现。保存的是同一会话范围的短期记忆，不是跨会话长期用户档案。

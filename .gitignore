@@ -84,3 +84,6 @@ data/day90/
 
 # Evaluation Center release acceptance
 data/day91/
+
+# Outputs from the weekly-evidence evaluation entrypoint
+data/evaluation/

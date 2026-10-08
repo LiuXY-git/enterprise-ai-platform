@@ -18,7 +18,7 @@ GOLDEN_CASES = [
     ),
     (
         "数据库保存了哪些文档信息？",
-        "docs/database.md",
+        "docs/week-2.md",
     ),
     (
         "当前项目版本是多少？",

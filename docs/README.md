@@ -1,113 +1,51 @@
 # 文档目录
 
-首次使用看[平台使用指南](user-guide.md)，理解服务关系看[系统架构](architecture.md)，开发接口看[API 文档](api.md)和[后端说明](../backend/README.md)。
+每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 92，Week 14 尚未完成。
+
+快速使用：[平台使用指南](week-8.md#user-guide) · [当前部署步骤](week-8.md#day53) · [API 参考](week-4.md#api) · [架构资料](week-1.md#architecture) · [Day 92 后端目录](week-14.md#day92)。
+
+专题资料按首次引入的周次归档，并标注后续修订范围。历史记录中的成功率、版本与限制只适用于相应阶段；计划不是已完成功能。
 
 ## 按周阅读
 
-Week 7–14 的 `week-*-notes.md` 按天收录完整内容，包含操作步骤、代码命令、验证结果与限制。从下表选择周次，再按各周目录跳转到当天章节。
-
-| 周次 | 阅读入口 | 覆盖内容 | 计划与总结 |
-| --- | --- | --- | --- |
-| Week 1 | [阶段总结](week-1-summary.md) | 沿用既有周记录 | — |
-| Week 2 | [阶段总结](week-2-summary.md) | 沿用既有周记录 | — |
-| Week 3 | [阶段总结](week-3-summary.md) | 沿用既有周记录 | — |
-| Week 4 | [阶段总结](week-4-summary.md) | 沿用既有周记录 | — |
-| Week 5 | [阶段总结](week-5-summary.md) | 沿用既有周记录 | — |
-| Week 6 | [阶段总结](week-6-summary.md) | 沿用既有周记录 | — |
-| Week 7 | [企业平台集成与销售流程验收](week-7-notes.md) | Day 48–49 | [总结](week-7-summary.md) |
-| Week 8 | [工作流整理、配置与部署](week-8-notes.md) | Day 50–55 | [总结](week-8-summary.md) |
-| Week 9 | [Agent 基础与状态管理](week-9-notes.md) | Day 57–63 | [计划](week-9-plan.md) · [总结](week-9-summary.md) |
-| Week 10 | [Function Calling 与多工具调用](week-10-notes.md) | Day 64–70 | [计划](week-10-plan.md) · [总结](week-10-summary.md) |
-| Week 11 | [MCP、Memory 与 Planning](week-11-notes.md) | Day 71–77，含 Day 75 草案与实现 | [计划](week-11-plan.md) · [总结](week-11-summary.md) |
-| Week 12 | [Agent 企业化与人工确认](week-12-notes.md) | Day 78–84 | [计划](week-12-plan.md) · [总结](week-12-summary.md) |
-| Week 13 | [Agent 评测框架](week-13-notes.md) | Day 85–91 | [计划](week-13-plan.md) · [总结](week-13-summary.md) |
-| Week 14 | [企业生产化优化](week-14-notes.md) | Day 92 | [计划](week-14-plan.md) |
-
-Week 7/8 的收录范围见表格，其他日期可查看对应周总结；Week 14 目前仅完成 Day 92。原计划和总结保留各阶段的历史状态，最新发布进度以[项目首页](../README.md)为准。
-
-后续学习内容直接追加到当周 `week-*-notes.md`，并更新该文件的目录。
+| 周次 | 学习范围 | 内容 |
+| --- | --- | --- |
+| [Week 1](week-1.md) | Day 1–7 | 项目初始化与 FastAPI 基础 |
+| [Week 2](week-2.md) | Day 8–14 | Knowledge Hub 文档接入 |
+| [Week 3](week-3.md) | Day 15–21 | RAG：切分、向量检索与来源回答 |
+| [Week 4](week-4.md) | Day 22–28 | Knowledge Hub 产品化 |
+| [Week 5](week-5.md) | Day 29–35 | Dify 企业客服工作流 |
+| [Week 6](week-6.md) | Day 36–42 | n8n 自动化与工作流持久化 |
+| [Week 7](week-7.md) | Day 43–49 | 企业协作集成与销售跟进 |
+| [Week 8](week-8.md) | Day 50–56 | 工作流整理、配置与部署 |
+| [Week 9](week-9.md) | Day 57–63 | Agent 基础与状态管理 |
+| [Week 10](week-10.md) | Day 64–70 | Function Calling 与多工具调用 |
+| [Week 11](week-11.md) | Day 71–77 | MCP、Memory 与 Planning |
+| [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
+| [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
+| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；目前完成 Day 92 |
 
 ## 专题与操作入口
 
-### 项目设计
+| 查找内容 | 阅读位置 |
+| --- | --- |
+| 使用、配置与部署 | [使用指南](week-8.md#user-guide) · [配置中心](week-8.md#day52) · [启动与检查](week-8.md#day53) |
+| 架构、技术与数据库 | [系统架构](week-1.md#architecture) · [技术选型](week-1.md#tech-stack) · [SQLite 表结构](week-2.md#database) · [后端重构](week-14.md#day92) |
+| API | [接口参考](week-4.md#api) · [后端说明](../backend/README.md) |
+| 知识库与 RAG | [Week 3](week-3.md) · [黄金问题](week-3.md#rag-golden-questions) · [检索优化](week-4.md#retrieval-optimization) |
+| Dify 与 n8n | [Dify 工作流](week-5.md) · [n8n 部署和自动化](week-6.md) · [模板目录](../n8n/templates/README.md) |
+| 企业协作与销售 | [飞书](week-7.md#feishu-open-platform) · [企业微信](week-7.md#wecom-notifications) · [销售设计](week-7.md#sales-followup-design) · [验收方案](week-7.md#sales-followup-acceptance) |
+| Agent 基础与工具 | [LangGraph](week-9.md#day58) · [状态恢复](week-9.md#day60) · [Function Calling](week-10.md#day64) · [多工具组合](week-10.md#day68) |
+| MCP、记忆与人工确认 | [MCP 调用](week-11.md#day73) · [会话记忆](week-11.md#day75) · [人工确认](week-12.md#day80) · [Agent 入口](../agent-center/README.md) |
+| 评测与测试 | [评测学习记录](week-13.md) · [运行评测](../evaluation-center/README.md#运行评测) · [测试说明](../tests/README.md) |
+| 演示 | [Knowledge Hub 讲稿](week-4.md#demo-script) · [Day 55 操作稿](week-8.md#day55) · [Day 83 演示材料](week-12.md#day83) |
+| 版本说明 | [Knowledge Hub](week-4.md#release-v1.0) · [Workflow v0.1](week-6.md#workflow-center-v0.1) · [Workflow v0.5](week-7.md#workflow-center-v0.5) · [Workflow v1.0 候选](week-8.md#workflow-center-v1.0) |
+| Agent / Evaluation 版本 | [Agent v0.1](week-9.md#agent-center-v0.1) · [v0.2](week-10.md#agent-center-v0.2) · [v0.5](week-11.md#agent-center-v0.5) · [v1.0](week-12.md#agent-center-v1.0) · [Evaluation v0.1](week-13.md#evaluation-center-v0.1) |
 
-- [系统架构](architecture.md)
-- [技术选型](tech-stack.md)
-- [数据库设计](database.md)
+## 结果与资料维护
 
-### API 接口
-
-- [API 文档](api.md)
-
-### 文档接入与 RAG
-
-- [Embedding 学习笔记](embedding.md)
-- [Chunk 文本切分](chunking.md)
-- [Chroma 向量数据库](vector-database.md)
-- [文档 Embedding 流程](document-embedding.md)
-- [RAG Query 检索](rag-query.md)
-- [RAG Prompt 与来源引用](rag-prompt.md)
-- [RAG 黄金问题集](rag-golden-questions.md)
-- [多文档自动索引](multi-document-indexing.md)
-- [RAG 检索参数优化](retrieval-optimization.md)
-- [LLM 模型切换](llm-switching.md)
-
-### 部署与运行
-
-- [Docker 部署](docker-deployment.md)
-
-### 工作流中心
-
-- [客服、邮件、销售模板目录](../n8n/templates/README.md)
-- [Dify 基础与首个 AI 应用](dify-basics.md)
-- [Dify 接入 Knowledge Hub](dify-knowledge-hub.md)
-- [Dify Workflow 基础与企业咨询分流](dify-workflow-basics.md)
-- [Dify 企业客服场景](dify-customer-service-scenario.md)
-- [Dify 企业场景 Prompt 优化](dify-enterprise-prompt-optimization.md)
-- [FastAPI 调用 Dify 工作流](dify-fastapi-integration.md)
-- [n8n 基础与本地部署](n8n-foundation.md)
-- [n8n Webhook 触发与请求响应](n8n-webhook-trigger.md)
-- [n8n 连接 AI 工作流](n8n-ai-integration.md)
-- [n8n AI 邮件助手](n8n-ai-email-assistant.md)
-- [n8n AI 工作流日报](n8n-daily-workflow-report.md)
-- [n8n 工作流数据库持久化](n8n-workflow-persistence.md)
-
-### 企业协作平台集成
-
-- [飞书开放平台接入基础](feishu-open-platform.md)
-- [企业微信自建应用通知](wecom-notifications.md)
-
-### 销售线索跟进助手
-
-- [销售线索跟进助手设计](sales-followup-design.md)
-- [销售线索跟进助手验收方案](sales-followup-acceptance.md)
-- [n8n 销售线索跟进助手](n8n-sales-followup-assistant.md)
-- [销售线索跟进助手验收样例](../demo/sales-followup-cases.json)
-
-### 演示与验收
-
-- [Day 55 录制验收表](../demo/day55-recording-checklist.md)
-- [Day 55 演示工具](../scripts/day55/README.md)
-- [Demo 演示数据与说明](../demo/README.md)
-- [Demo 录制脚本](demo-script.md)
-- [Demo 最终验收记录](demo-acceptance.md)
-- [Day 49 可重复验收脚本](../scripts/day49/README.md)
-
-### 版本与发布
-
-- [Agent Center v0.1.0 版本说明](agent-center-v0.1.md)
-- [Agent Center v0.1.0 版本清单](../agent-center/release-v0.1.0.json)
-- [Workflow Center v1.0.0 发布候选说明](workflow-center-v1.0.md)
-- [Workflow Center v1.0.0 候选清单](../n8n/workflow-center-v1.0.0.json)
-- [Knowledge Hub v1.0.0 发布说明](release-v1.0.md)
-- [Workflow Center v0.1.0 发布说明](workflow-center-v0.1.md)
-- [Workflow Center v0.5.0 发布说明](workflow-center-v0.5.md)
-- [Workflow Center v0.5.0 短演示讲解稿](workflow-center-v0.5-demo.md)
-- [版本变更记录](../CHANGELOG.md)
-
-### Agent 与 Evaluation
-
-- [Agent Center](../agent-center/README.md)：独立实验、操作说明与版本入口。
-- [Evaluation Center](../evaluation-center/README.md)：固定测试集、自动执行与评分入口。
-- [测试运行说明](../tests/README.md)：后端与独立实验的环境划分。
-- [Evaluation Center v0.1 版本说明](evaluation-center-v0.1.md)。
+- 测试结果看 [每周结果摘要](evidence/README.md)，原始记录保留在对应周数据包中。
+- 后续内容追加到 `week-N.md` 的对应 Day 或专题章节，并更新本周目录；不再新增独立 Day、plan、notes、summary 文件。
+- 修改章节标题时保留显式锚点，避免已有链接失效。不同专题保留独立锚点，即使标题相同也能准确跳转。
+- 先前已导入 Chroma 的文档和来源不会随文件改名自动更新。需比较新文档的检索效果时重新建立对应索引；本次整理不修改已有向量库。
+- 原来的检索成绩和输出仍作为阶段记录保留；当前黄金问题和实验读取路径已经使用 Week 文件。
