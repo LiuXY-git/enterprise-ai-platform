@@ -1233,7 +1233,7 @@
     },
     {
       "path": "docs/evidence/week-14.zip",
-      "sha256": "454ba58d8a7a550a0415e59c2a124dc49eed362500f8558b1577b7ffcb8ac8f2",
+      "sha256": "17b455ec628ecbf5ea747c27470433d70f52f01a8eae0f1fcd467918b75d5fe2",
       "entries": {
         "docs/evidence/day92/backend-tests.xml": {
           "sha256": "263c1c27e3ab90b5c9ce04e2427ee2f7094734d9900fc6c10410fcf06a64f595",
@@ -1250,6 +1250,26 @@
         "docs/evidence/day92/validation.json": {
           "sha256": "f3e06e8a8c54e4166f29f6faa834488992aacff30100e99862748dc33d42e458",
           "size": 2555
+        },
+        "docs/evidence/day93/backend-tests.xml": {
+          "sha256": "312ea7eefc20d27d5e01af2671311c4cb8a9161477193c957c38defd411a3ac0",
+          "size": 88997
+        },
+        "docs/evidence/day93/browser-validation.json": {
+          "sha256": "1a8ea88aae4cabd84180e4aa965f37cb8866768a5373c39c0f89af527c9ec9e7",
+          "size": 521
+        },
+        "docs/evidence/day93/compose-validation.json": {
+          "sha256": "a86b729c7e4ff61ddd8c812ab018e6228286d2ef39fc8357de8f8355a515e077",
+          "size": 272
+        },
+        "docs/evidence/day93/deployment-validation.json": {
+          "sha256": "d374f2bb8bbba98b715cce67d73f8a5eac0ec8b00bff380218b85b28bed32c45",
+          "size": 637
+        },
+        "docs/evidence/day93/validation.json": {
+          "sha256": "1d7f76f95b531ad7588106658c58640f769f48e74573144b3d5f48bb26d2342c",
+          "size": 898
         }
       }
     },
@@ -1608,6 +1628,6 @@
       }
     }
   ],
-  "evidence_records": 301,
+  "evidence_records": 306,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }

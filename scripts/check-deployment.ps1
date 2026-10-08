@@ -1,11 +1,13 @@
 [CmdletBinding()]
 param(
     [switch]$ApiOnly,
+    [switch]$WithoutN8n,
     [ValidateSet('llm', 'dify', 'external-knowledge', 'feishu', 'wecom')]
     [string[]]$CheckComponents = @()
 )
 
 . (Join-Path $PSScriptRoot 'deployment-common.ps1')
+if ($ApiOnly -and $WithoutN8n) { throw 'Choose ApiOnly or WithoutN8n, not both.' }
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $compose = @(Get-PlatformComposeArguments $projectRoot)
 Test-PlatformDocker
@@ -48,6 +50,34 @@ foreach ($component in $CheckComponents) {
 }
 
 if (-not $ApiOnly) {
+    $frontendId = Get-PlatformContainer $compose 'frontend'
+    Assert-PlatformHealthy $frontendId 'frontend'
+    $frontendUser = (Invoke-PlatformDocker @('inspect', '--format', '{{.Config.User}}', $frontendId) | Out-String).Trim()
+    if ($frontendUser -ne 'nginx') { throw 'Frontend must run as the nginx user.' }
+    Invoke-PlatformDocker @('exec', $frontendId, 'nginx', '-t') | Out-Host
+    # Cross-container HTTP checks include the reverse proxy, not just static health.
+    $frontendProbe = @'
+import json, time, urllib.error, urllib.request
+with urllib.request.urlopen('http://frontend:8080/', timeout=5) as response:
+    assert 'KNOWLEDGE HUB' in response.read().decode('utf-8')
+for path in ('app.js', 'styles.css'):
+    with urllib.request.urlopen('http://frontend:8080/' + path, timeout=5) as response:
+        assert response.read(), 'Missing frontend asset'
+for attempt in range(6):
+    try:
+        with urllib.request.urlopen('http://frontend:8080/api/health', timeout=5) as response:
+            assert json.load(response)['status'] == 'ok', 'Frontend API proxy failed'
+        break
+    except (urllib.error.URLError, TimeoutError):
+        if attempt == 5:
+            raise
+        time.sleep(3)  # Allow Nginx DNS cache to refresh after API recreation.
+print('Frontend page, assets and API reverse proxy verified.')
+'@
+    Invoke-PlatformDocker @('exec', $apiId, 'python', '-c', $frontendProbe) | Out-Host
+}
+
+if (-not $ApiOnly -and -not $WithoutN8n) {
     $n8nId = Get-PlatformContainer $compose 'n8n'
     Assert-PlatformHealthy $n8nId 'n8n'
     $n8nMounts = (Invoke-PlatformDocker @('inspect', '--format', '{{json .Mounts}}', $n8nId) | Out-String) | ConvertFrom-Json

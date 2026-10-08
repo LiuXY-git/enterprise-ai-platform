@@ -41,7 +41,10 @@ def bundle(root, *, entry="docs/evidence/day92/result.json", raw=b'{"ok":true}')
 
 def test_all_records_survive_without_loose_day_files():
     records = read_records(ROOT)
-    assert len([p for p in records if p.startswith("docs/evidence/")]) == 301
+    evidence = [p for p in records if p.startswith("docs/evidence/")]
+    index = json.loads((ROOT / INDEX).read_text(encoding="utf-8"))
+    assert len(evidence) == index["evidence_records"]
+    assert len(evidence) >= 301
     assert not list((ROOT / "docs/evidence").glob("day*"))
     result = json.loads(records["docs/evidence/day92/validation.json"])
     assert result["tests"]["backend-tests"]["tests"] == 514

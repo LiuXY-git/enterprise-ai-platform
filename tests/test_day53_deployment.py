@@ -60,7 +60,10 @@ function docker {
     if ($a -contains 'ps' -and $a -contains '-q') { return ('test-' + $a[-1]) }
     if ($a[0] -eq 'inspect') {
         if ($a[2] -like '*State.Status*') { return 'running healthy' }
-        if ($a[2] -eq '{{.Config.User}}') { return 'app' }
+        if ($a[2] -eq '{{.Config.User}}') {
+            if ($a[-1] -eq 'test-frontend') { return 'nginx' }
+            return 'app'
+        }
         if ($a[2] -eq '{{json .Mounts}}') {
             if ($a[-1] -eq 'test-n8n') {
                 return '[{"Type":"volume","Destination":"/home/node/.n8n","RW":true}]'
@@ -79,7 +82,15 @@ function docker {
 """
 
 
-def run_script(tmp_path, *, fail="", api_only=False, checker=False, env_file=True):
+def run_script(
+    tmp_path,
+    *,
+    fail="",
+    api_only=False,
+    checker=False,
+    env_file=True,
+    without_n8n=False,
+):
     project = tmp_path / "project with spaces"
     scripts = project / "scripts"
     scripts.mkdir(parents=True)
@@ -102,6 +113,7 @@ def run_script(tmp_path, *, fail="", api_only=False, checker=False, env_file=Tru
         MOCK_DOCKER
         + f"\n& (Join-Path $env:DAY53_ROOT 'scripts/{entry}') "
         + ("-ApiOnly " if api_only else "")
+        + ("-WithoutN8n " if without_n8n else "")
         + "-CheckComponents @('llm', 'dify')\n",
         encoding="utf-8-sig",
     )

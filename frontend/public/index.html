@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知识库 · Enterprise AI Platform</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><div class="brand">EAP <span>Enterprise AI Platform</span></div><span class="badge">本地工作台</span></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">KNOWLEDGE HUB</p>
+      <h1>把资料变成可检索的知识</h1>
+      <p>上传文档，查找相关片段，回到原始来源。</p>
+      <div class="connection"><span id="health" role="status">正在连接后端…</span><button id="refresh" class="secondary" type="button">重新检查</button></div>
+    </section>
+    <div class="workspace">
+      <section class="panel">
+        <p class="step">01 / 添加资料</p><h2>上传文档</h2>
+        <p class="muted">支持 PDF、Word（.docx）和 Markdown（.md），小于 10 MB。文件将写入本机知识库。</p>
+        <form id="upload-form">
+          <label for="file">选择文档</label>
+          <input id="file" name="file" type="file" accept=".pdf,.docx,.md" required>
+          <button type="submit">上传并建立索引</button>
+        </form>
+        <p class="hint">首次使用可能需要下载本地向量模型，请耐心等待。上传失败后请先查看服务日志，避免重复上传。</p>
+        <p id="upload-status" role="status" class="message"></p>
+      </section>
+      <section class="panel search-panel">
+        <p class="step">02 / 查找知识</p><h2>检索相关片段</h2>
+        <form id="search-form">
+          <label for="question">你想查找什么？</label>
+          <textarea id="question" name="question" maxlength="500" rows="3" placeholder="例如：客户跟进流程有哪些步骤？" required></textarea>
+          <button type="submit">检索知识库</button>
+        </form>
+        <p class="hint">返回最多 3 个相关片段。本页执行向量检索，不生成 AI 回答。</p>
+        <p id="search-status" role="status" class="message"></p>
+        <div id="results" aria-label="检索结果"></div>
+      </section>
+    </div>
+    <footer>SQLite 保存文档信息 · Chroma 保存向量索引 · 本页面面向本机使用</footer>
+  </main>
+</body>
+</html>

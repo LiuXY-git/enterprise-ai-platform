@@ -1,4 +1,4 @@
-"""Build and recreate an isolated API; never operate on production containers."""
+"""Build and recreate an isolated API, optionally with its frontend."""
 
 import argparse
 import json
@@ -24,7 +24,7 @@ def run(arguments, *, env, capture=False):
     return result.stdout.strip() if capture else ""
 
 
-def verify(work_dir: Path) -> dict:
+def verify(work_dir: Path, *, with_frontend: bool = False) -> dict:
     token = uuid4().hex
     project = "day53-check-" + token
     image = "enterprise-ai-platform:day53-check-" + token
@@ -77,9 +77,18 @@ def verify(work_dir: Path) -> dict:
         location = mapping[volume["target"]]
         location.mkdir(parents=True, exist_ok=True)
         volume["source"] = str(location)
+    services = {"api": api}
+    frontend_image = "enterprise-ai-platform-frontend:check-" + token
+    if with_frontend:
+        frontend = json.loads(source)["services"]["frontend"]
+        frontend["image"] = frontend_image
+        frontend["container_name"] = project + "-frontend"
+        # No host ports or real credentials/data in this isolated check.
+        frontend["ports"] = []
+        services["frontend"] = frontend
     compose_file = directory / "compose.yaml"
     compose_file.write_text(
-        json.dumps({"name": project, "services": {"api": api}}), encoding="utf-8"
+        json.dumps({"name": project, "services": services}), encoding="utf-8"
     )
     scripts = directory / "scripts"
     scripts.mkdir()
@@ -110,7 +119,7 @@ def verify(work_dir: Path) -> dict:
                 "Bypass",
                 "-File",
                 str(scripts / "start.ps1"),
-                "-ApiOnly",
+                "-WithoutN8n" if with_frontend else "-ApiOnly",
             ],
             env=env,
         )
@@ -131,6 +140,15 @@ with urllib.request.urlopen(request, timeout=10) as response:
         run_id = run(
             ["docker", "exec", before_id, "python", "-c", seed], env=env, capture=True
         )
+        if with_frontend:
+            vector_seed = """
+from backend.app.services.vector_store import get_chroma_client
+collection = get_chroma_client().get_or_create_collection(
+    'deployment_check', embedding_function=None)
+collection.add(ids=['synthetic'], embeddings=[[1.0, 0.0, 0.0]],
+    documents=['isolated persistence fixture'])
+"""
+            run(["docker", "exec", before_id, "python", "-c", vector_seed], env=env)
         app_log = directory / "logs/app.log"
         events_log = directory / "logs/workflow-events.jsonl"
         app_before = app_log.read_bytes()
@@ -142,13 +160,13 @@ with urllib.request.urlopen(request, timeout=10) as response:
                 "up",
                 "-d",
                 "--no-build",
-                "--no-deps",
                 "--force-recreate",
                 "--wait",
                 "--wait-timeout",
                 "120",
                 "api",
-            ],
+            ]
+            + (["frontend"] if with_frontend else ["--no-deps"]),
             env=env,
         )
         after_id = run(compose + ["ps", "-q", "api"], env=env, capture=True)
@@ -170,6 +188,16 @@ print('persisted')
         )
         assert app_log.read_bytes().startswith(app_before)
         assert events_log.read_bytes().startswith(event_before)
+        if with_frontend:
+            vector_probe = """
+from backend.app.services.vector_store import get_chroma_client
+collection = get_chroma_client().get_collection(
+    'deployment_check', embedding_function=None)
+result = collection.query(query_embeddings=[[1.0, 0.0, 0.0]], n_results=1)
+assert result['ids'] == [['synthetic']]
+assert result['documents'] == [['isolated persistence fixture']]
+"""
+            run(["docker", "exec", after_id, "python", "-c", vector_probe], env=env)
         run(
             [
                 shell,
@@ -178,7 +206,7 @@ print('persisted')
                 "Bypass",
                 "-File",
                 str(scripts / "check-deployment.ps1"),
-                "-ApiOnly",
+                "-WithoutN8n" if with_frontend else "-ApiOnly",
             ],
             env=env,
         )
@@ -210,6 +238,9 @@ print('persisted')
                 "start_script": "passed",
                 "check_script": "passed",
                 "n8n_recreation_tested": False,
+                "frontend_and_proxy_checked": with_frontend,
+                "chroma_recreation_tested": with_frontend,
+                "embedding_model_downloaded": False,
             }
         )
         return evidence
@@ -219,6 +250,8 @@ print('persisted')
                 run(compose + ["down", "--timeout", "10"], env=env)
                 # This tag is unique to this invocation, never the production tag.
                 run(["docker", "image", "rm", image], env=env)
+                if with_frontend:
+                    run(["docker", "image", "rm", frontend_image], env=env)
                 evidence["isolated_resources_removed"] = True
             except subprocess.CalledProcessError:
                 evidence["isolated_resources_removed"] = False
@@ -233,5 +266,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--work-dir", type=Path, default=ROOT / "logs/deployment-checks"
     )
+    parser.add_argument(
+        "--with-frontend",
+        action="store_true",
+        help="Also check frontend proxy and Chroma across container recreation",
+    )
     args = parser.parse_args()
-    verify(args.work_dir)
+    verify(args.work_dir, with_frontend=args.with_frontend)
