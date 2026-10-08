@@ -4,7 +4,7 @@
 
 按学习路线归档，计划、实施记录与阶段总结集中在本页。记录中的版本、验收结果和“当前”均对应各节写作时点；后续修订会单独注明。
 
-目前完成 Day 92–94；Day 95–98 仍为计划。Compose 部署与环境变量管理的操作步骤见本页。
+目前完成 Day 92–95；Day 96–98 仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
 
 [总目录](README.md#按周阅读) · [上一周](week-13.md)
 
@@ -16,6 +16,7 @@
 - [Day 92：后端代码重构与目录整理](#day92)
 - [Day 93：Compose 前后端与持久化部署](#day93)
 - [Day 94：环境变量管理](#day94)
+- [Day 95：日志系统与请求追踪](#day95)
 
 ---
 
@@ -35,7 +36,7 @@
 | Day 97 | 技术文档 | 更新架构、部署、操作与维护说明，核对文档和实现 |
 | Day 98 | Enterprise AI Platform v1.0 发布 | 汇总实际交付，验收后创建版本清单、发布说明与标签 |
 
-每日开始前结合代码状态细化范围；Day 92–94 实施记录见下方，Day 95–98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
+每日开始前结合代码状态细化范围；Day 92–95 实施记录见下方，Day 96–98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
 
 <a id="plan-当前起点"></a>
 
@@ -424,6 +425,184 @@ DASHSCOPE_API_KEY='synthetic-${literal}'
 - Ruff 检查通过。测试使用虚构配置，未读取或覆盖现有私有环境文件，未新增模型请求，也未重启现有 API、n8n 或前端。
 - 结果收在 [Week 14 运行摘要](evidence/week-14.md#day94)；原有 Chroma 依赖的一条 asyncio 弃用警告继续保留。
 
-学习要点：配置文件负责提供值，启动入口负责选择文件，组件校验负责判断能否使用。了解这三层，才能解释“文件改了、程序却还用旧值”的原因。后续 Day 95 继续日志系统与排障。
+学习要点：配置文件负责提供值，启动入口负责选择文件，组件校验负责判断能否使用。了解这三层，才能解释“文件改了、程序却还用旧值”的原因。日志系统与排障实践见 [Day 95](#day95)。
 
 参考：[Compose 变量插值](https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/)、[环境变量优先级](https://docs.docker.com/compose/how-tos/environment-variables/envvars-precedence/)。
+
+---
+
+<a id="day95"></a>
+
+## Day 95：日志系统与请求追踪
+
+### 完成了什么，有什么用
+
+2026-10-08 完成。每次进入 API 的 HTTP 请求都会生成一个 request_id，并通过响应头 X-Request-ID 返回。应用日志和工作流事件带上同一编号，便于从一次请求找到对应的状态、耗时及业务处理记录。
+
+例如上传文档失败后，可以用响应里的编号查找 `upload_received`、`document_processing_failed` 和 `http_request_failed`，再按异常类型与源码位置定位问题。查询时不需要把文件内容、密钥或异常原文写进应用日志。
+
+本次交付：
+
+- [结构化日志](../backend/app/observability.py)：统一 JSON 字段、固定事件名、安全的文件与控制台写入。
+- [请求追踪](../backend/app/core/request_logging.py)：覆盖正常响应、参数错误、404、500、并发、取消和流式响应。
+- [应用工厂](../backend/app/application.py)：在 FastAPI 的完整错误处理栈外关联请求，保留原有响应和异常行为。
+- [工作流事件](../backend/app/workflow_logging.py)：保留原有业务字段，追加 service、level 和 request_id。
+- [隔离验收脚本](../scripts/verify_logging.py)及[测试](../tests/test_day95_observability.py)。
+- ELK 的学习与后续接入思路；本次没有安装或运行 Elasticsearch、Logstash、Kibana。
+
+~~~mermaid
+flowchart LR
+    A["客户端请求"] --> B["API 生成 request_id"]
+    B --> C["响应头 X-Request-ID"]
+    B --> D["app.log：请求与应用事件"]
+    B --> E["workflow-events.jsonl：业务事件"]
+    D --> F["按编号关联排障"]
+    E --> F
+~~~
+
+### 日志放在哪里
+
+| 位置 | 用途 | 保留方式 |
+| --- | --- | --- |
+| `logs/app.log` | API 请求摘要、应用事件 | 每个文件约 5 MiB，最多 3 个备份 |
+| `logs/workflow-events.jsonl` | 工作流开始、重复请求、检查点、完成和 Dify 等业务事件 | 每个文件约 5 MiB，最多 3 个备份 |
+| API 控制台 / `docker compose logs api` | 运行时观察；输出与文件日志有重叠 | Compose 沿用 max-size=10m、max-file=3 |
+| `logs/logging-checks/day95-<随机编号>/` | 隔离验收的临时数据库、日志和 result.json | 每次新目录，复核后按需自行清理 |
+
+文件轮转沿用已有大小限制，不依赖日期自动删除。多个 Uvicorn 进程不应同时写同一个轮转文件；当前实现适用于项目现有的单进程 API。后续多副本部署应统一采集控制台日志或使用独立文件，再设计集中保留策略。
+
+已有 app.log 中的文本行不会被删除或改写，新日志追加为 JSON；过渡期间可能同时存在两种格式。下面的查看命令会跳过旧文本行。
+
+### 字段怎样理解
+
+以下为字段演示，编号与耗时不是实际运行证据：
+
+~~~json
+{
+  "schema_version": 1,
+  "timestamp": "2026-10-08T09:00:00+00:00",
+  "service": "enterprise-ai-platform-api",
+  "level": "INFO",
+  "logger": "enterprise_ai_platform.http",
+  "event": "http_request_completed",
+  "request_id": "11111111111111111111111111111111",
+  "source": {"module": "request_logging", "line": 79},
+  "method": "GET",
+  "route": "/health",
+  "status_code": 200,
+  "duration_ms": 3.2,
+  "response_complete": true
+}
+~~~
+
+| 字段 | 含义 |
+| --- | --- |
+| timestamp | UTC 时间；显示在本地界面时可转换为北京时间 |
+| service / level / logger | 服务、日志级别和代码记录器 |
+| event | 固定应用事件名；未登记的消息用 application_log |
+| request_id | 单次 HTTP 请求的关联编号；启动或直接调用函数时可为 null |
+| route | 路由模板，例如 /workflow-runs/{run_id}，不会写入实际路径参数；未匹配时为 unmatched |
+| status_code | 服务端实际发送的响应状态；未发送响应时为 null |
+| duration_ms | 使用单调时钟记录 API 处理时间，包括流式处理及同请求后台任务；不是模型耗时或浏览器总耗时 |
+| response_complete | 服务端已发送最后一个响应体消息；不证明客户端最终收到 |
+| error_type / source | 异常类别及记录日志的代码模块、行号；不记录异常原文或堆栈 |
+
+请求摘要中：正常和重定向为 INFO，4xx 为 WARNING，5xx、异常或未完成响应为 ERROR。后台任务若在响应发送后失败，仍保留已发送的 200，同时记录 `http_request_failed`；不能把已经发出的响应伪改为 500。
+
+三个编号分别解决不同问题：
+
+- `request_id`：本次 HTTP 尝试。重试会产生新编号，不承担身份认证或去重职责。
+- `run_id`：业务工作流。一个工作流的多次请求可共用此编号。
+- `log_event_id`：原有工作流日志的单条事件编号。
+
+本服务始终生成自己的请求编号，不直接采用客户端传来的 X-Request-ID。关联范围是本 API 内部及同请求触发的工作流记录，不代表已建立跨 Dify、n8n、Agent 进程的分布式链路。
+
+### 无需更新现有服务的复刻方式
+
+在项目根目录、已有后端虚拟环境中执行：
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+
+.\.venv\Scripts\python.exe -B scripts/verify_logging.py
+~~~
+
+脚本会：
+
+1. 创建独立输出目录和虚构 SQLite 数据，不读取当前 .env。
+2. 启动仅绑定 127.0.0.1 随机端口的临时 Uvicorn 服务。
+3. 执行 9 个 HTTP 请求，覆盖健康、聊天、422、404、500、后台失败、工作流重复请求和关闭。
+4. 核对响应编号与日志编号、耗时、失败状态及敏感测试标记是否遗漏到日志中。
+5. 停止临时服务，输出 result.json 的位置；失败时也清理子进程并返回非零退出码。
+
+`/fixture-error`、`/fixture-background`、`/fixture-stop` 只存在于这个临时验收进程，不会注册到生产应用。脚本不修改已有容器，不发送模型请求或通知，也不会启动前端。
+
+### 在自己的 API 上按编号排障
+
+已有容器仍运行旧镜像时，不会自动获得新日志功能。需要启用时按需更新 API；前端继续关闭即可：
+
+~~~powershell
+# 与之前部署使用同一个环境文件；自定义文件加 -EnvFile
+& .\scripts\start.ps1 -ApiOnly
+
+$response = Invoke-WebRequest -Uri 'http://127.0.0.1:8000/health' -UseBasicParsing
+$requestId = [string]$response.Headers['X-Request-ID']
+Write-Host "本次请求编号：$requestId"
+
+# 同时检查当前文件和轮转备份；跳过升级前的文本行
+Get-ChildItem -LiteralPath '.\logs' -File |
+    Where-Object { $_.Name -like 'app.log*' -or $_.Name -like 'workflow-events.jsonl*' } |
+    ForEach-Object {
+        Get-Content -LiteralPath $_.FullName -Encoding UTF8 | ForEach-Object {
+            try {
+                $entry = $_ | ConvertFrom-Json -ErrorAction Stop
+                if ($entry.request_id -eq $requestId) { $entry }
+            } catch { }
+        }
+    } |
+    Select-Object timestamp, level, event, operation, status_code, duration_ms, run_id, error_type, source
+~~~
+
+浏览器里可在开发者工具的 Network 面板查看 API 响应头。前端代理正常转发 API 响应时会保留 X-Request-ID；若请求被代理直接拒绝或未到达 API，可能没有编号。
+
+建议按以下顺序定位：
+
+1. 用 request_id 查单次请求，检查状态码与路由。
+2. 看同编号的应用事件和 error_type/source，确定失败环节。
+3. 对工作流，再按 run_id 查看其他阶段或重复请求。
+4. 检查是否响应已发出后后台任务才报错，避免把 HTTP 200 当成所有处理已成功。
+5. 若日志出现 `log_sink_failed`，检查日志目录权限、磁盘空间或轮转文件占用。这个固定告警不含原始日志内容；日志写入失败也意味着记录可能不完整。
+
+这些命令用于本地排障，不构成完整审计工具；不要因为筛选结果为空就判断没有发生过请求。
+
+### 哪些内容会记录，哪些不会
+
+应用 JSON 日志仅输出固定事件及必要元数据。文件名、动态日志参数、请求正文、查询字符串、Authorization/Cookie、异常原文和异常堆栈不进入这一日志流。原始消息不再作为可自由拼接的 message 输出；新增事件需在 `observability.EVENTS` 中登记固定模板，定位错误使用 error_type/source。
+
+应用启动完成后，用新请求摘要替代 Uvicorn 原始访问日志，避免 URL 查询参数重复输出；HTTPX/HTTPCore 默认请求日志关闭，Uvicorn 异常日志改用同样的安全格式。启动配置之前的服务消息以及其他第三方、Nginx、n8n 日志不承诺使用这个格式。
+
+**原有 workflow-events.jsonl 仍保留 Day 51 的有限输入输出快照和脱敏规则，可能包含业务内容。** 新增 request_id 不会使这些记录自动变成可公开数据。集中采集前应明确授权、字段删减、访问权限和保留期；不要把整个日志目录直接公开。
+
+### ELK 在这里能发挥什么作用
+
+| 组件 | 职责 | 对应本项目的作用 |
+| --- | --- | --- |
+| Logstash | 接收、解析和转换日志，再输出到目标 | 把各服务的日志整理为可检索字段 |
+| Elasticsearch | 存储、搜索与聚合 | 按 request_id、路由、错误类型或时间范围查询 |
+| Kibana | 查询界面与可视化 | 查看错误分布、慢请求及趋势 |
+
+以后可让采集器读取 JSON 日志，经 Logstash 处理后写入 Elasticsearch，再由 Kibana 查询。Logstash 的处理管线分为输入、过滤和输出阶段；本次只把应用日志准备为易于解析的 JSON，不提供采集管线或仪表板。[官方处理流程](https://www.elastic.co/docs/reference/logstash/how-logstash-works)、[Elastic Stack 组件说明](https://www.elastic.co/elastic-stack)。
+
+采集时文件与控制台应选定一个主要来源，避免把同一请求重复计算；耗时统计也应只选择 HTTP 摘要事件，不能把工作流事件混作第二次 HTTP 请求。错误率与告警阈值需要明确统计口径，Day 95 没有声称已经部署监控告警系统。
+
+### 验证结果与学习顺序
+
+- 后端回归 **580 项全部通过**，含 Day 95 新增 26 项；无失败、错误或跳过。原有接口与 OpenAPI 契约测试通过。
+- 真实临时 Uvicorn 服务完成 **9 个 HTTP 请求、2 条工作流事件、8 项集成检查**；验证普通错误、未处理异常、后台错误、关联编号及敏感测试标记保护。
+- Ruff 检查通过；保留 Chroma 依赖已有的一条 asyncio 弃用警告。
+- 临时服务已停止，已有 API/n8n 容器及数据未修改，前端保持关闭。本次不部署 ELK、不新增模型请求或通知发送。
+- 结果归入 [Week 14 运行摘要](evidence/week-14.md#day95)。
+
+学习时先运行隔离脚本，打开 result.json 和同目录 app.log，对照响应与记录字段；理解单次请求如何关联后，再阅读请求中间件及 JSON 格式化代码。后续 Day 96 继续整理 API 与 Agent 测试入口和回归范围。

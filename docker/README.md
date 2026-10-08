@@ -46,3 +46,5 @@
 只更新 API 使用 `-ApiOnly`。脚本按源码位置确定项目目录，先构建再更新，并等待健康与挂载检查。详见 [Day 93 部署说明](../docs/week-14.md#day93)。Day 94 增加 `-EnvFile`，启动和检查均需使用同一选中文件；初始化与配置检查见 [环境变量管理](../docs/week-14.md#day94)。
 
 API 和前端一起更新时使用 -WithoutN8n。前端使用 [独立 Dockerfile](../frontend/Dockerfile) 构建静态资源及 Nginx，同源代理到 API。数据库沿用 API 内的 SQLite 和 Chroma，以宿主机目录持久化。
+
+Day 95 API 应用日志改为 JSON，并以 X-Request-ID 关联 HTTP 与工作流事件。现有镜像需要按需重建后才生效；仅更新 API 可用 -ApiOnly，详见 [日志启用与排障](../docs/week-14.md#day95)。本次没有增加 ELK 服务。

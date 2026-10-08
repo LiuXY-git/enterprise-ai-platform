@@ -1,7 +1,12 @@
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
+from .observability import (
+    JsonFormatter,
+    SafeConsoleHandler,
+    SafeRotatingFileHandler,
+    configure_server_logging,
+)
 from .workflow_logging import configure_workflow_logging
 
 LOGGER_NAME = "enterprise_ai_platform"
@@ -18,6 +23,8 @@ def configure_logging() -> None:
 
     configure_workflow_logging(LOG_DIRECTORY)
 
+    formatter = JsonFormatter()
+    configure_server_logging(formatter)
     logger = logging.getLogger(LOGGER_NAME)
 
     if logger.handlers:
@@ -26,14 +33,10 @@ def configure_logging() -> None:
     logger.setLevel(logging.INFO)
     logger.propagate = False
 
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-    )
-
-    console_handler = logging.StreamHandler()
+    console_handler = SafeConsoleHandler()
     console_handler.setFormatter(formatter)
 
-    file_handler = RotatingFileHandler(
+    file_handler = SafeRotatingFileHandler(
         LOG_FILE,
         maxBytes=5 * 1024 * 1024,
         backupCount=3,

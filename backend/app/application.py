@@ -6,12 +6,13 @@ from fastapi import FastAPI
 
 from .core.lifecycle import lifespan
 from .core.metadata import API_DESCRIPTION, OPENAPI_TAGS
+from .core.request_logging import LoggedFastAPI
 from .routers.registry import register_routes
 
 
 def create_app() -> FastAPI:
     """Construct routes and metadata; database and logging start in lifespan."""
-    application = FastAPI(
+    application = LoggedFastAPI(
         title="Enterprise AI Platform",
         summary="企业知识库、RAG 与工作流自动化 API",
         description=API_DESCRIPTION,

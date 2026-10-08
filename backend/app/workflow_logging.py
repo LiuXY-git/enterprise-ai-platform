@@ -7,10 +7,16 @@ import math
 import re
 from datetime import UTC, datetime
 from functools import wraps
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from time import perf_counter
 from uuid import uuid4
+
+from .observability import (
+    SERVICE,
+    SafeConsoleHandler,
+    SafeRotatingFileHandler,
+    current_request_id,
+)
 
 EVENT_LOGGER = "enterprise_ai_platform.workflow_events"
 SECRET_KEYS = {
@@ -91,14 +97,14 @@ def configure_workflow_logging(directory: Path) -> None:
         return
     directory.mkdir(parents=True, exist_ok=True)
     formatter = logging.Formatter("%(message)s")
-    file_handler = RotatingFileHandler(
+    file_handler = SafeRotatingFileHandler(
         directory / "workflow-events.jsonl",
         maxBytes=5 * 1024 * 1024,
         backupCount=3,
         encoding="utf-8",
     )
     file_handler.setFormatter(formatter)
-    console = logging.StreamHandler()
+    console = SafeConsoleHandler()
     console.setFormatter(formatter)
     logger.addHandler(file_handler)
     logger.addHandler(console)
@@ -163,6 +169,9 @@ def _record(operation, arguments, response, error, started):
         fresh_metrics = operation in {"dify.call", "workflow.finish"} and error is None
         event = {
             "schema_version": 1,
+            "service": SERVICE,
+            "level": "ERROR" if error else "INFO",
+            "request_id": current_request_id(),
             "timestamp": datetime.now(UTC).isoformat(),
             "log_event_id": str(uuid4()),
             "operation": operation,
