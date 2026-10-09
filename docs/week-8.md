@@ -816,9 +816,9 @@ Get-FileHash -LiteralPath 'C:\Users\Administrator\Videos\day55-workflow-center-d
 
 ## 平台使用指南
 
-> 本节为 Day 54 编写的平台使用指南。Agent 与评测的后续使用入口见 [Agent Center](../agent-center/README.md)和 [Evaluation Center](../evaluation-center/README.md#运行评测)。
+> 本节为 Day 54 的使用记录，未包含 Day 93 前端及后续环境、日志和测试入口。新部署与日常使用请从 [Day 97 当前操作手册](week-14.md#day97) 开始；Agent 与评测入口见 [Agent Center](../agent-center/README.md)和 [Evaluation Center](../evaluation-center/README.md#运行评测)。
 
-本指南对应 Day 54 的代码状态，带你完成启动、知识库问答、工作流试用和结果核对。首次使用从第 2 节开始；已有 Day 53 部署可以直接检查服务，再选择场景。
+下文用于复刻 Day 54 当时的启动、知识库问答与工作流试用过程。关于“没有前端”“只管理 API 与 n8n”等表述仅适用于当时，不作为当前部署说明。
 
 <a id="user-guide-1-选择入口"></a>
 

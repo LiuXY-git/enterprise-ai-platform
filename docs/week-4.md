@@ -335,7 +335,7 @@ Model：qwen3.7-plus
 
 ## Day 25：Docker 部署
 
-本页保留 Day 25 部署背景；当前一键启动、日志轮转与重建持久化验收请使用 [Day 53 部署说明](week-8.md#day53)。
+本页保留 Day 25 部署背景，下面步骤属于当时的复刻记录。当前前端/API/n8n 组合、配置文件选择与维护方法请使用 [Day 97 部署手册](week-14.md#day97-setup)；独立持久化验收见 [Day 93](week-14.md#day93)。
 
 <a id="docker-deployment-今日目标"></a>
 
@@ -623,9 +623,9 @@ docker compose config --quiet
 
 ## API 文档
 
-> 本节归入 Day 26 的接口文档工作，接口清单包含后续工作流、CRM 和通知扩展。在线接口以运行服务的 `/openapi.json` 为准。
+> 本节归入 Day 26 的接口文档工作，清单包含后续扩展；Day 97 已对照应用工厂核对 25 个路径、26 个操作。页面与接口边界见 [当前手册](week-14.md#day97-api)，在线字段以实际运行服务的 `/openapi.json` 为准。
 
-Enterprise AI Platform 当前版本为 v1.0.0，提供文档上传、向量检索、带来源回答、工作流运行、模拟 CRM 和企业通知接口。Workflow Center 组件目标版本为 0.5.0，不改变平台 API 版本。
+平台 API 元数据版本为 1.0.0，提供文档上传、向量检索、带来源回答、工作流运行、模拟 CRM 和企业通知接口。Workflow、Agent 和 Evaluation 的独立组件版本不改变这个 API 版本；当前没有 Agent HTTP API。
 
 <a id="api-访问地址"></a>
 
@@ -662,7 +662,7 @@ FastAPI 使用的模型和 Dify Key 在服务端配置；n8n 原生模型 Key �
 | 方法 | 路径 | 作用 |
 | --- | --- | --- |
 | GET | `/health` | 检查服务运行状态 |
-| POST | `/chat` | 发送基础聊天消息 |
+| POST | `/chat` | 基础消息回显，不调用生成模型 |
 | POST | `/dify/workflow` | 调用 Dify 企业咨询工作流 |
 | POST | `/upload` | 上传、解析并索引文档 |
 | POST | `/rag/query` | 检索相关文档片段 |
@@ -670,7 +670,7 @@ FastAPI 使用的模型和 Dify Key 在服务端配置；n8n 原生模型 Key �
 | POST | `/retrieval` | 为 Dify 检索外部知识库内容 |
 | POST | `/workflow-runs/start` | 登记工作流运行、拦截重复事件或开始回放 |
 | PATCH | `/workflow-runs/{run_id}/result` | 保存成功或人工审核结果 |
-| PATCH | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败 |
+| PATCH | `/workflow-runs/executions/{n8n_execution_id}/failure` | 按 n8n 执行号保存失败 |
 | GET | `/workflow-runs` | 按报告日期查询运行记录 |
 | GET | `/workflow-runs/{run_id}` | 查询单条运行记录 |
 | PATCH | `/workflow-runs/{run_id}/checkpoint` | 保存 AI 分析检查点 |
@@ -1173,8 +1173,9 @@ Workflow Center 使用这些接口保存 n8n 工作流的输入、输出、状�
 ```
 
 <a id="api-patch-workflow-runsexecutionsexecution_idfailure"></a>
+<a id="patch-workflow-runsexecutionsexecution_idfailure"></a>
 
-#### PATCH `/workflow-runs/executions/{execution_id}/failure`
+#### PATCH `/workflow-runs/executions/{n8n_execution_id}/failure`
 
 供 n8n Error Trigger 根据执行 ID 保存自动失败。
 

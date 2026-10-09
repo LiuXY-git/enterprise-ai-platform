@@ -20,7 +20,7 @@
 
 ## 系统架构
 
-> 本节始建于 Week 1，保留 Day 54 的平台架构说明及 Week 9 的 Agent 补充。后端目录在 Day 92 再次调整，当前入口见 [Week 14](week-14.md#day92)。各阶段的“当前”均指记录时点。
+> 本节保留 Day 54 架构及 Week 9 补充，下面的“当前”指当时。包含前端、应用工厂、MCP 与评测的最新服务关系见 [Day 97 当前架构](week-14.md#day97-architecture)，日常操作使用 [当前手册](week-14.md#day97)。
 
 本文描述 Day 54 时已经实现的系统。Knowledge Hub 负责文档索引与 RAG，Workflow Center 由 n8n 编排、FastAPI 提供运行账本和模拟 CRM。Day 50–53 已补齐模板入口、事件日志、统一配置和部署检查；销售通知仍为预览模式。操作步骤见 [使用指南](week-8.md#user-guide)。
 
@@ -184,7 +184,7 @@ Day 58–60 的 LangGraph 实验依赖与 API 隔离。Day 60 数据在 `data/da
 
 ## 技术选型
 
-> 本节按最初引入技术选型的 Week 1 归档，包含后续至 Week 9 的修订；后续 MCP 与评测实现分别见 [Week 11](week-11.md#days)和 [Week 13](week-13.md#days)。
+> 本节记录 Week 1–9 的技术选择过程。当前实现与环境边界见 [Day 97](week-14.md#day97-architecture)；MCP 与评测的学习过程见 [Week 11](week-11.md#days)和 [Week 13](week-13.md#days)。
 
 本页区分平台已使用技术与后续计划；Day 58–60 增加独立 LangGraph、模型规划和 SQLite 任务状态实验，平台 API 依赖沿用原配置。系统调用关系见 [架构说明](#architecture)，操作步骤见 [使用指南](week-8.md#user-guide)。
 

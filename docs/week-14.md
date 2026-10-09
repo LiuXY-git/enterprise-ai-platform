@@ -4,7 +4,7 @@
 
 按学习路线归档，计划、实施记录与阶段总结集中在本页。记录中的版本、验收结果和“当前”均对应各节写作时点；后续修订会单独注明。
 
-目前完成 Day 92–96；Day 97–98 仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
+目前完成 Day 92–97；Day 98 发布仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
 
 [总目录](README.md#按周阅读) · [上一周](week-13.md)
 
@@ -18,6 +18,7 @@
 - [Day 94：环境变量管理](#day94)
 - [Day 95：日志系统与请求追踪](#day95)
 - [Day 96：API 与 Agent 统一测试](#day96)
+- [Day 97：当前技术与操作手册](#day97)
 
 ---
 
@@ -37,7 +38,7 @@
 | Day 97 | 技术文档 | 更新架构、部署、操作与维护说明，核对文档和实现 |
 | Day 98 | Enterprise AI Platform v1.0 发布 | 汇总实际交付，验收后创建版本清单、发布说明与标签 |
 
-每日开始前结合代码状态细化范围；Day 92–96 实施记录见下方，Day 97–98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
+每日开始前结合代码状态细化范围；Day 92–97 实施记录见下方，Day 98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
 
 <a id="plan-当前起点"></a>
 
@@ -708,3 +709,260 @@ if ($testExit -ne 0) { throw 'Workflow 回归未通过；失败记录已保留' 
 - 所有测试使用临时源码副本和虚构输入；没有更新业务容器或启动前端。
 
 学习顺序：先执行 list 理解分组，再跑 api 并查看 summary.json；修改 Agent 时选择对应组，最后用 all 检查是否影响其他模块。结果摘要见 [Week 14 测试记录](evidence/week-14.md#day96)。Day 97 继续整理技术文档。
+
+
+<a id="day97"></a>
+
+## Day 97：当前技术与操作手册
+
+本节按 **2026-10-09、Day 96 已合并代码**整理，作为当前操作入口。Day 97 更新说明与导航，不改变 API、数据库结构或部署状态。早期 Week 章节继续记录当时的设计与复刻过程，日常操作从本节开始。
+
+[架构](#day97-architecture) · [准备与启动](#day97-setup) · [API 与页面](#day97-api) · [维护与排障](#day97-operations) · [测试与评测](#day97-testing) · [交付边界](#day97-boundaries)
+
+<a id="day97-architecture"></a>
+
+### 1. 当前架构与代码位置
+
+~~~mermaid
+flowchart LR
+    Browser[浏览器 8080] --> Frontend[frontend: Nginx + 静态页面]
+    Frontend -->|/api/ 去掉前缀| API[api: FastAPI 8000]
+    Operator[本机 API 文档 8000] --> API
+    N8N[n8n 5678] -->|HTTP 工作流| API
+    API --> DB[(data/enterprise_ai.db)]
+    API --> Vector[(data/chroma)]
+    API -->|RAG 生成| LLM[API 配置的生成模型]
+    API -->|工作流请求| Dify[独立 Dify]
+    Dify -->|外部知识库 /retrieval| API
+    API --> Log[logs/ 请求与工作流记录]
+    subgraph HostCLI[宿主机 CLI：独立于 Compose API]
+        Planner[规划与进度实验]
+        Memory[会话记忆实验]
+        Agent[固定销售任务与本地审批] --> MCP[stdio MCP 子进程]
+        MCP --> Sales[(虚构销售 SQLite)]
+        Eval[固定场景评测] --> Agent
+    end
+~~~
+
+Compose 中只有 **frontend、api、n8n 三个服务**。SQLite 和 Chroma 嵌入 API 进程并写本机挂载目录，没有独立 Database/Vector DB 容器。Dify 的部署与数据不归本项目 Compose 管理。Agent/MCP/评测使用宿主机独立 Python 环境，当前没有 Agent HTTP API，也没有与网页自动串联；图中的规划、记忆仍是独立实验。
+
+| 位置 | 维护职责 |
+| --- | --- |
+| [main.py](../backend/app/main.py) → [application.py](../backend/app/application.py) | 保持 Uvicorn 入口、创建 FastAPI 和注册路由 |
+| [core/lifecycle.py](../backend/app/core/lifecycle.py) | 启动时加载环境、配置日志、建表；关闭清理进程内缓存 |
+| [routers](../backend/app/routers)、[models](../backend/app/models)、[services](../backend/app/services) | HTTP 输入/输出、业务处理、数据及外部服务适配 |
+| [frontend/public](../frontend/public)、[nginx.conf](../frontend/nginx.conf) | 静态 UI、相对地址 /api 请求、反向代理 |
+| [n8n/templates](../n8n/templates/README.md) | 客服、邮件和销售流程的导入、Credentials 与实例绑定说明 |
+| [experiments](../experiments)、[Agent Center](../agent-center/README.md) | 各独立 CLI 的实现、版本入口与能力限制 |
+| [Evaluation Center](../evaluation-center/README.md#运行评测) | 固定测试集、执行、计时、usage 和规则判分 |
+| [scripts](../scripts)、[tests](../tests/README.md) | 环境/部署/日志验收/回归工具与对应测试 |
+
+`create_app()` 仅构造应用；真正启动需执行 lifespan。改变环境文件后重启相应进程，不能依赖已导入模块自动重新加载。部署镜像只包含 backend 和运行依赖，不包含宿主机的 Agent 实验、测试环境或私有环境文件。
+
+<a id="day97-setup"></a>
+
+### 2. 准备、配置与启动
+
+#### 首次准备
+
+现有开发环境可跳过安装。新机器准备 Git、PowerShell、Python 3.14；容器运行使用 Docker Desktop 的 Linux 容器模式，部署脚本要求 Compose >= 2.20.0。前端是静态文件，无需 npm 构建。当前 API 环境验证使用 Python 3.14.2，不把该结果推广到未测试的 Python 版本。
+
+以下命令在项目根目录执行，只为 API 建立环境；规划器与 MCP 的环境准备见 [Day 96](#day96)，不要混装它们的依赖。
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+py -3.14 -m venv .venv
+if ($LASTEXITCODE -ne 0) { throw 'API 虚拟环境创建失败' }
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+if ($LASTEXITCODE -ne 0) { throw 'API 依赖安装失败' }
+~~~
+
+**下面的 Compose 配置初始化仅用于没有旧 n8n 数据卷的新实例。** 它会生成新的 n8n 加密键。已有部署应继续选择原文件，或迁移时保留原 N8N_ENCRYPTION_KEY，不能为旧卷换成随机新键。
+
+~~~powershell
+.\.venv\Scripts\python.exe -B -m scripts.manage_env init --target compose --env-file .env
+if ($LASTEXITCODE -ne 0) { throw '初始化未完成；已有文件不会被覆盖' }
+~~~
+
+环境管理统一使用 `python -m scripts.manage_env` 从仓库根目录运行，避免依赖额外的 PYTHONPATH。按用途编辑私有文件，变量名参考 [.env.example](../.env.example)。配置初始化只创建模板，并不配置模型、Dify 或通知密钥。细节见 [Day 94](#day94)。
+
+| 功能 | 配置归属 |
+| --- | --- |
+| API 生成回答 | 私有环境文件中的 LLM_PROVIDER 与对应 DeepSeek/Qwen 变量 |
+| API 调 Dify 工作流 | DIFY_API_BASE_URL、DIFY_WORKFLOW_API_KEY；Dify 应用需另行发布 |
+| Dify 回查 API 知识库 | DIFY_EXTERNAL_KNOWLEDGE_API_KEY 与知识库 ID；与工作流应用 Key 不同 |
+| n8n 自身模型节点 | n8n Credentials 与节点参数；不会自动采用 API 的模型 Key |
+| n8n 原有 Credentials 解密 | 原 N8N_ENCRYPTION_KEY 必须与该数据卷匹配 |
+| 独立 Agent live 实验 | 使用该 CLI 明确支持的参数和配置；不从网页触发 |
+
+#### 已有配置：检查后选择启动范围
+
+~~~powershell
+$platformEnv = '.env'  # 若先前部署使用其他文件，改为那个文件
+.\.venv\Scripts\python.exe -B -m scripts.manage_env check --target compose --env-file $platformEnv --component n8n
+if ($LASTEXITCODE -ne 0) { throw '配置检查未通过，先查看固定错误代码' }
+~~~
+
+只检查配置格式不证明密钥有效、外部网络或模型可用。进程变量会优先于文件；不要贴出完整 `docker compose config` 展开的环境值。需要核对来源时使用上面的脱敏检查。
+
+| 目的 | 启动/更新 | 检查同一范围 |
+| --- | --- | --- |
+| 只更新 API | `& .\scripts\start.ps1 -EnvFile $platformEnv -ApiOnly` | `& .\scripts\check-deployment.ps1 -EnvFile $platformEnv -ApiOnly` |
+| API + 前端 | `& .\scripts\start.ps1 -EnvFile $platformEnv -WithoutN8n` | `& .\scripts\check-deployment.ps1 -EnvFile $platformEnv -WithoutN8n` |
+| 三个服务 | `& .\scripts\start.ps1 -EnvFile $platformEnv` | `& .\scripts\check-deployment.ps1 -EnvFile $platformEnv` |
+
+每次选择一行执行。ApiOnly 与 WithoutN8n 不能同时使用；未选择的服务保留现状，并不会被自动停止。即使 ApiOnly，当前脚本仍验证完整 Compose 文件，因此选中文件仍须有有效的 N8N_ENCRYPTION_KEY。
+
+脚本先构建，再更新选中的容器，等待健康并核对 API、SQLite、日志和挂载；选择前端时还检查页面资源与 /api/health 代理。可增加 `-CheckComponents llm,dify` 检查相关配置；只有 start.ps1 支持 `-WaitTimeoutSeconds`。构建失败会停止后续动作，更新后检查失败也会报错，**没有自动回滚保证**。
+
+| 访问方 | 地址 | 含义 |
+| --- | --- | --- |
+| 本机浏览器 | http://127.0.0.1:8080/ | 知识库上传与片段检索 |
+| 本机调用者 | http://127.0.0.1:8000/docs、/openapi.json | Swagger UI 与实际运行服务的规格 |
+| 本机维护者 | http://127.0.0.1:5678/ | n8n 编辑器 |
+| 前端/n8n 容器 | http://api:8000 | Compose 网络中的 API 服务名 |
+| API → 独立 Dify | DIFY_API_BASE_URL | Docker Desktop 默认 host.docker.internal/v1，按实际端口调整 |
+
+所有宿主机端口只绑定 127.0.0.1。容器中的 localhost 指向容器本身，不能把本机开发地址直接当作另一个服务地址。
+
+查看状态、仅关闭前端或停止全部服务：
+
+~~~powershell
+docker compose --env-file $platformEnv ps
+docker compose --env-file $platformEnv stop frontend
+~~~
+
+确实需要停止全部服务时，另行执行 `docker compose --env-file $platformEnv stop`。
+
+这些命令不删除数据。修改自定义环境文件后，使用带同一 EnvFile 的 start.ps1 更新容器；单独 restart 不会重新应用 Compose 环境配置。
+
+#### 本地 API 开发
+
+为宿主机生成独立文件（已有文件不要重新初始化），再显式选择它：
+
+~~~powershell
+.\.venv\Scripts\python.exe -B -m scripts.manage_env init --target local --env-file .env.local
+if ($LASTEXITCODE -ne 0) { throw '请检查文件是否已存在，保留已有配置' }
+$env:EAP_ENV_FILE = '.env.local'
+.\.venv\Scripts\python.exe -B -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
+~~~
+
+本地文档地址为 http://127.0.0.1:8001/docs。Compose 前端仍连接其 api 容器的 8000，不会自动改连这个开发进程。EAP_ENV_FILE 只选择 API 启动时读取的文件；它不等同于 Compose 的 --env-file，也不替代独立检查命令的 --env-file。路径规则与变量优先级见 [Day 94](#day94)。
+
+<a id="day97-api"></a>
+
+### 3. 页面、接口与外部影响
+
+当前 OpenAPI 有 **25 个路径、26 个操作**，完整字段和错误响应见 [API 参考](week-4.md#api)和运行服务的 /docs。若旧镜像尚未更新，网页规格描述的是旧镜像；不能因本地 Git 已更新就认为部署也更新了。
+
+| 入口 | 执行内容 | 操作前应了解 |
+| --- | --- | --- |
+| GET /health | 返回 API 运行状态 | 不验证外部模型、Dify、知识质量或通知通道 |
+| POST /chat | 回显基础消息 | 不是大模型问答 |
+| POST /upload | 解析、保存元数据、切片、Embedding、写入 Chroma | 修改知识库；首次 Embedding 可能下载本地模型；上传重试可能形成新记录 |
+| POST /rag/query | 检索片段、来源与距离 | 使用本地 Embedding；不会调用生成模型 |
+| POST /rag/answer | 检索后生成带来源回答 | 需要 API 生成模型配置，可能产生供应商用量 |
+| POST /retrieval | 提供 Dify 外部知识库检索 | 专用 Bearer Key；与 API 调用 Dify 的凭据方向相反 |
+| POST /dify/workflow | 调用已发布 Dify 工作流 | Dify 的模型、节点和费用由其应用配置决定 |
+| /workflow-runs、/crm 下的操作 | 运行状态、检查点、恢复信息、模拟 CRM 与通知状态 | 部分操作写库；保存通知结果不等于已经发送消息 |
+| POST /integrations/feishu/messages、/integrations/wecom/messages | 独立通知发送 | 配置齐全时可能真实发送，不用它们作健康探针 |
+
+前端实际只调用 /health、/upload、/rag/query，展示检索片段，不含生成回答、审批或评测面板。页面接受非空 PDF、DOCX、MD，文件小于 10 MiB；代理限制整个请求体为 10 MiB，临近上限还需为 multipart 包装留出空间。API 还支持 .markdown；直接访问 8000 会绕过前端/代理的体积限制，不能据此认为 API 已实现同样的上传配额。
+
+安全的运行状态检查示例（先确认选定服务已启动）：
+
+~~~powershell
+$response = Invoke-WebRequest -Uri 'http://127.0.0.1:8000/health' -UseBasicParsing
+$response.Content
+$response.Headers['X-Request-ID']
+~~~
+
+接口尚无完整的调用方身份认证，/retrieval 的专用 Key 也不构成全平台鉴权。当前绑定本机；对外开放前需要另行设计认证、授权、传输保护与访问限制。本节不宣称完成生产安全部署。
+
+<a id="day97-operations"></a>
+
+### 4. 数据、日志与日常维护
+
+| 位置 | 内容与保留建议 |
+| --- | --- |
+| data/enterprise_ai.db | 文档元数据、工作流运行、模拟 CRM；业务恢复需要保留 |
+| data/chroma/ | 向量与文档片段，容器挂载 /app/data；与元数据配套备份 |
+| data/chroma-cache/ | Compose API 的 Embedding 缓存；删除可能触发重新下载，不代替向量索引 |
+| n8n_data 命名卷 | n8n 工作流、执行与 Credentials 数据；同时保留对应加密键 |
+| 私有 .env 或选定环境文件 | 实例配置与密钥；单独安全备份，不提交 Git |
+| logs/app.log、workflow-events.jsonl | API 排障和工作流记录；有轮转，工作流快照可能含业务内容 |
+| data/ 下的 Agent SQLite 和评测输出 | 是否可删取决于是否还需恢复审批、会话或复核评测；不能按日期目录一概删除 |
+| logs/test-runs/ | 每次独立测试的报告与临时材料；复核后可按运行目录清理 |
+
+本地 API 的模型缓存由其 Embedding 库和用户缓存目录管理，不能假定与 Docker 的 data/chroma-cache 相同。上传接口不建立原文件档案，应自行保留原始资料。只保存 Git 不会备份业务数据库、n8n Credentials 或运行记录。
+
+需要备份或回滚时：先停止会写数据的 API/工作流/本地进程；在同一静止时点保存 SQLite、Chroma、n8n 卷、对应配置与原始资料，并记录代码提交和镜像 ID；在独立目录、卷与端口上验证恢复后再考虑替换现有实例。Dify 的存储另行处理。当前没有自动备份、迁移或回滚工具，文档步骤不表示已完成一次真实恢复演练。
+
+镜像标签 enterprise-ai-platform:1.0.0 会被后续构建复用；仅记录这个标签不足以确定旧镜像内容。回退 Git 或镜像也不会自动回退数据库/向量状态，不能把 `docker compose down -v` 当作日常修复命令。
+
+#### 根据症状排查
+
+| 现象 | 检查顺序 |
+| --- | --- |
+| 前端打不开 | ps 确认 frontend 是否运行、访问 8080；ApiOnly 不会自动启动它 |
+| 页面可打开但 API 不通 | 检查 API 健康、frontend /api/health 代理及 DNS；核对是否在看 8001 的本地开发进程 |
+| 配置来源不符合预期 | 使用 manage_env check；检查选中文件与进程变量覆盖，不打印密钥 |
+| 上传慢或 413 | 核对文件和代理请求体限制、首次模型下载、缓存及日志；超时后不要立即重复提交 |
+| 检索结果为空 | 确认上传返回 indexed、使用同一数据库/索引、检查查询条件；换模型 Key 不会自动重建索引 |
+| API 4xx/5xx 或后台失败 | 记录响应 X-Request-ID，按 [Day 95](#day95) 查 app.log；再按 run_id 关联工作流 |
+| 模型或 Dify 失败 | 分别核对 API 和外部实例配置；configuration_valid 不证明外部调用成功 |
+| 容器重建后找不到数据 | 核对项目目录、bind mounts、n8n 卷及环境文件，不急于重新初始化 |
+| Agent pending 或通知 unknown | 按该 CLI 的审批/核对流程处理；不要把等待或不确定状态改成已发送 |
+
+日志优先使用请求编号、固定事件、error_type 和 source 定位。应用摘要不保留任意异常原文；原有工作流输入输出快照仍可能包含业务信息。当前没有 ELK 部署，单进程文件轮转不应直接推广为多副本日志方案。
+
+<a id="day97-testing"></a>
+
+### 5. 修改后怎样验证
+
+| 验证目标 | 使用入口 | 结果解释 |
+| --- | --- | --- |
+| API 或 Agent 代码回归 | scripts/test_platform.py list / run | 五组范围与指定环境见 [Day 96](#day96)，失败/跳过/缺失报告不会通过 |
+| 固定销售案例的行为、耗时与评分 | scripts/evaluate.py run / inspect | [Evaluation Center](../evaluation-center/README.md#运行评测) 的 12 例 fixture，不等于真实模型质量 |
+| 隔离 HTTP 日志流程 | scripts/verify_logging.py | 临时回环服务与虚构输入；[Day 95](#day95) |
+| Compose 和持久化 | start.ps1 / check-deployment.ps1，必要时独立重建验收 | 检查范围按服务选择；操作步骤见 [Day 93](#day93) |
+| 前端交互 | frontend/tests/browser.cjs | 使用该阶段浏览器环境与流程；[Day 93](#day93) |
+
+统一回归：
+
+~~~powershell
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite all
+if ($LASTEXITCODE -ne 0) { throw '所选回归未全部通过，请查看本次报告' }
+~~~
+
+若需要重新跑固定业务场景，输出使用新目录，并在运行失败时停止：
+
+~~~powershell
+$evaluationOutput = Join-Path 'data/evaluation' ('run-' + [guid]::NewGuid().ToString('N'))
+.\experiments\day73\.venv\Scripts\python.exe -B scripts/evaluate.py run --suite full --output-dir $evaluationOutput
+if ($LASTEXITCODE -ne 0) { throw '固定场景运行未通过，先检查保留的结果' }
+.\experiments\day73\.venv\Scripts\python.exe -B scripts/evaluate.py inspect --input-dir (Join-Path $evaluationOutput 'run') --report (Join-Path $evaluationOutput 'evaluation/report.json')
+if ($LASTEXITCODE -ne 0) { throw '评测报告复核未通过' }
+~~~
+
+评测 fixture 的 Token 保留未知，显式成本估算不等于供应商账单。不要把测试状态 passed、业务状态 completed、审批状态 approved 与真实发送成功混为同一个结论。
+
+<a id="day97-boundaries"></a>
+
+### 6. 后续交付边界
+
+Day 98 仍需整理版本范围、选择新标签名并执行对应验收。平台已有 v1.0.0 和各组件独立标签，不覆盖旧标签。当前 API 元数据仍为 1.0.0，文档更新不会升级已运行容器。
+
+Day 55/83 视频、Workflow Center v1.0 正式标签与 Release、企业微信真实发送、Day 82 真实 Prompt 质量测量继续作为待办。没有通用 Agent 目标执行、跨会话长期画像、真实模型评测入口或生产身份认证；本地审批只产生模拟发送记录。
+
+<a id="day97-verification"></a>
+
+### 7. 本次文档核对
+
+- API 清单逐项对齐：25 个路径、26 个 HTTP 操作；本次没有调用业务接口。
+- 16 项文档与实现核对通过，包括 Compose 服务/端口/挂载、前端实际 API 范围、命令帮助和隔离环境初始化/检查。
+- 16 个当前入口的 PowerShell 代码块语法通过，部署开关与实际脚本参数一致；没有执行部署或停止服务。
+- 503 处本地链接通过（修改文档中的 450 处、其他文档指向这些文件的 53 处），README 原章节锚点保留。
+- 既有文档索引契约测试 1 项通过。业务代码、测试与部署脚本保持不变，本次未重新跑 Day 96 全部回归，也未启动前端或更新现有服务。
+
+学习时先按架构图分清网页/API、n8n/Dify 与宿主机 CLI，再选一个入口执行其检查命令。维护时以实现文件和当前服务规格确认事实，运行摘要见 [Week 14 结果](evidence/week-14.md#day97)。
