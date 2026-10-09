@@ -1233,7 +1233,7 @@
     },
     {
       "path": "docs/evidence/week-14.zip",
-      "sha256": "44a25370fff3dcb7b8cd66ecf11999cef0f802c4644ae3fa0e9f36f10e2f230e",
+      "sha256": "a4dbb3f2b53c69fb0746001ae1b0961e27651309a85a3bbc2f9268c74e611169",
       "entries": {
         "docs/evidence/day92/backend-tests.xml": {
           "sha256": "263c1c27e3ab90b5c9ce04e2427ee2f7094734d9900fc6c10410fcf06a64f595",
@@ -1294,6 +1294,38 @@
         "docs/evidence/day95/backend-tests.xml": {
           "sha256": "a1d70561ce578a65ccffe9c637a877a682b5bc56e6539b67eb29ebe1d1e98ec0",
           "size": 96326
+        },
+        "docs/evidence/day96/validation.json": {
+          "sha256": "302e4194d5089bb5a5e982953d0f8f2a1cfa37da0790564d81fbbf5dbd039b3c",
+          "size": 4780
+        },
+        "docs/evidence/day96/regression-summary.json": {
+          "sha256": "7db833ccb71301112a344cc030cc6d54dbee8ad7f67de04170934b6b3b48a228",
+          "size": 9480
+        },
+        "docs/evidence/day96/source-manifest.json": {
+          "sha256": "26734c9857c2eb8ef69dc7eff4e49262126aabee81652e6e21474cc1474a7dab",
+          "size": 33607
+        },
+        "docs/evidence/day96/api-tests.xml": {
+          "sha256": "fd61c7cbe66a6bb79cc2e9f6c34637bbc6f9044921aa0ab1007172cdd30d692e",
+          "size": 101301
+        },
+        "docs/evidence/day96/planner-tests.xml": {
+          "sha256": "e64cc79a3955ca1fa104516f78c8f3737a2d81127e3c027e16296eb2f097417c",
+          "size": 29957
+        },
+        "docs/evidence/day96/agent-tests.xml": {
+          "sha256": "4ee5189ea1425b73bfe42e41637c7478569a254607920b168e27e0bdc52ccdf5",
+          "size": 55210
+        },
+        "docs/evidence/day96/workflow-tests.xml": {
+          "sha256": "cb481d76ac0c69816f617f9e58c9e32007c1199d4107841417f9504946ae5cdb",
+          "size": 34546
+        },
+        "docs/evidence/day96/evaluation-tests.xml": {
+          "sha256": "767fa85176130dbb057b84b0f818d8f0b0e3ac64dc7c6479538aacb83d11a8e9",
+          "size": 32261
         }
       }
     },
@@ -1652,6 +1684,6 @@
       }
     }
   ],
-  "evidence_records": 312,
+  "evidence_records": 320,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }
