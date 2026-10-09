@@ -1753,7 +1753,7 @@
     },
     {
       "path": "docs/evidence/week-15.zip",
-      "sha256": "8132df24408fdfe3a032233419e37f448fd0149003af851eb6cb76796413c3ac",
+      "sha256": "9162e9d582c2ec11503ce6068a2f0f82ab25ddd2d3da8a3f555082410c50662e",
       "entries": {
         "docs/evidence/day99/validation.json": {
           "sha256": "4e04cd7e72e38e666a5a65c866741bf63216e128a8935ee13d30e3c93200f4de",
@@ -1790,10 +1790,46 @@
         "docs/evidence/day100/documentation-test.xml": {
           "sha256": "fb99306771bcc28258e5f3ff4a885f697807fd1037c3e7d352402037ebe37a42",
           "size": 381
+        },
+        "docs/evidence/day101/validation.json": {
+          "sha256": "6fb0f2884953e8ec2a5d5399fcb9d656142faa5c0c0b8f5ec9dca5e4f82ba5e0",
+          "size": 3855
+        },
+        "docs/evidence/day101/agent-rehearsal.json": {
+          "sha256": "155a0ac38129e4f7e0bca14b615ba5afa7f0bfbf0282cdcf9472acafa1b5906d",
+          "size": 1934
+        },
+        "docs/evidence/day101/agent-log.json": {
+          "sha256": "8b6cf30cd2c5d20bd865028f269a1c61142c8836c828c791b4f891bd81f33b4d",
+          "size": 5638
+        },
+        "docs/evidence/day101/approval-preview.json": {
+          "sha256": "4e138cf44d7ec73875831ee7fa70afaae36ac631f55234cac213f53cc5dcd5aa",
+          "size": 1374
+        },
+        "docs/evidence/day101/approval-final.json": {
+          "sha256": "38cf134ec2223fa27d9958ac4fa8deeb212460383c92d524f1d6aa17d915752a",
+          "size": 1844
+        },
+        "docs/evidence/day101/evaluation-report.json": {
+          "sha256": "b6fefe6a4df52ac6a5691f2548b1c2d4ea96df5ab8558a084ffc4cb67a89a998",
+          "size": 185057
+        },
+        "docs/evidence/day101/evaluation-inspect.json": {
+          "sha256": "bf002b6795639670f257b8baeec60562f8a1a1c233c8e7475d8f6c2cde3ad6e0",
+          "size": 326
+        },
+        "docs/evidence/day101/links.json": {
+          "sha256": "2ef4542f4014645a26a5a917c32a1c8deb4118b46464afe32fb4e147a4cc66a2",
+          "size": 376
+        },
+        "docs/evidence/day101/documentation-test.xml": {
+          "sha256": "56a179930e1654fd762f41177f17aa306d9792d910a76b4a133a1e77a63ea11b",
+          "size": 381
         }
       }
     }
   ],
-  "evidence_records": 346,
+  "evidence_records": 355,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }

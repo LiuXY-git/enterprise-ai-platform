@@ -144,6 +144,7 @@ if ($LASTEXITCODE -ne 0) { throw '回归未通过，请查看本次 summary.json
 ## 当前进度
 
 - **Day 100 已完成**：系统架构总图、RAG 数据流图、代码映射和讲解稿；Day 99 的 README、功能截图与部署入口继续保留。
+- **Day 101 材料已准备，视频待补录**：[4 分 20 秒分镜、口播与操作流程](docs/week-15.md#day101)；已演练本地 Agent/HITL 与 12 个固定评测场景。
 - **平台 v1.0 正式发布待办**：Day 98 候选已合并，正式标签与 GitHub Release 暂缓；平台 API 元数据仍为 1.0.0。
 - Day 55/83 视频补录、Day 82 真实 Prompt 质量测量、真实模型评测接入、Workflow Center v1.0 标签与 Release、企业微信真实发送继续保留。
 - Week 15 后续计划见 [作品集整理](docs/week-15.md#plan)；Demo 视频尚未录制。

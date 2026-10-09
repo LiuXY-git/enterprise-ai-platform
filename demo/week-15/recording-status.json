@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "day": 101,
+  "week": 15,
+  "product": "Enterprise AI Platform",
+  "materials_status": "prepared",
+  "recording_status": "deferred",
+  "requested_on": "2026-10-09",
+  "reason": "user_requested_prepare_materials_and_record_later",
+  "documentation": "docs/week-15.md#day101",
+  "target_duration_seconds": 260,
+  "accepted_duration_seconds": {
+    "minimum": 180,
+    "maximum": 300
+  },
+  "default_route": "architecture_and_labeled_ui_fixture_screenshots_then_offline_agent_and_evaluation",
+  "rehearsal": {
+    "status": "passed",
+    "source_commit": "690db7e8f63d55f7a3647685d286eb8c3b37de0f",
+    "summary": "docs/evidence/week-15.md#day101",
+    "model_requests": 0,
+    "external_sends": 0,
+    "approval_mode": "automated_local_simulation_not_human_review",
+    "fixed_cases_passed": 12,
+    "fixed_cases_total": 12
+  },
+  "video": {
+    "file": null,
+    "url": null,
+    "recorded_on": null,
+    "source_commit": null,
+    "duration_seconds": null,
+    "sha256": null,
+    "knowledge_scene_mode": null
+  },
+  "human_review": {
+    "status": "not_performed",
+    "reviewed_on": null,
+    "playable_and_readable": null,
+    "duration_in_range": null,
+    "content_matches_run": null,
+    "human_confirmation_shown": null,
+    "scope_labels_accurate": null,
+    "sensitive_data_absent": null
+  }
+}
