@@ -4,7 +4,7 @@
 
 按学习路线归档，计划、实施记录与阶段总结集中在本页。记录中的版本、验收结果和“当前”均对应各节写作时点；后续修订会单独注明。
 
-目前完成 Day 92–97；Day 98 发布仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
+目前完成 Day 92–98 的本地交付与平台 v1.0 发布候选验收；正式标签和 GitHub Release 待创建。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
 
 [总目录](README.md#按周阅读) · [上一周](week-13.md)
 
@@ -19,6 +19,7 @@
 - [Day 95：日志系统与请求追踪](#day95)
 - [Day 96：API 与 Agent 统一测试](#day96)
 - [Day 97：当前技术与操作手册](#day97)
+- [Day 98：Enterprise AI Platform v1.0 发布候选](#day98)
 
 ---
 
@@ -38,7 +39,7 @@
 | Day 97 | 技术文档 | 更新架构、部署、操作与维护说明，核对文档和实现 |
 | Day 98 | Enterprise AI Platform v1.0 发布 | 汇总实际交付，验收后创建版本清单、发布说明与标签 |
 
-每日开始前结合代码状态细化范围；Day 92–97 实施记录见下方，Day 98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
+每日开始前结合代码状态细化范围；Day 92–98 实施记录见下方。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
 
 <a id="plan-当前起点"></a>
 
@@ -966,3 +967,104 @@ Day 55/83 视频、Workflow Center v1.0 正式标签与 Release、企业微信�
 - 既有文档索引契约测试 1 项通过。业务代码、测试与部署脚本保持不变，本次未重新跑 Day 96 全部回归，也未启动前端或更新现有服务。
 
 学习时先按架构图分清网页/API、n8n/Dify 与宿主机 CLI，再选一个入口执行其检查命令。维护时以实现文件和当前服务规格确认事实，运行摘要见 [Week 14 结果](evidence/week-14.md#day97)。
+
+
+---
+
+<a id="day98"></a>
+
+## Day 98：Enterprise AI Platform v1.0 发布候选
+
+### 目标与作用
+
+把 Week 14 的代码、配置、日志、测试、文档和 Compose 汇总为一个可以明确命名、重复验收的交付版本。以后看某个结果时，可以知道验证了哪份代码、运行了哪些测试，以及哪些能力还没有验证。
+
+2026-10-09 完成本地候选准备。清单状态为 candidate，尚未创建本次正式标签、GitHub Release 或更新运行中的服务。
+
+### 版本与交付范围
+
+| 项目 | 本次约定 |
+| --- | --- |
+| 产品与版本 | Enterprise AI Platform v1.0.0 |
+| 新标签名称 | enterprise-ai-platform-v1.0.0 |
+| 原有 v1.0.0 | 保留，属于早期交付，不覆盖或移动 |
+| 平台 API 元数据 | 仍为 1.0.0；发布整个平台不意味着每个模块同时升级 |
+| 用户入口 | 知识库前端、FastAPI、n8n；Agent/Evaluation 为宿主机 CLI |
+| 运行方式 | 本机回环端口；SQLite 与 Chroma 嵌入 API；Dify 独立部署 |
+
+本版汇总 Day 92 应用构建拆分、Day 93 Compose 前端与持久化、Day 94 环境管理、Day 95 日志追踪、Day 96 统一测试、Day 97 技术文档。使用和维护仍从 [当前手册](#day97) 开始。
+
+发布资料与工具：
+
+- [版本清单](../scripts/release/platform-v1.0.0.json)：记录版本、候选/正式状态、预期测试数量、源文件清单和内容摘要。
+- [发布验收入口](../scripts/release/verify_platform.py)：核对当前清单，执行发布控制测试和五组回归，再次核对内容没有在运行中变化。
+- [发布控制测试](../scripts/release/test_release.py)：覆盖源码变化、版本/日期错误、测试缺组、计数不符、重复编号、失败与中断、环境缺失及输出保护。
+- [本周结果摘要](evidence/week-14.md#day98)：日常阅读入口；详细记录继续收在周数据包中。
+
+清单覆盖 backend、frontend、部署文件、脚本、测试、独立实验及操作文档。文本将 CRLF 规范为 LF 后计算 SHA-256；ZIP 按原始字节计算。不收录私有 .env、虚拟环境、node_modules、业务数据或日志。清单自身、每周结果目录与结果索引不纳入自引用摘要；测试运行仍由既有入口读取对应测试资料。清单是对应版本的内容说明，不是数字签名或供应链认证。
+
+<a id="day98-verification"></a>
+
+### 重复验收
+
+在仓库根目录执行，使用已有的 API、规划器和 Agent 三个 Python 环境。缺少环境会失败，不会自动安装依赖或跳过相应测试。
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+
+# 只核对清单，不执行测试
+.\.venv\Scripts\python.exe -B scripts/release/verify_platform.py check
+if ($LASTEXITCODE -ne 0) { throw '发布清单与当前文件不一致' }
+
+# 新建结果目录并运行完整的本次离线验收
+.\.venv\Scripts\python.exe -B scripts/release/verify_platform.py verify
+if ($LASTEXITCODE -ne 0) { throw '发布验收未通过，请检查本次结果目录' }
+~~~
+
+默认输出到 logs/test-runs/platform-v1-唯一编号/，最后一行打印实际 output_dir：
+
+| 文件/目录 | 用途 |
+| --- | --- |
+| verification.json | 本次通过/失败状态、候选/正式状态、Git 提交、清单摘要、测试数及边界 |
+| release-body.md | 仅通过后生成；可用于对应版本的 GitHub Release 正文 |
+| release/ | 发布控制测试 JUnit、编号清单及 stdout/stderr |
+| regression/ | API、planner、agent、workflow、evaluation 五组回归摘要和逐组记录 |
+
+原有目录不会被覆盖。失败、错误、跳过、漏测、编号重复或验收期间源码变化均不能通过；失败时保留 verification.json 和已有日志，不生成 release-body.md。源码副本没有 Git 提交时，只能生成明确标注的候选结果；正式状态要求关联一个干净的 Git 提交。
+
+all 仍是 Day 96 列明的五组范围，不表示运行了仓库全部历史实验。该入口本身不启动浏览器、不操作 Docker，也不验证真实模型质量。
+
+### 本次实际验证
+
+- 1,615 项离线测试通过：API 618、规划器 86、工具与记忆 369、销售流程 259、评测框架 242，加发布控制 41；失败、错误、跳过均为零。
+- 额外运行前端无头浏览器：9 组本机 HTTP fixture 检查通过，包括上传、查询、重复提交、非可信文本显示、错误恢复及桌面/移动布局。
+- 额外运行临时 Uvicorn：9 个真实回环 HTTP 请求、2 条工作流事件，8 项日志检查通过，临时服务已停止。
+- 使用新生成的 .env 测试配置运行实际 Compose 格式检查；没有使用现有私有环境文件。配置通过只说明本机格式正确。
+- 新增发布工具经过 Ruff 检查；文档链接和命令语法已核对。
+
+上述浏览器、日志和配置检查的结果单独保存，不算入 1,615 项 pytest 测试，也不宣称完成新的 Docker 镜像构建、容器重建或真实服务联调。本次没有启动此前关闭的项目首页，没有新增模型请求或通知发送。
+
+<a id="day98-publish"></a>
+
+### 从候选到正式发布
+
+1. 审阅候选结果并将 Day 98 合并到 main。
+2. 在 main 中将版本清单的 release_status 从 candidate 改为 released，released_on 填写实际定版日期 YYYY-MM-DD；不要重新生成其他文件摘要来掩盖意外变更。
+3. 提交这两个状态字段的改动，让工作区干净，再运行 verify。正式结果必须关联这个实际提交。
+4. 核对 verification.json 为 passed、released，Git 提交与准备标记的 main 相同；测试应为 1,615 项。
+5. 为该提交创建并推送新的 enterprise-ai-platform-v1.0.0 标签；若同名标签已存在，先核对，不覆盖。
+6. GitHub 创建 Release：选择该已有标签，标题填 Enterprise AI Platform v1.0.0，正文复制本次正式目录的 release-body.md，附件上传同目录的 verification.json。
+
+候选输出不能冒充正式定版结果。生成结果、推送代码、推送标签、创建 GitHub Release、更新容器分别是不同操作，本次仅完成本地候选准备。正式发布后可以按既有部署手册选择更新范围。
+
+清单针对本次版本。Day 99 以后继续修改代码或文档时，使用新阶段的日常回归；要重验此版本，应检出相应标签，不为了让旧清单通过而回退新工作。
+
+### 保留的能力边界
+
+前端目前只提供文档上传与片段检索，没有统一 Agent 或评测页面。Agent 的人工确认、模拟发送、本地 stdio MCP 仍针对固定虚构销售场景；通用身份认证、任意任务执行、真实模型评测与生产部署尚未完成。
+
+Day 55/83 视频补录、Day 82 真实 Prompt 质量测量、Workflow Center v1.0 标签与 Release、企业微信真实发送等既有待办继续保留。进入平台 v1.0 阶段不改变这些状态。
+
+Week 14 的产出是：有可启动的本机部署、有配置和日志管理、有回归和发布验收、有完整操作手册的学习平台。后续 Week 15 按路线进入作品集整理。

@@ -35,3 +35,5 @@ Day 94 的 [环境管理测试](test_day94_environment.py)覆盖文件选择、�
 Day 95 的 [日志测试](test_day95_observability.py)覆盖并发上下文、500/流式/后台错误、敏感内容保护和日志故障。另行运行 [隔离 Uvicorn 验收](../scripts/verify_logging.py)；它使用随机回环端口、临时数据库和虚构输入，不修改现有容器。
 
 Day 96 的 [入口控制测试](test_day96_test_runner.py)覆盖空收集、跳过、错误、报告缺失或损坏、重复编号、环境缺失、输出保护、真实失败子进程与超时清理。
+
+Day 98 发布验收另运行 [发布控制测试](../scripts/release/test_release.py)，并复用五组回归。使用 [发布入口](../docs/week-14.md#day98-verification) 可以生成 verification.json 与通过后的 release-body.md；普通 test_platform.py run --suite all 不包含这组发布控制测试。

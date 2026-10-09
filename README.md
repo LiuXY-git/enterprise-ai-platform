@@ -1,6 +1,6 @@
 # Enterprise AI Platform
 
-面向企业知识库、工作流、Agent 与评测的学习项目。**当前完成 Day 97：技术文档整理；Day 98 发布仍待进行。**
+面向企业知识库、工作流、Agent 与评测的学习项目。**当前完成 Day 98 发布候选准备：Enterprise AI Platform v1.0.0；正式标签与 GitHub Release 尚待创建。**
 
 从 [当前操作手册](docs/week-14.md#day97) 开始，按需要查看 [架构](docs/week-14.md#day97-architecture)、[启动与配置](docs/week-14.md#day97-setup)、[维护与排障](docs/week-14.md#day97-operations) 或 [逐周学习记录](docs/README.md#按周阅读)。
 
@@ -15,10 +15,12 @@
 
 ## 当前进度
 
-- Week 14 已完成代码重构、Compose 前后端部署、环境管理、日志追踪、统一测试及技术文档。
+- Week 14 已完成代码重构、Compose 前后端部署、环境管理、日志追踪、统一测试、技术文档及平台 v1.0 发布候选验收。
 - 最新操作说明集中在 [Week 14](docs/week-14.md#day97)；过去每日交付、复刻过程和运行结果分别保留在 [Week 文档](docs/README.md)和 [结果摘要](docs/evidence/README.md)。
 - 平台 API 元数据版本仍为 1.0.0。Agent Center v1.0.0、Evaluation Center v0.1.0 是各自的阶段版本；版本号相同不表示属于同一产品发布。
-- Day 55/83 视频补录、Workflow Center v1.0 标签与 Release、企业微信真实发送、Day 82 真实 Prompt 改善测量等待办继续保留。Day 97 没有创建新标签或发布版本。
+- Day 55/83 视频补录、Workflow Center v1.0 标签与 Release、企业微信真实发送、Day 82 真实 Prompt 改善测量等待办继续保留。本次平台候选不会自动完成这些待办。
+
+- 发布范围、重新验收与正式发布步骤见 [Day 98](docs/week-14.md#day98)；新标签名称为 enterprise-ai-platform-v1.0.0，保留已有 v1.0.0。
 
 ## 项目结构
 
