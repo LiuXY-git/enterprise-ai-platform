@@ -40,27 +40,11 @@
 
 ## 技术架构
 
-~~~mermaid
-flowchart TB
-    User["浏览器"] --> Frontend["Nginx + 静态前端 :8080"]
-    subgraph Compose["Docker Compose"]
-        Frontend -->|"/api/ 同源代理"| API["FastAPI :8000"]
-        N8N["n8n :5678"] -->|"HTTP 工作流"| API
-        API --> SQLite[("SQLite 文档与业务记录")]
-        API --> Chroma[("嵌入式 Chroma 向量索引")]
-        API --> Logs["请求与工作流日志"]
-    end
-    API -->|"生成回答"| Model["配置的生成模型"]
-    API -->|"工作流代理"| Dify["独立部署的 Dify"]
-    Dify -->|"外部知识库检索"| API
-    subgraph Host["宿主机独立 CLI"]
-        Eval["固定场景评测"] --> Agent["销售 Agent 与人工确认"]
-        Agent --> MCP["本地 stdio MCP"]
-        MCP --> Sales[("虚构销售数据")]
-    end
-~~~
+![系统架构：Compose 三服务、外部依赖与宿主机 Agent 和评测](docs/assets/week-15/system-architecture.svg)
 
-Compose 只有 `frontend`、`api`、`n8n` 三个服务；SQLite 和 Chroma 嵌入 API，数据写入宿主机挂载目录。Agent/MCP/评测没有接到网页或 API 上，规划与会话记忆仍保留独立实验入口。详细职责与数据流见 [技术手册](docs/week-14.md#day97-architecture)。
+[架构图 PNG](docs/assets/week-15/system-architecture.png) · [RAG 数据流图](docs/assets/week-15/rag-data-flow.svg) · [读图、代码入口与复刻](docs/week-15.md#day100)
+
+Compose 只有 `frontend`、`api`、`n8n` 三个服务；SQLite 和 Chroma 嵌入 API，数据写入宿主机挂载目录。Nginx 提供静态页面与同源代理。Agent/MCP/评测使用宿主机 CLI，规划与会话记忆保留独立实验入口；详细职责见 [技术手册](docs/week-14.md#day97-architecture)。
 
 ## 快速启动
 
@@ -155,14 +139,14 @@ if ($LASTEXITCODE -ne 0) { throw '回归未通过，请查看本次 summary.json
 
 准备好 [三个独立环境](docs/week-14.md#day96)后，使用 `run --suite all` 运行 API、规划器、工具/记忆、销售流程、评测框架五组回归。结果存入新的 logs/test-runs/ 目录；它不覆盖仓库全部历史实验。
 
-最近阶段记录：Day 98 候选执行 **1,615 项离线测试**（五组回归 1,574 项 + 发布控制 41 项），无失败、错误或跳过，另有浏览器与日志检查。具体范围见 [Day 98 结果](docs/evidence/week-14.md#day98)。这是当次代码回归结果，不是真实模型成功率；Day 99 的 README/截图整理没有重跑这 1,615 项。
+最近阶段记录：Day 98 候选执行 **1,615 项离线测试**（五组回归 1,574 项 + 发布控制 41 项），无失败、错误或跳过，另有浏览器与日志检查。具体范围见 [Day 98 结果](docs/evidence/week-14.md#day98)。这是当次代码回归结果，不是真实模型成功率；Day 99–100 的 README、截图与架构资料整理没有重跑这 1,615 项。
 
 ## 当前进度
 
-- **Day 99 已完成**：项目介绍、技术架构、功能截图、部署方式及 GitHub 阅读导航。
+- **Day 100 已完成**：系统架构总图、RAG 数据流图、代码映射和讲解稿；Day 99 的 README、功能截图与部署入口继续保留。
 - **平台 v1.0 正式发布待办**：Day 98 候选已合并，正式标签与 GitHub Release 暂缓；平台 API 元数据仍为 1.0.0。
 - Day 55/83 视频补录、Day 82 真实 Prompt 质量测量、真实模型评测接入、Workflow Center v1.0 标签与 Release、企业微信真实发送继续保留。
-- Week 15 后续计划见 [作品集整理](docs/week-15.md#plan)；Demo 视频尚未因本次截图工作而完成。
+- Week 15 后续计划见 [作品集整理](docs/week-15.md#plan)；Demo 视频尚未录制。
 
 ## 项目结构
 

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+<title id="title">Knowledge Hub · RAG 数据流</title><desc id="desc">上传文档经过解析、切分与本地嵌入后写入 Chroma，元数据写入 SQLite。查询把问题嵌入后检索并返回片段与来源。独立的 rag/answer API 复用检索结果，有片段时才调用生成模型，无片段时返回无法确定。</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2463a5"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#17766b"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7551a2"/></marker>
+</defs>
+<g font-family="'Microsoft YaHei', 'Noto Sans CJK SC', Arial, sans-serif">
+<rect width="1600" height="1080" fill="#f7f9fc"/>
+<text x="48" y="56" font-size="34" fill="#162b42" font-weight="700">Knowledge Hub · RAG 数据流</text>
+<text x="48" y="94" font-size="20" fill="#52677f" font-weight="400">Day 100 / Week 15     分清索引、片段检索和生成回答；网页目前只连接前两项。</text>
+<rect x="48" y="130" width="1504" height="266" rx="18" fill="#edf4fc" stroke="#2463a5" stroke-opacity=".25"/>
+<text x="72" y="166" font-size="23" fill="#2463a5" font-weight="700">01 · 建立索引      POST /upload</text>
+<rect x="48" y="430" width="1504" height="252" rx="18" fill="#eef8f4" stroke="#17766b" stroke-opacity=".25"/>
+<text x="72" y="466" font-size="23" fill="#17766b" font-weight="700">02 · 检索片段      POST /rag/query</text>
+<rect x="48" y="716" width="1504" height="274" rx="18" fill="#f4f0f9" stroke="#7551a2" stroke-opacity=".25"/>
+<text x="72" y="752" font-size="23" fill="#7551a2" font-weight="700">03 · 生成回答      POST /rag/answer（独立 API）</text>
+<polyline points="413,249 453,249" fill="none" stroke="#2463a5" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="778,249 818,249" fill="none" stroke="#2463a5" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="1143,249 1183,249" fill="none" stroke="#2463a5" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="413,548 453,548" fill="none" stroke="#17766b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<polyline points="778,548 818,548" fill="none" stroke="#17766b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<polyline points="1143,548 1183,548" fill="none" stroke="#17766b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<polyline points="413,840 453,840" fill="none" stroke="#7551a2" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<polyline points="778,840 818,840" fill="none" stroke="#7551a2" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<polyline points="1143,840 1183,840" fill="none" stroke="#7551a2" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<g data-card="upload"><rect x="88" y="198" width="325" height="104" rx="12" fill="#ffffff" stroke="#2463a5" stroke-opacity=".5"/><rect x="88" y="214" width="4" height="72" rx="2" fill="#2463a5"/>
+<text x="108" y="233" font-size="24" fill="#2463a5" font-weight="700">PDF / DOCX / MD</text>
+<text x="108" y="264" font-size="20" fill="#52677f" font-weight="400">前端 POST /api/upload</text>
+<text x="108" y="292" font-size="20" fill="#52677f" font-weight="400">Nginx 转为 API /upload</text>
+</g>
+<g data-card="parse"><rect x="453" y="198" width="325" height="104" rx="12" fill="#ffffff" stroke="#2463a5" stroke-opacity=".5"/><rect x="453" y="214" width="4" height="72" rx="2" fill="#2463a5"/>
+<text x="473" y="233" font-size="24" fill="#2463a5" font-weight="700">解析 → 切分</text>
+<text x="473" y="264" font-size="20" fill="#52677f" font-weight="400">提取文本，生成 chunk</text>
+<text x="473" y="292" font-size="20" fill="#52677f" font-weight="400">默认 200 字符 / 重叠 50</text>
+</g>
+<g data-card="embedding"><rect x="818" y="198" width="325" height="104" rx="12" fill="#ffffff" stroke="#2463a5" stroke-opacity=".5"/><rect x="818" y="214" width="4" height="72" rx="2" fill="#2463a5"/>
+<text x="838" y="233" font-size="24" fill="#2463a5" font-weight="700">本地 Embedding</text>
+<text x="838" y="264" font-size="20" fill="#52677f" font-weight="400">DefaultEmbeddingFunction</text>
+<text x="838" y="292" font-size="20" fill="#52677f" font-weight="400">片段 → 数值向量</text>
+</g>
+<g data-card="upsert"><rect x="1183" y="198" width="325" height="104" rx="12" fill="#ffffff" stroke="#2463a5" stroke-opacity=".5"/><rect x="1183" y="214" width="4" height="72" rx="2" fill="#2463a5"/>
+<text x="1203" y="233" font-size="24" fill="#2463a5" font-weight="700">Chroma upsert</text>
+<text x="1203" y="264" font-size="20" fill="#52677f" font-weight="400">向量 + 原文 + 元数据</text>
+<text x="1203" y="292" font-size="20" fill="#52677f" font-weight="400">source / document_id 等</text>
+</g>
+<text x="88" y="355" font-size="21" fill="#52677f" font-weight="400">文档记录：SQLite 保存文档元数据与索引状态；具体写入顺序由上传路由管理。</text>
+<g data-card="question"><rect x="88" y="496" width="325" height="104" rx="12" fill="#ffffff" stroke="#17766b" stroke-opacity=".5"/><rect x="88" y="512" width="4" height="72" rx="2" fill="#17766b"/>
+<text x="108" y="531" font-size="24" fill="#17766b" font-weight="700">用户问题</text>
+<text x="108" y="562" font-size="20" fill="#52677f" font-weight="400">前端 POST /api/rag/query</text>
+<text x="108" y="590" font-size="20" fill="#52677f" font-weight="400">携带 question 与 top_k</text>
+</g>
+<g data-card="query-embedding"><rect x="453" y="496" width="325" height="104" rx="12" fill="#ffffff" stroke="#17766b" stroke-opacity=".5"/><rect x="453" y="512" width="4" height="72" rx="2" fill="#17766b"/>
+<text x="473" y="531" font-size="24" fill="#17766b" font-weight="700">问题 Embedding</text>
+<text x="473" y="562" font-size="20" fill="#52677f" font-weight="400">使用同一嵌入函数</text>
+<text x="473" y="590" font-size="20" fill="#52677f" font-weight="400">查询文本 → 查询向量</text>
+</g>
+<g data-card="search"><rect x="818" y="496" width="325" height="104" rx="12" fill="#ffffff" stroke="#17766b" stroke-opacity=".5"/><rect x="818" y="512" width="4" height="72" rx="2" fill="#17766b"/>
+<text x="838" y="531" font-size="24" fill="#17766b" font-weight="700">Chroma 相似检索</text>
+<text x="838" y="562" font-size="20" fill="#52677f" font-weight="400">按 top_k 返回片段</text>
+<text x="838" y="590" font-size="20" fill="#52677f" font-weight="400">不调用生成模型</text>
+</g>
+<g data-card="chunks"><rect x="1183" y="496" width="325" height="104" rx="12" fill="#ffffff" stroke="#17766b" stroke-opacity=".5"/><rect x="1183" y="512" width="4" height="72" rx="2" fill="#17766b"/>
+<text x="1203" y="531" font-size="24" fill="#17766b" font-weight="700">检索结果</text>
+<text x="1203" y="562" font-size="20" fill="#52677f" font-weight="400">片段 / 来源 / 距离等</text>
+<text x="1203" y="590" font-size="20" fill="#52677f" font-weight="400">页面显示原文与来源</text>
+</g>
+<text x="88" y="645" font-size="21" fill="#52677f" font-weight="400">同一问题也可直接请求 /rag/answer；该接口在后端执行检索，网页当前没有调用它。</text>
+<g data-card="answer-question"><rect x="88" y="788" width="325" height="104" rx="12" fill="#ffffff" stroke="#7551a2" stroke-opacity=".5"/><rect x="88" y="804" width="4" height="72" rx="2" fill="#7551a2"/>
+<text x="108" y="823" font-size="24" fill="#7551a2" font-weight="700">API 客户端提交问题</text>
+<text x="108" y="854" font-size="20" fill="#52677f" font-weight="400">后端 answer_question</text>
+<text x="108" y="882" font-size="20" fill="#52677f" font-weight="400">复用 search_chunks</text>
+</g>
+<g data-card="branch"><rect x="453" y="788" width="325" height="104" rx="12" fill="#ffffff" stroke="#7551a2" stroke-opacity=".5"/><rect x="453" y="804" width="4" height="72" rx="2" fill="#7551a2"/>
+<text x="473" y="823" font-size="24" fill="#7551a2" font-weight="700">判断是否有片段</text>
+<text x="473" y="854" font-size="20" fill="#52677f" font-weight="400">有片段 → 组织上下文</text>
+<text x="473" y="882" font-size="20" fill="#52677f" font-weight="400">无片段 → 返回无法确定</text>
+</g>
+<g data-card="llm"><rect x="818" y="788" width="325" height="104" rx="12" fill="#ffffff" stroke="#7551a2" stroke-opacity=".5"/><rect x="818" y="804" width="4" height="72" rx="2" fill="#7551a2"/>
+<text x="838" y="823" font-size="24" fill="#7551a2" font-weight="700">调用配置的生成模型</text>
+<text x="838" y="854" font-size="20" fill="#52677f" font-weight="400">仅在有片段时调用</text>
+<text x="838" y="882" font-size="20" fill="#52677f" font-weight="400">模型凭据属于 API 配置</text>
+</g>
+<g data-card="answer"><rect x="1183" y="788" width="325" height="104" rx="12" fill="#ffffff" stroke="#7551a2" stroke-opacity=".5"/><rect x="1183" y="804" width="4" height="72" rx="2" fill="#7551a2"/>
+<text x="1203" y="823" font-size="24" fill="#7551a2" font-weight="700">回答 + 来源</text>
+<text x="1203" y="854" font-size="20" fill="#52677f" font-weight="400">返回回答及引用材料</text>
+<text x="1203" y="882" font-size="20" fill="#52677f" font-weight="400">引用可供追溯和核对</text>
+</g>
+<text x="800" y="771" font-size="19" fill="#7551a2" font-weight="400">有片段时继续</text>
+<text x="88" y="953" font-size="21" fill="#52677f" font-weight="400">首次使用嵌入模型可能需要下载；有来源标签并不等于答案必然正确，仍需独立评测。</text>
+<text x="48" y="1036" font-size="20" fill="#52677f" font-weight="400">这是实现路径说明，本次绘图没有重新上传、建立索引、检索向量或调用模型。</text>
+</g>
+</svg>

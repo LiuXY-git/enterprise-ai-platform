@@ -1,8 +1,8 @@
 # 文档目录
 
-每周一个文件，按学习路线 Day 1–105 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前完成 Day 99 README 与功能展示，Week 15 其余任务待开始；平台正式标签与 GitHub Release 继续保留为待办。
+每周一个文件，按学习路线 Day 1–105 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前完成 Day 99 README 与功能展示、Day 100 系统架构图，Week 15 其余任务待开始；平台正式标签与 GitHub Release 继续保留为待办。
 
-快速使用：[当前技术与操作手册](week-14.md#day97) · [架构](week-14.md#day97-architecture) · [启动配置](week-14.md#day97-setup) · [维护排障](week-14.md#day97-operations) · [测试与评测](week-14.md#day97-testing) · [完整 API 参考](week-4.md#api)。
+快速使用：[当前技术与操作手册](week-14.md#day97) · [架构图](week-15.md#day100) · [启动配置](week-14.md#day97-setup) · [维护排障](week-14.md#day97-operations) · [测试与评测](week-14.md#day97-testing) · [完整 API 参考](week-4.md#api)。
 
 专题资料按首次引入的周次归档，并标注后续修订范围。历史记录中的成功率、版本与限制只适用于相应阶段；计划不是已完成功能。
 
@@ -24,14 +24,14 @@
 | [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
 | [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
 | [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪、Day 96 统一测试、Day 97 技术文档、Day 98 平台 v1.0 发布候选 |
-| [Week 15](week-15.md) | Day 99–105 | 作品集打造；Day 99 README、架构概览、功能截图与部署入口 |
+| [Week 15](week-15.md) | Day 99–105 | 作品集打造；Day 99 README 与功能展示；Day 100 架构图、RAG 数据流与代码映射 |
 
 ## 专题与操作入口
 
 | 查找内容 | 阅读位置 |
 | --- | --- |
 | 使用、配置与部署 | [当前操作手册](week-14.md#day97-setup) · [使用指南](week-8.md#user-guide) · [配置中心](week-8.md#day52) · [环境文件管理](week-14.md#day94) · [启动与检查](week-14.md#day93) |
-| 架构、技术与数据库 | [当前服务关系](week-14.md#day97-architecture) · [系统架构](week-1.md#architecture) · [技术选型](week-1.md#tech-stack) · [SQLite 表结构](week-2.md#database) · [后端重构](week-14.md#day92) |
+| 架构、技术与数据库 | [架构总图与数据流](week-15.md#day100) · [当前服务关系](week-14.md#day97-architecture) · [系统架构](week-1.md#architecture) · [技术选型](week-1.md#tech-stack) · [SQLite 表结构](week-2.md#database) · [后端重构](week-14.md#day92) |
 | API | [当前接口职责与影响](week-14.md#day97-api) · [接口参考](week-4.md#api) · [后端说明](../backend/README.md) |
 | 知识库与 RAG | [Week 3](week-3.md) · [黄金问题](week-3.md#rag-golden-questions) · [检索优化](week-4.md#retrieval-optimization) |
 | Dify 与 n8n | [Dify 工作流](week-5.md) · [n8n 部署和自动化](week-6.md) · [模板目录](../n8n/templates/README.md) |
@@ -40,7 +40,7 @@
 | MCP、记忆与人工确认 | [MCP 调用](week-11.md#day73) · [会话记忆](week-11.md#day75) · [人工确认](week-12.md#day80) · [Agent 入口](../agent-center/README.md) |
 | 日志与排障 | [维护速查](week-14.md#day97-operations) · [请求追踪与 ELK 学习](week-14.md#day95) · [隔离日志验收](../scripts/verify_logging.py) |
 | 评测与测试 | [API 与 Agent 回归](week-14.md#day96) · [评测学习记录](week-13.md) · [运行评测](../evaluation-center/README.md#运行评测) · [测试说明](../tests/README.md) |
-| 作品集与截图 | [Day 99](week-15.md#day99) · [截图复刻](week-15.md#day99-screenshots) |
+| 作品集与截图 | [Day 100 架构图](week-15.md#day100) · [Day 99](week-15.md#day99) · [截图复刻](week-15.md#day99-screenshots) |
 | 演示 | [Knowledge Hub 讲稿](week-4.md#demo-script) · [Day 55 操作稿](week-8.md#day55) · [Day 83 演示材料](week-12.md#day83) |
 | 平台发布 | [Enterprise AI Platform v1.0 候选](week-14.md#day98) · [重复验收](week-14.md#day98-verification) |
 | 版本说明 | [Knowledge Hub](week-4.md#release-v1.0) · [Workflow v0.1](week-6.md#workflow-center-v0.1) · [Workflow v0.5](week-7.md#workflow-center-v0.5) · [Workflow v1.0 候选](week-8.md#workflow-center-v1.0) |
