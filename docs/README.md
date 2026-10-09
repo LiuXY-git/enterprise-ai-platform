@@ -1,6 +1,6 @@
 # 文档目录
 
-每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 97，Week 14 尚未完成。
+每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 98 发布候选验收；正式标签与 GitHub Release 尚待创建。
 
 快速使用：[当前技术与操作手册](week-14.md#day97) · [架构](week-14.md#day97-architecture) · [启动配置](week-14.md#day97-setup) · [维护排障](week-14.md#day97-operations) · [测试与评测](week-14.md#day97-testing) · [完整 API 参考](week-4.md#api)。
 
@@ -23,7 +23,7 @@
 | [Week 11](week-11.md) | Day 71–77 | MCP、Memory 与 Planning |
 | [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
 | [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
-| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪、Day 96 统一测试、Day 97 技术文档 |
+| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪、Day 96 统一测试、Day 97 技术文档、Day 98 平台 v1.0 发布候选 |
 
 ## 专题与操作入口
 
@@ -40,6 +40,7 @@
 | 日志与排障 | [维护速查](week-14.md#day97-operations) · [请求追踪与 ELK 学习](week-14.md#day95) · [隔离日志验收](../scripts/verify_logging.py) |
 | 评测与测试 | [API 与 Agent 回归](week-14.md#day96) · [评测学习记录](week-13.md) · [运行评测](../evaluation-center/README.md#运行评测) · [测试说明](../tests/README.md) |
 | 演示 | [Knowledge Hub 讲稿](week-4.md#demo-script) · [Day 55 操作稿](week-8.md#day55) · [Day 83 演示材料](week-12.md#day83) |
+| 平台发布 | [Enterprise AI Platform v1.0 候选](week-14.md#day98) · [重复验收](week-14.md#day98-verification) |
 | 版本说明 | [Knowledge Hub](week-4.md#release-v1.0) · [Workflow v0.1](week-6.md#workflow-center-v0.1) · [Workflow v0.5](week-7.md#workflow-center-v0.5) · [Workflow v1.0 候选](week-8.md#workflow-center-v1.0) |
 | Agent / Evaluation 版本 | [Agent v0.1](week-9.md#agent-center-v0.1) · [v0.2](week-10.md#agent-center-v0.2) · [v0.5](week-11.md#agent-center-v0.5) · [v1.0](week-12.md#agent-center-v1.0) · [Evaluation v0.1](week-13.md#evaluation-center-v0.1) |
 

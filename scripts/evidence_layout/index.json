@@ -1233,7 +1233,7 @@
     },
     {
       "path": "docs/evidence/week-14.zip",
-      "sha256": "ffa101c8f154c17139807ba2f4c74e7ca75179db816eae098b7f522615298272",
+      "sha256": "781a0947a5948df5efcfd5885fc23f0a079f3459049f7f520fdaabb49eee8c99",
       "entries": {
         "docs/evidence/day92/backend-tests.xml": {
           "sha256": "263c1c27e3ab90b5c9ce04e2427ee2f7094734d9900fc6c10410fcf06a64f595",
@@ -1338,6 +1338,62 @@
         "docs/evidence/day97/api-surface.json": {
           "sha256": "ad2f0186cd9242d15d9add070e3d7b0c08b4bc9639839ab2e5333aab34ffbf5c",
           "size": 3634
+        },
+        "docs/evidence/day98/validation.json": {
+          "sha256": "1d45c4996eeabb788c53309f2d1f6cec0431bd64ff76caa30b5060ddf98e050c",
+          "size": 1416
+        },
+        "docs/evidence/day98/verification.json": {
+          "sha256": "09ce4ebf3313df5dbcd088e1165dd7f20f93ad2cbcfc382e6aea444f89beb515",
+          "size": 2252
+        },
+        "docs/evidence/day98/regression-summary.json": {
+          "sha256": "55cf9f44da4622c3aef47b260cc24a2d39c103a513beb41be72d29cfaf831b05",
+          "size": 9592
+        },
+        "docs/evidence/day98/source-manifest.json": {
+          "sha256": "10e6fe8424d629c80e2f40cb87e070fdbc81585369ff676ec0696739556a739f",
+          "size": 33933
+        },
+        "docs/evidence/day98/release-tests.xml": {
+          "sha256": "522a200abdf209f4a15dce59ec0ce67f52def0b22a15275729b4627885da2952",
+          "size": 5113
+        },
+        "docs/evidence/day98/browser-validation.json": {
+          "sha256": "1a8ea88aae4cabd84180e4aa965f37cb8866768a5373c39c0f89af527c9ec9e7",
+          "size": 521
+        },
+        "docs/evidence/day98/logging-validation.json": {
+          "sha256": "29ae2d8b2697612f3269e9212e94a5f66c2fdf05eb971b068b82463e2f8c9bd6",
+          "size": 673
+        },
+        "docs/evidence/day98/compose-validation.json": {
+          "sha256": "5de3cb10040f6061208e0be9323f510e1bcc8cac6c97f148443b66580b36ea48",
+          "size": 3664
+        },
+        "docs/evidence/day98/links.json": {
+          "sha256": "41527109f8451970eabf259906b8225f11c7d0c474bbf8c28c6e4c7fc31f7ce9",
+          "size": 377
+        },
+        "docs/evidence/day98/api-tests.xml": {
+          "sha256": "92bb0de0b63d54f18e4dd22a2665fb7c83e89fceee668e6515f31bab7fa1a28e",
+          "size": 101301
+        },
+        "docs/evidence/day98/planner-tests.xml": {
+          "sha256": "f7310a8493b259a40f5a62fbec618a8175754c8bfd32dd978935d244977ec165",
+          "size": 29957
+        },
+        "docs/evidence/day98/agent-tests.xml": {
+          "sha256": "dc13cdcd99c6789ca058103464303952fa9927e72adcd20b9d1f7f7b590c4978",
+          "size": 55210
+        },
+        "docs/evidence/day98/workflow-tests.xml": {
+          "sha256": "f0fd3aeaf1ba336c1ba4c5b52dbd20a086a6325d2a3a86e73b670ecba7096e40",
+          "size": 34546
+        },
+        "docs/evidence/day98/evaluation-tests.xml": {
+          "sha256": "8cc11587c64889ec314c2af1f6858bb4e1f5c267d65720da442e4d48e7145679",
+          "size": 32261
         }
       }
     },
@@ -1696,6 +1752,6 @@
       }
     }
   ],
-  "evidence_records": 323,
+  "evidence_records": 337,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }
