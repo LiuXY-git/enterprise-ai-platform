@@ -4,7 +4,7 @@
 
 按学习路线归档，计划、实施记录与阶段总结集中在本页。记录中的版本、验收结果和“当前”均对应各节写作时点；后续修订会单独注明。
 
-目前完成 Day 92–95；Day 96–98 仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
+目前完成 Day 92–96；Day 97–98 仍为计划。Compose 部署、环境变量管理与日志排障的操作步骤见本页。
 
 [总目录](README.md#按周阅读) · [上一周](week-13.md)
 
@@ -17,6 +17,7 @@
 - [Day 93：Compose 前后端与持久化部署](#day93)
 - [Day 94：环境变量管理](#day94)
 - [Day 95：日志系统与请求追踪](#day95)
+- [Day 96：API 与 Agent 统一测试](#day96)
 
 ---
 
@@ -36,7 +37,7 @@
 | Day 97 | 技术文档 | 更新架构、部署、操作与维护说明，核对文档和实现 |
 | Day 98 | Enterprise AI Platform v1.0 发布 | 汇总实际交付，验收后创建版本清单、发布说明与标签 |
 
-每日开始前结合代码状态细化范围；Day 92–95 实施记录见下方，Day 96–98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
+每日开始前结合代码状态细化范围；Day 92–96 实施记录见下方，Day 97–98 仍为计划。平台已有 API `1.0.0` 和历史 `v1.0.0` 标签，Day 98 发布前需核对命名，不能覆盖旧标签。
 
 <a id="plan-当前起点"></a>
 
@@ -606,3 +607,104 @@ Get-ChildItem -LiteralPath '.\logs' -File |
 - 结果归入 [Week 14 运行摘要](evidence/week-14.md#day95)。
 
 学习时先运行隔离脚本，打开 result.json 和同目录 app.log，对照响应与记录字段；理解单次请求如何关联后，再阅读请求中间件及 JSON 格式化代码。后续 Day 96 继续整理 API 与 Agent 测试入口和回归范围。
+
+
+<a id="day96"></a>
+
+## Day 96：API 与 Agent 统一测试
+
+### 今天解决什么问题
+
+之前已经积累了接口、Agent 和评测测试，但运行命令散落在不同目录，依赖也不属于同一个 Python 环境。修改公共模块后容易只跑到一部分，或把“没有收集到测试”“跳过依赖检查”误当作通过。
+
+现在使用 [统一测试脚本](../scripts/test_platform.py)，按明确范围选择已有环境，运行当前工作区代码，并留下可复核的结果。它也包含 [入口自身的失败控制测试](../tests/test_day96_test_runner.py)。例如修改人工确认逻辑后，先跑 workflow；准备合并前再跑 all，检查接口和其他 Agent 能力是否退化。
+
+### 五组测试和各自的环境
+
+| suite | 默认 Python 环境 | 覆盖范围 |
+| --- | --- | --- |
+| api | 根目录 .venv | tests/：FastAPI、OpenAPI 契约、配置、SQLite、RAG、工作流、通知、部署脚本模拟、日志及统一测试入口 |
+| planner | experiments/day60/.venv | Day 58–60：LangGraph 分支、计划校验、SQLite 检查点与独立进程恢复 |
+| agent | experiments/day73/.venv | Day 64 工具调用、Day 65 只读 SQL 核心、Day 72–73 本地 MCP、Day 75 会话记忆 |
+| workflow | experiments/day73/.venv | Day 78–82：任务日志、重试和恢复、人工确认、销售场景与 Prompt 候选控制 |
+| evaluation | experiments/day73/.venv | Day 85–90：测试集契约、执行、耗时、usage、规则评分与报告复核 |
+
+`all` 表示上表五组，不表示收集仓库内所有实验。Day 61–62、旧版 SQL Agent、Day 66–69 的知识/天气/多工具实验及各正式版本的发布专用测试不在本入口内。变更这些模块时，仍按对应 Week 的说明补跑其专用测试。CLI 的 list 会输出精确文件路径；API 组收集 tests/，其他组使用显式文件清单，避免重复计数和跨环境混装。
+
+API 中异步用例需要 AnyIO 插件，脚本显式加载它；其他自动发现插件关闭，不继承 PYTEST_ADDOPTS 等外部筛选参数。Windows 部署脚本测试需要 PowerShell；缺少它导致 skip 时，本次回归会判为未通过。
+
+### 直接复刻
+
+在项目根目录使用已有环境：
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+
+# 查看范围、Python 路径和解释器文件是否存在，不运行测试
+.\.venv\Scripts\python.exe -B scripts/test_platform.py list
+
+# 日常修改后选择相关组；可重复写 --suite 选择多个不同组
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite api
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite agent --suite workflow
+
+# 合并前运行五组回归；省略 --suite 也会运行这五组
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite all
+if ($LASTEXITCODE -ne 0) { throw '测试未全部通过，请查看本次 summary.json 和日志' }
+~~~
+
+每次自动创建 `logs/test-runs/<UTC时间>-<随机编号>/`，最后一行显示该目录。也可指定一个**尚不存在**的输出目录。仓库内的输出限于 logs/test-runs/ 下，避免把测试产物再次当作源码收集；也可指定仓库外的新目录：
+
+~~~powershell
+$runDir = Join-Path 'logs/test-runs' ('check-' + [guid]::NewGuid().ToString('N'))
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite workflow --output-dir $runDir
+$testExit = $LASTEXITCODE
+Get-Content (Join-Path $runDir 'summary.json') -Raw -Encoding UTF8
+if ($testExit -ne 0) { throw 'Workflow 回归未通过；失败记录已保留' }
+~~~
+
+可用 `--api-python`、`--planner-python`、`--runtime-python` 指定其他已安装的解释器，路径有空格时加引号。`list` 的 available 只代表文件存在，不证明依赖齐全；缺失模块会在对应组日志中报错。脚本不自动安装依赖。重新建立环境时，API 参考 requirements-dev.txt，规划器参考 experiments/day60/requirements-lock.txt，Agent/MCP 参考 experiments/day73/requirements-lock.txt，分别安装，避免混装。
+
+每组默认最多运行 900 秒，可用 `--timeout 1200` 调整。超时或 Ctrl+C 时尝试停止本次启动的测试进程树；无法确认清理完成会明确报告，并停止启动后续组。普通测试失败仍继续其他已选组，让一次运行保留完整的回归范围结果。
+
+### 报告怎样看
+
+| 文件 | 用途 |
+| --- | --- |
+| summary.json | 整次状态、各组状态、统计、耗时、解释器、失败原因、未通过测试编号与源码清单哈希 |
+| api/、planner/、agent/、workflow/、evaluation/ 下的 tests.xml | JUnit 格式结果，保留失败断言及错误详情，可供后续 CI 使用 |
+| 同目录 stdout.log / stderr.log | 对应测试进程的完整标准输出和错误输出 |
+| 同目录 inventory.json | 收集与实际执行的测试编号、Python/pytest 版本和退出码 |
+| 同目录 source-manifest.json | 被测源码、配置和 fixture 文件的内容哈希，用于区分测试针对哪个工作区版本 |
+| 同目录 temp/ | pytest 的隔离临时数据库和子进程测试材料，便于失败后排查 |
+
+源码清单不是版本签名或依赖锁定替代品；目录、依赖和测试范围都有各自边界。运行期间请勿同时修改代码，每组会从当前工作区另建临时副本。
+
+只有全部已选组同时满足下列条件，整体才返回退出码 0：
+
+1. pytest 返回 0，JUnit 结构和统计一致。
+2. 至少执行一项测试，无 failure、error 或 skip。
+3. 收集编号与执行编号一致，数量与 JUnit 一致，没有重复测试编号。
+4. 所有选中组均已执行，没有超时、运行中断、缺失报告或环境错误。
+
+`failed` 是本次未通过；`not_run` 表示组尚未执行，不能当成 0 项通过。`observed_counts` 仅汇总实际取得且可解析的 JUnit 数据；若报告缺失，数字并不代表本次完整覆盖。优先查看整体 status，再查看各组 problems 和测试日志。修复后新建目录重跑，原失败证据保留，脚本不会覆盖旧结果。
+
+### 隔离和结果边界
+
+测试在当前代码的临时副本中执行，包括未提交修改；不复制仓库 .env、私有 .env.*、已有 data/、logs/ 或虚拟环境。根测试配置会保留，外部业务凭据和测试筛选参数不传给测试进程。默认依赖现有用例的 mock/fixture 和本地 stdio MCP，无需启动前端或业务容器，也不会更新现有部署。
+
+这里的隔离不是操作系统网络沙箱。未来新增测试仍需保持离线约束，不能直接把真实外部服务调用放进这些组。JUnit、日志及 temp/ 可能包含测试输入和断言；使用业务样例时先判断是否适合分享，完整运行目录不自动提交 Git。确认不需要排查后可按目录清理，汇总材料继续按 Week 保存。
+
+**代码回归通过与 Agent 业务效果是两层结论。** 例如拒绝审批是正确行为，相关测试通过；它不代表消息已经发送。此入口也不替代浏览器交互、真实 Docker 重建、真实模型质量或生产验收。
+
+需要重新执行 12 个固定销售场景并生成评分时，继续使用 [Evaluation Center 的运行入口](../evaluation-center/README.md#运行评测)。它回答“这些固定案例是否符合预期”；本入口回答“当前实现是否通过所选自动化回归”。本次不新增真实模型调用，不改变既有演示视频与真实质量评测待办。
+
+### 本次验证
+
+- 五组共 **1,574 项独立测试通过**：API 618、规划器 86、工具与记忆 369、销售流程 259、评测框架 242；无失败、错误或跳过。
+- 其中 Day 96 新增 **38 项入口控制测试**，包含真实 pytest 失败/跳过子进程和真实超时清理；这些刻意制造的失败按预期被识别，未被算成业务成功。
+- Ruff 检查通过，保留 Chroma 依赖已有的一条 asyncio 弃用警告。
+- 所有测试使用临时源码副本和虚构输入；没有更新业务容器或启动前端。
+
+学习顺序：先执行 list 理解分组，再跑 api 并查看 summary.json；修改 Agent 时选择对应组，最后用 all 检查是否影响其他模块。结果摘要见 [Week 14 测试记录](evidence/week-14.md#day96)。Day 97 继续整理技术文档。

@@ -2,7 +2,17 @@
 
 该目录覆盖 FastAPI 接口、配置、SQLite、RAG 服务、工作流、通知、部署脚本及 n8n 导出结构。外部模型、通知和 Docker 操作由对应测试替身隔离；通过本套测试不代表完成真实服务联调。
 
-在仓库根目录使用后端环境运行：
+Day 96 起推荐使用统一入口，自动选择已有环境并保存报告：
+
+```powershell
+.\.venv\Scripts\python.exe -B scripts/test_platform.py list
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite api
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite all
+```
+
+范围、环境、失败处理和结果目录见 [Week 14](../docs/week-14.md#day96)。all 为五组指定范围，不代表仓库全部历史实验。
+
+单独调试 API 用例也可在仓库根目录直接运行；该命令不会生成统一汇总报告：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests -q
@@ -23,3 +33,5 @@ Day 93 新增 [Compose 与接口测试](test_day93_compose.py)、[隔离持久�
 Day 94 的 [环境管理测试](test_day94_environment.py)覆盖文件选择、配置来源、脱敏、特殊字符和 PowerShell 参数传递；实际 Compose CLI 与隔离容器检查的范围见 [Week 14](../docs/week-14.md#day94)。
 
 Day 95 的 [日志测试](test_day95_observability.py)覆盖并发上下文、500/流式/后台错误、敏感内容保护和日志故障。另行运行 [隔离 Uvicorn 验收](../scripts/verify_logging.py)；它使用随机回环端口、临时数据库和虚构输入，不修改现有容器。
+
+Day 96 的 [入口控制测试](test_day96_test_runner.py)覆盖空收集、跳过、错误、报告缺失或损坏、重复编号、环境缺失、输出保护、真实失败子进程与超时清理。

@@ -1,8 +1,8 @@
 # 文档目录
 
-每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 95，Week 14 尚未完成。
+每周一个文件，按学习路线 Day 1–98 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前进度为 Day 96，Week 14 尚未完成。
 
-快速使用：[平台使用指南](week-8.md#user-guide) · [当前部署步骤](week-14.md#day93) · [环境变量管理](week-14.md#day94) · [日志排障](week-14.md#day95) · [API 参考](week-4.md#api) · [架构资料](week-1.md#architecture) · [Day 92 后端目录](week-14.md#day92)。
+快速使用：[平台使用指南](week-8.md#user-guide) · [当前部署步骤](week-14.md#day93) · [环境变量管理](week-14.md#day94) · [日志排障](week-14.md#day95) · [统一测试](week-14.md#day96) · [API 参考](week-4.md#api) · [架构资料](week-1.md#architecture) · [Day 92 后端目录](week-14.md#day92)。
 
 专题资料按首次引入的周次归档，并标注后续修订范围。历史记录中的成功率、版本与限制只适用于相应阶段；计划不是已完成功能。
 
@@ -23,7 +23,7 @@
 | [Week 11](week-11.md) | Day 71–77 | MCP、Memory 与 Planning |
 | [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
 | [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
-| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪 |
+| [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪、Day 96 统一测试 |
 
 ## 专题与操作入口
 
@@ -38,7 +38,7 @@
 | Agent 基础与工具 | [LangGraph](week-9.md#day58) · [状态恢复](week-9.md#day60) · [Function Calling](week-10.md#day64) · [多工具组合](week-10.md#day68) |
 | MCP、记忆与人工确认 | [MCP 调用](week-11.md#day73) · [会话记忆](week-11.md#day75) · [人工确认](week-12.md#day80) · [Agent 入口](../agent-center/README.md) |
 | 日志与排障 | [请求追踪与 ELK 学习](week-14.md#day95) · [隔离日志验收](../scripts/verify_logging.py) |
-| 评测与测试 | [评测学习记录](week-13.md) · [运行评测](../evaluation-center/README.md#运行评测) · [测试说明](../tests/README.md) |
+| 评测与测试 | [API 与 Agent 回归](week-14.md#day96) · [评测学习记录](week-13.md) · [运行评测](../evaluation-center/README.md#运行评测) · [测试说明](../tests/README.md) |
 | 演示 | [Knowledge Hub 讲稿](week-4.md#demo-script) · [Day 55 操作稿](week-8.md#day55) · [Day 83 演示材料](week-12.md#day83) |
 | 版本说明 | [Knowledge Hub](week-4.md#release-v1.0) · [Workflow v0.1](week-6.md#workflow-center-v0.1) · [Workflow v0.5](week-7.md#workflow-center-v0.5) · [Workflow v1.0 候选](week-8.md#workflow-center-v1.0) |
 | Agent / Evaluation 版本 | [Agent v0.1](week-9.md#agent-center-v0.1) · [v0.2](week-10.md#agent-center-v0.2) · [v0.5](week-11.md#agent-center-v0.5) · [v1.0](week-12.md#agent-center-v1.0) · [Evaluation v0.1](week-13.md#evaluation-center-v0.1) |

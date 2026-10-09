@@ -116,6 +116,7 @@ def test_snapshot_uses_current_code_excludes_secrets_and_cleans_up(tmp_path):
     code.parent.mkdir()
     code.write_bytes(b"changed_current_source")
     (root / ".env").write_bytes(b"private")
+    (root / "conftest.py").write_bytes(b"# current test configuration")
     (root / "data").mkdir()
     (root / "data/private.sqlite").write_bytes(b"private")
     with (
@@ -126,6 +127,7 @@ def test_snapshot_uses_current_code_excludes_secrets_and_cleans_up(tmp_path):
             copied / "experiments/current.py"
         ).read_bytes() == b"changed_current_source"
         assert (copied / "docs/evidence/day92/result.json").exists()
+        assert (copied / "conftest.py").read_bytes() == b"# current test configuration"
         assert not (copied / ".env").exists() and not (copied / "data").exists()
         raise RuntimeError("fixture")
     assert not copied.exists()

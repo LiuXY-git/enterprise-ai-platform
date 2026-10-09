@@ -151,6 +151,7 @@ def _copy_sources(root, destination):
                 "requirements.txt",
                 "requirements-dev.txt",
                 "pyproject.toml",
+                "conftest.py",
                 ".gitignore",
                 ".env.example",
                 ".dockerignore",
