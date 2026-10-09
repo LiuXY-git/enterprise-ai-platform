@@ -1,104 +1,190 @@
 # Enterprise AI Platform
 
-面向企业知识库、工作流、Agent 与评测的学习项目。**当前完成 Day 98 发布候选准备：Enterprise AI Platform v1.0.0；正式标签与 GitHub Release 尚待创建。**
+把企业文档检索、工作流自动化、Agent 工具调用和评测放到同一个工程项目中，练习从功能实现到部署、日志、回归与交付的全过程。
 
-从 [当前操作手册](docs/week-14.md#day97) 开始，按需要查看 [架构](docs/week-14.md#day97-architecture)、[启动与配置](docs/week-14.md#day97-setup)、[维护与排障](docs/week-14.md#day97-operations) 或 [逐周学习记录](docs/README.md#按周阅读)。
+目前可通过网页上传文档、查看检索片段与来源；工作流使用 n8n / Dify；Agent 与评测使用独立的 Python CLI。项目面向本机学习与演示，已有能力和待办见下表。
+
+[功能预览](#功能预览) · [技术架构](#技术架构) · [快速启动](#快速启动) · [测试与评测](#开发状态) · [操作手册](docs/week-14.md#day97) · [逐周记录](docs/README.md)
 
 ## 项目目标
 
-| 模块 | 已实现入口 | 当前边界 |
+围绕三个具体问题构建可复刻的实现：
+
+- **资料难查**：把 PDF、DOCX、Markdown 接入知识库，返回相关片段和来源；生成式回答由单独的 API 提供。
+- **流程难追踪**：将客服、邮件、销售跟进组织成工作流，保存执行记录与失败信息。
+- **Agent 改动难比较**：用固定任务、独立标准答案和规则评分，观察执行结果、耗时及已知 usage。
+
+| 模块 | 已实现能力 | 使用入口与边界 |
 | --- | --- | --- |
-| Knowledge Hub | 知识库前端、FastAPI 上传/检索/生成回答 | 前端提供上传与片段检索；生成回答使用 /rag/answer |
-| Workflow Center | n8n 模板、Dify 代理、运行账本与模拟 CRM | Dify 独立部署；销售通知为预览，邮件流程生成草稿 |
-| Agent Center | 宿主机 Python CLI、本地 stdio MCP、任务日志与人工确认 | 固定虚构销售场景；审批后仅本地模拟发送；没有 Agent HTTP API |
-| Evaluation Center | CLI 执行、耗时、usage、规则评分与报告 | 12 个固定 fixture 场景；真实模型评测入口尚未接入 |
+| Knowledge Hub | 文档上传、向量检索、带来源的 RAG 回答 API | 网页提供上传与片段检索；`/rag/answer` 才生成回答 |
+| Workflow Center | n8n 模板、Dify 代理、运行账本、模拟 CRM | Dify 独立部署；邮件生成草稿，销售流程通知为预览 |
+| Agent Center | 工具调用、本地 stdio MCP、任务日志、人工确认 | 固定虚构销售场景；审批后本地模拟发送；无 Agent HTTP API |
+| Evaluation Center | 测试执行、耗时、usage 记录、规则评分和报告 | 宿主机 CLI，12 个固定 fixture 场景；真实模型评测尚未接入 |
 
-## 当前进度
+可以从 [虚构 IT 制度](demo/nebula-it-policy.md)开始：上传文档后查询“P1 级故障需要多久响应？没有响应时如何升级？”，查看对应来源片段。Agent 的销售流程与评测入口分别见 [Agent Center](agent-center/README.md)和 [Evaluation Center](evaluation-center/README.md#运行评测)。
 
-- Week 14 已完成代码重构、Compose 前后端部署、环境管理、日志追踪、统一测试、技术文档及平台 v1.0 发布候选验收。
-- 最新操作说明集中在 [Week 14](docs/week-14.md#day97)；过去每日交付、复刻过程和运行结果分别保留在 [Week 文档](docs/README.md)和 [结果摘要](docs/evidence/README.md)。
-- 平台 API 元数据版本仍为 1.0.0。Agent Center v1.0.0、Evaluation Center v0.1.0 是各自的阶段版本；版本号相同不表示属于同一产品发布。
-- Day 55/83 视频补录、Workflow Center v1.0 标签与 Release、企业微信真实发送、Day 82 真实 Prompt 改善测量等待办继续保留。本次平台候选不会自动完成这些待办。
+## 功能预览
 
-- 发布范围、重新验收与正式发布步骤见 [Day 98](docs/week-14.md#day98)；新标签名称为 enterprise-ai-platform-v1.0.0，保留已有 v1.0.0。
+下图展示**现有前端在本机演示响应下的实际界面**，输入使用仓库中的虚构制度文档。上传回执和检索结果由固定 HTTP fixture 提供，截图不代表执行了真实索引、向量检索或模型调用。
 
-## 项目结构
+![知识库桌面界面：演示文档上传回执、检索问题与来源原文](docs/assets/week-15/knowledge-desktop.png)
 
-| 目录/文件 | 用途 |
-| --- | --- |
-| [backend/](backend/README.md) | FastAPI、业务服务、配置与日志 |
-| [frontend/](frontend/) | 静态 HTML/CSS/JavaScript 和 Nginx 同源代理 |
-| [compose.yaml](compose.yaml)、[docker/](docker/README.md) | API、前端、n8n 的构建与运行配置 |
-| [n8n/](n8n/) | 工作流导出、可复用模板和组件清单 |
-| [experiments/](experiments/)、[agent-center/](agent-center/README.md) | 独立 Agent 实验与阶段版本入口 |
-| [evaluation-center/](evaluation-center/README.md) | 固定测试集、Agent 描述与评测入口 |
-| [scripts/](scripts/) | 环境初始化、部署检查、测试及评测工具 |
-| [tests/](tests/README.md) | API 与维护工具回归用例 |
-| [docs/](docs/README.md)、[demo/](demo/README.md) | 按周手册、运行摘要及演示资料 |
-| data/、logs/ | 本机数据库、向量索引、实验输出与日志；见 [保留范围](docs/week-14.md#day97-operations) |
+<details>
+<summary>查看移动端布局</summary>
+
+![知识库移动端界面：上传与来源片段按纵向排列](docs/assets/week-15/knowledge-mobile.png)
+
+</details>
+
+截图使用 [可重跑的采集脚本](scripts/portfolio/capture_readme.cjs)生成，过程与素材说明见 [Day 99](docs/week-15.md#day99-screenshots)。
+
+## 技术架构
+
+~~~mermaid
+flowchart TB
+    User["浏览器"] --> Frontend["Nginx + 静态前端 :8080"]
+    subgraph Compose["Docker Compose"]
+        Frontend -->|"/api/ 同源代理"| API["FastAPI :8000"]
+        N8N["n8n :5678"] -->|"HTTP 工作流"| API
+        API --> SQLite[("SQLite 文档与业务记录")]
+        API --> Chroma[("嵌入式 Chroma 向量索引")]
+        API --> Logs["请求与工作流日志"]
+    end
+    API -->|"生成回答"| Model["配置的生成模型"]
+    API -->|"工作流代理"| Dify["独立部署的 Dify"]
+    Dify -->|"外部知识库检索"| API
+    subgraph Host["宿主机独立 CLI"]
+        Eval["固定场景评测"] --> Agent["销售 Agent 与人工确认"]
+        Agent --> MCP["本地 stdio MCP"]
+        MCP --> Sales[("虚构销售数据")]
+    end
+~~~
+
+Compose 只有 `frontend`、`api`、`n8n` 三个服务；SQLite 和 Chroma 嵌入 API，数据写入宿主机挂载目录。Agent/MCP/评测没有接到网页或 API 上，规划与会话记忆仍保留独立实验入口。详细职责与数据流见 [技术手册](docs/week-14.md#day97-architecture)。
 
 ## 快速启动
 
-以下命令在仓库根目录执行，假定已有 Python 环境和正确的私有 .env。首次使用请先按 [环境准备](docs/week-14.md#day97-setup) 完成初始化；已有 n8n 数据卷必须保留原加密键。
-
-### 本地运行
-
-用 8001 避开默认 Docker API 的 8000。此进程不接管 Compose 前端的 API 连接：
-
-```powershell
-$env:EAP_ENV_FILE = '.env.local'
-.\.venv\Scripts\python.exe -B -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
-```
-
-先准备 .env.local，再打开 [本地开发 API 文档](http://127.0.0.1:8001/docs)。结束服务后按需清除本终端选择：`Remove-Item Env:EAP_ENV_FILE -ErrorAction SilentlyContinue`。
+以下示例使用 Windows PowerShell。容器部署需 Docker Desktop（Linux 容器模式）、Compose >= 2.20.0；配置工具使用 Python 3.14。需要有仓库读取权限。
 
 ### Docker 运行
 
-选择需要的范围，三种模式互斥：
+首次取得代码：
+
+~~~powershell
+git clone https://github.com/LiuXY-git/enterprise-ai-platform.git
+if ($LASTEXITCODE -ne 0) { throw '克隆失败' }
+Set-Location enterprise-ai-platform
+
+py -3.14 -m venv .venv
+if ($LASTEXITCODE -ne 0) { throw '创建 API 环境失败' }
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+if ($LASTEXITCODE -ne 0) { throw '安装依赖失败' }
+~~~
+
+**新实例**可初始化配置。已有部署使用原私有环境文件，并保留与 n8n 数据卷匹配的 N8N_ENCRYPTION_KEY；迁移方法见 [环境管理](docs/week-14.md#day94)。
+
+~~~powershell
+.\.venv\Scripts\python.exe -B -m scripts.manage_env init --target compose --env-file .env
+if ($LASTEXITCODE -ne 0) { throw '初始化未完成；请检查是否已有配置文件' }
+~~~
+
+编辑私有 .env，按实际使用的功能配置凭据，变量说明见 [.env.example](.env.example)。知识库片段检索不需要生成模型 Key；首次索引可能下载本地向量模型，需要网络和等待时间。
+
+启动知识库 API 与前端：
+
+~~~powershell
+& .\scripts\start.ps1 -EnvFile '.env' -WithoutN8n
+~~~
+
+打开 [知识库页面](http://127.0.0.1:8080/)、[API 文档](http://127.0.0.1:8000/docs)。完整工作流部署可省略 -WithoutN8n：
 
 | 目标 | 命令 |
 | --- | --- |
-| 只更新 API | `& .\scripts\start.ps1 -EnvFile '.env' -ApiOnly` |
-| 更新 API 与前端，保留 n8n 现状 | `& .\scripts\start.ps1 -EnvFile '.env' -WithoutN8n` |
-| 更新 API、前端、n8n | `& .\scripts\start.ps1 -EnvFile '.env'` |
+| API、前端、n8n | `& .\scripts\start.ps1 -EnvFile '.env'` |
+| 仅更新 API | `& .\scripts\start.ps1 -EnvFile '.env' -ApiOnly` |
+| 检查 API 与前端 | `& .\scripts\check-deployment.ps1 -EnvFile '.env' -WithoutN8n` |
 
-启动对应服务后访问：[知识库前端](http://127.0.0.1:8080/)、[API 文档](http://127.0.0.1:8000/docs)、[n8n](http://127.0.0.1:5678/)。这些端口只绑定本机。
+上述模式互斥；只更新指定服务，不停止其他正在运行的服务。端口只绑定本机回环。SQLite、Chroma 和日志保存于本机 data/、logs/，n8n 使用命名卷；详见 [部署、保留与排障](docs/week-14.md#day97-operations)。
 
-`-ApiOnly` 不会启动已经关闭的前端，也不会关闭已经运行的前端。仅停止前端可在项目根目录执行 `docker compose --env-file .env stop frontend`；完整状态检查及停止方法见 [操作手册](docs/week-14.md#day97-setup)。
+### 本地运行
 
-## 项目文档
+开发 API 时先准备 .env.local，再用 8001 避开 Docker 的默认端口。它与 Compose 前端的 API 连接分别配置：
 
-- [当前架构与数据流](docs/week-14.md#day97-architecture)
-- [配置与部署](docs/week-14.md#day97-setup)
-- [接口职责与调用边界](docs/week-14.md#day97-api)
-- [数据、日志与维护](docs/week-14.md#day97-operations)
-- [测试与评测怎么选](docs/week-14.md#day97-testing)
-- [按周学习目录](docs/README.md)、[演示材料](demo/README.md)
+~~~powershell
+.\.venv\Scripts\python.exe -B -m scripts.manage_env init --target local --env-file .env.local
+if ($LASTEXITCODE -ne 0) { throw '请检查是否已有 .env.local，已有配置可直接使用' }
+~~~
+
+配置好文件后运行：
+
+~~~powershell
+$env:EAP_ENV_FILE = '.env.local'
+.\.venv\Scripts\python.exe -B -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
+~~~
+
+完整准备、停止服务和配置选择方法见 [操作手册](docs/week-14.md#day97-setup)。
 
 ## 技术栈
 
-API 使用 Python 3.14、FastAPI、Pydantic、SQLite 与本地 Chroma；前端为静态资源和 Nginx；n8n 编排工作流，Dify 独立管理其应用和模型。Agent 实验使用 LangGraph、本地 stdio MCP 与 SQLite，规划器/API/MCP 依赖分别安装。实际锁定版本以 [依赖文件](requirements.txt)、[Compose 配置](compose.yaml)和各实验锁文件为准；技术选择过程见 [Week 1](docs/week-1.md#tech-stack)。
+| 层次 | 实现 |
+| --- | --- |
+| API 与契约 | Python 3.14、FastAPI、Pydantic |
+| 知识库 | SQLite 文档记录、嵌入式 Chroma、本地 Embedding、可配置生成模型 |
+| 前端与部署 | 原生 HTML/CSS/JavaScript、Nginx、Docker Compose |
+| 工作流 | n8n 模板、独立 Dify |
+| Agent 与评测 | LangGraph 实验、Function Calling、本地 stdio MCP、SQLite、规则评分 |
+| 工程验证 | pytest、分环境执行、临时 HTTP/浏览器验收、JSON 日志与请求编号 |
+
+依赖以 [API 依赖](requirements.txt)、[Compose](compose.yaml)及各实验的依赖文件为准；各环境分别安装，避免把不兼容版本混在一起。
 
 ## API 接口
 
-平台保持 25 个 OpenAPI 路径、26 个 HTTP 操作；在线规格为运行服务的 /openapi.json。`/chat` 是回显示例，`/rag/query` 返回知识片段，`/rag/answer` 才调用生成模型。独立通知接口在配置齐全时会真实发送，不作为健康探针使用。
+当前 API 定义包含 25 个路径、26 个 HTTP 操作，在线文档为 /docs。`/chat` 是回显示例，`/rag/query` 返回片段，`/rag/answer` 调用生成模型。独立通知接口配置完成后可能真实发送消息，不用于启动检查。
 
-本项目尚未提供完整的调用方身份认证；/retrieval 使用专用 Bearer Key。具体路径、输入和结果见 [接口手册](docs/week-14.md#day97-api)与 [完整 API 参考](docs/week-4.md#api)。
+平台尚未提供完整调用方身份认证；`/retrieval` 使用专用 Bearer Key。请求与响应见 [API 参考](docs/week-4.md#api)和 [接口职责](docs/week-14.md#day97-api)。
 
 ## 开发状态
 
-代码修改后使用统一回归入口：
+先列出测试环境，或运行 API 回归：
 
-```powershell
+~~~powershell
 .\.venv\Scripts\python.exe -B scripts/test_platform.py list
-.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite all
-if ($LASTEXITCODE -ne 0) { throw '回归未全部通过，请查看本次 summary.json' }
-```
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite api
+if ($LASTEXITCODE -ne 0) { throw '回归未通过，请查看本次 summary.json' }
+~~~
 
-all 指 API、规划器、工具/记忆、销售流程及评测框架五组；其他旧实验仍按其专用说明验证。报告默认保存到 logs/test-runs/ 的新目录，详见 [测试范围](docs/week-14.md#day96)。代码回归不等于真实模型质量或生产可用性。
+准备好 [三个独立环境](docs/week-14.md#day96)后，使用 `run --suite all` 运行 API、规划器、工具/记忆、销售流程、评测框架五组回归。结果存入新的 logs/test-runs/ 目录；它不覆盖仓库全部历史实验。
+
+最近阶段记录：Day 98 候选执行 **1,615 项离线测试**（五组回归 1,574 项 + 发布控制 41 项），无失败、错误或跳过，另有浏览器与日志检查。具体范围见 [Day 98 结果](docs/evidence/week-14.md#day98)。这是当次代码回归结果，不是真实模型成功率；Day 99 的 README/截图整理没有重跑这 1,615 项。
+
+## 当前进度
+
+- **Day 99 已完成**：项目介绍、技术架构、功能截图、部署方式及 GitHub 阅读导航。
+- **平台 v1.0 正式发布待办**：Day 98 候选已合并，正式标签与 GitHub Release 暂缓；平台 API 元数据仍为 1.0.0。
+- Day 55/83 视频补录、Day 82 真实 Prompt 质量测量、真实模型评测接入、Workflow Center v1.0 标签与 Release、企业微信真实发送继续保留。
+- Week 15 后续计划见 [作品集整理](docs/week-15.md#plan)；Demo 视频尚未因本次截图工作而完成。
+
+## 项目结构
+
+| 位置 | 内容 |
+| --- | --- |
+| [backend](backend/README.md) / [frontend](frontend/) | API、业务服务、配置、日志与知识库网页 |
+| [compose.yaml](compose.yaml) / [docker](docker/README.md) | 三服务部署、持久化和镜像配置 |
+| [n8n](n8n/templates/README.md) | 工作流与可复用模板 |
+| [agent-center](agent-center/README.md) / [experiments](experiments/) | Agent 阶段入口与独立实验 |
+| [evaluation-center](evaluation-center/README.md) | 固定测试集、评测与报告 |
+| [scripts](scripts/) / [tests](tests/README.md) | 配置、部署、回归和交付工具 |
+| [docs](docs/README.md) / [demo](demo/README.md) | 按周手册、结果摘要、截图及虚构演示资料 |
+
+## 项目文档
+
+- [当前技术与操作手册](docs/week-14.md#day97)：架构、配置、API、数据维护和排障。
+- [按周学习记录](docs/README.md)：从知识库到工作流、Agent、评测和作品集的实施过程。
+- [每周结果摘要](docs/evidence/README.md)：验证范围、真实结果与限制。
+- [演示资料](demo/README.md)：可使用的虚构数据与待补录材料。
 
 <a id="week-5企业工作流中心"></a>
 <a id="week-6n8n-工作流自动化"></a>
 <a id="week-7企业平台集成"></a>
 
-阶段入口：[Week 5 企业工作流](docs/week-5.md)、[Workflow Center v0.1](docs/week-6.md#workflow-center-v0.1)、[Week 6 总结](docs/week-6.md#summary)、[Week 7 集成](docs/week-7.md)、[Workflow Center v1.0 候选](docs/week-8.md#workflow-center-v1.0)、[Agent v1.0](docs/week-12.md#agent-center-v1.0)、[Evaluation v0.1](docs/week-13.md#evaluation-center-v0.1)。
+阶段入口：[Week 5](docs/week-5.md)、[Workflow Center v0.1](docs/week-6.md#workflow-center-v0.1)、[Week 6 总结](docs/week-6.md#summary)、[Week 7](docs/week-7.md)、[Workflow v1.0 候选](docs/week-8.md#workflow-center-v1.0)、[Agent v1.0](docs/week-12.md#agent-center-v1.0)、[Evaluation v0.1](docs/week-13.md#evaluation-center-v0.1)。
