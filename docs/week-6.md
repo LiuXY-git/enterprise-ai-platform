@@ -2493,7 +2493,7 @@ UNIQUE(workflow_name, event_id)
 |---|---|---|
 | `POST` | `/workflow-runs/start` | 登记新运行、拦截重复事件或开始回放 |
 | `PATCH` | `/workflow-runs/{run_id}/result` | 保存成功或人工审核结果 |
-| `PATCH` | `/workflow-runs/executions/{execution_id}/failure` | 按 n8n 执行号保存失败 |
+| `PATCH` | `/workflow-runs/executions/{n8n_execution_id}/failure` | 按 n8n 执行号保存失败 |
 | `GET` | `/workflow-runs/{run_id}` | 查询单条运行 |
 | `GET` | `/workflow-runs?report_date=YYYY-MM-DD` | 查询指定日期运行 |
 

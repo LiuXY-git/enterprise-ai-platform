@@ -1,54 +1,68 @@
 # Backend
 
-FastAPI 后端提供文档上传、RAG、Dify 代理、工作流运行账本、模拟 CRM 和独立通知接口。用户操作见 [平台使用指南](../docs/week-8.md#user-guide)，数据流见 [系统架构](../docs/week-1.md#architecture)。
+FastAPI 后端提供文档上传、RAG、Dify 代理、工作流账本、模拟 CRM 与独立通知接口。当前使用说明见 [Week 14 技术手册](../docs/week-14.md#day97)，完整接口字段见 [API 参考](../docs/week-4.md#api)。
 
-## 目录
+## 目录与请求流程
 
 | 位置 | 职责 |
 | --- | --- |
-| [app/main.py](app/main.py) | 稳定 ASGI 入口，导出 `app` |
-| [app/application.py](app/application.py) | `create_app()` 应用工厂，组装配置和路由 |
+| [app/main.py](app/main.py) | 稳定 ASGI 入口，导出 app |
+| [app/application.py](app/application.py) | create_app()，组装 LoggedFastAPI、配置与路由 |
 | [app/core/lifecycle.py](app/core/lifecycle.py) | 启动加载环境、配置日志、初始化数据库；关闭清理缓存 |
-| [app/core/metadata.py](app/core/metadata.py) | OpenAPI 描述与标签 |
-| [app/routers/registry.py](app/routers/registry.py) | 集中注册 HTTP 路由，保持原有顺序 |
-| [app/routers](app/routers) | HTTP 接口 |
-| [app/models](app/models) | Pydantic 请求和响应契约 |
-| [app/services](app/services) | 文档、检索、模型、工作流、CRM 和集成逻辑 |
+| [app/core/environment.py](app/core/environment.py) | API 环境文件选择 |
+| [app/core/metadata.py](app/core/metadata.py)、[app/routers/registry.py](app/routers/registry.py) | OpenAPI 元数据与路由注册 |
+| [app/routers](app/routers)、[app/models](app/models) | HTTP 输入、响应契约与错误映射 |
+| [app/services](app/services) | 文档、检索、生成模型、工作流、CRM 与集成逻辑 |
 | [app/database.py](app/database.py) | SQLite 建表与访问 |
-| [app/settings.py](app/settings.py) | 分组配置、环境加载和校验 |
-| [app/check_config.py](app/check_config.py) | 离线配置自检命令 |
-| [app/logging_config.py](app/logging_config.py)、[app/workflow_logging.py](app/workflow_logging.py) | 应用日志和工作流 JSONL 事件 |
+| [app/settings.py](app/settings.py)、[app/check_config.py](app/check_config.py) | 分组配置、环境加载及离线自检 |
+| [app/core/request_logging.py](app/core/request_logging.py)、[app/observability.py](app/observability.py) | 请求关联、固定事件字段与安全日志处理 |
+| [app/logging_config.py](app/logging_config.py)、[app/workflow_logging.py](app/workflow_logging.py) | 应用 JSON 日志与工作流 JSONL 事件 |
+
+HTTP 请求经 routers → services → 数据层/外部适配；models 声明输入输出契约。上传解析、保存元数据、切片和索引后返回 indexed；检索和生成回答是两个不同入口。
+
+create_app() 构造时不启动数据库或配置日志，这些副作用发生在 lifespan。测试需要生命周期时使用 `with TestClient(create_app())`，替换 `backend.app.core.lifecycle` 中依赖。工厂隔离应用状态和依赖覆盖，不承诺每个应用自动拥有独立进程环境、数据库或日志，详见 [Day 92](../docs/week-14.md#day92)。
 
 ## 本地开发
 
-从仓库根目录运行，先按使用指南准备 `.env` 和 `.venv`。Docker API 已占用 8000 时，请停止对应 API 或调整本地端口，避免混淆两个进程：
+从仓库根目录执行，先按 [环境准备](../docs/week-14.md#day97-setup) 建立 .venv 和私有环境文件。使用 8001 避开 Docker API 的 8000：
 
 ```powershell
-.\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+$env:EAP_ENV_FILE = '.env.local'
+.\.venv\Scripts\python.exe -B -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
 ```
 
-默认访问 [API 文档](http://127.0.0.1:8000/docs)。应用启动时默认加载仓库根目录 `.env`；可在启动前设置进程变量 `EAP_ENV_FILE` 选择其他文件（相对路径以仓库根目录为基准），明确选择的文件不存在时启动失败，进程已有环境变量优先；缺少未使用组件的密钥不应阻止基础健康接口。离线检查选定组件：
+打开 [开发 API 文档](http://127.0.0.1:8001/docs)。未设置 EAP_ENV_FILE 时默认加载仓库根 .env；明确选择的文件不存在时启动失败，相对路径按仓库根解析，进程已有变量优先。配置变化后重启进程；未使用组件缺少密钥不应阻止基础健康接口。
+
+结束后按需运行 `Remove-Item Env:EAP_ENV_FILE -ErrorAction SilentlyContinue`。Compose 前端仍连其 api 容器，不会自动改连开发端口。
+
+脱敏配置检查显式选择同一文件：
 
 ```powershell
-.\.venv\Scripts\python.exe -m backend.app.check_config --component llm
-.\.venv\Scripts\python.exe -m backend.app.check_config --component dify
+.\.venv\Scripts\python.exe -B -m scripts.manage_env check --target local --env-file .env.local --component llm
+if ($LASTEXITCODE -ne 0) { throw 'LLM 配置检查未通过' }
 ```
 
-这些命令不验证密钥有效性和真实网络。API 模型配置不会改变 Dify/n8n 内部模型，详见 [配置说明](../docs/week-8.md#day52)。Day 94 新增环境初始化、来源检查和 Compose 文件选择，使用 [环境变量管理](../docs/week-14.md#day94)；上述旧检查命令指定文件仍需显式传入 `--env-file`。
+此命令不验证密钥有效性、外部网络或模型质量。API 的模型配置也不会更改 Dify/n8n 内部模型，详见 [Day 94](../docs/week-14.md#day94)。
 
 ## 验证与数据
 
-在仓库根目录执行：
+统一入口为 API 组保存报告，其他 Agent 环境分别选择：
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest tests
-.\.venv\Scripts\python.exe -m ruff check backend tests
+.\.venv\Scripts\python.exe -B scripts/test_platform.py run --suite api
+if ($LASTEXITCODE -ne 0) { throw 'API 回归未全部通过' }
+.\.venv\Scripts\python.exe -B -m ruff check backend tests
+if ($LASTEXITCODE -ne 0) { throw '代码检查未通过' }
 ```
 
-SQLite 与 Chroma 默认在根目录 `data` 下，日志在根目录 `logs` 下；不是 `backend/data` 或 `backend/logs`。容器挂载与重建验收见 [Day 53](../docs/week-8.md#day53)。
+单个用例调试仍可使用 python -m pytest，完整分组和结果格式见 [Day 96](../docs/week-14.md#day96)。
 
-详细接口及当前边界见 [API 文档](../docs/week-4.md#api)。`/chat` 是回显示例；使用 `/rag/answer` 获取知识库生成回答。
+SQLite 为根目录 data/enterprise_ai.db，Chroma 为 data/chroma/，日志为 logs/；不是 backend/data 或 backend/logs。容器挂载、模型缓存与维护范围见 [当前操作手册](../docs/week-14.md#day97-operations)。
 
-Day 92 重构保留 Uvicorn/Docker 入口、接口契约和数据路径。`create_app()` 构建应用时不启动数据库或配置日志；这些操作发生在 ASGI lifespan。测试应通过 `with TestClient(create_app())` 触发生命周期，并替换 `backend.app.core.lifecycle` 中的依赖。工厂隔离应用状态、依赖覆盖和文档标签，不承诺每个应用使用不同的进程环境或数据库，详见 [Day 92](../docs/week-14.md#day92)。
+/health 只表明 API 运行，/chat 为回显示例；/rag/query 检索片段，/rag/answer 生成回答。平台没有 Agent HTTP API。当前无完整调用方鉴权，/retrieval 单独使用专用 Bearer Key，不能直接视为已完成生产安全部署。
 
-Day 95 为应用增加 JSON 日志与服务端生成的 X-Request-ID，通过同一编号关联请求和工作流事件。日志字段、保护范围及复刻步骤见 [Week 14 日志系统](../docs/week-14.md#day95)。现有接口正文保持不变；应用使用 LoggedFastAPI 在错误处理栈外记录请求，不改写原异常响应。
+## 日志定位
+
+应用生成 X-Request-ID 响应头，并以相同 request_id 关联 HTTP 与工作流记录。JSON 请求摘要记录状态、耗时、固定事件、error_type/source；错误处理栈外的 LoggedFastAPI 保留原接口响应。日志故障不应改变业务结果。
+
+工作流日志仍可能保留有限业务快照，不能直接作为公开数据。字段、轮转、后台错误与排障见 [Day 95](../docs/week-14.md#day95)；隔离 HTTP 验收入口是 [verify_logging.py](../scripts/verify_logging.py)。

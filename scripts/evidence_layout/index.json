@@ -1233,7 +1233,7 @@
     },
     {
       "path": "docs/evidence/week-14.zip",
-      "sha256": "a4dbb3f2b53c69fb0746001ae1b0961e27651309a85a3bbc2f9268c74e611169",
+      "sha256": "ffa101c8f154c17139807ba2f4c74e7ca75179db816eae098b7f522615298272",
       "entries": {
         "docs/evidence/day92/backend-tests.xml": {
           "sha256": "263c1c27e3ab90b5c9ce04e2427ee2f7094734d9900fc6c10410fcf06a64f595",
@@ -1326,6 +1326,18 @@
         "docs/evidence/day96/evaluation-tests.xml": {
           "sha256": "767fa85176130dbb057b84b0f818d8f0b0e3ac64dc7c6479538aacb83d11a8e9",
           "size": 32261
+        },
+        "docs/evidence/day97/validation.json": {
+          "sha256": "41d54a7351c95df1a79dfecfc2efaf7fb5c2cf60db5772d77a69558d0f75d659",
+          "size": 7207
+        },
+        "docs/evidence/day97/links.json": {
+          "sha256": "6e7af0546dfbc7e9888a1e4e52631f0c68260720fb19a8c26cf731a4d8141da6",
+          "size": 496
+        },
+        "docs/evidence/day97/api-surface.json": {
+          "sha256": "ad2f0186cd9242d15d9add070e3d7b0c08b4bc9639839ab2e5333aab34ffbf5c",
+          "size": 3634
         }
       }
     },
@@ -1684,6 +1696,6 @@
       }
     }
   ],
-  "evidence_records": 320,
+  "evidence_records": 323,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }
