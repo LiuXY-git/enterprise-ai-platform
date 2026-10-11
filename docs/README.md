@@ -1,6 +1,6 @@
 # 文档目录
 
-每周一个文件，按学习路线 Day 1–105 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前完成 Day 99 README 与功能展示、Day 100 系统架构图；Day 101 演示材料与离线演练已准备，视频延期，Week 15 其余任务待开始；平台正式标签与 GitHub Release 继续保留为待办。
+每周一个文件，按学习路线 Day 1–105 编排。周文件内集中计划、每日步骤、专题资料和阶段总结；目前完成 Day 99 README 与功能展示、Day 100 系统架构图；Day 101 项目 Demo 精简版已完成，Week 15 其余任务待开始；平台正式标签与 GitHub Release 继续保留为待办。
 
 快速使用：[当前技术与操作手册](week-14.md#day97) · [架构图](week-15.md#day100) · [启动配置](week-14.md#day97-setup) · [维护排障](week-14.md#day97-operations) · [测试与评测](week-14.md#day97-testing) · [完整 API 参考](week-4.md#api)。
 
@@ -24,7 +24,7 @@
 | [Week 12](week-12.md) | Day 78–84 | Agent 企业化与人工确认 |
 | [Week 13](week-13.md) | Day 85–91 | Agent 评测框架 |
 | [Week 14](week-14.md) | Day 92–98 | 企业生产化优化；Day 92 重构、Day 93 Compose 部署、Day 94 环境变量管理、Day 95 日志追踪、Day 96 统一测试、Day 97 技术文档、Day 98 平台 v1.0 发布候选 |
-| [Week 15](week-15.md) | Day 99–105 | 作品集打造；Day 99 README 与功能展示；Day 100 架构图；Day 101 项目 Demo 材料与演练（视频待补录） |
+| [Week 15](week-15.md) | Day 99–105 | 作品集打造；Day 99 README 与功能展示；Day 100 架构图；Day 101 项目 Demo（录制与剪辑已完成） |
 
 ## 专题与操作入口
 

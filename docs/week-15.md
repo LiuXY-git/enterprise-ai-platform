@@ -1,6 +1,6 @@
 # Week 15：作品集打造
 
-学习路线：Day 99–105。当前完成 Day 99–100；Day 101 演示材料与离线演练已准备，视频按维护者要求待补录；其余任务仍为计划。
+学习路线：Day 99–105。当前完成 Day 99–101，项目 Demo 精简版已交付；其余任务仍为计划。
 
 本周把已实现的功能整理成别人能够快速理解、运行和追问的作品集。每日实施记录集中在本页，结果见 [Week 15 摘要](evidence/week-15.md)。
 
@@ -17,10 +17,10 @@
 - [图中节点对应哪些代码](#day100-code)
 - [复刻与验证](#day100-reproduce)
 - [一分钟项目架构讲解](#day100-talk)
-- [Day 101：项目 Demo 材料，视频待补录](#day101)
+- [Day 101：项目 Demo 录制与剪辑](#day101)
 - [4 分 20 秒分镜与讲稿](#day101-script)
 - [录制操作与演练](#day101-commands)
-- [补录验收](#day101-review)
+- [交付记录与复刻检查](#day101-review)
 
 <a id="plan"></a>
 
@@ -30,7 +30,7 @@
 | --- | --- | --- |
 | Day 99 | 整理 GitHub，README 包含项目介绍、技术架构、功能截图和部署方式 | 已完成本地修改与验证 |
 | Day 100 | 制作系统架构图 | 已完成总图、RAG 数据流、代码映射、SVG 与 PNG 导出 |
-| Day 101 | 制作 3–5 分钟项目 Demo 视频 | 分镜、讲稿、命令与离线演练已准备；2026-10-09 按维护者要求继续延期录制，视频验收未完成 |
+| Day 101 | 制作 3–5 分钟项目 Demo 视频 | 已完成录制与精简，成片 259.532 秒（约 4 分 20 秒），用户确认原声清楚 |
 | Day 102 | 项目介绍文档：为什么做、解决什么问题 | 待开始 |
 | Day 103 | 准备 RAG、Agent、评估、部署与监控技术问题 | 待开始 |
 | Day 104 | 模拟 FDE 项目面试 | 待开始 |
@@ -232,9 +232,11 @@ if ($LASTEXITCODE -ne 0) { throw '架构图导出失败，请查看字体或图�
 
 <a id="day101"></a>
 
-## Day 101：项目 Demo 材料，视频待补录
+## Day 101：项目 Demo 录制与剪辑
 
-2026-10-09，维护者选择“先准备材料，视频之后补录”。本日已备好 3–5 分钟项目 Demo 的分镜、口播、操作步骤及离线演练结果；**没有生成视频文件，没有实测成片时长，也没有人工观看验收**。录制状态见 [Week 15 清单](../demo/week-15/recording-status.json)。
+2026-10-09 完成材料与离线演练，2026-10-11 完成录制及剪辑。成片为本机 `C:\Users\Administrator\Desktop\day101项目Demo_精简版.mp4`，实测 **259.532 秒（约 4 分 20 秒）**，2556×1536、30 fps，约 19.5 MiB。原片 `day101录制Demo.mp4` 保留不变。[Week 15 清单](../demo/week-15/recording-status.json)记录文件与 SHA-256。
+
+按维护者要求剪去中段排错、聊天和长停顿，保留项目介绍、架构、知识库、Agent 日志、审批结果与评测。音轨保持原声正常语速，没有新增说明字幕；用户已确认原片声音清楚。成片的视频和音频完整解码通过，音视频轨时长差约 23 毫秒，并检查了 50 个镜头中点与剪接附近画面。
 
 本片展示三个项目问题：如何查企业制度、如何让销售 Agent 的执行可追溯且等待确认、如何用固定评测比较后续改动。工作流组件在架构介绍中说明；n8n/Dify 的完整业务操作仍看 [Day 55](week-8.md#day55)。本片不会自动完成 Day 55 或 Day 83 的视频待办。
 
@@ -304,12 +306,20 @@ if ($LASTEXITCODE -ne 0) { throw '架构图导出失败，请查看字体或图�
 在仓库根目录的同一个 PowerShell 窗口执行。目录每次带新编号，原结果保留：
 
 ~~~powershell
+$demoUtf8 = New-Object System.Text.UTF8Encoding($false)
+[Console]::OutputEncoding = $demoUtf8
+$OutputEncoding = $demoUtf8
 $env:PYTHONUTF8 = '1'
+$env:PYTHONIOENCODING = 'utf-8'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 $demoPython = '.\experiments\day73\.venv\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $demoPython)) { throw '请先准备 Day 73 Python 环境' }
 $demoRun = Join-Path 'logs/portfolio-demo' ('recording-' + [guid]::NewGuid().ToString('N'))
 $demoEval = Join-Path $demoRun 'evaluation'
+New-Item -ItemType Directory -Path $demoRun -ErrorAction Stop | Out-Null
+$demoSourceCommit = git rev-parse HEAD
+if ($LASTEXITCODE -ne 0) { throw '无法记录录制版本' }
+$demoSourceCommit | Set-Content -LiteralPath (Join-Path $demoRun 'source-commit.txt') -Encoding UTF8
 
 & $demoPython -B scripts/evaluate.py run --suite full --output-dir $demoEval
 if ($LASTEXITCODE -ne 0) { throw '评测未通过；先查看本次输出，不继续录制结果镜头' }
@@ -322,7 +332,9 @@ if ($LASTEXITCODE -ne 0) { throw '报告与执行证据不一致，停止使用�
 ### 第二步：创建简报并查看日志、待审批提案
 
 ~~~powershell
-$demoAgent = Join-Path $demoRun 'agent'
+$demoAgent = Join-Path $demoRun ('agent-' + [guid]::NewGuid().ToString('N'))
+$demoProposal = $null
+$demoApproved = $null
 & $demoPython -B experiments/day82/prompt_lab.py prepare --case monthly --output-dir $demoAgent
 if ($LASTEXITCODE -ne 0) { throw '简报准备失败，不进入批准步骤' }
 
@@ -334,14 +346,17 @@ if ($demoTrace.generation.status -ne 'completed' -or $null -eq $demoTrace.approv
 
 $demoLogText = & $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent task-log $demoTrace.generation.task_id
 if ($LASTEXITCODE -ne 0) { throw '读取日志失败' }
-($demoLogText | ConvertFrom-Json).events | Select-Object seq,kind,elapsed_ms | Format-Table -AutoSize
+(($demoLogText -join [Environment]::NewLine) | ConvertFrom-Json -ErrorAction Stop).events | Select-Object seq,kind,elapsed_ms | Format-Table -AutoSize
 
 $demoProposalText = & $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent show $demoTrace.approval.approval_id
 if ($LASTEXITCODE -ne 0) { throw '读取提案失败' }
-$demoProposal = $demoProposalText | ConvertFrom-Json
+$demoProposal = ($demoProposalText -join [Environment]::NewLine) | ConvertFrom-Json -ErrorAction Stop
+if ($demoProposal.proposal.source_task_id -ne $demoTrace.generation.task_id) { throw '提案与本次任务不一致' }
 $demoProposal | Select-Object approval_id,effective_status,digest,simulation_count,external_send | Format-List
 $demoProposal.proposal | Select-Object recipient,body,fictional | Format-List
 ~~~
+
+后续步骤一直使用当前 `$demoAgent` 和 `$demoTrace`，不要粘贴排错回复中的旧目录赋值。Windows PowerShell 5.1 必须同时设置 Python 输出与 PowerShell 接收的 UTF-8；发生 JSON 乱码后需重新运行读取命令，不能继续解析旧变量。
 
 核对 `pending`、正文、接收对象 `sales-manager-demo`、摘要和虚构标记。月度简报应为 2026 年 9 月、4 条已支付订单、3000.00 元、展示 2 条明细；这不是查询真实 CRM 的结果。展示的是受限固定工具调用，不是任意 SQL 执行。
 
@@ -350,16 +365,28 @@ $demoProposal.proposal | Select-Object recipient,body,fictional | Format-List
 不要把本段与前面的准备步骤一次性粘贴执行。先在画面中完成审阅，再表达批准意图并执行：
 
 ~~~powershell
-if ($demoProposal.effective_status -ne 'pending') { throw '请重新创建并审阅新提案' }
-& $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent approve $demoProposal.approval_id --digest $demoProposal.digest --confirm APPROVE
+if (-not $demoProposal.approval_id -or -not $demoProposal.digest) { throw '请先完整读取提案' }
+if ($demoProposal.proposal.source_task_id -ne $demoTrace.generation.task_id) { throw '提案与本次任务不一致' }
+if ($demoProposal.effective_status -ne 'pending') { throw '首次批准需要 pending；若已执行则进入重复批准，过期则重新创建' }
+$demoApprovedText = & $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent approve $demoProposal.approval_id --digest $demoProposal.digest --confirm APPROVE
 if ($LASTEXITCODE -ne 0) { throw '批准未成功，请检查是否已过期或内容变化' }
+$demoApproved = ($demoApprovedText -join [Environment]::NewLine) | ConvertFrom-Json -ErrorAction Stop
+$demoApproved | Select-Object decision_result,status,simulation_count,external_send | Format-List
+~~~
 
-# 展示对同一批准的去重行为。
-& $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent approve $demoProposal.approval_id --digest $demoProposal.digest --confirm APPROVE
-if ($LASTEXITCODE -ne 0) { throw '重复批准检查失败' }
+显示首次批准结果后，单独运行以下命令展示重复批准；不要再次运行上面的 pending 检查：
+
+~~~powershell
+if (-not $demoProposal.approval_id -or -not $demoProposal.digest) { throw '请先完整读取提案' }
 $demoFinalText = & $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent show $demoProposal.approval_id
-if ($LASTEXITCODE -ne 0) { throw '读取最终状态失败' }
-$demoFinalText | ConvertFrom-Json | Select-Object status,simulation_count,external_send | Format-List
+if ($LASTEXITCODE -ne 0) { throw '读取当前状态失败' }
+$demoFinal = ($demoFinalText -join [Environment]::NewLine) | ConvertFrom-Json -ErrorAction Stop
+if ($demoFinal.status -ne 'executed') { throw '请先完成首次批准' }
+if ($demoFinal.proposal.source_task_id -ne $demoTrace.generation.task_id) { throw '提案与本次任务不一致' }
+$demoRepeatedText = & $demoPython -B experiments/day80/hitl_agent.py --data-dir $demoAgent approve $demoProposal.approval_id --digest $demoProposal.digest --confirm APPROVE
+if ($LASTEXITCODE -ne 0) { throw '重复批准检查失败' }
+$demoRepeated = ($demoRepeatedText -join [Environment]::NewLine) | ConvertFrom-Json -ErrorAction Stop
+$demoRepeated | Select-Object decision_result,status,simulation_count,external_send | Format-List
 ~~~
 
 第一次应出现 `executed`，第二次 `already_executed`，最终 `simulation_count=1`、`external_send=false`。这只证明本地模拟发件箱的行为；现场操作失败时先停止该镜头，保留失败结果，再排查或新建提案。
@@ -386,11 +413,11 @@ $demoReport.source.usage.summary | Select-Object provider_requests,input_tokens,
 
 <a id="day101-review"></a>
 
-### 补录验收与完成条件
+### 交付记录与复刻检查
 
 录完后，在本次 `$demoRun` 目录另存录制笔记，记录实际提交、录制日期、视频文件或链接、真实时长、演示运行目录，以及知识库镜头使用截图还是实际检索。视频摘要可用 `Get-FileHash -Algorithm SHA256 -LiteralPath '实际视频路径'` 取得，时长以播放器或媒体信息为准。
 
-人工完整观看成片后检查：
+后续重新录制时，可按以下清单检查画面与讲解：
 
 - [ ] 文件可以完整播放，实际时长 180–300 秒，旁白与画面文字清楚。
 - [ ] 每段都呈现对应画面；总览、知识库、Agent/HITL 和评测都有交代。
@@ -399,7 +426,7 @@ $demoReport.source.usage.summary | Select-Object provider_requests,input_tokens,
 - [ ] 评测数字对应本次运行，说明固定场景通过率与真实模型质量的区别。
 - [ ] 展示范围内没有凭据或真实客户资料；没有把模拟发送讲成外部真实发送。
 
-完成录制、记录信息和人工观看后，才把当前 [录制状态](../demo/week-15/recording-status.json)更新为已录制/已验收，并更新本节进度。不要修改历史版本的录制清单来抵消独立待办。
+本次交付已按维护者要求完成精简版和媒体检查，声音确认来自维护者对原片的反馈。新一轮录制应另存版本和检查结果；以上清单供复刻使用，各模块的独立待办继续保留。
 
 ### 本日已验证什么
 
@@ -410,4 +437,4 @@ $demoReport.source.usage.summary | Select-Object provider_requests,input_tokens,
 - 完整 12 个固定评测场景，12/12 符合预期；再用 inspect 复核报告与执行证据一致。业务状态中包括 1 个预期失败、2 个预期拒绝，均按预期判分。
 - 文档命令语法、链接与已有文档契约检查。详细结果集中在 [Week 15 摘要](evidence/week-15.md#day101)。
 
-未录制视频、未验收声音与成片、未实跑网页检索或请求真实模型。材料准备阶段可以结束，Day 101 视频交付仍为待办。
+以上为 2026-10-09 的材料演练范围。2026-10-11 已完成约 4 分 20 秒成片，交付记录见本节开头与 [Week 15 摘要](evidence/week-15.md#day101)。剪辑和媒体检查没有重新运行 Agent、执行审批或请求模型。

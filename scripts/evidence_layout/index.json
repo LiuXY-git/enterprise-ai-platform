@@ -1753,7 +1753,7 @@
     },
     {
       "path": "docs/evidence/week-15.zip",
-      "sha256": "9162e9d582c2ec11503ce6068a2f0f82ab25ddd2d3da8a3f555082410c50662e",
+      "sha256": "341756dd22ddcd0a947697349c38c7c310495765c96e03094100a67a455d7540",
       "entries": {
         "docs/evidence/day99/validation.json": {
           "sha256": "4e04cd7e72e38e666a5a65c866741bf63216e128a8935ee13d30e3c93200f4de",
@@ -1826,10 +1826,18 @@
         "docs/evidence/day101/documentation-test.xml": {
           "sha256": "56a179930e1654fd762f41177f17aa306d9792d910a76b4a133a1e77a63ea11b",
           "size": 381
+        },
+        "docs/evidence/day101/video-edit-20261011.json": {
+          "sha256": "c9b2b61e85465a00e6b7cf13c5f05fa224272cca9b165e930af0d3bcb766ef45",
+          "size": 1786
+        },
+        "docs/evidence/day101/recording-followup-validation.json": {
+          "sha256": "6467fce3facd23cb5f5e1826ff2bd26a1e35ca404482fe7d5b1341252cf62dff",
+          "size": 1678
         }
       }
     }
   ],
-  "evidence_records": 355,
+  "evidence_records": 357,
   "source_document_commit": "4f9556f556549560e802cac625eef99b26b458ed"
 }
