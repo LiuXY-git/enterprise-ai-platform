@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "day": 101,
+  "week": 15,
+  "product": "Enterprise AI Platform",
+  "materials_status": "prepared",
+  "recording_status": "recorded",
+  "requested_on": "2026-10-09",
+  "reason": "edited_video_delivered_with_user_confirmed_original_audio",
+  "documentation": "docs/week-15.md#day101",
+  "target_duration_seconds": 260,
+  "accepted_duration_seconds": {
+    "minimum": 180,
+    "maximum": 300
+  },
+  "default_route": "architecture_and_labeled_ui_fixture_screenshots_then_offline_agent_and_evaluation",
+  "rehearsal": {
+    "status": "passed",
+    "source_commit": "690db7e8f63d55f7a3647685d286eb8c3b37de0f",
+    "summary": "docs/evidence/week-15.md#day101",
+    "model_requests": 0,
+    "external_sends": 0,
+    "approval_mode": "automated_local_simulation_not_human_review",
+    "fixed_cases_passed": 12,
+    "fixed_cases_total": 12
+  },
+  "video": {
+    "file": "C:\\Users\\Administrator\\Desktop\\day101项目Demo_精简版.mp4",
+    "url": null,
+    "recorded_on": "2026-10-11",
+    "source_commit": "3f43bc732c9d8fe20a048596441a2c5fd5b7e351",
+    "duration_seconds": 259.532,
+    "sha256": "eb9ee87535d4aaeecb0639c489117669aee46dcba996a54a20788a0d0208c525",
+    "knowledge_scene_mode": "day99_fixture_screenshot",
+    "size_bytes": 20429268,
+    "width": 2556,
+    "height": 1536,
+    "audio_track_present": true,
+    "source_commit_basis": "saved_recording_source_commit_note",
+    "fps": 30
+  },
+  "human_review": {
+    "status": "audio_confirmed_by_user",
+    "reviewed_on": "2026-10-11",
+    "playable_and_readable": null,
+    "duration_in_range": true,
+    "content_matches_run": null,
+    "human_confirmation_shown": null,
+    "scope_labels_accurate": null,
+    "sensitive_data_absent": null,
+    "audio_clear": true,
+    "audio_confirmation_applies_to": "original_recording"
+  },
+  "updated_on": "2026-10-11",
+  "acceptance_status": "completed",
+  "technical_review": {
+    "reviewed_on": "2026-10-11",
+    "method": "full_media_decode_and_sampled_frame_review",
+    "sampled_frames": 50,
+    "duration_in_range": true,
+    "video_and_audio_decode": "passed",
+    "audio_video_duration_difference_seconds": 0.023325520833338942,
+    "summary": "docs/evidence/week-15.md#day101"
+  },
+  "original_video": {
+    "file": "C:\\Users\\Administrator\\Desktop\\day101录制Demo.mp4",
+    "url": null,
+    "recorded_on": "2026-10-11",
+    "source_commit": "3f43bc732c9d8fe20a048596441a2c5fd5b7e351",
+    "duration_seconds": 675.89171,
+    "sha256": "f6c641c4c66526450ce3e8637dcefd19b1fc2380052e8a5694534757748b171b",
+    "knowledge_scene_mode": "day99_fixture_screenshot",
+    "size_bytes": 440898527,
+    "width": 2556,
+    "height": 1536,
+    "audio_track_present": true,
+    "source_commit_basis": "saved_recording_source_commit_note"
+  },
+  "editing": {
+    "status": "completed",
+    "completed_on": "2026-10-11",
+    "segments": 16,
+    "speed": 1,
+    "audio": "original_voice",
+    "annotations_added": false,
+    "source_file_unchanged": true
+  }
+}

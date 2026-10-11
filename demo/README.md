@@ -2,7 +2,9 @@
 
 本目录存放 Enterprise AI Platform 的演示数据。
 
-当前录制入口为 [Day 55 Workflow Center 业务 Demo](../docs/week-8.md#day55)，包含讲稿、独立请求包、逐步执行工具和 [录制验收表](day55-recording-checklist.md)。材料已准备；维护者于 2026-09-17 确认先推进 Day 56，真实业务演示、视频录制与验收之后补齐。
+当前项目整体 Demo 入口：[Day 101：分镜、讲稿与操作步骤](../docs/week-15.md#day101)。2026-10-11 已完成约 4 分 20 秒精简版，用户确认原片声音清楚；剪辑保持原声正常语速，展示架构、知识库、Agent 日志、审批结果和评测。[状态清单](week-15/recording-status.json)记录成片路径、时长、SHA-256 与媒体检查。视频保留本机，源码仓库保存文档和剪辑记录；该短片不替代下面各模块的独立视频待办。
+
+Workflow Center 独立录制入口为 [Day 55 Workflow Center 业务 Demo](../docs/week-8.md#day55)，包含讲稿、独立请求包、逐步执行工具和 [录制验收表](day55-recording-checklist.md)。材料已准备；维护者于 2026-09-17 确认先推进 Day 56，真实业务演示、视频录制与验收之后补齐。
 
 原 Knowledge Hub 方案见 [旧版录制脚本](../docs/week-4.md#demo-script)；2026-08-31 AI 客服助手视频已完成，见 [历史视频验收](../docs/week-5.md#demo-acceptance)。以下两份虚构资料继续用于知识库演示。
 
