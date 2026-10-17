@@ -21,6 +21,8 @@
 - [4 分 20 秒分镜与讲稿](#day101-script)
 - [录制操作与演练](#day101-commands)
 - [交付记录与复刻检查](#day101-review)
+- [网页扩展第 1 天：环境验证与任务基础](#web-console-day1)
+- [网页扩展第 2、3 天：销售页面与人工确认](#web-console-days2-3)
 
 <a id="plan"></a>
 
@@ -438,3 +440,226 @@ $demoReport.source.usage.summary | Select-Object provider_requests,input_tokens,
 - 文档命令语法、链接与已有文档契约检查。详细结果集中在 [Week 15 摘要](evidence/week-15.md#day101)。
 
 以上为 2026-10-09 的材料演练范围。2026-10-11 已完成约 4 分 20 秒成片，交付记录见本节开头与 [Week 15 摘要](evidence/week-15.md#day101)。剪辑和媒体检查没有重新运行 Agent、执行审批或请求模型。
+
+
+<a id="web-console-day1"></a>
+
+## 网页扩展第 1 天：环境验证与任务基础
+
+实施日期：2026-10-17。依据《企业AI平台网页功能一周实施计划》第 1 天执行，属于新的 7 天网页扩展，不占用原学习路线 Day 104。工作从主线开始，面试资料分支保持独立。这里只记录已实现的任务基础，销售、审批、工作流、评测页面按后续天数推进。
+
+### 目标与已交付内容
+
+网页提交任务后立即得到持久化编号；独立 worker 从 SQLite 领取任务并写回结果，网页可轮询状态。API 重启不会丢失排队任务或完成结果。本日仅开放 `smoke` 固定回显任务，用它验证基础链路，不把销售 CLI 演练算作销售 HTTP 接口已经完成。
+
+- [任务请求与结果契约](../backend/app/console/contracts.py)：明确字段、类型、模式与状态。
+- [队列存储](../backend/app/console/store.py)：幂等、排队上限、原子领取、心跳和过期处理。
+- [可选 API 入口](../backend/app/console/application.py)：`backend.app.console.application:app`，复用原应用并追加任务路由。
+- [独立执行器](../backend/app/console/worker.py)：固定子进程命令、超时、停止与结果校验。
+- [worker 镜像](../docker/Dockerfile.console-worker)与[独立 Compose](../compose.console.yaml)：验证 Linux 环境和持久化挂载。
+- [运行环境检查](../scripts/console/verify_runtime.py)、[HTTP 链路检查](../scripts/console/verify_api.py)与[自动化测试](../tests/test_console_queue.py)。
+
+原 `backend.app.main:app` 入口和默认 Compose 继续使用既有 API。新入口保留原路由，再增加任务 API；健康检查 `/health` 只反映 API，worker 健康必须另外看 `/console/worker`。
+
+### 现有能力盘点与接入约束
+
+| 能力 | 实际入口 | 后续网页接入要点 |
+| --- | --- | --- |
+| 知识库 | `frontend/public/`、`backend/app/` | 沿用静态页面、Nginx `/api/` 同源代理与现有 API；当前页面仍是知识库 |
+| 销售简报候选 | `experiments/day82/prompt_lab.py prepare` | 复用固定虚构销售输入、真实本地 stdio MCP 和待确认提案；任务编号须关联原业务编号 |
+| 人工确认 | `experiments/day80/hitl_agent.py` | 展示提案、有效期、摘要与 revision，显式审批后才模拟发送；保留重复批准去重 |
+| 评测 | `scripts/evaluate.py --stage 90 run` | `smoke` 为 4 例，`full` 为 12 例；复用原执行证据与独立评分，不从进程退出码推断评分 |
+| 工作流账本 | `/workflow-runs/start` 与查询接口 | start 只登记运行，不能当作真正触发 n8n；需要另建固定模板触发适配器 |
+| n8n 客服模板 | `n8n/templates/` 的客服模板 | 依赖 Dify；返回 Dify 运行编号，现有模板没有统一平台持久化及去重 |
+| n8n 邮件、销售模板 | `n8n/templates/` 的邮件与销售模板 | 已有平台运行编号、持久化及去重；分别依赖 Dify / Qwen，通知边界仍为原来的草稿或预览 |
+
+原 API 镜像只复制 backend，不能执行 experiments，也不能复用 Windows `.venv`。新 worker 在 Linux 安装 Day 73 的精确依赖锁文件，Windows 专属依赖由 marker 跳过；复制 Agent、评测、周证据包及所需配置。构建上下文排除 `.env`、虚拟环境、运行数据与视频。API 与 worker 使用各自的 Python 环境，不把两者依赖强行合并。
+
+实际 worker 验证环境为 Python 3.14.8 / Linux、MCP 2.2.0、httpx 0.28.1、Pydantic 2.13.4。镜像固定 Python 基础镜像 digest。首次验证发现评测还需根目录 `requirements-dev.txt`、`pyproject.toml`，补齐后重新验证通过。
+
+### 任务与状态契约
+
+| 字段 | 当前含义 |
+| --- | --- |
+| `job_id` | 服务端生成的任务编号；与后续 Agent 的 task/run/approval 编号分开 |
+| `kind` / `mode` | 本日只接受 `smoke` / `fixture`；不接受 live 或任意命令 |
+| `input` | 当前为 `message`，长度 1–200；多余字段、路径、命令参数均不接受 |
+| `status` / `stage` | 状态为 queued、running、succeeded、failed、interrupted；运行阶段为 executing |
+| `created_at` / `updated_at` / `started_at` / `finished_at` | UTC 时间；尚未开始或结束的时间为 null |
+| `result` / `error` | 成功结果或固定错误码与安全提示；不回传子进程原始异常、环境变量 |
+| `source_ids` | 本日为空对象，后续接业务执行时填入对应源编号 |
+
+执行器默认：排队上限 32，另允许 1 条正在执行；执行超时 10 秒，心跳间隔不超过 1 秒，租约 15 秒，空闲轮询 0.25 秒。API 和 worker 的 `WEB_CONSOLE_DATA_DIR` 必须指向同一 SQLite 数据目录；Compose 已挂载同一目录。队列上限和超时分别由服务端 `WEB_CONSOLE_QUEUE_LIMIT`、`WEB_CONSOLE_TIMEOUT_SECONDS` 配置，不能由网页请求覆盖。
+
+同一 `Idempotency-Key` 与相同请求始终返回原任务编号，即使原任务已完成；同一个键换内容返回 409。排队已满时新任务返回 429，已存在的幂等请求仍能读取原记录。重试被中断的任务必须由人确认后使用新键发起，不会自动重放。
+
+同一数据库只允许一个有效 worker。领取使用 SQLite 写事务；过期 worker 的结果写回会被拒绝。正常停止时正在执行的任务标为 interrupted；进程崩溃后，下一 worker 取得过期租约时才把遗留 running 标为 interrupted，随后领取原 queued 任务。没有新 worker 时，任务可能仍显示 running，此时心跳状态为 stale，不能只看任务状态判断其仍在运行。
+
+本日子进程只执行固定回显模块，不会产生后代进程。接入 MCP 等业务命令前，必须补充进程组清理与业务结果适配；当前不宣称支持任意长任务、自动恢复执行或真实消息发送。
+
+### HTTP 接口
+
+以下路径为 API 路径；通过前端端口访问时加 `/api` 前缀。
+
+| 方法与路径 | 用途 / 返回 |
+| --- | --- |
+| `GET /console/capabilities` | 已启用模式、任务类型和服务端限制；业务能力当前为 false |
+| `POST /jobs` | 必须带 `Idempotency-Key`；202 返回 `{job, reused}` 与 Location |
+| `GET /jobs?limit=20&offset=0&status=queued` | 分页及可选状态筛选；返回 jobs、total、limit、offset |
+| `GET /jobs/{job_id}` | 持久化详情；不存在为 404 |
+| `GET /console/worker` | missing / healthy / stale / stopped，以及心跳、租约到期时间 |
+
+请求示例：
+
+~~~http
+POST /jobs
+Content-Type: application/json
+Idempotency-Key: demo-day1-001
+
+{"kind":"smoke","mode":"fixture","input":{"message":"网页任务验证"}}
+~~~
+
+请求只入队，不在 HTTP 请求内执行子进程。worker 未启动时也能入队，任务保持 queued。无效类型、模式、键、未知字段或超长 message 返回 422，且不创建任务。`succeeded` 仅代表本任务完成；未来的审批状态与评测评分需要独立字段，不能直接等同于此状态。
+
+### 启动与验证（PowerShell）
+
+从项目根目录运行。此配置是完整独立文件，不要与原 compose.yaml 叠加。
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+docker compose --progress plain -f compose.console.yaml build
+if ($LASTEXITCODE -ne 0) { throw '控制台镜像构建失败' }
+docker compose --progress plain -f compose.console.yaml up -d --wait
+if ($LASTEXITCODE -ne 0) { throw '控制台启动检查失败' }
+docker compose -f compose.console.yaml ps
+~~~
+
+端口：知识库页面 `http://127.0.0.1:18080/`，扩展 API 文档 `http://127.0.0.1:18000/docs`，代理能力查询 `http://127.0.0.1:18080/api/console/capabilities`。本日还没有新的业务页面。
+
+数据目录 `data/web-console/` 包含 queue、api、proofs，日志在 `logs/web-console/`，均不提交。worker 本日设置 `network_mode: none`，固定任务与本地 MCP 不需要模型 Key。API 仍有旧知识库路由；本次验证未触发文档索引或生成式回答。
+
+用项目已有 Python 执行 HTTP 链路检查，避免手动管道引发中文 JSON 编码问题：
+
+~~~powershell
+$consoleProofId = [guid]::NewGuid().ToString('N')
+& .\.venv\Scripts\python.exe -B scripts/console/verify_api.py --output "data/web-console/proofs/http-$consoleProofId.json"
+if ($LASTEXITCODE -ne 0) { throw 'HTTP 任务链路验证失败' }
+~~~
+
+检查会创建一条 smoke 任务，验证中文、幂等、409、422、成功结果和 worker 心跳。它不会删除已有数据。可查看任务列表与详情确认持久化结果。
+
+复刻 Linux 运行环境验证（约几十秒；另起一次性容器，保持主 worker 运行）：
+
+~~~powershell
+$consoleRuntimeId = [guid]::NewGuid().ToString('N')
+docker compose --progress plain -f compose.console.yaml run --rm --no-deps worker python -B scripts/console/verify_runtime.py --output-dir "/app/data/runtime-$consoleRuntimeId"
+if ($LASTEXITCODE -ne 0) { throw 'Agent 或评测环境验证失败，请查看 proof 日志' }
+~~~
+
+宿主机结果位于 `data/web-console/proofs/runtime-<编号>/`。其中 `verification.json` 是摘要，agent/、evaluation/ 保存原始结果与数据库，stdout/stderr 日志用于排查。运行的是一条销售简报准备和 4 例 smoke 评测；只产生 pending 提案，不批准、不模拟发送，也没有真实模型请求。
+
+停止新控制台：
+
+~~~powershell
+docker compose -f compose.console.yaml down
+if ($LASTEXITCODE -ne 0) { throw '控制台停止失败' }
+~~~
+
+数据仍保留。重新启动后 queued 继续排队，已完成结果仍可查询；不要把 interrupted 自动当作可以重试。此独立 Compose 不负责启动旧 n8n 服务。
+
+### 验收结果与下一天
+
+本日 45 项针对性测试通过，覆盖并发幂等、容量、原子领取、租约过期与写回隔离、超时、中文子进程、非法输入、API 重启持久化及原 API 契约兼容。Linux 断网容器完成销售场景和 4/4 固定评测；临时三服务实例完成前端代理、worker 执行、排队跨 API 重启、完成结果跨 API/worker 重启验证。临时实例已停止。
+
+验证摘要集中在 [本周结果](evidence/week-15.md#web-console-day1)。这些通过率只适用于本次固定场景和基础设施检查，不代表真实模型质量或一周功能全部完成。
+
+第 2 天基于本日接口和 worker 扩展销售适配器、导航及任务详情页；先实现进程树清理、业务编号关联与状态映射，再允许提交销售任务。审批按钮、工作流触发、批量评测分别在后续天数接入。
+
+
+<a id="web-console-days2-3"></a>
+
+## 网页扩展第 2、3 天：销售页面与人工确认
+
+2026-10-17 实现。范围来自《企业AI平台网页功能一周实施计划》，不对应原学习路线的 Day 编号。功能代码已完成，验收为**部分通过**：66 项针对性测试、四场景真实 Linux 容器 API 联调，以及固定响应浏览器检查已通过；后续 Docker Desktop 引擎失联，重启后仍报告无法启动，容器中的页面全流程、知识库真实索引回归、Linux 进程清理实测暂未完成。用户随后要求提交并合并，不将此合并解释为全部验收通过。
+
+### 第 2 天交付
+
+- 四个导航入口：知识库、工作流、销售 Agent、评测中心。后两项未实施业务的页面明确标注“待接入”，不触发后台任务。
+- 销售页面 `/sales.html` 支持 monthly（月度）、customer（客户 C001）、empty（无数据）与 clarification（缺少年月），页面显示固定月份和客户范围，不接受任意查询。
+- `POST /agent-runs` 只校验并入队；worker 复用 Day 82 候选入口、Day 73 本地 MCP 与原校验/任务日志。
+- 每次运行独立写入 `data/web-console/queue/runs/<job_id>/`；完成时保存 job_id 与 task_id、run_id、approval_id 的关联。需补充条件时没有提案。
+- 页面显示执行状态、业务状态、金额/订单/明细数、简报、来源回执和执行记录；有历史列表、分页、刷新和带 job 参数的可分享本机 URL。
+- 浏览器持久化本次提交的幂等键。失败后“重试同一提交”沿用原键；有意再生成需点“新建一份”。打开历史或刷新页面只读取结果。
+
+### 第 3 天交付
+
+- 提案详情包括收件对象、正文、来源、revision、digest、有效期和当前状态。生成操作不批准，也不模拟发送。
+- 点击“审阅并批准”或“拒绝提案”先重新读取当前提案；弹窗要求明确勾选确认。提交前再读取，内容或版本变化时要求重新审阅。
+- 审批 API 复用 `experiments/day80/approval_store.py`，原文件未修改。新增 HTTP 幂等记录与原审批事件、模拟发件箱在同一个 SQLite 事务中提交；记录写入失败时模拟效果也回滚。
+- 同提案同键同请求复用结果，同键不同请求返回冲突；不同键并发批准仍由原审批记录约束为一条模拟发送记录。digest、revision、有效期和当前状态再次由服务器核对。
+- 拒绝、过期、摘要不符、版本不符不产生模拟发送；成功后展示本地发件箱记录。所有响应保持 `external_send=false`。没有真实消息服务或身份认证。
+- 审批状态通过独立查询读取，不从生成时的 pending 快照推断当前状态；任务执行成功不等于提案已批准。
+
+### 接口与部署变化
+
+| 接口 | 请求 / 行为 |
+| --- | --- |
+| `GET /console/capabilities` | 已开放 smoke、agent 和本地审批；工作流、评测任务仍为 false |
+| `POST /agent-runs` | `{"case":"monthly","mode":"fixture"}`，必须带 Idempotency-Key，返回 202 与 job |
+| `GET /jobs?kind=agent` | 只列销售任务，支持原有分页与状态过滤 |
+| `GET /jobs/{job_id}` | 结果中的 business_status 与任务 status 分开；source_ids 为原业务编号 |
+| `GET /approvals/{approval_id}` | 从成功任务映射读取提案，核对任务/执行/正文绑定，返回当前状态及 simulated_messages |
+| `POST /approvals/{approval_id}/decisions` | 必须带 Idempotency-Key；body 含 decision、digest、revision、confirm，可含 reason |
+
+decision 为 approve / reject，confirm 必须分别为 APPROVE / REJECT；reason 为 not_needed / needs_revision。缺字段、多余字段、任意路径或 live 模式均被拒绝。不可审批返回 409 和明确 decision_result；不存在的映射为 404。审批键限定在该任务的审批数据库中。
+
+API 镜像新增复制仅依赖标准库的原审批存储模块，不引入 MCP 模型环境；worker 保持独立依赖、禁用网络。销售任务限时 60 秒，子进程在独立 Linux session 中运行，退出或超时时清理整个进程组；此清理逻辑已实现，实际 Linux 清理测试仍待引擎恢复。销售 worker 当前只支持 Linux 容器，Windows 宿主机仍可使用原 CLI。
+
+沿用第 1 天启动方式，镜像标签升级为 day3：
+
+~~~powershell
+docker compose --progress plain -f compose.console.yaml build
+if ($LASTEXITCODE -ne 0) { throw '镜像构建失败' }
+docker compose --progress plain -f compose.console.yaml up -d --wait
+if ($LASTEXITCODE -ne 0) { throw '启动检查失败' }
+~~~
+
+打开 `http://127.0.0.1:18080/sales.html`。知识库位于同端口根路径，API 文档为 `http://127.0.0.1:18000/docs`。本次新增持久化缓存 `data/web-console/chroma-cache/`，首次真实索引仍可能需要下载向量模型。
+
+**Docker 故障恢复后的清理与补验**：临时项目名为 `eap-console-days23`。引擎失联期间无法确认该临时栈已关闭；恢复后先执行以下停止命令，再启动正式工作目录的独立控制台，避免临时实例占用端口：
+
+~~~powershell
+docker compose -p eap-console-days23 -f compose.console.yaml down
+if ($LASTEXITCODE -ne 0) { throw '临时实例尚未停止' }
+~~~
+
+该命令按项目名停止临时容器，不删除 bind mount 数据，不使用 down -v。原默认 Compose 部署和面试资料分支不属于本次合并内容。
+
+### 可复刻检查
+
+HTTP 联调会生成四个 fixture 销售任务，批准月度任务一次并拒绝客户任务；这是明确启用的本地模拟检查：
+
+~~~powershell
+$salesProof = [guid]::NewGuid().ToString('N')
+& .\.venv\Scripts\python.exe -B scripts/console/verify_sales.py --simulate-approval --output "data/web-console/proofs/sales-$salesProof.json"
+if ($LASTEXITCODE -ne 0) { throw '销售 API 联调未通过' }
+~~~
+
+页面控件测试使用固定本地响应，不启动 worker、不调用模型，也不创建真实索引。需要 Node、Playwright 和 Chrome；可通过 PLAYWRIGHT_MODULE 指向已有模块，BROWSER_CHANNEL 选择已安装浏览器：
+
+~~~powershell
+$browserProof = [guid]::NewGuid().ToString('N')
+node scripts/console/verify_browser.cjs "data/web-console/proofs/browser-$browserProof"
+if ($LASTEXITCODE -ne 0) { throw '浏览器控件检查未通过' }
+~~~
+
+输出 verification.json 与桌面、移动端、审阅弹窗、知识库截图。`tests/fixtures/console-browser.json` 为四个虚构场景的固定响应，来源于已完成的 Linux 演练；不能用此检查替代真实 API/worker、向量索引和重启验收。
+
+Linux 进程清理测试补验命令：
+
+~~~powershell
+docker compose -f compose.console.yaml run --rm --no-deps worker python -B -m pytest --noconftest tests/test_console_processes.py -q -p no:cacheprovider --basetemp /tmp/console-process-check
+if ($LASTEXITCODE -ne 0) { throw 'Linux 进程组清理未验证通过' }
+~~~
+
+剩余验收：用真实页面生成并批准/拒绝，重启 API/worker 后再查历史和提案；在隔离知识库上传 demo 文档并检索来源；运行上述 Linux 清理测试。补验结果另记，当前不宣称第 2、3 天的全部验收已完成。
