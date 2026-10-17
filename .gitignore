@@ -88,3 +88,6 @@ data/day91/
 
 # Outputs from the weekly-evidence evaluation entrypoint
 data/evaluation/
+
+# Opt-in web console queue, application data and runtime proofs
+data/web-console/

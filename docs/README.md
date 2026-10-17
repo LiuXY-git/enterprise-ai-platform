@@ -30,6 +30,7 @@
 
 | 查找内容 | 阅读位置 |
 | --- | --- |
+| 网页功能一周扩展 | [第 1 天：任务基础](week-15.md#web-console-day1) · [第 2、3 天：销售页面与审批](week-15.md#web-console-days2-3)；独立于原学习路线，容器页面全流程等验收待 Docker 恢复 |
 | 使用、配置与部署 | [当前操作手册](week-14.md#day97-setup) · [使用指南](week-8.md#user-guide) · [配置中心](week-8.md#day52) · [环境文件管理](week-14.md#day94) · [启动与检查](week-14.md#day93) |
 | 架构、技术与数据库 | [架构总图与数据流](week-15.md#day100) · [当前服务关系](week-14.md#day97-architecture) · [系统架构](week-1.md#architecture) · [技术选型](week-1.md#tech-stack) · [SQLite 表结构](week-2.md#database) · [后端重构](week-14.md#day92) |
 | API | [当前接口职责与影响](week-14.md#day97-api) · [接口参考](week-4.md#api) · [后端说明](../backend/README.md) |

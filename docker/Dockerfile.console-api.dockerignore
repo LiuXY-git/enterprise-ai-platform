@@ -1,0 +1,9 @@
+**
+!requirements.txt
+!backend
+!backend/**
+!experiments
+!experiments/day80
+!experiments/day80/approval_store.py
+**/__pycache__
+**/*.pyc
