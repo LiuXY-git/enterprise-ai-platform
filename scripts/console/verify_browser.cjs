@@ -47,8 +47,8 @@ const server=require('./browser_fixture.cjs').createServer();
   await page.goto(base+'/sales.html?job='+jobs[0].id);await page.locator('#outbox .outbox-item').waitFor();
   await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(output,'sales-mobile.png'),fullPage:true});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-  for(const [url,title]of [['/workflows.html','工作流中心'],['/evaluations.html','评测中心']]){
-   await page.goto(base+url);assert.equal(await page.locator('h1').innerText(),title);assert((await page.locator('main').innerText()).includes('待接入'));}
+  for(const [url,title]of [['/workflows.html','让模板成为可追踪的工作流'],['/evaluations.html','用同一把尺子评测 Agent']]){
+   await page.goto(base+url);assert.equal(await page.locator('h1').innerText(),title);assert.equal(await page.locator('nav a').count(),4);}
   await page.goto(base+'/');await page.locator('#upload-form').waitFor();
   await page.locator('#file').setInputFiles(path.join(root,'demo/nebula-it-policy.md'));
   await page.locator('#upload-form button').click();

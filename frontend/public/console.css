@@ -2,3 +2,5 @@
 @media(max-width:850px){.sales-layout{grid-template-columns:1fr}.sales-layout aside{display:grid;grid-template-columns:1fr 1fr;gap:18px}.history-panel{margin-top:0}}
 @media(max-width:580px){.sales-layout aside{display:block}.history-panel{margin-top:18px}.metrics{grid-template-columns:1fr 1fr}.console-nav{gap:2px;padding:10px 12px}.console-nav a{font-size:13px;padding:7px 9px}dialog{padding:20px}.panel-heading{align-items:flex-start}.metric strong{font-size:20px}}
 #job-meta,#sales-source,#review-meta,.outbox-item{white-space:pre-wrap}
+
+#template-fields input,#template-fields textarea{width:100%;box-sizing:border-box;padding:11px;border:1px solid #b6c9bd;border-radius:8px;background:#fcfdfb;font:inherit;color:#1b3f33}#template-fields textarea{min-height:110px;resize:vertical}#template-fields label,#task-form>label{margin-top:15px;display:block}#live-confirm-label{display:flex;margin-top:18px}progress{width:100%;height:12px;accent-color:#286347}#task-result{overflow-wrap:anywhere}.report-link{display:inline-block;background:#e7f0e5;color:#174e36;padding:10px 18px;border-radius:8px;margin:10px 0;font-weight:700}

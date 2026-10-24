@@ -663,3 +663,110 @@ if ($LASTEXITCODE -ne 0) { throw 'Linux 进程组清理未验证通过' }
 ~~~
 
 剩余验收：用真实页面生成并批准/拒绝，重启 API/worker 后再查历史和提案；在隔离知识库上传 demo 文档并检索来源；运行上述 Linux 清理测试。补验结果另记，当前不宣称第 2、3 天的全部验收已完成。
+
+
+<a id="web-console-days4-5"></a>
+
+## 网页扩展第 4、5 天：工作流与评测中心
+
+实施日期：2026-10-24。依据《企业AI平台网页功能一周实施计划》，独立于原学习路线 Day 编号。第 4 天交付三个工作流表单、固定 Webhook 适配、演示/真实模式、历史与错误状态；第 5 天交付固定评测的排队执行、进度、逐例结果与报告下载。原默认 Compose、冻结实验及历史发布清单未修改。
+
+### 页面与任务入口
+
+启动 `compose.console.yaml` 后，知识库仍在 `http://127.0.0.1:18080/`；工作流为 `/workflows.html`，销售 Agent 为 `/sales.html`，评测为 `/evaluations.html`。使用同源 `/api/` 代理，不在浏览器存放模型 Key 或自定义 Webhook 地址。
+
+| 接口 | 实际行为 |
+| --- | --- |
+| `GET /console/capabilities` | 返回三个模板的字段、示例、依赖说明、n8n 是否配置和 4/12 例测试范围；配置存在不代表已验证 |
+| `POST /workflow-executions` | 接受 template_id、fixture/live、严格校验的 input；live 还需 confirm_live=true；202 入队，不在 HTTP 请求内等待 n8n |
+| `POST /evaluation-runs` | 接受登记别名 sales-fixture-v1、day82-candidate 和 smoke/full；只允许 fixture，默认 full |
+| `GET /jobs?kind=workflow` / `kind=evaluation` | 持久化历史，支持 limit、offset 和 status |
+| `GET /jobs/{job_id}` | 当前执行阶段、结构化 progress、业务/评分结果；查询不执行任务 |
+| `GET /jobs/{job_id}/report` | 返回该评测任务已保存的 result，带 JSON 附件响应头；不存在 404，未产出报告 409；不接受文件路径 |
+
+POST 必须带 Idempotency-Key。相同键与相同请求返回同一 job_id；更改内容返回 409。浏览器保留提交键，连接失败后重试原提交不会重复执行；改变输入需要明确点击“新建一份”。刷新 URL、查看历史或下载报告不提交新任务。历史结果显示自己的模板与输入，左侧表单用于新建请求。
+
+### 工作流输入与真实连接
+
+三个表单分别为客服咨询、邮件分类与回复草稿、销售线索跟进。字段由后端模板 schema 提供，后端再次检查长度、类型、日期和枚举。事件编号由服务器根据 job_id 生成 `web-<job_id>`，浏览器不能指定 event_id、request_id、replay、命令、目录或 URL。邮件只生成草稿，销售通知继续使用原模板的 preview 分支。
+
+演示模式使用固定响应，`network_requests=0`，不伪造 n8n、Dify 或平台运行编号。真实模式由 worker 启动固定子进程，只尝试一次 POST；不跟随重定向，不自动重试，响应有大小和时间限制。缺少合法服务端地址返回 configuration_missing；网络异常、非成功响应、来源编号缺失或不匹配保留 workflow_outcome_unknown，并展示事件编号供人工核对。查询页面不会重新触发 n8n。
+
+独立导入文件如下，保留原业务节点与连接，只修改 Webhook 路径和最终回执的关联字段，移除旧实例 ID、凭据绑定和错误工作流引用，默认未激活：
+
+- [客服模板](../n8n/console/customer-service.json)：`/webhook/console-customer-service`。
+- [邮件模板](../n8n/console/email-assistant.json)：`/webhook/console-email-assistant`。
+- [销售跟进模板](../n8n/console/sales-followup.json)：`/webhook/console-sales-followup`。
+
+回执必须包含真实 `n8n_execution_id` 和与本次提交一致的 `console_event_id`。客服的 workflow_run_id 映射为 dify_run_id；邮件的 workflow_run_id、销售的 run_id 映射为 platform_run_id，不能混用。
+
+配置步骤：
+
+1. 在自己的 n8n 中导入上述需要使用的副本，保留原模板；核对 Webhook 路径没有冲突。
+2. 确认 n8n 容器能访问模板中的 `http://api:8000`。模板依赖的是提供原工作流、Dify、CRM 路由的平台 API；不同网络需先配置正确的服务连接。
+3. 客服和邮件依赖平台 API 的 Dify 配置。销售模板需要在 DashScope Qwen Chat Model 节点绑定自己的 OpenAI-compatible 凭据；导出文件不包含该凭据。
+4. 在 n8n 中发布所需模板；连接是否可用最终以一次明确确认的 live 运行及 n8n 执行记录为准。需要错误工作流时绑定本实例中的正确目标，不能沿用另一实例的 ID。
+5. 在启动控制台的 PowerShell 会话配置 n8n 服务根地址，然后重建/更新控制台。地址只由 API 与 worker 的环境配置提供。
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+# 使用本机原 n8n 时的地址示例；服务根地址不能含凭据、路径或查询参数。
+$env:WEB_CONSOLE_N8N_BASE_URL = 'http://host.docker.internal:5678'
+docker compose --progress plain -f compose.console.yaml build
+if ($LASTEXITCODE -ne 0) { throw '控制台构建失败' }
+docker compose -f compose.console.yaml up -d --wait
+if ($LASTEXITCODE -ne 0) { throw '控制台启动失败' }
+~~~
+
+只使用 fixture 演示时不需要 n8n 地址。控制台没有自动修改既有 n8n，也没有自动绑定模型凭据。新 worker 使用 Docker 网络以便连接 n8n，销售/评测子进程仍使用移除模型 Key 的环境；独立的断网容器验证已证明 fixture 评测无需外网。
+
+在本机 n8n 2.36.8 CLI 验证中，普通部署不能用 `import:workflow --activeState=fromJson` 直接激活；需要先 import，再对指定 ID 执行 `publish:workflow`，运行中的实例需要重启后生效。网页导入/发布可避免依赖临时测试 ID；不要照抄本次验证用 ID。
+
+### 评测的执行与结果口径
+
+后端登记别名对应原 Day 82 候选 Agent 与 Day 86 固定数据集。实际报告保留原 agent_id=`sales_candidate`、dataset_id=`sales-prepare-fixture`、dataset_version=`1.0.0`、两个描述文件哈希及原评分报告 SHA-256。不允许浏览器传入任意测试文件、Agent 代码或执行参数。
+
+worker 调用原 `scripts/evaluate.py --stage 90 run`。完整模式执行 12 例，smoke 子集为 4 例，每个任务单独写入 `data/web-console/queue/runs/<job_id>/evaluation/`。原始 SQLite、回执和逐例记录仍在该目录，网页不会把它们作为任意文件下载服务暴露。
+
+进度从原执行器原子保存的 report.json 读取，保存已执行数量、所选数量、当前用例和评分阶段。执行完毕且评分完成后才显示 100%；被中断、解析失败或仍未评估的任务不能显示为全部完成。`execution_status`、业务状态、`judgement` 独立展示，符合预期的拒绝或业务失败可以评分通过。
+
+网页和 JSON 下载读取同一个持久化结果。汇总包含 passed、failed、errors、not_evaluated、分子和分母；错误仍留在分母。逐例展示规则、失败原因、工具/模型尝试、业务结果及耗时。耗时沿用父进程单调时钟口径，包含启动、重试、清理和基础证据保存；用例累计耗时不等于整个网页排队到完成的时间。
+
+fixture 的 Token 为 null，页面显示“未知”；已确认的模型 API 成本为 0，不包含本机计算与工具成本。固定场景规则符合率不代表真实模型质量。真实模型评测、任意 Agent 接入和自定义数据集不在本次范围。
+
+### 持久化、清理与异常处理
+
+原 SQLite 队列表新增 progress_json，兼容已有记录；迁移使用写事务。任务领取、进度、最终写回继续受 worker 租约约束。重启后保留历史、提案和评分，不自动重放 interrupted 任务。
+
+评测限时默认 900 秒，每例原入口限时 60 秒；工作流任务上限 120 秒，HTTP 超时 90 秒。Linux 清理会跟踪 PID 与启动身份，冻结并清理后代进程，包括原评测器自行创建的独立会话；销售适配器沿用原进程组清理。
+
+验证期间曾出现一次“12 例执行完成但评分文件未产出”，旧版本未保存适配器 stderr，无法确认首次瞬时错误的具体原因。该任务保留失败状态，没有误报通过；随后对已有证据独立评分为 12/12。现增加 adapter.stderr.log、evaluation.stdout.log、evaluation.stderr.log。本次新任务在评分文件缺失、原执行报告存在时，只允许对保存证据重新评分一次，写入独立 recovered-grading 目录；从不重新执行 Agent。恢复结果记录 grading_recovery_from_saved_evidence，恢复仍失败则任务失败。此分支的“只运行一次 Agent”已有针对性测试，后续稳定性观察仍纳入第 6 天。
+
+### 验证结果与复刻
+
+- 114 项针对性 Python 测试通过；另有 2 项 Linux 进程清理实测通过。覆盖旧路由兼容、幂等与隔离、字段限制、超时/重定向不重试、输入与回执关联、报告校验、错误计数和只读评分恢复。
+- 真实 HTTP + Linux worker：三个工作流 fixture、缺配置错误、4 例子集、12 例全量、报告下载一致性、持久化进度通过。
+- Chrome 实际页面：三个表单、文本安全展示、刷新不重复提交、完整评测、报告下载、错误详情、移动端无横向溢出通过；打开的逐例详情不会被轮询收起，历史当前任务状态同步更新。
+- 已补齐前次 Docker 故障遗留检查：真实页面生成销售简报并批准，只有一条模拟记录，刷新不新增；API/worker 重建后历史与审批仍一致；知识库真实上传、索引和来源检索通过；Linux 清理实测通过。先前遗留临时项目 eap-console-days23 已停止。
+- 隔离 n8n 2.36.8 成功导入三个新模板。客服适配器真实调用成功，n8n 执行 1、Dify run `023d0877-de24-4349-ba06-9fdf11d1c46a`；邮件真实触发执行 2，在 Call AI Workflow 节点收到 Service unavailable。网页→API→worker→n8n 的客服请求也真实到达执行 3，但这一轮 AI 依赖失败，网页正确显示“外部结果待核对”。未自动重试任何请求，销售跟进的真实 Qwen 凭据未绑定。
+- 因此三个模板的 fixture 页面验收通过，真实模式为部分验证，不能宣称三条真实业务链全部通过。临时 n8n 没有复制原实例凭据，验证后停止；最终使用时按上文在自己的 n8n 导入、配置和发布。
+
+固定模式的接口验收：
+
+~~~powershell
+$proofId = [guid]::NewGuid().ToString('N')
+& .\.venv\Scripts\python.exe -B scripts/console/verify_extended.py --output "data/web-console/proofs/extended-$proofId.json"
+if ($LASTEXITCODE -ne 0) { throw '工作流或评测接口检查失败' }
+~~~
+
+真实浏览器验收需要 Node、Playwright 和 Chrome，并会明确执行一次本地模拟批准；用于未配置 n8n 的隔离测试栈，脚本会检查缺配置路径：
+
+~~~powershell
+$browserId = [guid]::NewGuid().ToString('N')
+node scripts/console/verify_extended_browser.cjs "data/web-console/proofs/browser-$browserId"
+if ($LASTEXITCODE -ne 0) { throw '浏览器验收失败，请查看任务和截图' }
+~~~
+
+需要时以 PLAYWRIGHT_MODULE 指向已安装模块，以 CONSOLE_URL 指定隔离前端地址。第 4、5 天本机摘要、测试和截图保存于忽略提交的 `data/web-console/proofs/days4-5/`。完整运行目录在本次独立验收工作目录，正式应用任务仍按自己的 Compose 数据目录持久化。测试中产生的 n8n 数据目录与诊断日志不加入 Git。
+
+第 6 天继续检查外部服务稳定性、邮件依赖错误与销售凭据绑定，补足真实工作流验收，再进行整栈故障与持久化场景。第 7 天再做最终验收与演示，不将本次阶段结果当作一周全部交付完成。

@@ -1,0 +1,337 @@
+{
+  "name": "Web Console - customer-service",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "console-customer-service",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7efcadc9-22a5-4625-9b97-96222972e22f",
+      "name": "Receive Customer Request",
+      "webhookId": "8b8d5532-72c9-5e0d-a7eb-68d4c804e337"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ecacf157-2b74-476c-8bd3-757a22e6d3d6",
+              "name": "accepted",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "65c5bc53-47d9-4792-aa7c-b261f82d7919",
+              "name": "day",
+              "value": 38,
+              "type": "number"
+            },
+            {
+              "id": "3869e9f2-69e7-4850-ba5c-91977a83968b",
+              "name": "request_id",
+              "value": "={{ $json.body.request_id }}",
+              "type": "string"
+            },
+            {
+              "id": "a7942348-332e-4357-8c88-c82273f7901c",
+              "name": "customer_id",
+              "value": "={{ $json.body.customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c7e74e6e-ae03-42c5-8999-e14ec60d889d",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "8ab238de-fe52-40cb-9418-71d62c0c05be",
+              "name": "priority",
+              "value": "={{ $json.body.priority || 'normal' }}",
+              "type": "string"
+            },
+            {
+              "id": "9ba6b4d8-736e-4f89-9adc-8cb8e4bfd840",
+              "name": "channel",
+              "value": "={{ $json.query.channel || 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "a8d51d82-bd45-4361-a290-db94f85f015b",
+              "name": "source",
+              "value": "={{ $json.headers['x-client-name'] || 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "b2ebce5e-a1ba-49e0-8178-2e26fd08784e",
+              "name": "next_step",
+              "value": "ai_processing",
+              "type": "string"
+            },
+            {
+              "id": "b806cb50-b7d3-4912-b3f8-4cbde76e8a8d",
+              "name": "execution_mode",
+              "value": "={{ $execution.mode }}",
+              "type": "string"
+            },
+            {
+              "id": "53a26361-6444-4a8c-94d8-7741bb4b6470",
+              "name": "received_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "08b220cd-10f4-4c3f-a655-2c52b432d2e1",
+      "name": "Normalize Request",
+      "notes": "Mode = Manual Mapping\nInclude Other Input Fields = 关闭"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({...$json, console_event_id: $('Receive Customer Request').first().json.body.request_id, n8n_execution_id: String($execution.id)}) }}"
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        896,
+        0
+      ],
+      "id": "b1d146be-8de8-45ca-b98b-21b9eca1791f",
+      "name": "Return JSON Response"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/dify/workflow",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "question",
+              "value": "={{ $json.message }}"
+            },
+            {
+              "name": "user",
+              "value": "={{ $json.customer_id }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "f07d4e20-d03b-4c5b-bd00-5177f27d8015",
+      "name": "Call AI Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dd8c627-0c3f-4ebb-a604-9295e3176fe5",
+              "name": "accepted",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "a2adee39-a0e6-479d-b2aa-8817451feb3c",
+              "name": "day",
+              "value": 38,
+              "type": "number"
+            },
+            {
+              "id": "b2312f67-05c5-4386-a348-42f59c7dfb77",
+              "name": "request_id",
+              "value": "={{ $('Normalize Request').item.json.request_id }}",
+              "type": "string"
+            },
+            {
+              "id": "7cae6866-f79f-492e-a1e5-48871d6f8974",
+              "name": "customer_id",
+              "value": "={{ $('Normalize Request').item.json.customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "36cb859d-f5e8-42b2-bea1-8242dc28e545",
+              "name": "message",
+              "value": "={{ $('Normalize Request').item.json.message }}",
+              "type": "string"
+            },
+            {
+              "id": "2e7589ec-2938-4417-a8c9-e43bd01672b7",
+              "name": "priority",
+              "value": "={{ $('Normalize Request').item.json.priority }}",
+              "type": "string"
+            },
+            {
+              "id": "9f16117d-9f94-49f5-9ebc-363febe8de54",
+              "name": "channel",
+              "value": "={{ $('Normalize Request').item.json.channel }}",
+              "type": "string"
+            },
+            {
+              "id": "5f37c205-7c8b-4df2-8d0d-f135de025732",
+              "name": "source",
+              "value": "={{ $('Normalize Request').item.json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "b9c31571-5f1b-402b-a8ae-656b70761414",
+              "name": "ai_status",
+              "value": "={{ $json.status }}",
+              "type": "string"
+            },
+            {
+              "id": "6d1b6fb9-aa71-4f18-b141-aec79b8b608e",
+              "name": "answer",
+              "value": "={{ $json.answer }}",
+              "type": "string"
+            },
+            {
+              "id": "11904a08-45a5-4627-9a15-f163af9924d7",
+              "name": "task_id",
+              "value": "={{ $json.task_id }}",
+              "type": "string"
+            },
+            {
+              "id": "6a1d1d2d-3809-4a39-8d43-3101b84bc8e7",
+              "name": "workflow_run_id",
+              "value": "={{ $json.workflow_run_id }}",
+              "type": "string"
+            },
+            {
+              "id": "123c26ae-2245-4ee1-9e31-8fcf22dfe473",
+              "name": "elapsed_time",
+              "value": "={{ $json.elapsed_time }}",
+              "type": "number"
+            },
+            {
+              "id": "d6b2e7a5-eaa7-489a-89c5-26a026df2e8c",
+              "name": "total_tokens",
+              "value": "={{ $json.total_tokens }}",
+              "type": "number"
+            },
+            {
+              "id": "0457765e-df7a-45bd-be20-c7dcecd70dad",
+              "name": "total_steps",
+              "value": "={{ $json.total_steps }}",
+              "type": "number"
+            },
+            {
+              "id": "80244fd0-dad6-4d92-bd97-0731495315c9",
+              "name": "next_step",
+              "value": "completed",
+              "type": "string"
+            },
+            {
+              "id": "fc6e0035-b55a-4a42-b1b8-c7ee6247fe67",
+              "name": "execution_mode",
+              "value": "={{ $('Normalize Request').item.json.execution_mode }}",
+              "type": "string"
+            },
+            {
+              "id": "d725e4bf-56d2-4c4e-a194-c73a10af2812",
+              "name": "received_at",
+              "value": "={{ $('Normalize Request').item.json.received_at }}",
+              "type": "string"
+            },
+            {
+              "id": "a6453b2e-f3ab-4453-8985-919347e85600",
+              "name": "processed_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "99e3d82e-5d05-4cfc-9c68-6e211d6f21aa",
+      "name": "Build AI Response"
+    }
+  ],
+  "connections": {
+    "Receive Customer Request": {
+      "main": [
+        [
+          {
+            "node": "Normalize Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Request": {
+      "main": [
+        [
+          {
+            "node": "Call AI Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call AI Workflow": {
+      "main": [
+        [
+          {
+            "node": "Build AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build AI Response": {
+      "main": [
+        [
+          {
+            "node": "Return JSON Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "nodeGroups": [],
+  "tags": []
+}
