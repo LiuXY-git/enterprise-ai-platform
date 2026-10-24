@@ -32,7 +32,7 @@ function createServer(){
     decisionKeys.set(key,a.status);return send({...a,decision_result:a.status,reused:false});
    }return send(a);
   }
-  const names={'/':'index.html','/sales.html':'sales.html','/workflows.html':'workflows.html','/evaluations.html':'evaluations.html','/styles.css':'styles.css','/console.css':'console.css','/sales.js':'sales.js','/console-api.js':'console-api.js','/app.js':'app.js'};
+  const names={'/':'index.html','/sales.html':'sales.html','/workflows.html':'workflows.html','/evaluations.html':'evaluations.html','/styles.css':'styles.css','/console.css':'console.css','/sales.js':'sales.js','/console-api.js':'console-api.js','/app.js':'app.js','/job-page.js':'job-page.js','/workflows.js':'workflows.js','/evaluations.js':'evaluations.js'};
   const name=names[p];if(!name){res.writeHead(404);return res.end();}
   res.writeHead(200,{'Content-Type':name.endsWith('.js')?'text/javascript':name.endsWith('.css')?'text/css':'text/html; charset=utf-8'});res.end(fs.readFileSync(path.join(root,'frontend/public',name)));
  }catch(error){res.writeHead(500);res.end('{}');console.error(error);}});

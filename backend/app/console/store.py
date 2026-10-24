@@ -35,6 +35,8 @@ def stamp(value):
 
 
 ERROR_MESSAGES = {
+    "configuration_missing": "n8n connection is not configured. No request was sent.",
+    "workflow_outcome_unknown": "External outcome is unknown. Check n8n using the event ID; do not blindly replay.",
     "worker_interrupted": "Worker stopped; this task will not be replayed.",
     "worker_lease_expired": "Worker heartbeat expired; inspect before retrying.",
     "task_timeout": "Task exceeded the server execution limit.",
@@ -103,6 +105,27 @@ class QueueStore:
                 );
             """)
 
+            db.execute("BEGIN IMMEDIATE")
+            columns = {row[1] for row in db.execute("PRAGMA table_info(console_jobs)")}
+            if "progress_json" not in columns:
+                db.execute(
+                    "ALTER TABLE console_jobs ADD COLUMN progress_json TEXT NOT NULL DEFAULT '{}'"
+                )
+
+            db.commit()
+
+    def progress(self, job_id, owner, stage, value):
+        with self.connection(write=True) as db:
+            self._check_lease(db, owner, self.clock())
+            if (
+                db.execute(
+                    "UPDATE console_jobs SET stage=?,progress_json=?,updated_at=? WHERE job_id=? AND owner=? AND status='running'",
+                    (stage, encoded(value), stamp(self.clock()), job_id, owner),
+                ).rowcount
+                != 1
+            ):
+                raise LeaseLost()
+
     @staticmethod
     def view(row):
         if row is None:
@@ -122,6 +145,7 @@ class QueueStore:
                     "finished_at",
                 )
             },
+            "progress": json.loads(row["progress_json"]),
             "input": json.loads(row["input_json"]),
             "result": json.loads(row["result_json"]) if row["result_json"] else None,
             "error": json.loads(row["error_json"]) if row["error_json"] else None,

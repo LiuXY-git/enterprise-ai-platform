@@ -80,18 +80,12 @@ def test_idempotency_header_is_required_and_validated(client):
     assert post(client, key="a" * 129).status_code == 422
 
 
-def test_capabilities_advertise_sales_but_not_future_modules(client):
+def test_capabilities_advertise_implemented_modules(client):
     body = client.get("/console/capabilities").json()
-    assert body["job_kinds"] == ["smoke", "agent"] and body["modes"] == ["fixture"]
+    assert body["job_kinds"] == ["smoke", "agent", "workflow", "evaluation"] and body["modes"] == ["fixture"]
     assert body["agent_runs_available"] and body["approvals_available"]
-    assert not any(
-        body[key]
-        for key in (
-            "workflow_execution_available",
-            "evaluation_runs_available",
-            "external_send",
-        )
-    )
+    assert body["workflow_execution_available"] and body["evaluation_runs_available"]
+    assert not body["external_send"]
     assert client.post("/agent-runs", json={}).status_code == 422
     assert client.get("/health").json() == {"status": "ok"}
 

@@ -91,6 +91,17 @@ class SalesResult(BaseModel):
         return self
 
 
+class EvaluationInput(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    dataset_id: Literal["sales-fixture-v1"] = "sales-fixture-v1"
+    agent_id: Literal["day82-candidate"] = "day82-candidate"
+    suite: Literal["full", "smoke"] = "full"
+
+
+class EvaluationRequest(EvaluationInput):
+    mode: Literal["fixture"] = "fixture"
+
+
 class JobError(BaseModel):
     code: Literal[
         "worker_interrupted",
@@ -98,17 +109,20 @@ class JobError(BaseModel):
         "task_timeout",
         "task_failed",
         "invalid_task_result",
+        "configuration_missing",
+        "workflow_outcome_unknown",
     ]
     message: str
 
 
 class JobView(BaseModel):
     job_id: str
-    kind: Literal["smoke", "agent"]
-    mode: Literal["fixture"]
+    kind: Literal["smoke", "agent", "workflow", "evaluation"]
+    mode: Literal["fixture", "live"]
     status: JobStatus
     stage: str
-    input: SmokeInput | SalesInput
+    input: dict
+    progress: dict = Field(default_factory=dict)
     result: dict | None
     error: JobError | None
     source_ids: dict

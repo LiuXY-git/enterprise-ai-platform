@@ -2,9 +2,9 @@
 
 把企业文档检索、工作流自动化、Agent 工具调用和评测放到同一个工程项目中，练习从功能实现到部署、日志、回归与交付的全过程。
 
-目前可通过网页上传文档、查看检索片段与来源；工作流使用 n8n / Dify；Agent 与评测使用独立的 Python CLI。项目面向本机学习与演示，已有能力和待办见下表。
+目前可通过网页上传文档、查看检索片段与来源；工作流使用 n8n / Dify；可选网页控制台也提供销售 Agent、人工审批和固定评测入口，原 Python CLI 继续可用。项目面向本机学习与演示，已有能力和待办见下表。
 
-网页扩展已实现第 1–3 天的任务基础、销售页面和本地人工确认：使用独立 Compose，支持四个固定场景、结果与来源、历史、批准/拒绝及模拟发送记录。工作流和评测网页仍待接入。接口回归与固定响应页面检查已通过，Docker 引擎故障后的容器页面全流程和进程清理验收尚待补齐；详情见[网页扩展第 2、3 天](docs/week-15.md#web-console-days2-3)。
+网页扩展已实现第 1–5 天的任务队列、销售页面、人工审批、三个工作流表单与评测中心。使用独立 Compose；工作流支持明确标注的 fixture 演示与固定 n8n Webhook，评测支持 4 例子集、12 例全量、进度、逐例评分与 JSON 下载。真实客服适配调用已成功；邮件 AI 依赖返回 503，销售模板 Qwen 凭据待绑定，真实模式未全部验收。详见[网页扩展第 4、5 天](docs/week-15.md#web-console-days4-5)。
 
 [功能预览](#功能预览) · [技术架构](#技术架构) · [快速启动](#快速启动) · [测试与评测](#开发状态) · [操作手册](docs/week-14.md#day97) · [逐周记录](docs/README.md)
 
@@ -21,7 +21,7 @@
 | Knowledge Hub | 文档上传、向量检索、带来源的 RAG 回答 API | 网页提供上传与片段检索；`/rag/answer` 才生成回答 |
 | Workflow Center | n8n 模板、Dify 代理、运行账本、模拟 CRM | Dify 独立部署；邮件生成草稿，销售流程通知为预览 |
 | Agent Center | 工具调用、本地 stdio MCP、任务日志、人工确认 | 固定虚构销售场景；可选网页扩展提供 Agent HTTP API 与审批，默认部署仍使用 CLI |
-| Evaluation Center | 测试执行、耗时、usage 记录、规则评分和报告 | 宿主机 CLI，12 个固定 fixture 场景；真实模型评测尚未接入 |
+| Evaluation Center | 测试执行、耗时、usage 记录、规则评分和报告 | CLI 与可选网页控制台，12 个固定 fixture 场景；真实模型评测尚未接入 |
 
 可以从 [虚构 IT 制度](demo/nebula-it-policy.md)开始：上传文档后查询“P1 级故障需要多久响应？没有响应时如何升级？”，查看对应来源片段。Agent 的销售流程与评测入口分别见 [Agent Center](agent-center/README.md)和 [Evaluation Center](evaluation-center/README.md#运行评测)。
 

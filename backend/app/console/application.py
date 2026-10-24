@@ -19,7 +19,9 @@ from .contracts import (
     Submission,
     WorkerView,
 )
+from .extended_routes import install
 from .store import JobNotFound, QueueConflict, QueueFull, QueueStore
+from .workflows import catalog
 
 
 def get_store(request: Request) -> QueueStore:
@@ -81,17 +83,23 @@ def create_console_app(config: ConsoleConfig | None = None):
         settings = request.app.state.console_config
         return {
             "schema_version": 1,
-            "implementation_day": 3,
+            "implementation_day": 5,
             "modes": ["fixture"],
-            "job_kinds": ["smoke", "agent"],
+            "job_kinds": ["smoke", "agent", "workflow", "evaluation"],
+            "workflow_modes": ["fixture", "live"],
+            "workflow_templates": catalog(settings.n8n_base_url),
+            "evaluation_suites": [
+                {"id": "full", "count": 12},
+                {"id": "smoke", "count": 4},
+            ],
             "sales_cases": SALES_CASES,
             "agent_timeout_seconds": settings.agent_timeout_seconds,
             "queue_limit": settings.queue_limit,
             "timeout_seconds": settings.timeout_seconds,
             "agent_runs_available": True,
             "approvals_available": True,
-            "workflow_execution_available": False,
-            "evaluation_runs_available": False,
+            "workflow_execution_available": True,
+            "evaluation_runs_available": True,
             "external_send": False,
         }
 
@@ -130,7 +138,7 @@ def create_console_app(config: ConsoleConfig | None = None):
         limit: Annotated[int, Query(ge=1, le=100)] = 20,
         offset: Annotated[int, Query(ge=0)] = 0,
         status: JobStatus | None = None,
-        kind: Literal["smoke", "agent"] | None = None,
+        kind: Literal["smoke", "agent", "workflow", "evaluation"] | None = None,
     ):
         """Read saved states; listing never executes, retries or recovers jobs."""
         return store.list(limit=limit, offset=offset, status=status, kind=kind)
@@ -229,6 +237,7 @@ def create_console_app(config: ConsoleConfig | None = None):
         except ApprovalError as exc:
             raise HTTPException(409, "approval_unavailable_or_inconsistent") from exc
 
+    install(instance)
     return instance
 
 

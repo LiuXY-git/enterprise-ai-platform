@@ -44,6 +44,10 @@ class Worker:
         self.stop = stop or threading.Event()
 
     def execute(self, job):
+        if job["kind"] in {"workflow", "evaluation"}:
+            from .extended_worker import execute
+
+            return execute(self, job, ROOT, child_environment())
         if job["kind"] == "agent" and job["mode"] == "fixture":
             from .sales_worker import execute_sales
 
