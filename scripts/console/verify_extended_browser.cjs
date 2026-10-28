@@ -29,6 +29,7 @@ const base=process.env.CONSOLE_URL||'http://127.0.0.1:18080';
   await page.waitForFunction(()=>document.querySelector('#progress-caption').textContent.includes('例已执行'),{},{timeout:180000});
   await page.waitForFunction(()=>document.querySelector('#task-result .report-link')||document.querySelector('#job-title').textContent.includes('执行失败'),{},{timeout:950000});
   const result=(await json('/jobs/'+job.job_id)).result;
+  assert(result,`Evaluation failed; inspect job ${job.job_id} and adapter.stderr.log`);
   assert.equal(result.summary.denominator,12);assert.equal(result.summary.passed,12);
   assert((await page.locator('#task-result').textContent()).includes('12 / 12'));
   const download=await context.request.get(base+'/api/jobs/'+job.job_id+'/report');assert.deepEqual(await download.json(),result);

@@ -5,7 +5,7 @@ export async function request(path, options={}) {
   const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),10000);
   try {
     const response=await fetch(`/api${path}`,{...options,signal:controller.signal,cache:'no-store'});
-    const data=await response.json();
+    let data;try{data=await response.json();}catch{throw new Error(`服务响应异常（${response.status}），请检查 API 状态后刷新查询；不要重复新建任务。`);}
     if(!response.ok) { const e=new Error(labels[data.decision_result] || ({404:'记录不存在',409:'请求冲突，请核对当前状态或重新审阅',422:'输入不符合要求',429:'队列已满，请稍后重试'}[response.status]) || `服务暂不可用（${response.status}）`); e.data=data;throw e; }
     return data;
   } catch(e) { if(e.name==='AbortError') throw new Error('请求超时，结果待核对。重试会沿用本次请求编号。'); if(e instanceof TypeError) throw new Error('连接中断，请检查服务；重试会沿用本次请求编号。'); throw e; }
@@ -13,3 +13,5 @@ export async function request(path, options={}) {
 }
 export const post=(path,body,key)=>request(path,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':key},body:JSON.stringify(body)});
 export const date=(value)=>value?new Date(value).toLocaleString('zh-CN',{hour12:false}):'—';
+
+const retryStatus=document.getElementById('retry-status');if(retryStatus){retryStatus.href=location.pathname+location.search;retryStatus.addEventListener('click',event=>{event.preventDefault();location.reload();});}

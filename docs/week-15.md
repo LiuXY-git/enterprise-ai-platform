@@ -726,7 +726,7 @@ if ($LASTEXITCODE -ne 0) { throw '控制台启动失败' }
 
 后端登记别名对应原 Day 82 候选 Agent 与 Day 86 固定数据集。实际报告保留原 agent_id=`sales_candidate`、dataset_id=`sales-prepare-fixture`、dataset_version=`1.0.0`、两个描述文件哈希及原评分报告 SHA-256。不允许浏览器传入任意测试文件、Agent 代码或执行参数。
 
-worker 调用原 `scripts/evaluate.py --stage 90 run`。完整模式执行 12 例，smoke 子集为 4 例，每个任务单独写入 `data/web-console/queue/runs/<job_id>/evaluation/`。原始 SQLite、回执和逐例记录仍在该目录，网页不会把它们作为任意文件下载服务暴露。
+worker 调用原 `scripts/evaluate.py --stage 90 run`。完整模式执行 12 例，smoke 子集为 4 例，第 4、5 天每个任务单独写入 `data/web-console/queue/runs/<job_id>/evaluation/`；第 6 天起新评测改用下文所述 Docker 数据卷，旧记录保留。原始 SQLite、回执和逐例记录仍在该目录，网页不会把它们作为任意文件下载服务暴露。
 
 进度从原执行器原子保存的 report.json 读取，保存已执行数量、所选数量、当前用例和评分阶段。执行完毕且评分完成后才显示 100%；被中断、解析失败或仍未评估的任务不能显示为全部完成。`execution_status`、业务状态、`judgement` 独立展示，符合预期的拒绝或业务失败可以评分通过。
 
@@ -770,3 +770,115 @@ if ($LASTEXITCODE -ne 0) { throw '浏览器验收失败，请查看任务和截�
 需要时以 PLAYWRIGHT_MODULE 指向已安装模块，以 CONSOLE_URL 指定隔离前端地址。第 4、5 天本机摘要、测试和截图保存于忽略提交的 `data/web-console/proofs/days4-5/`。完整运行目录在本次独立验收工作目录，正式应用任务仍按自己的 Compose 数据目录持久化。测试中产生的 n8n 数据目录与诊断日志不加入 Git。
 
 第 6 天继续检查外部服务稳定性、邮件依赖错误与销售凭据绑定，补足真实工作流验收，再进行整栈故障与持久化场景。第 7 天再做最终验收与演示，不将本次阶段结果当作一周全部交付完成。
+
+
+<a id="web-console-days6-7"></a>
+
+## 网页扩展第 6、7 天：部署联调、异常处理与整体验收
+
+实施日期：2026-10-28。这是《企业AI平台网页功能一周实施计划》的最后两天。第 6 天完善部署与故障处理，第 7 天完成四页面验收及演示材料。原学习路线编号、默认 Compose 和既有冻结实验保持原样。
+
+### 本次修复
+
+- API、worker、frontend 使用 `web-v1` 镜像，API 基础镜像固定到已验证摘要。新增 `scripts/console/manage.ps1`，统一启动、健康检查、停止和限量日志。
+- 新评测原始文件使用 Docker 的 Linux 命名卷；队列、销售提案和工作流记录仍为 API/worker 共享目录。一次 Windows 挂载目录运行出现结果文件暂不可见，任务正确失败；不能据此认定底层具体原因。改为 Linux 卷后，两次新全量任务均直接完成 12/12，没有用证据重评分恢复。
+- 创建任务目录和写请求文件也纳入异常处理。目录冲突、子进程退出、超时、停止均形成明确失败/中断状态，不终止整个 worker。
+- 页面收到 HTML 502 或暂时断连时显示简明错误，可刷新查询当前任务；恢复后清除过期错误。切换任务时丢弃旧轮询响应，避免 A 的结果覆盖 B。刷新查询不会发起新任务或审批。
+- 销售工作流输入与实际 n8n 契约对齐：删除不允许的 `source` 字段，采购窗口为 0–365 天，客户编号/跟进负责人限制为字母、数字及 `._:-`。服务端仍是最终校验入口。
+- 容器健康检查之外，启动脚本检查前端到 API 的真实 GET、共享卷、非 root 身份及评测卷写权限。API 重建后 Docker DNS 可能短暂保留旧地址，检查只对 GET 做最多约 30 秒等待，不重试业务 POST。
+
+### 启动、检查与停止
+
+运行需要 Docker Desktop 的 Linux 引擎。首次构建需要拉取镜像/依赖，知识库首次索引可能下载向量模型；销售和固定评测的运行环境在 worker 内，不依赖宿主机 `.venv`。
+
+~~~powershell
+Set-Location 'C:\Users\Administrator\Desktop\enterprise-ai-platform'
+# 仅演示三模板与固定评测时，不要求 n8n 地址。
+Remove-Item Env:WEB_CONSOLE_N8N_BASE_URL -ErrorAction SilentlyContinue
+& .\scripts\console\manage.ps1 -Action start
+~~~
+
+打开 `http://127.0.0.1:18080/`。导航可切换知识库、工作流、销售 Agent、评测；API 使用 `127.0.0.1:18000`。原部署的 8080/8000/5678 不受该独立栈替换。旧控制台占用 18080 时，先按它原来的 Compose 项目名停止旧栈，不能同时开两套同端口实例。
+
+~~~powershell
+# 无代码变化时启动已有镜像；更新代码时使用上一段不带 SkipBuild 的命令。
+& .\scripts\console\manage.ps1 -Action start -SkipBuild
+& .\scripts\console\manage.ps1 -Action check
+& .\scripts\console\manage.ps1 -Action logs -Service worker
+& .\scripts\console\manage.ps1 -Action logs -Service api
+& .\scripts\console\manage.ps1 -Action stop
+~~~
+
+`check` 不运行模型或批准提案；`logs` 只读最后 100 行；`stop` 使用 `down` 并保留数据，不带 `-v`。默认项目名固定为 `enterprise-console`。改用 `-ProjectName` 后，后续启动、检查、停止均需同名，命名卷也属于该项目。
+
+真实工作流须先完成[三模板导入与凭据配置](#web-console-days4-5)，然后：
+
+~~~powershell
+$env:WEB_CONSOLE_N8N_BASE_URL = 'http://host.docker.internal:5678'
+& .\scripts\console\manage.ps1 -Action start -SkipBuild
+~~~
+
+地址需在每个新 PowerShell 会话设置；环境中没设置就按演示部署启动。网页选择 live 并勾选确认才会提交真实调用。地址存在不代表 n8n、Dify、Qwen 均可用；遇到结果待核对，用 `web-<job_id>` 查 n8n，不盲目新建请求。邮件不发送，销售通知仅预览。
+
+本次在原 n8n 新增并发布了三个 `Web Console - ...` 副本，保留既有工作流；销售副本绑定本机已有 Qwen 凭据，仓库导出仍无凭据。模板 ID 是本机实例数据，其他机器需要自行导入和绑定。真实调用验收见[本周证据](evidence/week-15.md#web-console-days6-7)。
+
+### 数据位置与排错
+
+| 内容 | 默认位置 / 获取方式 |
+| --- | --- |
+| 知识库数据、向量模型缓存 | `data/web-console/api/`、`data/web-console/chroma-cache/` |
+| 任务队列、审批与历史结果 | `data/web-console/queue/`，由 API/worker 共享 |
+| 销售/工作流任务原始记录 | `data/web-console/queue/runs/<job_id>/` |
+| 第 6 天起的新评测原始文件 | 命名卷 `enterprise-console_evaluation-data`，worker 内 `/app/evaluation-data/<job_id>/` |
+| 页面 JSON 报告 | 评测页面“下载报告”，读取队列保存的同一任务结果，不重新执行 |
+| API 日志 | `logs/web-console/`；容器日志用上方 `logs` 命令 |
+
+`WEB_CONSOLE_STORAGE_ROOT` 与 `WEB_CONSOLE_LOG_ROOT` 可设置绝对存储位置，用于隔离验收。评测卷的路径由服务端配置，浏览器不能传路径或命令。旧评测目录不会自动迁移或删除，其网页结果仍可查。
+
+要导出某次已完成评测的完整原始证据，先从页面复制 job_id，确保任务已经结束，在项目目录运行：
+
+~~~powershell
+$jobId = Read-Host '粘贴已结束评测任务的 job_id'
+if ($jobId -notmatch '^[a-f0-9]{32}$') { throw 'job_id 格式不正确' }
+$backup = Join-Path (Get-Location) ('data/web-console/exports/' + $jobId)
+if (Test-Path -LiteralPath $backup) { throw '目标已存在，请换新目录，不覆盖旧证据' }
+New-Item -ItemType Directory -Path $backup -Force | Out-Null
+docker compose -p enterprise-console -f compose.console.yaml cp "worker:/app/evaluation-data/$jobId/." $backup
+if ($LASTEXITCODE -ne 0) { throw '导出失败，检查项目名、任务状态和记录位置' }
+~~~
+
+这是单任务导出，不是整个队列的在线一致性备份。迁移整套数据需停止服务，并同时保留共享目录和评测命名卷；删除卷会失去原始评测证据。原始日志仅用于本机诊断，分享前检查业务内容。
+
+| 现象 | 处理 |
+| --- | --- |
+| 502 / 连接中断 | 运行 check、查看 api/frontend 日志，再点击“刷新查询当前状态”；不另建同一业务任务 |
+| 一直排队 / worker stopped、stale | 检查 worker 容器及日志；排队任务可在 worker 恢复后领取 |
+| interrupted | 原执行已经中断，历史不会自动重放；真实工作流需先到 n8n 核对外部结果 |
+| configuration_missing | 配置服务端 n8n 根地址并更新容器；旧失败记录不被改写 |
+| workflow_outcome_unknown / 待核对 | 查 event_id/request_id 对应 n8n 记录，区分本地完成、n8n 执行、业务成功 |
+| 评测 failed / 无报告 | 查看该任务的 adapter.stderr.log、evaluation.stdout.log、evaluation.stderr.log；不能把已执行数量当作评分全部通过 |
+| 提案过期、摘要或版本不符 | 重新审阅提案状态；不能绕过校验直接批准或修改数据库 |
+
+### 可选现场演示流程（5–8 分钟）
+
+本周不安排视频录制、剪辑或补录，视频不作为交付或验收条件。以下流程仅供现场讲解和自主复刻。演示前先启动控制台，确认 check 通过。在评测页运行一次“完整 12 例”，完成后保留该任务链接；准备 [虚构 IT 制度](../demo/nebula-it-policy.md)。演示使用 fixture，可以重复查看历史而不花模型调用费用。以下时间包含操作与说明，可按现场加载速度调整。
+
+| 时间 | 打开和操作 | 建议台词 |
+| --- | --- | --- |
+| 0:00–0:40 | 浏览器打开 18080，依次指向四个导航 | “这个项目把文档检索、工作流、销售 Agent 和评测放在统一网页中。网页把请求提交给 API，后台 worker 执行长任务，结果和审批保存在本地。” |
+| 0:40–1:40 | 知识库选择 nebula-it-policy.md，上传并索引；输入“P1 级故障需要多久响应？没有响应时如何升级？”，查看来源 | “这里真实上传和索引文档，返回相关片段与来源。当前网页展示的是检索结果，生成式回答还有独立 API。” |
+| 1:40–3:00 | 销售页选月度场景，生成简报，展开来源与工具记录，审阅收件对象和内容；点击批准、勾选确认、提交，再刷新 | “销售数据是虚构的。Agent 经 MCP 只读查询并校验金额，再生成提案。生成不等于发送；人工确认后只记录一次模拟发送，刷新也不会再次发送。” |
+| 3:00–4:10 | 工作流页保持 fixture，分别新建客服、邮件、销售跟进；选择模板查看表单及结果 | “三个模板有不同输入契约，演示模式不调用外部模型。配置服务端 n8n 并明确确认后可使用真实模式；邮件是草稿，销售通知是预览。结果保留事件与执行编号。” |
+| 4:10–5:30 | 评测页打开预先完成的 12 例任务，展开正常、重试、拒绝用例；下载 JSON | “这是固定场景回归，能检查改动有没有破坏既有行为。预期拒绝也可以通过评分，错误不会从分母删除。网页和下载报告是同一份结果；12/12 不代表生产成功率，fixture Token 保持未知。” |
+| 5:30–6:30 | 展示历史任务、页面刷新和 worker 状态；可打开下方三个代码入口简述 | “任务编号把页面、后端和日志关联起来。重建保留历史，运行中断会明确标记，不自动重放外部动作。权限认证、真实通知和通用 Agent 评测还不在这次范围。” |
+
+无需为演示现场故意杀容器。超时、中断、重复审批和移动端回归有单独自动化验证；展示验收摘要即可。可选代码入口：[队列和状态](../backend/app/console/store.py)、[执行适配](../backend/app/console/extended_worker.py)、[审批接口](../backend/app/console/approvals.py)。打开文件解释职责，不必现场修改代码。
+
+### 复刻验收与范围
+
+- API 固定模式：`scripts/console/verify_api.py` 和 `verify_extended.py`；新建 proof 路径，前者销售/审批，后者三模板、缺配置、4/12 评测与报告。缺配置测试要在未配置 n8n 的实例执行。
+- 浏览器固定模式：`verify_extended_browser.cjs` 后运行 `verify_final_browser.cjs`。后者明确区分真实知识库操作与注入的 502、旧轮询、过期和错误评分 UI 状态，不把注入当成后端运行证据。脚本需 Node、Playwright 和 Chrome，可通过 `PLAYWRIGHT_MODULE` 指定模块位置。
+- 真实工作流：`node scripts/console/verify_live_browser.cjs <新输出目录> --confirm-live`。三模板各提交一次真实请求，可能消耗配置模型的额度；脚本不自动重试业务请求，失败时保留已提交的任务 ID 供核查。
+- 故障脚本 `verify_resilience.py --project eap-console-acceptance-<名称> --output <新文件>` 仅允许独立验收栈，必须设置绝对 `WEB_CONSOLE_STORAGE_ROOT`，并使用 18080/18000 端口。它会主动停止和强制终止该项目的 worker，不能指向日常控制台。
+
+本次一周范围为本机单用户演示。没有生产身份认证/租户隔离；任务归属指模块和任务 ID 关联，不是用户权限隔离。销售场景固定，通知模拟，评测仍为 fixture；规划与 Memory 不会因有网页而自动接入业务。第 7 天已交付操作说明和可选现场演示材料；按维护者要求取消本周视频录制环节，不再保留视频待办。具体测试与真实执行编号见[验收记录](evidence/week-15.md#web-console-days6-7)。

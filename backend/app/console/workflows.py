@@ -25,12 +25,12 @@ class EmailInput(Input):
 
 
 class LeadInput(Input):
-    customer_id: str = Field(min_length=1, max_length=80)
+    customer_id: str = Field(min_length=1, max_length=80, pattern=r"^[A-Za-z0-9._:-]+$")
     company_name: str = Field(min_length=1, max_length=160)
     industry: str = Field(min_length=1, max_length=100)
     requirement: str = Field(min_length=1, max_length=2000)
-    purchase_window_days: int = Field(ge=1, le=3650)
-    sales_owner: str = Field(min_length=1, max_length=80)
+    purchase_window_days: int = Field(ge=0, le=365)
+    sales_owner: str = Field(min_length=1, max_length=80, pattern=r"^[A-Za-z0-9._:-]+$")
     report_date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
 
     @model_validator(mode="after")

@@ -20,6 +20,8 @@ def payload(job):
     event = "web-" + job["job_id"]
     if job["input"]["template_id"] == "customer-service":
         return {**fields, "request_id": event}
+    if job["input"]["template_id"] == "sales-followup":
+        return {**fields, "event_id": event, "replay": False}
     return {**fields, "event_id": event, "replay": False, "source": "web-console"}
 
 
