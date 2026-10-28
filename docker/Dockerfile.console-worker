@@ -18,7 +18,7 @@ COPY --chown=app:app n8n ./n8n
 COPY --chown=app:app demo ./demo
 COPY --chown=app:app tests ./tests
 COPY --chown=app:app requirements.txt requirements-dev.txt pyproject.toml README.md ./
-RUN mkdir -p /app/console-data /app/data && chown -R app:app /app/console-data /app/data
+RUN mkdir -p /app/console-data /app/data /app/evaluation-data && chown -R app:app /app/console-data /app/data /app/evaluation-data
 USER app
 ENV WEB_CONSOLE_DATA_DIR=/app/console-data
 HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \

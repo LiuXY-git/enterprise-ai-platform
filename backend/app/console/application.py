@@ -83,7 +83,7 @@ def create_console_app(config: ConsoleConfig | None = None):
         settings = request.app.state.console_config
         return {
             "schema_version": 1,
-            "implementation_day": 5,
+            "implementation_day": 7,
             "modes": ["fixture"],
             "job_kinds": ["smoke", "agent", "workflow", "evaluation"],
             "workflow_modes": ["fixture", "live"],

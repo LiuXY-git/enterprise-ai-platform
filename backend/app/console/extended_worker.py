@@ -53,10 +53,10 @@ def execute(worker, job, root, environment):
     if os.name != "posix":
         worker.store.finish(job["job_id"], worker.owner, error_code="task_failed")
         return
-    output = worker.config.data_dir / "runs" / job["job_id"]
-    output.mkdir(parents=True, exist_ok=False)
-    (output / "request.json").write_text(
-        json.dumps(job, ensure_ascii=False), encoding="utf-8"
+    output = (
+        worker.config.evaluation_data_dir / job["job_id"]
+        if kind == "evaluation" and worker.config.evaluation_data_dir
+        else worker.config.data_dir / "runs" / job["job_id"]
     )
     if live:
         environment = {
@@ -80,6 +80,10 @@ def execute(worker, job, root, environment):
     tree = None
     stderr = None
     try:
+        output.mkdir(parents=True, exist_ok=False)
+        (output / "request.json").write_text(
+            json.dumps(job, ensure_ascii=False), encoding="utf-8"
+        )
         worker.store.progress(
             job["job_id"],
             worker.owner,

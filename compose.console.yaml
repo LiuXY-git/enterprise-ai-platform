@@ -2,7 +2,7 @@
 name: enterprise-console
 services:
   api:
-    image: enterprise-ai-platform-console-api:day5
+    image: enterprise-ai-platform-console-api:web-v1
     build:
       context: .
       dockerfile: docker/Dockerfile.console-api
@@ -17,30 +17,32 @@ services:
     ports:
       - "127.0.0.1:18000:8000"
     volumes:
-      - ./data/web-console/api:/app/data
-      - ./data/web-console/chroma-cache:/home/app/.cache/chroma
-      - ./data/web-console/queue:/app/console-data
-      - ./logs/web-console:/app/logs
+      - ${WEB_CONSOLE_STORAGE_ROOT:-./data/web-console}/api:/app/data
+      - ${WEB_CONSOLE_STORAGE_ROOT:-./data/web-console}/chroma-cache:/home/app/.cache/chroma
+      - ${WEB_CONSOLE_STORAGE_ROOT:-./data/web-console}/queue:/app/console-data
+      - ${WEB_CONSOLE_LOG_ROOT:-./logs/web-console}:/app/logs
     init: true
     restart: unless-stopped
     logging:
       driver: json-file
       options: {max-size: "10m", max-file: "3"}
   worker:
-    image: enterprise-ai-platform-console-worker:day5
+    image: enterprise-ai-platform-console-worker:web-v1
     build:
       context: .
       dockerfile: docker/Dockerfile.console-worker
     environment:
       WEB_CONSOLE_DATA_DIR: /app/console-data
+      WEB_CONSOLE_EVALUATION_DATA_DIR: /app/evaluation-data
       WEB_CONSOLE_QUEUE_LIMIT: "32"
       WEB_CONSOLE_TIMEOUT_SECONDS: "10"
       WEB_CONSOLE_AGENT_TIMEOUT_SECONDS: "60"
       WEB_CONSOLE_N8N_BASE_URL: ${WEB_CONSOLE_N8N_BASE_URL:-}
       WEB_CONSOLE_EVALUATION_TIMEOUT_SECONDS: "900"
     volumes:
-      - ./data/web-console/queue:/app/console-data
-      - ./data/web-console/proofs:/app/data
+      - evaluation-data:/app/evaluation-data
+      - ${WEB_CONSOLE_STORAGE_ROOT:-./data/web-console}/queue:/app/console-data
+      - ${WEB_CONSOLE_STORAGE_ROOT:-./data/web-console}/proofs:/app/data
     # Only configured workflow subprocesses receive the n8n address. Fixture children receive no model keys.
     extra_hosts: ["host.docker.internal:host-gateway"]
     init: true
@@ -50,7 +52,7 @@ services:
       driver: json-file
       options: {max-size: "10m", max-file: "3"}
   frontend:
-    image: enterprise-ai-platform-console-frontend:day5
+    image: enterprise-ai-platform-console-frontend:web-v1
     build: ./frontend
     ports:
       - "127.0.0.1:18080:8080"
@@ -65,3 +67,6 @@ services:
     logging:
       driver: json-file
       options: {max-size: "10m", max-file: "3"}
+
+volumes:
+  evaluation-data:

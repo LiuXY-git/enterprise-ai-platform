@@ -14,6 +14,7 @@ class ConsoleConfig:
     evaluation_timeout_seconds: float = 900
     workflow_timeout_seconds: float = 120
     n8n_base_url: str = ""
+    evaluation_data_dir: Path | None = None
     heartbeat_seconds: float = 1
     lease_seconds: float = 15
     poll_seconds: float = 0.25
@@ -44,6 +45,11 @@ class ConsoleConfig:
         default = Path(__file__).resolve().parents[3] / "data" / "web-console"
         return cls(
             data_dir=Path(os.getenv("WEB_CONSOLE_DATA_DIR", str(default))).resolve(),
+            evaluation_data_dir=Path(
+                os.environ["WEB_CONSOLE_EVALUATION_DATA_DIR"]
+            ).resolve()
+            if os.getenv("WEB_CONSOLE_EVALUATION_DATA_DIR")
+            else None,
             n8n_base_url=os.getenv("WEB_CONSOLE_N8N_BASE_URL", ""),
             evaluation_timeout_seconds=float(
                 os.getenv("WEB_CONSOLE_EVALUATION_TIMEOUT_SECONDS", "900")
